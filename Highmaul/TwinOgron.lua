@@ -233,7 +233,7 @@ function mod:DoubleSlash(args)
 		if self:Mythic() and isNextEmpowered(args.sourceGUID, 27) then
 			self:CDBar(args.spellId, 27, ("%s (%s)"):format(args.spellName, STRING_SCHOOL_ARCANE))
 		else
-			self:CDBar(args.spellId, 27) -- XXX all over the place, due to channeling?
+			self:CDBar(args.spellId, 27) -- all over the place, due to channeling?
 		end
 	end
 end

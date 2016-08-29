@@ -267,7 +267,7 @@ end
 
 function mod:Entropy(args)
 	if self:Me(args.destGUID) then
-		local text = args.amount and args.amount > 0 and ("%s +%s"):format(args.spellName, BreakUpLargeNumbers(args.amount)) or nil -- XXX shooould have an amount
+		local text = args.amount and args.amount > 0 and ("%s +%s"):format(args.spellName, BreakUpLargeNumbers(args.amount)) or nil -- shooould have an amount
 		self:Message(args.spellId, "Positive", nil, text)
 		self:Bar(args.spellId, 10)
 	end
