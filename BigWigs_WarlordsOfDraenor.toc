@@ -1,8 +1,8 @@
 ## Interface: 70000
 
 ## Title: BigWigs [|cffeda55fWarlords of Draenor|r]
-## Title-zhCN: BigWigs [|cffeda55fWarlords of Draenor|r]
-## Title-zhTW: BigWigs [|cffeda55fWarlords of Draenor|r]
+## Title-zhCN: BigWigs [|cffeda55f德拉诺之王|r]
+## Title-zhTW: BigWigs [|cffeda55f德拉諾之霸|r]
 ## Title-deDE: BigWigs [|cffeda55fWarlords of Draenor|r]
 ## Title-frFR: BigWigs [|cffeda55fWarlords of Draenor|r]
 ## Title-itIT: BigWigs [|cffeda55fWarlords of Draenor|r]
@@ -12,8 +12,8 @@
 ## Title-esES: BigWigs [|cffeda55fWarlords of Draenor|r]
 ## Title-esMX: BigWigs [|cffeda55fWarlords of Draenor|r]
 ## Notes: A collection of BigWigs modules from the Warlords of Draenor era.
-## Notes-zhCN: A collection of BigWigs modules from the Warlords of Draenor era.
-## Notes-zhTW: A collection of BigWigs modules from the Warlords of Draenor era.
+## Notes-zhCN: A collection of BigWigs 德拉诺之王模块。
+## Notes-zhTW: A collection of BigWigs 德拉諾之霸模組。
 ## Notes-deDE: A collection of BigWigs modules from the Warlords of Draenor era.
 ## Notes-frFR: A collection of BigWigs modules from the Warlords of Draenor era.
 ## Notes-itIT: A collection of BigWigs modules from the Warlords of Draenor era.
