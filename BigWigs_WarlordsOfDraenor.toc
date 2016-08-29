@@ -1,0 +1,37 @@
+## Interface: 70000
+
+## Title: BigWigs [|cffeda55fWarlords of Draenor|r]
+## Title-zhCN: BigWigs [|cffeda55fWarlords of Draenor|r]
+## Title-zhTW: BigWigs [|cffeda55fWarlords of Draenor|r]
+## Title-deDE: BigWigs [|cffeda55fWarlords of Draenor|r]
+## Title-frFR: BigWigs [|cffeda55fWarlords of Draenor|r]
+## Title-itIT: BigWigs [|cffeda55fWarlords of Draenor|r]
+## Title-koKR: BigWigs [|cffeda55fWarlords of Draenor|r]
+## Title-ruRU: BigWigs [|cffeda55fWarlords of Draenor|r]
+## Title-ptBR: BigWigs [|cffeda55fWarlords of Draenor|r]
+## Title-esES: BigWigs [|cffeda55fWarlords of Draenor|r]
+## Title-esMX: BigWigs [|cffeda55fWarlords of Draenor|r]
+## Notes: A collection of BigWigs modules from the Warlords of Draenor era.
+## Notes-zhCN: A collection of BigWigs modules from the Warlords of Draenor era.
+## Notes-zhTW: A collection of BigWigs modules from the Warlords of Draenor era.
+## Notes-deDE: A collection of BigWigs modules from the Warlords of Draenor era.
+## Notes-frFR: A collection of BigWigs modules from the Warlords of Draenor era.
+## Notes-itIT: A collection of BigWigs modules from the Warlords of Draenor era.
+## Notes-koKR: A collection of BigWigs modules from the Warlords of Draenor era.
+## Notes-ruRU: A collection of BigWigs modules from the Warlords of Draenor era.
+## Notes-ptBR: A collection of BigWigs modules from the Warlords of Draenor era.
+## Notes-esES: A collection of BigWigs modules from the Warlords of Draenor era.
+## Notes-esMX: A collection of BigWigs modules from the Warlords of Draenor era.
+
+## LoadOnDemand: 1
+## Dependencies: BigWigs
+## Version: @project-version@
+
+## X-Category: Raid
+## X-License: All Rights Reserved: You are free to fork and modify on GitHub, please ask us about anything else.
+## X-Curse-Project-ID: bigwigs_warlordsofdraenor
+## X-BigWigs-LoadOn-ZoneId: 994, 988, 1026
+## X-BigWigs-LoadOn-WorldBoss: -948, 83746, -949, 81535, -949, 81252, -945, 94015
+
+modules.xml
+
