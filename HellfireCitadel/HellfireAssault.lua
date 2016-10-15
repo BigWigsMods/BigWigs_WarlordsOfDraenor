@@ -303,9 +303,7 @@ do
 end
 
 function mod:Slam(args)
-	if self:Range(args.destName) < 42 then
-		self:StackMessage(args.spellId, args.destName, args.amount, "Urgent")
-	end
+	self:StackMessage(args.spellId, args.destName, args.amount, "Urgent")
 end
 
 function mod:Cower(args)
@@ -319,11 +317,9 @@ end
 do
 	local list = mod:NewTargetList()
 	function mod:ConductedShockPulse(args)
-		if self:Range(args.destName) < 42 then
-			list[#list+1] = args.destName
-			if #list == 1 then
-				self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "Attention")
-			end
+		list[#list+1] = args.destName
+		if #list == 1 then
+			self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "Attention")
 		end
 	end
 end

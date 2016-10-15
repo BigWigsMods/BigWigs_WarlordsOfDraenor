@@ -242,10 +242,6 @@ do
 		if self:Me(guid) then
 			self:Say(currentBreathId, 18584) -- 18584 = Breath
 			self:Flash(currentBreathId)
-		elseif self:Range(target) < 10 then
-			self:RangeMessage(currentBreathId, "Personal", "Alert")
-			self:Flash(currentBreathId)
-			return
 		end
 		self:TargetMessage(currentBreathId, self:UnitName(target), "Urgent", "Alert", nil, nil, true)
 	end

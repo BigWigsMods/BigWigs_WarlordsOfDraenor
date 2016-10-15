@@ -389,11 +389,8 @@ do
 		local grenade = self:SpellName(135592) -- Grenade
 		if self:Me(guid) and not self:LFR() then
 			self:Say(155864, grenade)
-		elseif self:Range(target) < 10 then
-			self:RangeMessage(155864, "Personal", "Alarm", grenade)
-			return
 		end
-		self:TargetMessage(155864, self:UnitName(target), "Attention", nil, grenade)
+		self:TargetMessage(155864, self:UnitName(target), "Attention", "Alarm", grenade)
 	end
 
 	local prev = 0

@@ -109,10 +109,6 @@ do
 		if self:Me(guid) then
 			self:Say(156203)
 			self:Flash(156203)
-		elseif self:Range(name) < 9 then
-			self:RangeMessage(156203)
-			self:Flash(156203)
-			return
 		end
 		self:TargetMessage(156203, name, "Attention", "Alarm")
 	end

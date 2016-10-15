@@ -590,12 +590,9 @@ function mod:MarkOfChaosApplied(args)
 	self:PrimaryIcon(158605, args.destName)
 	self:TargetMessage(158605, args.destName, "Urgent", "Alarm") -- warn again in case the cast target changed
 	self:TargetBar(158605, 8, args.destName)
-	local isFortification = args.spellId == 164178 or (self:Mythic() and phase == 3)
 	if self:Me(args.destGUID) then
 		self:Flash(158605)
 		self:Say(158605)
-	elseif isFortification and self:Range(args.destName) < 35 then -- Fortification (target rooted)
-		self:Flash(158605)
 	end
 	updateProximity()
 end

@@ -168,7 +168,7 @@ do
 	function mod:FelDestructionDamage(args)
 		if self:Me(args.destGUID) and GetTime()-prev > 2.5 then
 			prev = GetTime()
-			self:RangeMessage(args.spellId, "Personal", "Alarm", L.orb)
+			self:Message(args.spellId, "Personal", "Alarm", CL.near:format(L.orb))
 		end
 	end
 end

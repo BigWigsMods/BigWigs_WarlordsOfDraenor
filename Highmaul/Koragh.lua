@@ -250,9 +250,6 @@ do
 			self:Flash(172747)
 			self:Say(172747)
 			self:PlaySound(172747, "Alarm")
-		elseif self:Range(name) < 30 then
-			self:Flash(172747)
-			self:PlaySound(172747, "Alarm")
 		end
 		self:TargetMessage(172747, name, "Neutral")
 	end
@@ -274,10 +271,6 @@ do
 			if UnitIsUnit("player", suppressionTarget) then
 				self:Flash(161328)
 				self:Say(161328)
-			elseif self:Range(suppressionTarget) < 10 then -- actually 8 yards
-				self:RangeMessage(161328)
-				self:Flash(161328)
-				return
 			end
 			self:TargetMessage(161328, suppressionTarget, "Attention", "Alarm")
 		end

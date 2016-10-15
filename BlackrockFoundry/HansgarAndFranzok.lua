@@ -139,9 +139,6 @@ function mod:BodySlamTarget(unit)
 
 	if self:Me(guid) then
 		self:Say(155747)
-	elseif self:Range(target) < 10 then
-		self:RangeMessage(155747)
-		return
 	end
 	self:TargetMessage(155747, self:UnitName(target), "Attention", "Alarm")
 end
