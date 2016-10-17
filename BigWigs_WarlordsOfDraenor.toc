@@ -12,8 +12,8 @@
 ## Title-esES: BigWigs [|cffeda55fWarlords of Draenor|r]
 ## Title-esMX: BigWigs [|cffeda55fWarlords of Draenor|r]
 ## Notes: A collection of BigWigs modules from the Warlords of Draenor era.
-## Notes-zhCN: A collection of BigWigs 德拉诺之王模块。
-## Notes-zhTW: A collection of BigWigs 德拉諾之霸模組。
+## Notes-zhCN: BigWigs 德拉诺之王模块。
+## Notes-zhTW: BigWigs 德拉諾之霸模組。
 ## Notes-deDE: Eine Sammlung von BigWigs-Modulen aus der Ära Warlords of Draenor.
 ## Notes-frFR: A collection of BigWigs modules from the Warlords of Draenor era.
 ## Notes-itIT: A collection of BigWigs modules from the Warlords of Draenor era.
