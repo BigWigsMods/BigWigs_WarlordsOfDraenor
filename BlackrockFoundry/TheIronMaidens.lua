@@ -19,7 +19,7 @@ local boatTimers = {} -- don't announce while on the boat, but track the cd time
 
 local function isOnABoat()
 	local _, pos = UnitPosition("player")
-	return pos > 3200
+	--return pos > 3200
 end
 
 --------------------------------------------------------------------------------

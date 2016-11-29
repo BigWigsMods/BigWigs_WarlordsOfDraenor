@@ -259,19 +259,19 @@ function mod:GetOptions()
 		--[[ General ]]--
 		{155921, "TANK"}, -- Enkindle
 		{155864, "SAY"}, -- Prototype Pulse Grenade (Grenade)
-		{"trains", "FLASH"},
+		"trains",
 	}, {
 		["custom_on_manatarms_marker"] = -9537, -- Reinforcements
 		[155921] = "general",
 	}
 end
 
-function mod:VerifyEnable()
+--[[function mod:VerifyEnable()
 	local y = UnitPosition("player")
 	if y > 430 then
 		return true
 	end
-end
+end]]
 
 function mod:OnBossEnable()
 	self:Log("SPELL_AURA_APPLIED", "Enkindle", 155921)
@@ -328,22 +328,6 @@ function mod:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
 	end
 end
 
-local function checkLane(warnLane)
-	if UnitIsDead("player") then return end
-	-- nice square room!
-	local lane = 0
-	local pos = UnitPosition("player")
-	if pos < 529.7 then lane = 4
-	elseif pos > 577.7 then lane = 1
-	elseif pos > 553.7 then lane = 2
-	elseif pos < 553.8 then	lane = 3 end
-
-	if lane == warnLane then
-		mod:Message("trains", "Personal", "Info", L.train_you:format(lane), false)
-		mod:Flash("trains", L.trains_icon)
-	end
-end
-
 local randomCount = 0
 function mod:StartTrainTimer(lane, count)
 	local data = self:Mythic() and trainDataMythic or self:LFR() and trainDataLFR or trainData
@@ -361,7 +345,6 @@ function mod:StartTrainTimer(lane, count)
 		end
 		self:CDBar("trains", length, L.lane:format(type ~= "random" and lane or "?", L[type]), icons[type]) -- Lane 1: Adds train
 		self:ScheduleTimer("StartTrainTimer", length, lane, count+1)
-		self:ScheduleTimer(checkLane, length-1, lane) -- gives you ~2s to move
 	else -- random
 		if lane == 1 then -- only show one bar
 			local pad = strrep(" ", randomCount) -- hack so i can have two bars/messages for the same thing up
