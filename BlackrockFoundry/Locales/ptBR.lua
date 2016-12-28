@@ -69,7 +69,7 @@ if L then
 	L.engineer = "Aparecimento de Engenheiro da Fornalha"
 	L.engineer_desc = "Durante a primeira fase, 2 Engenheiro da Fornalha vão aparecer repetidamente, 1 de cada lado da sala."
 
-	L.guard = "Aparecmento de Segurança"
+	L.guard = "Aparecimento de Segurança"
 	L.guard_desc = "Durante a primeira fase, 2 Segurança vão aparecer repetidamente, 1 de cada lado da sala. Durante a fase dois, 1 Segurança vai aparecer repetidamente na entrada da sala."
 
 	L.firecaller = "Aparecimento de Bradachamas"
@@ -83,7 +83,7 @@ if L then
 	L.ship = "Pular para o navio"
 
 	L.custom_off_heartseeker_marker = "Marcador de Furacórdio Banhado em Sangue"
-	L.custom_off_heartseeker_marker_desc = "Marca os alvos de Furacórdio Banhado em Sangue com {rt1}{rt2}{rt3}, requer assitenteou líder."
+	L.custom_off_heartseeker_marker_desc = "Marca os alvos de Furacórdio Banhado em Sangue com {rt1}{rt2}{rt3}, requer assistente ou líder."
 
 	L.power_message = "%d Fúria Férrea!"
 end
@@ -91,10 +91,10 @@ end
 L = BigWigs:NewBossLocale("Operator Thogar", "ptBR")
 if L then
 	L.custom_on_firemender_marker = "Marcador de Atafogo Grom'kar"
-	L.custom_on_firemender_marker_desc = "Marca Atafogo Grom'kar com {rt7}, requer assitente ou líder."
+	L.custom_on_firemender_marker_desc = "Marca Atafogo Grom'kar com {rt7}, requer assistente ou líder."
 
 	L.custom_on_manatarms_marker = "Marcador de Homem de Armas Grom'kar"
-	L.custom_on_manatarms_marker_desc = "Marca Homem de Armas Grom'kar com {rt8},  requer assitente ou líder."
+	L.custom_on_manatarms_marker_desc = "Marca Homem de Armas Grom'kar com {rt8},  requer assistente ou líder."
 
 	L.trains = "Avisos de trem"
 	L.trains_desc = "Mostra contadores e mensagens para casa linha para quando o próximo trem vier. Linhas são numeradas do chefe até a entrada. Ex: Chefe 1 2 3 4 Entrada."

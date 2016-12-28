@@ -1,7 +1,7 @@
 local L = BigWigs:NewBossLocale("Brackenspore", "ptBR")
 if L then
 	L.mythic_ability = "Abilidade Especial"
-	L.mythic_ability_desc = "Mostra umcontador para o próximo Chamado da Maré ou Fungo Explosivo."
+	L.mythic_ability_desc = "Mostra um contador para o próximo Chamado da Maré ou Fungo Explosivo."
 	L.mythic_ability_wave = "Onda chegando!"
 
 	L.custom_off_spore_shooter_marker = "Marcador de Disparador de Esporos"
@@ -33,7 +33,7 @@ L = BigWigs:NewBossLocale("Imperator Mar'gok", "ptBR")
 if L then
 	L.branded_say = "%s (%d) %dm"
 	L.add_death_soon = "Add morrendo em breve!"
-	L.slow_fixate = "Retardar+Fixar"
+	L.slow_fixate = "Retardar + Fixar"
 
 	L.adds = "Fiel Distorcido pela Noite"
 	L.adds_desc = "Contador para quando Fiel Distorcido pela Noite entra na luta."

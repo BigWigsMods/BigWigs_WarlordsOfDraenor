@@ -20,7 +20,7 @@ if L then
 	L.custom_off_infernal_marker_desc = "Marca os Infernais invocados por Chuva do Caos com {rt1}{rt2}{rt3}{rt4}{rt5}, requer assistente ou líder."
 
 	L.custom_off_chaos_helper = "Assistente de Caos Desencadeado"
-	L.custom_off_chaos_helper_desc = "Na dificuldade mitica apenas. Esta ferramenta vai mostrar seu número na mecânica de Caos Desencadeado, mostrando para você uma mensagem e anunciando no chat. Dependendo da tática que você usar esta funcionalidade pode ou não ser útil."
+	L.custom_off_chaos_helper_desc = "Na dificuldade mítica apenas. Esta ferramenta vai mostrar seu número na mecânica de Caos Desencadeado, mostrando para você uma mensagem e anunciando no chat. Dependendo da tática que você usar esta funcionalidade pode ou não ser útil."
 	L.chaos_helper_message = "Sua posição no Caos: %d"
 ends
 
@@ -66,10 +66,10 @@ if L then
 	L.custom_off_gaze_marker_desc = "Marca os alvos de Olhar de Mannoroth com {rt1}{rt2}{rt3}, requer assistente ou líder."
 
 	L.custom_off_doom_marker = "Marcador de Marca da Ruína"
-	L.custom_off_doom_marker_desc = "Na dificuldade mitica, marca os alvos de Marca da Ruína com {rt1}{rt2}{rt3}, requer assistente ou líder."
+	L.custom_off_doom_marker_desc = "Na dificuldade mítica, marca os alvos de Marca da Ruína com {rt1}{rt2}{rt3}, requer assistente ou líder."
 
-	L.custom_off_wrath_marker = "Marcador de Wrath of Gul'dan"
-	L.custom_off_wrath_marker_desc = "Marca os alvos de Wrath of Gul'dan com {rt8}{rt7}{rt6}{rt5}{rt4}, requer assistente ou líder."
+	L.custom_off_wrath_marker = "Marcador de Ira de Gul'dan"
+	L.custom_off_wrath_marker_desc = "Marca os alvos de Ira de Gul'dan com {rt8}{rt7}{rt6}{rt5}{rt4}, requer assistente ou líder."
 end
 
 L = BigWigs:NewBossLocale("Shadow-Lord Iskar", "ptBR")
