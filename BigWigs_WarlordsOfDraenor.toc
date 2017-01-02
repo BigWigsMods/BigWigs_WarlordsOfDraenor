@@ -19,7 +19,7 @@
 ## Notes-itIT: A collection of BigWigs modules from the Warlords of Draenor era.
 ## Notes-koKR: A collection of BigWigs modules from the Warlords of Draenor era.
 ## Notes-ruRU: A collection of BigWigs modules from the Warlords of Draenor era.
-## Notes-ptBR: A collection of BigWigs modules from the Warlords of Draenor era.
+## Notes-ptBR: Uma coleção de módulos do BigWigs da era de Warlords of Draenor.
 ## Notes-esES: A collection of BigWigs modules from the Warlords of Draenor era.
 ## Notes-esMX: A collection of BigWigs modules from the Warlords of Draenor era.
 
