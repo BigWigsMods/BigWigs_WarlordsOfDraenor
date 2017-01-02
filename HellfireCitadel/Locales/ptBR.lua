@@ -22,7 +22,7 @@ if L then
 	L.custom_off_chaos_helper = "Assistente de Caos Desencadeado"
 	L.custom_off_chaos_helper_desc = "Na dificuldade mítica apenas. Esta ferramenta vai mostrar seu número na mecânica de Caos Desencadeado, mostrando para você uma mensagem e anunciando no chat. Dependendo da tática que você usar esta funcionalidade pode ou não ser útil."
 	L.chaos_helper_message = "Sua posição no Caos: %d"
-ends
+end
 
 L = BigWigs:NewBossLocale("Fel Lord Zakuun", "ptBR")
 if L then

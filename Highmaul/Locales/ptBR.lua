@@ -5,8 +5,7 @@ if L then
 	L.mythic_ability_wave = "Onda chegando!"
 
 	L.custom_off_spore_shooter_marker = "Marcador de Disparador de Esporos"
-	L.custom_off_spore_shooter_marker_desc = "Marca cada Disparador de Esporos com {rt1}{rt2}{rt3}{rt4}, requer assistente ou líder\n|cFFFF0000Apenas 1 pessoa na raide deve ter esta opção ativada para evitar conflitos de marcação.|r
-	|cFFADFF2FDICA: Se a raide te escolheu para ativar esta opção, passar o mouse sobre os mobs é a maneira mais rápida de marcá-los.|r"
+	L.custom_off_spore_shooter_marker_desc = "Marca cada Disparador de Esporos com {rt1}{rt2}{rt3}{rt4}, requer assistente ou líder\n|cFFFF0000Apenas 1 pessoa na raide deve ter esta opção ativada para evitar conflitos de marcação.|r\n|cFFADFF2FDICA: Se a raide te escolheu para ativar esta opção, passar o mouse sobre os mobs é a maneira mais rápida de marcá-los.|r"
 
 	L.creeping_moss_boss_heal = "Musgo embaixo do BOSS (curando)"
 	L.creeping_moss_add_heal = "Musgo embaixo do ADD GRANDE (curando)"
