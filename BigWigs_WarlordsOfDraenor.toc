@@ -6,7 +6,7 @@
 ## Title-deDE: BigWigs [|cffeda55fWarlords of Draenor|r]
 ## Title-frFR: BigWigs [|cffeda55fWarlords of Draenor|r]
 ## Title-itIT: BigWigs [|cffeda55fWarlords of Draenor|r]
-## Title-koKR: BigWigs [|cffeda55fWarlords of Draenor|r]
+## Title-koKR: BigWigs [|cffeda55f드레노어의 전쟁군주|r]
 ## Title-ruRU: BigWigs [|cffeda55fWarlords of Draenor|r]
 ## Title-ptBR: BigWigs [|cffeda55fWarlords of Draenor|r]
 ## Title-esES: BigWigs [|cffeda55fWarlords of Draenor|r]
@@ -17,7 +17,7 @@
 ## Notes-deDE: Eine Sammlung von BigWigs-Modulen aus der Ära Warlords of Draenor.
 ## Notes-frFR: A collection of BigWigs modules from the Warlords of Draenor era.
 ## Notes-itIT: A collection of BigWigs modules from the Warlords of Draenor era.
-## Notes-koKR: A collection of BigWigs modules from the Warlords of Draenor era.
+## Notes-koKR: 드레노어의 전쟁군주 BigWigs 모듈 모음집입니다.
 ## Notes-ruRU: A collection of BigWigs modules from the Warlords of Draenor era.
 ## Notes-ptBR: Uma coleção de módulos do BigWigs da era de Warlords of Draenor.
 ## Notes-esES: A collection of BigWigs modules from the Warlords of Draenor era.
