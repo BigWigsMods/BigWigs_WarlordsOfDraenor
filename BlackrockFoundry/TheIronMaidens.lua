@@ -138,7 +138,7 @@ do
 	local prev = 0
 	function mod:UNIT_POWER_FREQUENT(unit, powerType)
 		if powerType == "ALTERNATE" then
-			local power = UnitPower(unit, 10)
+			local power = UnitPower(unit, 10) -- Enum.PowerType.Alternate = 10
 			if power == 1 then
 				self:Bar("warming_up", 88, L.warming_up, L.warming_up_icon)
 			elseif power == 0 then

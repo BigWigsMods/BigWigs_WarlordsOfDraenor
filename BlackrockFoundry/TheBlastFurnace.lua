@@ -486,7 +486,7 @@ do
 	function mod:UNIT_POWER_FREQUENT(unit, powerType)
 		if powerType == "ALTERNATE" then
 			-- energy rate is based on altpower
-			local altpower = UnitPower(unit, 10)
+			local altpower = UnitPower(unit, 10) -- Enum.PowerType.Alternate = 10
 			local newTime = self:Mythic() and 25 or 30
 			if altpower == 100 then
 				newTime = self:Mythic() and 5 or 6

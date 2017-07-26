@@ -121,7 +121,7 @@ end
 
 function mod:UNIT_POWER_FREQUENT(unit, powerType)
 	if powerType == "ALTERNATE" then
-		local power = UnitPower(unit, 10)
+		local power = UnitPower(unit, 10) -- Enum.PowerType.Alternate = 10
 		if power < 25 then
 			self:UnregisterUnitEvent("UNIT_POWER_FREQUENT", unit)
 			self:Message(160734, "Neutral", "Info", CL.soon:format(self:SpellName(160734))) -- Vulnerability soon!
