@@ -6,7 +6,7 @@
 local mod, CL = BigWigs:NewBoss("Supreme Lord Kazzak", -945, 1452)
 if not mod then return end
 mod:RegisterEnableMob(94015)
-mod.otherMenu = 962
+mod.otherMenu = -962
 mod.worldBoss = 94015
 --BOSS_KILL#1801#Supreme Lord Kazzak
 
