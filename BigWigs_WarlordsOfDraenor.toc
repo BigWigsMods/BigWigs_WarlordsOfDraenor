@@ -31,7 +31,8 @@
 ## X-License: All Rights Reserved: You are free to fork and modify on GitHub, please ask us about anything else.
 ## X-Curse-Project-ID: 101160
 ## X-WoWI-ID: 24167
-## X-BigWigs-LoadOn-ZoneId: 994, 988, 1026, 962
+## X-BigWigs-ExtraMenu: -962
+## X-BigWigs-LoadOn-ZoneId: 994, 988, 1026
 ## X-BigWigs-LoadOn-WorldBoss: -948, 83746, -949, 81535, -949, 81252, -945, 94015
 
 modules.xml
