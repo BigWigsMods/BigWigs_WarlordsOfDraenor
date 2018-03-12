@@ -237,13 +237,11 @@ do
 
 		if UnitDetailedThreatSituation(target, unit) ~= false or self:MobId(guid) ~= 1 then return end
 
-		local currentBreathId = unit == "boss1" and 155499 or 154989
-
 		if self:Me(guid) then
-			self:Say(currentBreathId, 18584) -- 18584 = Breath
-			self:Flash(currentBreathId)
+			self:Say(unit == "boss1" and 155499 or 154989, 18584) -- 18584 = Breath
+			self:Flash(unit == "boss1" and 155499 or 154989)
 		end
-		self:TargetMessage(currentBreathId, self:UnitName(target), "Urgent", "Alert", nil, nil, true)
+		self:TargetMessage(unit == "boss1" and 155499 or 154989, self:UnitName(target), "Urgent", "Alert", nil, nil, true)
 	end
 
 	function mod:UNIT_SPELLCAST_SUCCEEDED(unit, spellName, _, _, spellId)

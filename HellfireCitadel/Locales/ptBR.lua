@@ -19,8 +19,6 @@ if L then
 	L.custom_off_infernal_marker = "Marcador de Infernal"
 	L.custom_off_infernal_marker_desc = "Marca os Infernais invocados por Chuva do Caos com {rt1}{rt2}{rt3}{rt4}{rt5}, requer assistente ou líder."
 
-	L.custom_off_chaos_helper = "Assistente de Caos Desencadeado"
-	L.custom_off_chaos_helper_desc = "Na dificuldade mítica apenas. Esta ferramenta vai mostrar seu número na mecânica de Caos Desencadeado, mostrando para você uma mensagem e anunciando no chat. Dependendo da tática que você usar esta funcionalidade pode ou não ser útil."
 	L.chaos_helper_message = "Sua posição no Caos: %d"
 end
 

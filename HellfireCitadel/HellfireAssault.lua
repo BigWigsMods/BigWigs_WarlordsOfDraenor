@@ -290,17 +290,17 @@ function mod:Shockwave(args)
 	self:Bar(args.spellId, 8.5)
 end
 
-do
-	local prev = 0
-	function mod:InspiringPresence(args)
-		local t = GetTime()
-		if t-prev > 3 then
-			prev = t
-			self:Message(args.spellId, "Positive")
-			self:Bar(args.spellId, 15)
-		end
-	end
-end
+--do
+--	local prev = 0
+--	function mod:InspiringPresence(args)
+--		local t = GetTime()
+--		if t-prev > 3 then
+--			prev = t
+--			self:Message(args.spellId, "Positive")
+--			self:Bar(args.spellId, 15)
+--		end
+--	end
+--end
 
 function mod:Slam(args)
 	self:StackMessage(args.spellId, args.destName, args.amount, "Urgent")
@@ -328,17 +328,17 @@ function mod:Metamorphosis(args)
 	self:Message(args.spellId, "Positive")
 end
 
-function mod:FelfireVolley(args)
-	self:Message(180417, "Urgent", "Info", CL.casting:format(args.spellName))
-end
+--function mod:FelfireVolley(args)
+--	self:Message(180417, "Urgent", "Info", CL.casting:format(args.spellName))
+--end
 
 function mod:SiegeNova(args)
 	self:Message(args.spellId, "Urgent", "Long", CL.incoming:format(args.spellName))
 end
 
-function mod:Flameorb(args)
-	self:Message(args.spellId, "Important")
-end
+--function mod:Flameorb(args)
+--	self:Message(args.spellId, "Important")
+--end
 
 function mod:BelchFlame(args)
 	self:Message(188101, "Important")

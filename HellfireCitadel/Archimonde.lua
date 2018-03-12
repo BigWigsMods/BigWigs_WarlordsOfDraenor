@@ -68,9 +68,6 @@ if L then
 	L.custom_off_infernal_marker_desc = "Mark the Infernals spawned by Rain of Chaos with {rt1}{rt2}{rt3}{rt4}{rt5}, requires promoted or leader."
 	L.custom_off_infernal_marker_icon = 1
 
-	L.custom_off_chaos_helper = "Wrought Chaos helper"
-	L.custom_off_chaos_helper_desc = "For Mythic difficulty only. This feature will tell you what chaos number you are, showing you a normal message and printing to say chat. Depending on what tactic you use, this feature may or may not be useful."
-	L.custom_off_chaos_helper_icon = 186123 -- spell_misc_zandalari_council_soulswap / Wrought Chaos
 	L.chaos_helper_message = "Your Chaos position: %d"
 end
 
@@ -89,7 +86,6 @@ function mod:GetOptions()
 		{184964, "SAY", "FLASH"}, -- Shackled Torment
 		"custom_off_torment_marker",
 		{186123, "ICON", "SAY", "FLASH"}, -- Wrought Chaos
-		"custom_off_chaos_helper",
 		183865, -- Demonic Havoc
 		"overfiend",
 		-- P3
@@ -479,22 +475,21 @@ end
 do
 	local chaosFrom, chaosTo = 0, 0
 	local function MythicChaos(self)
-		--xxx todo: say number to position yourself
 		local wroughtChaos = self:SpellName(186123) -- Wrought Chaos
 		local focusedChaos = self:SpellName(185014) -- Focused Chaos
 		for unit in self:IterateGroup() do
 			if UnitDebuff(unit, wroughtChaos) then
 				chaosFrom = chaosFrom + 1
 				if UnitIsUnit("player", unit) then
-					self:Message(false, "Positive", "Info", L.chaos_helper_message:format(chaosFrom), 186123)
-					self:Say(false, chaosFrom, true)
+					self:Message(186123, "Positive", "Info", L.chaos_helper_message:format(chaosFrom))
+					self:Say(186123, chaosFrom, true)
 					return
 				end
 			elseif UnitDebuff(unit, focusedChaos) then -- if an odd number of players is alive on cast you do not get a debuff at all
 				chaosTo = chaosTo + 1
 				if UnitIsUnit("player", unit) then
-					self:Message(false, "Positive", "Info", L.chaos_helper_message:format(chaosTo + 10), 186123)
-					self:Say(false, chaosTo + 10, true)
+					self:Message(186123, "Positive", "Info", L.chaos_helper_message:format(chaosTo + 10))
+					self:Say(186123, chaosTo + 10, true)
 					return
 				end
 			end
@@ -505,11 +500,9 @@ do
 	function mod:WroughtChaosCast(args)
 		chaosCount = 0
 		if self:Mythic() then
-			if self:GetOption("custom_off_chaos_helper") then
-				chaosFrom = 0
-				chaosTo = 0
-				self:ScheduleTimer(MythicChaos, 0.2, self)
-			end
+			chaosFrom = 0
+			chaosTo = 0
+			self:ScheduleTimer(MythicChaos, 0.2, self)
 			self:Bar(186123, 18, CL.cast:format(args.spellName))
 			mythicChaosMsg = self:ScheduleTimer("Message", 18, 186123, "Personal", nil, CL.over:format(args.spellName))
 			mythicChaosBar = self:ScheduleTimer("CDBar", 18, 186123, 34)
@@ -517,7 +510,7 @@ do
 	end
 
 	function mod:FocusedChaos(args)
-		if self:Mythic() and self:GetOption("custom_off_chaos_helper") then return end -- Mythic static position tactic handled in WroughtChaosCast
+		if self:Mythic() then return end -- Mythic static position tactic handled in WroughtChaosCast
 
 		local isOnMe = nil
 		chaosCount = chaosCount + 1
