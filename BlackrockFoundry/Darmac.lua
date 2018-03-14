@@ -3,7 +3,7 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("Beastlord Darmac", 988, 1122)
+local mod, CL = BigWigs:NewBoss("Beastlord Darmac", 1205, 1122)
 if not mod then return end
 mod:RegisterEnableMob(76865, 76884, 76874, 76945, 76946) -- Darmac, Cruelfang, Dreadwing, Ironcrusher, Faultline (Mythic)
 mod.engageId = 1694

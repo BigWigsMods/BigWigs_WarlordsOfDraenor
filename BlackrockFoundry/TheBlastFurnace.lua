@@ -3,7 +3,7 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("The Blast Furnace", 988, 1154)
+local mod, CL = BigWigs:NewBoss("The Blast Furnace", 1205, 1154)
 if not mod then return end
 mod:RegisterEnableMob(76809, 76808, 76806, 76815) -- Foreman Feldspar, Heat Regulator, Heart of the Mountain, Primal Elementalist
 mod.engageId = 1690

@@ -3,7 +3,7 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("Mannoroth", 1026, 1395)
+local mod, CL = BigWigs:NewBoss("Mannoroth", 1448, 1395)
 if not mod then return end
 mod:RegisterEnableMob(91305, 91241, 91349) -- Fel Iron Summoner, Doom Lord, Mannoroth
 mod.engageId = 1795

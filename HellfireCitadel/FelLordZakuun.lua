@@ -3,7 +3,7 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("Fel Lord Zakuun", 1026, 1391)
+local mod, CL = BigWigs:NewBoss("Fel Lord Zakuun", 1448, 1391)
 if not mod then return end
 mod:RegisterEnableMob(89890, 90108) -- Fel Lord Zakuun, Fel Axe
 mod.engageId = 1777

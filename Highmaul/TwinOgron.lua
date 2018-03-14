@@ -3,7 +3,7 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("Twin Ogron", 994, 1148)
+local mod, CL = BigWigs:NewBoss("Twin Ogron", 1228, 1148)
 if not mod then return end
 mod:RegisterEnableMob(78238, 78237) -- Pol, Phemos
 mod.engageId = 1719

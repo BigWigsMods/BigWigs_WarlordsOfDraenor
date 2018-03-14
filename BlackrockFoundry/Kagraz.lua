@@ -3,7 +3,7 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("Flamebender Ka'graz", 988, 1123)
+local mod, CL = BigWigs:NewBoss("Flamebender Ka'graz", 1205, 1123)
 if not mod then return end
 mod:RegisterEnableMob(76814, 77337) -- Flamebender Ka'graz, Aknor Steelbringer
 mod.engageId = 1689

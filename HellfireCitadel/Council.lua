@@ -3,7 +3,7 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("Hellfire High Council", 1026, 1432)
+local mod, CL = BigWigs:NewBoss("Hellfire High Council", 1448, 1432)
 if not mod then return end
 mod:RegisterEnableMob(92142, 92144, 92146) -- Blademaster Jubei'thos, Dia Darkwhisper, Gurtogg Bloodboil
 mod.engageId = 1798

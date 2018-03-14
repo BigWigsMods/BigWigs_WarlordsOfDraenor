@@ -3,7 +3,7 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("Hellfire Citadel Trash", 1026)
+local mod, CL = BigWigs:NewBoss("Hellfire Citadel Trash", 1448)
 if not mod then return end
 mod.displayName = CL.trash
 mod:RegisterEnableMob(

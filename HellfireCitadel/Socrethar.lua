@@ -3,7 +3,7 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("Socrethar the Eternal", 1026, 1427)
+local mod, CL = BigWigs:NewBoss("Socrethar the Eternal", 1448, 1427)
 if not mod then return end
 mod:RegisterEnableMob(90296, 92330) -- Soulbound Construct, Soul of Socrethar
 mod.engageId = 1794

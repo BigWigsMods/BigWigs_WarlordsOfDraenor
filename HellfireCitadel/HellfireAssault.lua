@@ -7,7 +7,7 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("Hellfire Assault", 1026, 1426)
+local mod, CL = BigWigs:NewBoss("Hellfire Assault", 1448, 1426)
 if not mod then return end
 mod:RegisterEnableMob(93023, 90019) -- Siegemaster Mar'tak, Reinforced Hellfire Door
 mod.engageId = 1778
