@@ -115,7 +115,7 @@ do
 				mobCollector[guid] = true
 				local id = adds[self:MobId(guid)]
 				if id then
-					self:Message(id, "Neutral", "Info", self:SpellName(id), false)
+					self:Message(id, "Neutral", "Info", self:SpellName(id), false) -- SetOption:-11269,-11266,-11261,-11263:::
 					if id == -11269 then
 						self:CDBar(id, 70, nil, "spell_nature_shamanrage") -- Hulking Terror, 70-75
 					end
