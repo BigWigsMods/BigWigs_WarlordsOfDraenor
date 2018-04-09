@@ -373,8 +373,8 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and t-prev > 1 then
 			prev = t
-			self:Message(args.spellId, "Personal", "Info", CL.underyou:format(args.spellName)) -- you ded, so ded.
-			self:Flash(args.spellId)
+			self:Message(176533, "Personal", "Info", CL.underyou:format(args.spellName)) -- you ded, so ded.
+			self:Flash(176533)
 		end
 	end
 end

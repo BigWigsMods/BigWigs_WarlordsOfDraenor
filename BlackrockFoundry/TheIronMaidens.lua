@@ -145,13 +145,13 @@ do
 				self:StopBar(L.warming_up)
 				self:StopBar(L.bombardment)
 				-- restart timers
-				local t = GetTime()
-				for spellId, nextTime in next, boatTimers do
-					if nextTime > t then
-						self:CDBar(spellId, nextTime-t)
-					end
-				end
-				wipe(boatTimers)
+				-- local t = GetTime()
+				-- for spellId, nextTime in next, boatTimers do
+				-- 	if nextTime > t then
+				-- 		self:CDBar(spellId, nextTime-t)
+				-- 	end
+				-- end
+				-- wipe(boatTimers)
 			end
 		else
 			local power = UnitPower(unit)
