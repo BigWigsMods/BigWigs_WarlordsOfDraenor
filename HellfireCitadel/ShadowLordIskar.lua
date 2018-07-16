@@ -166,7 +166,7 @@ do
 		if isOnMe then
 			self:TargetMessage(181956, isOnMe, "Personal" , "Alarm")
 		else
-			self:Message(181956, "Attention", UnitBuff("player", self:SpellName(179202)) and "Warning") -- Warning if you have the Eye
+			self:Message(181956, "Attention", self:UnitBuff("player", self:SpellName(179202)) and "Warning") -- Warning if you have the Eye
 		end
 		isOnMe = nil
 	end

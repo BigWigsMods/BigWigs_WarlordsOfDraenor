@@ -257,7 +257,7 @@ do
 	local list, isOnMe = mod:NewTargetList(), nil
 	local function bombTargets(self, spellId)
 		-- Fel Bomb players also get Phantasmal Fel Bomb, don't warn if we have both. We already warn for Fel Bomb in the Iskar module.
-		if isOnMe and not UnitDebuff("player", self:SpellName(181753)) then -- Fel Bomb
+		if isOnMe and not self:UnitDebuff("player", self:SpellName(181753)) then -- Fel Bomb
 			self:TargetBar(spellId, 4.7, isOnMe)
 			self:Say(spellId)
 			self:OpenProximity(spellId, 15) -- XXX verify range

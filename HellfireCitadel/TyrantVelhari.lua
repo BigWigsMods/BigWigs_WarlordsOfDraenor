@@ -286,7 +286,7 @@ do
 			self:Bar(args.spellId, 20)
 		end
 		if self:Me(args.destGUID) then
-			local _, _, _, _, _, _, expires = UnitDebuff("player", args.spellName)
+			local _, _, _, expires = self:UnitDebuff("player", args.spellName)
 			if expires and expires > 0 then
 				local timeLeft = expires - GetTime()
 				self:TargetBar(args.spellId, timeLeft, args.destName)

@@ -159,7 +159,7 @@ do
 end
 
 function mod:Reap(args)
-	if UnitDebuff("player", self:SpellName(184449)) then -- Mark of the Necromancer
+	if self:UnitDebuff("player", self:SpellName(184449)) then -- Mark of the Necromancer
 		self:Say(args.spellId)
 		self:OpenProximity(args.spellId, 5) -- 5 yard guess
 		self:Message(args.spellId, "Personal", "Alarm", CL.you:format(args.spellName))

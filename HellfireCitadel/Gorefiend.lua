@@ -350,7 +350,7 @@ function mod:HungerForLife(args)
 end
 
 function mod:HungerForLifeOver(args)
-	if self:Me(args.destGUID) and not UnitDebuff("player", args.spellName) then
+	if self:Me(args.destGUID) and not self:UnitDebuff("player", args.spellName) then
 		fixateOnMe = nil
 		self:Message(args.spellId, "Personal", "Alarm", CL.over:format(args.spellName))
 	end

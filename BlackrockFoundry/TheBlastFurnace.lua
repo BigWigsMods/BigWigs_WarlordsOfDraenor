@@ -308,7 +308,7 @@ do
 		if self:Me(args.destGUID) then
 			local t = GetTime()
 			local cd = 15
-			local _, _, _, _, _, _, expires = UnitDebuff("player", args.spellName)
+			local _, _, _, expires = self:UnitDebuff("player", args.spellName)
 			if expires and expires > 0 then
 				cd = expires - t
 			end
@@ -354,7 +354,7 @@ function mod:ShieldsDown(args)
 	if self.db.profile.custom_on_shieldsdown_marker then
 		for i = 2, 5 do -- boss1 is always Heart of the Mountain
 			local boss = ("boss%d"):format(i)
-			if UnitBuff(boss, args.spellName) then -- Shields Down
+			if self:UnitBuff(boss, args.spellName) then -- Shields Down
 				SetRaidTarget(boss, 8)
 				break
 			end
@@ -416,7 +416,7 @@ function mod:VolatileFireApplied(args)
 		volatileFireOnMe = true
 
 		local cd, t = 8, GetTime()
-		local _, _, _, _, _, _, expires = UnitDebuff("player", args.spellName)
+		local _, _, _, expires = self:UnitDebuff("player", args.spellName)
 		if expires and expires > 0 then
 			cd = expires - t
 		end
@@ -431,7 +431,7 @@ function mod:VolatileFireApplied(args)
 end
 
 function mod:VolatileFireRemoved(args)
-	if not UnitDebuff(args.destName, args.spellName) then -- Check if player has a 2nd debuff before closing proximity
+	if not self:UnitDebuff(args.destName, args.spellName) then -- Check if player has a 2nd debuff before closing proximity
 		if self:Me(args.destGUID) then
 			self:CloseProximity(args.spellId)
 			volatileFireOnMe = nil

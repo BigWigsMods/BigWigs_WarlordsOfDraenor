@@ -230,7 +230,7 @@ function mod:ExpelMagicArcaneRemoved(args)
 	self:StopBar(args.spellId, args.destName)
 	if self:Me(args.destGUID) then
 		self:CloseProximity(args.spellId)
-		if UnitDebuff("player", self:SpellName(162185)) then -- Expel Magic: Fire
+		if self:UnitDebuff("player", self:SpellName(162185)) then -- Expel Magic: Fire
 			self:OpenProximity(162185, 6)
 		end
 	end

@@ -478,14 +478,14 @@ do
 		local wroughtChaos = self:SpellName(186123) -- Wrought Chaos
 		local focusedChaos = self:SpellName(185014) -- Focused Chaos
 		for unit in self:IterateGroup() do
-			if UnitDebuff(unit, wroughtChaos) then
+			if self:UnitDebuff(unit, wroughtChaos) then
 				chaosFrom = chaosFrom + 1
 				if UnitIsUnit("player", unit) then
 					self:Message(186123, "Positive", "Info", L.chaos_helper_message:format(chaosFrom))
 					self:Say(186123, chaosFrom, true)
 					return
 				end
-			elseif UnitDebuff(unit, focusedChaos) then -- if an odd number of players is alive on cast you do not get a debuff at all
+			elseif self:UnitDebuff(unit, focusedChaos) then -- if an odd number of players is alive on cast you do not get a debuff at all
 				chaosTo = chaosTo + 1
 				if UnitIsUnit("player", unit) then
 					self:Message(186123, "Positive", "Info", L.chaos_helper_message:format(chaosTo + 10))
@@ -556,7 +556,7 @@ do
 		if not self:Mythic() and chaosCount == 4 then
 			self:SecondaryIcon(186123)
 			self:PrimaryIcon(186123)
-			if UnitDebuff("player", self:SpellName(184964)) then -- Shackled Torment
+			if self:UnitDebuff("player", self:SpellName(184964)) then -- Shackled Torment
 				self:Message(186123, "Positive", "Info", CL.over:format(self:SpellName(186123))) -- Wrought Chaos
 			end
 			self:CDBar(186123, 32) -- 52s - 20s of tossing
@@ -878,7 +878,7 @@ do
 			isOnMe = args.destName
 			timeLeft = 5
 			local t = GetTime()
-			local _, _, _, _, _, _, expires = UnitDebuff("player", args.spellName)
+			local _, _, _, expires = self:UnitDebuff("player", args.spellName)
 			if expires and expires > 0 then
 				timeLeft = expires - t
 			end

@@ -264,7 +264,7 @@ end
 
 function mod:EnfeeblingRoarApplied(args)
 	if self:Me(args.destGUID) then
-		local value = select(16, UnitDebuff("player", args.spellName))
+		local _, _, _, _, value = self:UnitDebuff("player", args.spellName)
 		self:Message(158057, "Attention", nil, ("%s: %d%%"):format(args.spellName, value))
 	end
 end

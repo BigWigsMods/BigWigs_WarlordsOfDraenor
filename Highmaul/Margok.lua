@@ -326,7 +326,7 @@ do -- Gaze/Eyes of the Abyss
 			timer = self:ScheduleRepeatingTimer(sayCountdown, 1, self)
 
 			updateProximity()
-		elseif not UnitDebuff(args.destName, self:SpellName(176537)) and not tContains(gazeTargets, args.destName) then -- no "closest" debuff and not currently tracked
+		elseif not self:UnitDebuff(args.destName, self:SpellName(176537)) and not tContains(gazeTargets, args.destName) then -- no "closest" debuff and not currently tracked
 			gazeTargets[#gazeTargets + 1] = args.destName
 			updateProximity()
 		end
@@ -360,7 +360,7 @@ do -- Gaze/Eyes of the Abyss
 	end
 
 	function mod:EyesOfTheAbyssRemoved(args)
-		if not self:Me(args.destGUID) and UnitDebuff(args.destName, self:SpellName(165595)) and not tContains(gazeTargets, args.destName) then -- check explody debuff
+		if not self:Me(args.destGUID) and self:UnitDebuff(args.destName, self:SpellName(165595)) and not tContains(gazeTargets, args.destName) then -- check explody debuff
 			gazeTargets[#gazeTargets + 1] = args.destName
 			updateProximity()
 		end
@@ -494,7 +494,7 @@ do
 	function mod:Branded(args)
 		brandedMarks[#brandedMarks+1] = args.destName
 
-		local _, _, _, amount = UnitDebuff(self:Me(args.destGUID) and "player" or args.destName, args.spellName)
+		local _, amount = self:UnitDebuff(self:Me(args.destGUID) and "player" or args.destName, args.spellName)
 		if not amount then amount = 0 end -- don't show count or distance (never got any reports of this happening, but just to make sure)
 		local isFortification = args.spellId == 164005 or (self:Mythic() and phase == 3)
 		local jumpDistance = (isFortification and 0.75 or 0.5)^(amount - 1) * 200 -- Fortification takes longer to get rid of
@@ -647,7 +647,7 @@ function mod:FixateApplied(args)
 		self:Flash(args.spellId)
 		self:Say(args.spellId)
 		updateProximity()
-	elseif self:Dispeller("magic", nil, 157801) and UnitDebuff(args.destName, self:SpellName(157801)) then -- check if they have Slow and warn again
+	elseif self:Dispeller("magic", nil, 157801) and self:UnitDebuff(args.destName, self:SpellName(157801)) then -- check if they have Slow and warn again
 		self:TargetMessage(157801, args.destName, "Important", "Alert", L.slow_fixate, nil, true)
 	end
 	if self.db.profile.custom_off_fixate_marker and not fixateMarks[args.destName] then

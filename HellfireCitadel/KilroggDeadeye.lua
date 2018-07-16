@@ -207,7 +207,7 @@ end
 do
 	local prev = 0
 	function mod:FelBlaze(args)
-		if UnitBuff("player", self:SpellName(185458)) then -- Vision of Death
+		if self:UnitBuff("player", self:SpellName(185458)) then -- Vision of Death
 			local t = GetTime()
 			if t-prev > 3 then
 				prev = t
@@ -223,7 +223,7 @@ end
 do
 	local prev = 0
 	function mod:CinderBreath(args)
-		if UnitBuff("player", self:SpellName(185458)) then -- Vision of Death
+		if self:UnitBuff("player", self:SpellName(185458)) then -- Vision of Death
 			local t = GetTime()
 			if t-prev > 3 then
 				prev = t
