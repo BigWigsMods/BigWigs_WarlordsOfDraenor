@@ -3,10 +3,10 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("Rukhmar", -948, 1262)
+local mod, CL = BigWigs:NewBoss("Rukhmar", -542, 1262)
 if not mod then return end
 mod:RegisterEnableMob(83746)
-mod.otherMenu = -962
+mod.otherMenu = -572
 mod.worldBoss = 83746
 --BOSS_KILL#1755#Rukhmar, Sun-God of the Arakkoa
 

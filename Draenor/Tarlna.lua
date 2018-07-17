@@ -3,10 +3,10 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("Tarlna the Ageless", -949, 1211)
+local mod, CL = BigWigs:NewBoss("Tarlna the Ageless", -543, 1211)
 if not mod then return end
 mod:RegisterEnableMob(81535)
-mod.otherMenu = -962
+mod.otherMenu = -572
 mod.worldBoss = 81535
 
 --------------------------------------------------------------------------------
