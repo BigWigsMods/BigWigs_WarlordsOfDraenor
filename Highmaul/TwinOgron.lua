@@ -207,7 +207,7 @@ do
 		count = 1
 		-- skip the first actual cast (157952) in favor of announcing it at the start of the sequence to give people more time to spread out
 		self:Message(158385, "Urgent", "Info", CL.count:format(args.spellName, count))
-		self:Bar(158385, 3.1, ("<%s>"):format(CL.count:format(args.spellName, count)))
+		self:CastBar(158385, 3.1, CL.count:format(args.spellName, count))
 		if self:Mythic() and isNextEmpowered(args.sourceGUID, polInterval) then
 			self:CDBar(158134, polInterval, ("%s (%s)"):format(self:SpellName(158134), STRING_SCHOOL_ARCANE)) -- Shield Charge (Arcane)
 		else

@@ -122,7 +122,7 @@ end
 -- Event Handlers
 --
 
-function mod:UNIT_TARGET(unit)
+function mod:UNIT_TARGET(_, unit)
 	local newTarget = self:UnitName("boss1target")
 	-- No target or target isn't a tank
 	if not newTarget or not self:Tank(newTarget) then return end
@@ -185,7 +185,7 @@ local function openSmashProximity(self)
 	end
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(unit, spellName, _, _, spellId)
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, _, spellId)
 	if spellId == 156991 then -- Throw Slag Bombs
 		if phase < 3 then
 			self:Message(156030, "Attention", self:Melee() and "Long")

@@ -277,7 +277,7 @@ do
 	end
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(unit, spellName, _, _, spellId)
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, _, spellId)
 	if spellId == 190607 then -- Ghostly, Blademaster Jubei'thos dies
 		jubeiIsDead = true
 		if nextAbility == 2 then -- mirror

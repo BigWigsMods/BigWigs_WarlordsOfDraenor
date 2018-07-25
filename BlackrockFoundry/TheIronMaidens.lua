@@ -136,7 +136,7 @@ end
 
 do
 	local prev = 0
-	function mod:UNIT_POWER_FREQUENT(unit, powerType)
+	function mod:UNIT_POWER_FREQUENT(_, unit, powerType)
 		if powerType == "ALTERNATE" then
 			local power = UnitPower(unit, 10) -- Enum.PowerType.Alternate = 10
 			if power == 1 then

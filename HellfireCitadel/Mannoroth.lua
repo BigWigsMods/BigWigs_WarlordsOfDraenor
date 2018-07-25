@@ -460,7 +460,7 @@ function mod:P1PortalClosed(args)
 	end
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(unit, spellName, _, _, spellId)
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, _, spellId)
 	--181156 = Summon Adds: Mythic, when Mannoroth spawns at ~17sec, not sure what it actually does (Doomguards?)
 
 	if spellId == 181301 then -- Summon Adds: P2 & Mythic P3

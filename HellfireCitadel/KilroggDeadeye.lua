@@ -124,7 +124,7 @@ do
 		end
 	end
 
-	function mod:UNIT_SPELLCAST_SUCCEEDED(unit, spellName, _, _, spellId) -- Bloodthirster reaches the pool
+	function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, _, spellId) -- Bloodthirster reaches the pool
 		if spellId == 182012 then -- Max Health Increase
 			self:Message(-11269, "Neutral", "Info", self:SpellName(-11269), false) -- Hulking Terror
 		end

@@ -160,6 +160,7 @@ function mod:DestructiveRampage(args) -- Phase 2
 	rampaging = true
 	if sliceTimer then
 		self:CancelTimer(sliceTimer)
+		sliceTimer = nil
 	end
 	self:StopBar(CL.count:format(self:SpellName(155080), sliceCount)) -- Inferno Slice
 	self:StopBar(155326) -- Petrifying Slam

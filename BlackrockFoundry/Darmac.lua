@@ -165,7 +165,7 @@ function mod:FaultlineDies() -- Mythic Clefthoof
 	self:CDBar(155321, 21) -- Unstoppable
 end
 
-function mod:UNIT_TARGETABLE_CHANGED(unit)
+function mod:UNIT_TARGETABLE_CHANGED(_, unit)
 	if not UnitExists(unit) then -- Mount
 		self:StopBar(155061) -- Rend and Tear
 		self:StopBar(155499) -- Superheated Shrapnel
@@ -204,14 +204,14 @@ function mod:UNIT_TARGETABLE_CHANGED(unit)
 	end
 end
 
-function mod:UNIT_HEALTH_FREQUENT(unit)
+function mod:UNIT_HEALTH_FREQUENT(event, unit)
 	if self:MobId(UnitGUID(unit)) == 76865 then -- Darmac
 		local hp = UnitHealth(unit) / UnitHealthMax(unit) * 100
 		-- Warnings for 85%, 65%, 45%, and 25% for mythic
 		if (phase == 1 and hp < 90) or (phase == 2 and hp < 71) or (phase == 3 and hp < 50) or (phase == 4 and hp < 30) then
 			phase = phase + 1
 			if phase > (self:Mythic() and 4 or 3) then
-				self:UnregisterUnitEvent("UNIT_HEALTH_FREQUENT", unit)
+				self:UnregisterUnitEvent(event, unit)
 			end
 			self:Message("stages", "Neutral", "Info", L.next_mount, false)
 		end
@@ -223,7 +223,7 @@ do
 	-- The behaviour for this ability is odd in that the boss will swap target to
 	-- the player it is going to cast the ability on, and then drop its target immediately
 	-- afterwards. Use this method to minimize the chance of missing the target.
-	function mod:BreathTarget(unit)
+	function mod:BreathTarget(_, unit)
 		if not aboutToCast then return end
 		aboutToCast = false
 
@@ -244,17 +244,17 @@ do
 		self:TargetMessage(unit == "boss1" and 155499 or 154989, self:UnitName(target), "Urgent", "Alert", nil, nil, true)
 	end
 
-	function mod:UNIT_SPELLCAST_SUCCEEDED(unit, spellName, _, _, spellId)
+	function mod:UNIT_SPELLCAST_SUCCEEDED(_, unit, _, spellId)
 		if spellId == 155221 then -- Tantrum, from Iron Crusher
-			self:StopBar(CL.count:format(spellName, tantrumCount))
-			self:Message(155222, "Attention", nil, CL.count:format(spellName, tantrumCount))
+			self:StopBar(CL.count:format(self:SpellName(spellId), tantrumCount))
+			self:Message(155222, "Attention", nil, CL.count:format(self:SpellName(spellId), tantrumCount))
 			tantrumCount = tantrumCount + 1
-			self:CDBar(155222, 23, CL.count:format(spellName, tantrumCount))
+			self:CDBar(155222, 23, CL.count:format(self:SpellName(spellId), tantrumCount))
 		elseif spellId == 155520 then -- Tantrum, from Darmac
-			self:StopBar(CL.count:format(spellName, tantrumCount))
-			self:Message(155222, "Attention", nil, CL.count:format(spellName, tantrumCount))
+			self:StopBar(CL.count:format(self:SpellName(spellId), tantrumCount))
+			self:Message(155222, "Attention", nil, CL.count:format(self:SpellName(spellId), tantrumCount))
 			tantrumCount = tantrumCount + 1
-			self:CDBar(155222, 23, CL.count:format(spellName, tantrumCount))
+			self:CDBar(155222, 23, CL.count:format(self:SpellName(spellId), tantrumCount))
 		elseif spellId == 155423 then -- Face Random Non-Tank (Inferno Breath by Dreadwing)
 			if not mountId then
 				self:RegisterUnitEvent("UNIT_TARGET", "BreathTarget", unit)

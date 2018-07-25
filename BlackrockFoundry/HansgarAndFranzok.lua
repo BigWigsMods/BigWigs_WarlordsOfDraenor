@@ -102,7 +102,7 @@ do
 		end
 	end
 
-	function mod:Jumps(unit)
+	function mod:Jumps(_, unit)
 		if UnitExists(unit) then -- jumped back
 			if phase < 3 then
 				self:Message("stages", "Neutral", "Info", CL.over:format(phaseThreats[phase]), false)
@@ -132,7 +132,7 @@ do
 	end
 end
 
-function mod:BodySlamTarget(unit)
+function mod:BodySlamTarget(_, unit)
 	local target = unit.."target"
 	local guid = UnitGUID(target)
 	if not guid or UnitDetailedThreatSituation(target, unit) ~= false or self:MobId(guid) ~= 1 then return end
@@ -143,11 +143,11 @@ function mod:BodySlamTarget(unit)
 	self:TargetMessage(155747, self:UnitName(target), "Attention", "Alarm")
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(unit, spellName, _, _, spellId)
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, unit, _, spellId)
 	if spellId == 156220 then -- Tactical Retreat (Hans'gar jumped away)
 		self:JumpAway(unit)
 	elseif spellId == 156546 or spellId == 156542 then -- Crippling Suplex (tank picked up)
-		self:Message(156938, "Important", "Alarm", CL.soon:format(spellName))
+		self:Message(156938, "Important", "Alarm", CL.soon:format(self:SpellName(spellId)))
 	end
 end
 

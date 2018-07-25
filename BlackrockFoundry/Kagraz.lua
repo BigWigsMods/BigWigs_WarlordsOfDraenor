@@ -143,7 +143,7 @@ do
 	end
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(unit, spellName, _, _, spellId)
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, _, spellId)
 	if spellId == 154914 then -- Lava Slash
 		self:Message(155318, "Urgent")
 		if self:Ranged() then
@@ -155,7 +155,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(unit, spellName, _, _, spellId)
 	elseif spellId == 155564 then -- Firestorm
 		self:Message(155493, "Important", "Long", CL.count:format(self:SpellName(155493), firestormCount))
 		firestormCount = firestormCount + 1
-		self:Bar(155493, 14, CL.cast:format(spellName))
+		self:CastBar(155493, 14, spellId)
 
 		--self:StopBar(155277) -- Blazing Radiance
 		self:Bar(-9352, 18, 175007, "inv_sword_1h_firelandsraid_d_04") -- Summon Enchanted Armaments

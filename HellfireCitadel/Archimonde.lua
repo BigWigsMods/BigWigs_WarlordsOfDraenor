@@ -193,7 +193,7 @@ end
 -- Event Handlers
 --
 
-function mod:Phases(unit, spellName, _, _, spellId)
+function mod:Phases(_, _, _, spellId)
 	if spellId == 190117 then -- Allow Phase 2 Spells
 		self:StopBar(182826) -- Doomfire
 		self:StopBar(183817) -- Shadowfel Burst
@@ -256,13 +256,13 @@ do
 		[43] = CL.phase:format(3), -- 40%
 		[28] = mod:SpellName(182225), -- 25% Rain of Chaos
 	}
-	function mod:UNIT_HEALTH_FREQUENT(unit)
+	function mod:UNIT_HEALTH_FREQUENT(event, unit)
 		local hp = UnitHealth(unit) / UnitHealthMax(unit) * 100
 		if hp < nextPhaseSoon then
 			self:Message("stages", "Neutral", "Info", CL.soon:format(phaseMessage[nextPhaseSoon]), false)
 			nextPhaseSoon = nextPhaseSoon - 15
 			if nextPhaseSoon < 30 then
-				self:UnregisterUnitEvent("UNIT_HEALTH_FREQUENT", unit)
+				self:UnregisterUnitEvent(event, unit)
 			end
 		end
 	end

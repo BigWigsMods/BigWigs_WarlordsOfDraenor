@@ -215,10 +215,10 @@ function mod:UNIT_TARGET(_, firedUnit)
 	end
 end
 
-function mod:RejuvenatingMushroom(unit, spellName, _, _, spellId)
+function mod:RejuvenatingMushroom(_, _, _, spellId)
 	if spellId == 177820 then -- Rejuvenating Mushroom
-		self:Message("rejuvenating_mushroom", "Positive", self:Healer() and "Info", spellName, L.rejuvenating_mushroom_icon)
-		self:CDBar("rejuvenating_mushroom", 120, spellName, L.rejuvenating_mushroom_icon) -- spawns most of the time just after 2min, sometimes delayed by boss casts (?)
+		self:Message("rejuvenating_mushroom", "Positive", self:Healer() and "Info", self:SpellName(spellId), L.rejuvenating_mushroom_icon)
+		self:CDBar("rejuvenating_mushroom", 120, self:SpellName(spellId), L.rejuvenating_mushroom_icon) -- spawns most of the time just after 2min, sometimes delayed by boss casts (?)
 	end
 end
 

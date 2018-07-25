@@ -101,7 +101,7 @@ end
 -- Event Handlers
 --
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(unit, spellName, _, _, spellId)
+function mod:UNIT_SPELLCAST_SUCCEEDED(event, unit, _, spellId)
 	if spellId == 190306 then -- Activate Fel Portal
 		impCount = 1
 		self:Bar("imps", 12, CL.count:format(self:SpellName(L.imps), impCount), L.imps_icon)
@@ -146,7 +146,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(unit, spellName, _, _, spellId)
 		end
 
 	elseif spellId == 187209 then -- Overwhelming Chaos (cast to gain the p4 buff, which just stacks on its own)
-		self:UnregisterUnitEvent("UNIT_SPELLCAST_SUCCEEDED", unit)
+		self:UnregisterUnitEvent(event, unit)
 		self:StopBar(CL.count:format(self:SpellName(L.imps), impCount))
 		self:StopBar(L.voidfiend)
 		self:StopBar(190223) -- Fel Strike
@@ -154,7 +154,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(unit, spellName, _, _, spellId)
 		self:StopBar(190224) -- Void Strike
 		self:StopBar(186333) -- Void Surge
 
-		self:Message("stages", "Neutral", "Info", "20% - ".. spellName, false)
+		self:Message("stages", "Neutral", "Info", "20% - ".. self:SpellName(spellId), false)
 		self:Bar(187204, 10) -- Overwhelming Chaos
 	end
 end

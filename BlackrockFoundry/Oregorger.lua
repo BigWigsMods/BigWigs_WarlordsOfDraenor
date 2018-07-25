@@ -82,7 +82,7 @@ end
 -- Event Handlers
 --
 
-function mod:UNIT_POWER_FREQUENT(unit)
+function mod:UNIT_POWER_FREQUENT(event, unit)
 	local power = UnitPower(unit)
 	if power < 21 then
 		if frenzyCount > 2 then
@@ -90,7 +90,7 @@ function mod:UNIT_POWER_FREQUENT(unit)
 		else
 			self:Message("stages", "Neutral", "Info", CL.soon:format(self:SpellName(-9968)), false) -- Feeding Frenzy soon!
 		end
-		self:UnregisterUnitEvent("UNIT_POWER_FREQUENT", unit)
+		self:UnregisterUnitEvent(event, unit)
 	end
 end
 
@@ -153,7 +153,7 @@ end
 
 -- Phase 2
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(unit, spellName, _, _, spellId)
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, _, spellId)
 	if spellId == 165127 then -- Hunger Drive, entering phase 2
 		self:StopBar(CL.count:format(self:SpellName(156240), torrentCount)) -- Acid Torrent
 		self:StopBar(156203) -- Retched Blackrock

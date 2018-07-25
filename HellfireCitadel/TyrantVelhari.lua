@@ -117,7 +117,7 @@ end
 -- Event Handlers
 --
 
-function mod:CHAT_MSG_RAID_BOSS_EMOTE(_, text, sender, _, _, target)
+function mod:CHAT_MSG_RAID_BOSS_EMOTE(_, _, sender, _, _, target)
 	if target == self.displayName then -- Tyrant Velhari (target is blank for Ancient spell cast emotes)
 		if sender == self:SpellName(-11155) then -- Ancient Enforcer
 			self:Message(-11155, "Neutral", nil, "90% - ".. CL.spawned:format(self:SpellName(-11155)), false)
@@ -216,11 +216,11 @@ function mod:HarbingersMending(args)
 	self:Bar(180025, self:Normal() and 16 or 11, CL.count:format(args.spellName, mendingCount))
 end
 
-function mod:HarbingersMendingLFR(unit, spellName, _, _, spellId)
+function mod:HarbingersMendingLFR(_, _, _, spellId)
 	if spellId == 180025 then -- On LFR this event is hidden and lacking an icon, even though it's the same id :S
-		self:Message(spellId, "Attention", self:Interrupter() and "Alert", CL.casting:format(CL.count:format(spellName, mendingCount)), "spell_shadow_shadowmend")
+		self:Message(spellId, "Attention", self:Interrupter() and "Alert", CL.casting:format(CL.count:format(self:SpellName(spellId), mendingCount)), "spell_shadow_shadowmend")
 		mendingCount = mendingCount + 1
-		self:Bar(spellId, 25, CL.count:format(spellName, mendingCount), "spell_shadow_shadowmend")
+		self:Bar(spellId, 25, CL.count:format(self:SpellName(spellId), mendingCount), "spell_shadow_shadowmend")
 	end
 end
 

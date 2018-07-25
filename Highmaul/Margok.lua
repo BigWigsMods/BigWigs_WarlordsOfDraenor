@@ -381,21 +381,21 @@ end
 
 -- General
 
-function mod:UNIT_HEALTH_FREQUENT(unit)
+function mod:UNIT_HEALTH_FREQUENT(event, unit)
 	local mobId = self:MobId(UnitGUID(unit))
 	local hp = UnitHealth(unit) / UnitHealthMax(unit) * 100
 	if mobId == 77428 then
 		if self:Mythic() then
 			if (phase == 1 and hp < 71) or (phase == 2 and hp < 38) or (phase == 3 and hp < 10) then -- phases at 66% and 33% and 5%
-				self:UnregisterUnitEvent("UNIT_HEALTH_FREQUENT", unit)
+				self:UnregisterUnitEvent(event, unit)
 				self:Message("stages", "Neutral", "Info", CL.soon:format(CL.phase:format(phase+1)), false)
 			end
 		elseif (phase == 1 and hp < 90) or (phase == 2 and hp < 60) or (phase == 3 and hp < 30) then -- phases at 85%, 55%, and 25%
-			self:UnregisterUnitEvent("UNIT_HEALTH_FREQUENT", unit)
+			self:UnregisterUnitEvent(event, unit)
 			self:Message("stages", "Neutral", "Info", CL.soon:format(CL.phase:format(phase+1)), false)
 		end
 	elseif mobId == 77879 and not addDeathWarned and hp < 30 then -- Displacing Arcane Aberration
-		self:UnregisterUnitEvent("UNIT_HEALTH_FREQUENT", unit)
+		self:UnregisterUnitEvent(event, unit)
 		self:Message(156471, "Attention", "Info", L.add_death_soon)
 		addDeathWarned = true
 	end

@@ -364,7 +364,7 @@ function mod:Enkindle(args)
 end
 
 do
-	function mod:GrenadeTarget(unit)
+	function mod:GrenadeTarget(event, unit)
 		local target = unit.."target"
 		local guid = UnitGUID(target)
 		if not guid or UnitDetailedThreatSituation(target, unit) ~= false or self:MobId(guid) ~= 1 then return end

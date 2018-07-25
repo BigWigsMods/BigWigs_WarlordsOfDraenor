@@ -483,7 +483,7 @@ end
 
 do
 	local warned = nil
-	function mod:UNIT_POWER_FREQUENT(unit, powerType)
+	function mod:UNIT_POWER_FREQUENT(_, unit, powerType)
 		if powerType == "ALTERNATE" then
 			-- energy rate is based on altpower
 			local altpower = UnitPower(unit, 10) -- Enum.PowerType.Alternate = 10
