@@ -186,7 +186,7 @@ function mod:ShieldCharge(args)
 end
 
 function mod:InterruptingShout(args)
-	local _, _, _, _, _, endTime = UnitCastingInfo(self:GetUnitIdByGUID(args.sourceGUID))
+	local _, _, _, _, endTime = UnitCastingInfo(self:GetUnitIdByGUID(args.sourceGUID))
 	local cast = endTime and (endTime / 1000 - GetTime()) or 0
 	if cast > 1.5 then
 		self:Bar(args.spellId, cast, CL.cast:format(args.spellName))
@@ -252,7 +252,7 @@ function mod:Whirlwind(args)
 end
 
 function mod:EnfeeblingRoar(args)
-	local _, _, _, _, _, endTime = UnitCastingInfo(self:GetUnitIdByGUID(args.sourceGUID))
+	local _, _, _, _, endTime = UnitCastingInfo(self:GetUnitIdByGUID(args.sourceGUID))
 	local cast = endTime and (endTime / 1000 - GetTime()) or 0
 	if cast > 1.5 then
 		self:Bar(args.spellId, cast, CL.cast:format(args.spellName))

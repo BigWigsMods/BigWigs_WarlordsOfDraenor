@@ -166,7 +166,7 @@ end
 function mod:DisruptingRoar(args)
 	local unit = self:GetUnitIdByGUID(args.sourceGUID)
 	if unit then
-		local _, _, _, _, _, endTime = UnitCastingInfo(unit)
+		local _, _, _, _, endTime = UnitCastingInfo(unit)
 		local cast = endTime and (endTime / 1000 - GetTime()) or 0
 		if cast > 1 then
 			self:Bar(args.spellId, cast, CL.cast:format(args.spellName))
