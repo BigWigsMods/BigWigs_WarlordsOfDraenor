@@ -55,7 +55,7 @@ end
 function mod:Fixate(args)
 	if self:Me(args.destGUID) and not fixateOnMe then -- Multiple debuffs, warn for the first.
 		fixateOnMe = true
-		self:TargetMessage(args.spellId, args.destName, "Personal", "Alarm")
+		self:TargetMessage(args.spellId, args.destName, "blue", "Alarm")
 		self:Flash(args.spellId)
 	end
 end
@@ -63,27 +63,27 @@ end
 function mod:FixateOver(args)
 	if self:Me(args.destGUID) and not self:UnitDebuff("player", args.spellName) then
 		fixateOnMe = nil
-		self:Message(args.spellId, "Personal", "Alarm", CL.over:format(args.spellName))
+		self:Message(args.spellId, "blue", "Alarm", CL.over:format(args.spellName))
 	end
 end
 
 function mod:PiercedArmor(args)
-	self:StackMessage(args.spellId, args.destName, args.amount, "Attention", "Warning")
+	self:StackMessage(args.spellId, args.destName, args.amount, "yellow", "Warning")
 end
 
 function mod:SolarBreath(args)
-	self:Message(args.spellId, "Urgent")
+	self:Message(args.spellId, "orange")
 	self:CDBar(args.spellId, 28)
 end
 
 function mod:LooseQuills(args)
-	self:Message(args.spellId, "Attention", "Long")
+	self:Message(args.spellId, "yellow", "Long")
 	self:Bar(args.spellId, 30)
 	self:StopBar(167679) -- Solar Breath
 end
 
 function mod:LooseQuillsOver(args)
-	self:Message(args.spellId, "Attention", nil, CL.over:format(args.spellName))
+	self:Message(args.spellId, "yellow", nil, CL.over:format(args.spellName))
 end
 
 function mod:BOSS_KILL(event, id)

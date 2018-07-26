@@ -163,7 +163,7 @@ do
 				self:CDBar(164271, 21) -- Penetrating Shot
 				self:CDBar(158010, 32) -- Bloodsoaked Heartseeker 32-35
 			elseif power == 30 or power == 100 then
-				self:Message(159336, "Neutral", "Long", L.power_message:format(power), false)
+				self:Message(159336, "cyan", "Long", L.power_message:format(power), false)
 			end
 			prev = power
 		end
@@ -176,7 +176,7 @@ do
 		local t = GetTime()
 		if t-prev > 5 then
 			prev = t
-			self:Message(args.spellId, "Important", "Long")
+			self:Message(args.spellId, "red", "Long")
 			self:UnregisterUnitEvent("UNIT_POWER_FREQUENT", "boss1", "boss2", "boss3")
 			self:StopBar(L.ship) -- Jump to Ship
 		end
@@ -211,7 +211,7 @@ end
 -- XXX 6.1
 --function mod:ShipPhase(args)
 --	shipCount = shipCount + 1
---	self:Message("ship", "Neutral", "Info", CL.other:format(L.ship, args.sourceName), false)
+--	self:Message("ship", "cyan", "Info", CL.other:format(L.ship, args.sourceName), false)
 --	stopBars(self:MobId(args.sourceGUID))
 --	if shipCount < 3 then
 --		self:Bar("ship", 198, L.ship, L.ship_icon)
@@ -221,7 +221,7 @@ end
 
 function mod:ShipPhase(msg, sender)
 	shipCount = shipCount + 1
-	self:Message("ship", "Neutral", "Info", CL.other:format(L.ship, sender), false)
+	self:Message("ship", "cyan", "Info", CL.other:format(L.ship, sender), false)
 	if sender == self:SpellName(-10025) then -- Gar'an
 		stopBars(77557)
 	elseif sender == self:SpellName(-10030) then -- Sorka
@@ -239,7 +239,7 @@ function mod:BombardmentAlpha(args)
 	if isOnABoat() then
 		self:Bar("bombardment", 11, CL.count:format(self:SpellName(157884), 1), "ability_ironmaidens_incindiarydevice") -- Detonation Sequence (1)
 	else
-		self:Message("bombardment", "Neutral", nil, args.spellId)
+		self:Message("bombardment", "cyan", nil, args.spellId)
 		self:CDBar("bombardment", 18, L.bombardment, L.bombardment_icon)
 	end
 end
@@ -248,7 +248,7 @@ function mod:BombardmentOmega(args)
 	if isOnABoat() then
 		self:Bar("bombardment", 11, CL.count:format(self:SpellName(157884), 2), "ability_ironmaidens_incindiarydevice") -- Detonation Sequence (2)
 	else
-		self:Message("bombardment", "Neutral", nil, args.spellId)
+		self:Message("bombardment", "cyan", nil, args.spellId)
 	end
 end
 
@@ -258,7 +258,7 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and t-prev > 1 then
 			prev = t
-			self:Message(args.spellId, "Personal", "Alarm", CL.underyou:format(args.spellName))
+			self:Message(args.spellId, "blue", "Alarm", CL.underyou:format(args.spellName))
 			self:Flash(args.spellId)
 		end
 	end
@@ -267,14 +267,14 @@ end
 function mod:EarthenBarrier(args)
 	barrierCount = barrierCount + 1
 	if isOnABoat() then
-		self:Message(args.spellId, "Urgent", "Alert", CL.count:format(args.spellName, barrierCount))
+		self:Message(args.spellId, "orange", "Alert", CL.count:format(args.spellName, barrierCount))
 		self:CDBar(args.spellId, 10)
 	end
 end
 
 do
 	local function printTarget(self, name, guid)
-		self:TargetMessage(158692, name, "Urgent", "Alert", nil, nil, self:Tank())
+		self:TargetMessage(158692, name, "orange", "Alert", nil, nil, self:Tank())
 	end
 	function mod:DeadlyThrow(args)
 		if isOnABoat() then
@@ -289,7 +289,7 @@ end
 function mod:RAID_BOSS_WHISPER(_, msg, sender)
 	if msg:find("156626", nil, true) then -- Rapid Fire
 		local text = CL.you:format(self:SpellName(156631))
-		self:Message(156631, "Personal", "Alarm", text)
+		self:Message(156631, "blue", "Alarm", text)
 		self:Bar(156631, 10.5, text)
 		self:Flash(156631)
 		self:Say(156631)
@@ -306,7 +306,7 @@ do
 			return
 		end
 		if not self:Me(args.destGUID) then
-			self:TargetMessage(args.spellId, args.destName, "Urgent")
+			self:TargetMessage(args.spellId, args.destName, "orange")
 		end
 		self:Bar(args.spellId, 31.6)
 	end
@@ -323,7 +323,7 @@ end
 --	if isOnABoat() then
 --		return
 --	end
---	self:Message(args.spellId, "Important")
+--	self:Message(args.spellId, "red")
 --end
 
 do
@@ -336,11 +336,11 @@ do
 			return
 		end
 		if self:Me(args.destGUID) then
-			self:Message(args.spellId, "Personal", "Alarm", CL.you:format(args.spellName))
+			self:Message(args.spellId, "blue", "Alarm", CL.you:format(args.spellName))
 			self:Flash(args.spellId)
 			self:Say(args.spellId)
 		else
-			self:TargetMessage(args.spellId, args.destName, "Important", "Warning", nil, nil, true)
+			self:TargetMessage(args.spellId, args.destName, "red", "Warning", nil, nil, true)
 		end
 		self:TargetBar(args.spellId, self:Normal() and 8 or 6, args.destName)
 		self:Bar(args.spellId, 30)
@@ -354,7 +354,7 @@ do
 end
 
 function mod:DeployTurret(args)
-	self:Message(args.spellId, "Attention")
+	self:Message(args.spellId, "yellow")
 	--self:CDBar(args.spellId, 20) -- 19.8-22.6
 end
 
@@ -365,7 +365,7 @@ function mod:BladeDash(args)
 		boatTimers[args.spellId] = GetTime() + 18
 		return
 	end
-	self:TargetMessage(args.spellId, args.destName, "Attention")
+	self:TargetMessage(args.spellId, args.destName, "yellow")
 	self:Bar(args.spellId, 18)
 end
 
@@ -373,7 +373,7 @@ do
 	local dispeller = nil
 	local function printTarget(self, name, guid)
 		if dispeller or self:Me(guid) then
-			self:TargetMessage(156109, name, "Urgent", "Info")
+			self:TargetMessage(156109, name, "orange", "Info")
 		end
 		if self:Me(guid) then
 			self:Flash(156109)
@@ -394,7 +394,7 @@ do
 end
 
 function mod:DarkHunt(args)
-	self:TargetMessage(args.spellId, args.destName, "Attention")
+	self:TargetMessage(args.spellId, args.destName, "yellow")
 	self:TargetBar(args.spellId, 8, args.destName)
 	--self:CDBar(args.spellId, 13) -- 13.39-15.89
 end
@@ -410,7 +410,7 @@ do
 			boatTimers[args.spellId] = GetTime() + 20
 			return
 		end
-		self:TargetMessage(args.spellId, args.destName, "Attention", "Alert", nil, nil, self:Tank())
+		self:TargetMessage(args.spellId, args.destName, "yellow", "Alert", nil, nil, self:Tank())
 		self:Bar(args.spellId, 20)
 		if self:Me(args.destGUID) then
 			self:TargetBar(args.spellId, 5, args.destName)
@@ -443,7 +443,7 @@ do
 				boatTimers[args.spellId] = GetTime() + 70
 			else
 				self:CDBar(args.spellId, 70)
-				self:ScheduleTimer("TargetMessage", 0.2, args.spellId, targets, "Urgent", "Alert")
+				self:ScheduleTimer("TargetMessage", 0.2, args.spellId, targets, "orange", "Alert")
 			end
 		end
 	end
@@ -455,7 +455,7 @@ do
 end
 
 function mod:SanguineStrikes(args)
-	self:Message(args.spellId, "Important")
+	self:Message(args.spellId, "red")
 end
 
 function mod:Deaths(args)

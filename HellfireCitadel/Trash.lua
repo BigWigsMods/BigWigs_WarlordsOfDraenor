@@ -168,7 +168,7 @@ do
 	function mod:FelDestructionDamage(args)
 		if self:Me(args.destGUID) and GetTime()-prev > 2.5 then
 			prev = GetTime()
-			self:Message(args.spellId, "Personal", "Alarm", CL.near:format(L.orb))
+			self:Message(args.spellId, "blue", "Alarm", CL.near:format(L.orb))
 		end
 	end
 end
@@ -181,7 +181,7 @@ function mod:FocusedFire(args)
 		self:Say(args.spellId)
 		self:OpenProximity(args.spellId, 5, nil, true)
 	end
-	self:TargetMessage(args.spellId, args.destName, "Attention", "Alarm")
+	self:TargetMessage(args.spellId, args.destName, "yellow", "Alarm")
 end
 
 function mod:FocusedFireRemoved(args)
@@ -194,25 +194,25 @@ end
 --[[ Graggra ]]--
 
 function mod:BadBreathCasting(args)
-	self:Message(args.spellId, "Urgent")
+	self:Message(args.spellId, "orange")
 end
 
 function mod:BadBreath(args)
 	if self:Tank(args.destName) then
-		self:StackMessage(args.spellId, args.destName, args.amount, "Urgent", "Warning", nil, nil, true)
+		self:StackMessage(args.spellId, args.destName, args.amount, "orange", "Warning", nil, nil, true)
 	end
 end
 
 function mod:BlazingFelTouch(args)
 	if self:Me(args.destGUID) then
-		self:TargetMessage(args.spellId, args.destName, "Personal", "Alarm")
+		self:TargetMessage(args.spellId, args.destName, "blue", "Alarm")
 		self:OpenProximity(args.spellId, 6)
 	end
 end
 
 function mod:BlazingFelTouchRemoved(args)
 	if self:Me(args.destGUID) then
-		self:Message(args.spellId, "Personal", "Alarm", CL.over:format(args.spellName))
+		self:Message(args.spellId, "blue", "Alarm", CL.over:format(args.spellName))
 		self:CloseProximity(args.spellId)
 	end
 end
@@ -222,7 +222,7 @@ function mod:GraggraSmash(args)
 		self:Say(args.spellId)
 	end
 	self:TargetBar(args.spellId, 5, args.destName)
-	self:TargetMessage(args.spellId, args.destName, "Attention", "Alarm")
+	self:TargetMessage(args.spellId, args.destName, "yellow", "Alarm")
 end
 
 --[[ Bleeding Darkcaster ]]--
@@ -233,7 +233,7 @@ function mod:DarkFate(args)
 		self:OpenProximity(args.spellId, 10, nil, true) -- Guessed range
 	end
 	self:TargetBar(args.spellId, 15, args.destName)
-	self:TargetMessage(args.spellId, args.destName, "Urgent", "Long", nil, nil, true)
+	self:TargetMessage(args.spellId, args.destName, "orange", "Long", nil, nil, true)
 end
 
 function mod:DarkFateRemoved(args)
@@ -247,7 +247,7 @@ end
 
 function mod:RendingHowl(args)
 	if self:Interrupter(args.sourceGUID) then
-		self:Message(args.spellId, "Urgent", "Info")
+		self:Message(args.spellId, "orange", "Info")
 	end
 end
 
@@ -262,7 +262,7 @@ do
 			self:Say(spellId)
 			self:OpenProximity(spellId, 15) -- XXX verify range
 		end
-		self:TargetMessage(spellId, list, "Attention", "Alarm")
+		self:TargetMessage(spellId, list, "yellow", "Alarm")
 		isOnMe = nil
 	end
 
@@ -290,7 +290,7 @@ end
 --[[ Construct Peacekeeper ]]--
 
 function mod:ProtocolCrowdControl(args)
-	self:Message(args.spellId, "Urgent", "Warning")
+	self:Message(args.spellId, "orange", "Warning")
 	self:Flash(args.spellId)
 end
 
@@ -298,7 +298,7 @@ end
 
 function mod:SeverSoul(args)
 	self:TargetBar(args.spellId, 6, args.destName)
-	self:TargetMessage(args.spellId, args.destName, "Urgent", "Warning", nil, nil, true)
+	self:TargetMessage(args.spellId, args.destName, "orange", "Warning", nil, nil, true)
 end
 
 function mod:SeverSoulRemoved(args)
@@ -310,7 +310,7 @@ end
 function mod:TouchOfMortality(args)
 	if self:Me(args.destGUID) then
 		self:TargetBar(args.spellId, 9, args.destName)
-		self:TargetMessage(args.spellId, args.destName, "Personal", "Alarm")
+		self:TargetMessage(args.spellId, args.destName, "blue", "Alarm")
 	end
 end
 
@@ -322,7 +322,7 @@ end
 
 function mod:HellfireBlast(args)
 	if self:Me(args.destGUID) then
-		self:StackMessage(args.spellId, args.destName, args.amount, "Personal", "Info")
+		self:StackMessage(args.spellId, args.destName, args.amount, "blue", "Info")
 	end
 end
 
@@ -330,7 +330,7 @@ end
 
 function mod:SealOfDecay(args)
 	if args.amount % 3 == 0 then
-		self:StackMessage(args.spellId, args.destName, args.amount, "Attention")
+		self:StackMessage(args.spellId, args.destName, args.amount, "yellow")
 	end
 end
 
@@ -340,7 +340,7 @@ function mod:DemonicSacrifice(args)
 	if self:Me(args.destGUID) then
 		self:Say(args.spellId)
 	end
-	self:TargetMessage(args.spellId, args.destName, "Attention", "Warning", nil, nil, true)
+	self:TargetMessage(args.spellId, args.destName, "yellow", "Warning", nil, nil, true)
 end
 
 --[[ Shadow Burster ]]--
@@ -352,7 +352,7 @@ function mod:VoidBlast(args)
 		for unit in self:IterateGroup() do
 			if UnitDetailedThreatSituation(unit, npcUnit) then
 				warn = true
-				self:TargetMessage(186130, self:UnitName(unit), "Important", "Warning", nil, nil, true)
+				self:TargetMessage(186130, self:UnitName(unit), "red", "Warning", nil, nil, true)
 				if self:Me(UnitGUID(unit)) then
 					self:Say(186130)
 				end
@@ -361,7 +361,7 @@ function mod:VoidBlast(args)
 		end
 	end
 	if not warn then
-		self:Message(186130, "Important", "Warning")
+		self:Message(186130, "red", "Warning")
 	end
 	self:Flash(186130)
 end
@@ -369,7 +369,7 @@ end
 --[[ Weaponlord Mehlkhior ]]--
 
 function mod:FelbloodStrike(args)
-	self:StackMessage(args.spellId, args.destName, args.amount, "Urgent")
+	self:StackMessage(args.spellId, args.destName, args.amount, "orange")
 end
 
 --[[ Azgalor ]]--
@@ -387,13 +387,13 @@ do
 			self:TargetBar(args.spellId, 20, args.destName)
 		end
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "Attention", "Alarm")
+			self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "yellow", "Alarm")
 		end
 	end
 end
 
 function mod:DoomRemoved(args)
-	self:Message(args.spellId, "Urgent", "Long", self:SpellName(31350)) -- Summon Lesser Doomguard
+	self:Message(args.spellId, "orange", "Long", self:SpellName(31350)) -- Summon Lesser Doomguard
 end
 
 do
@@ -401,7 +401,7 @@ do
 	function mod:RainOfFire(args)
 		if self:Me(args.destGUID) and GetTime()-prev > 1.5 then
 			prev = GetTime()
-			self:Message(args.spellId, "Personal", "Alert", CL.you:format(args.spellName))
+			self:Message(args.spellId, "blue", "Alert", CL.you:format(args.spellName))
 		end
 	end
 end
@@ -419,7 +419,7 @@ do
 			self:OpenProximity(args.spellId, 40)
 		end
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "Important", "Alarm")
+			self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "red", "Alarm")
 		end
 	end
 end
@@ -439,15 +439,15 @@ end
 
 function mod:Sleep(args)
 	if self:Interrupter(args.sourceGUID) then
-		self:Message(args.spellId, "Urgent", "Info", CL.casting:format(args.spellName))
+		self:Message(args.spellId, "orange", "Info", CL.casting:format(args.spellName))
 	end
 end
 
 function mod:SummonToweringInfernal(args)
-	self:Message(args.spellId, "Positive", "Long")
+	self:Message(args.spellId, "green", "Long")
 end
 
 function mod:CarrionSwarm(args)
-	self:Message(args.spellId, "Attention", "Warning")
+	self:Message(args.spellId, "yellow", "Warning")
 end
 

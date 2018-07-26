@@ -124,7 +124,7 @@ function mod:ShadowEnergy(args)
 	phase = 3
 	phaseAbilityCount = 0
 	tankDebuffCount = 1
-	self:Message("stages", "Neutral", "Info", args.spellName, false)
+	self:Message("stages", "cyan", "Info", args.spellName, false)
 
 	if args.spellId == 189197 then -- LFR
 		self:Bar(181292, 10) -- Fel Outpouring
@@ -146,7 +146,7 @@ function mod:ExplosiveEnergy(args)
 	phase = 1
 	phaseAbilityCount = 0
 	tankDebuffCount = 1
-	self:Message("stages", "Neutral", "Info", args.spellName, false)
+	self:Message("stages", "cyan", "Info", args.spellName, false)
 
 	if args.spellId == 189198 then -- LFR
 		self:Bar(181296, 10) -- Explosive Runes
@@ -169,7 +169,7 @@ function mod:FoulEnergy(args)
 	phase = 2
 	phaseAbilityCount = 0
 	tankDebuffCount = 1
-	self:Message("stages", "Neutral", "Info", args.spellName, false)
+	self:Message("stages", "cyan", "Info", args.spellName, false)
 
 	if args.spellId == 189199 then -- LFR
 		self:Bar(181299, 10) -- Grasping Hands
@@ -190,7 +190,7 @@ end
 -- Tank Debuffs
 
 function mod:ExplosiveBurst(args)
-	self:TargetMessage(args.spellId, args.destName, "Urgent", "Warning", nil, nil, true)
+	self:TargetMessage(args.spellId, args.destName, "orange", "Warning", nil, nil, true)
 	self:TargetBar(args.spellId, 10, args.destName)
 	tankDebuffCount = tankDebuffCount + 1
 	if self:LFR() then
@@ -220,7 +220,7 @@ function mod:ExplosiveBurstRemoved(args)
 end
 
 function mod:FoulCrush(args)
-	self:TargetMessage(args.spellId, args.destName, "Urgent", self:Tank() and "Warning")
+	self:TargetMessage(args.spellId, args.destName, "orange", self:Tank() and "Warning")
 	tankDebuffCount = tankDebuffCount + 1
 	if self:LFR() then
 		if tankDebuffCount == 2 then -- Only time for 1 more in LFR
@@ -233,7 +233,7 @@ function mod:FoulCrush(args)
 end
 
 function mod:Swat(args)
-	self:Message(args.spellId, "Attention", self:Tank() and "Warning", args.spellName)
+	self:Message(args.spellId, "yellow", self:Tank() and "Warning", args.spellName)
 	tankDebuffCount = tankDebuffCount + 1
 	if self:LFR() then
 		if tankDebuffCount == 2 then -- Only time for 1 more in LFR
@@ -249,7 +249,7 @@ end
 function mod:FelOutpouring(args)
 	shadowCount = shadowCount - 1
 	phaseAbilityCount = phaseAbilityCount + 1
-	self:Message(181292, "Attention", "Long", args.spellId)
+	self:Message(181292, "yellow", "Long", args.spellId)
 	if self:LFR() then
 		if shadowCount > 0 then
 			self:CDBar(args.spellId, 45) -- No Empowered on LFR
@@ -262,7 +262,7 @@ end
 function mod:ExplosiveRunes(args)
 	explosiveCount = explosiveCount - 1
 	phaseAbilityCount = phaseAbilityCount + 1
-	self:Message(181296, "Urgent", "Info", args.spellId)
+	self:Message(181296, "orange", "Info", args.spellId)
 	if self:LFR() then
 		if explosiveCount > 0 then
 			self:CDBar(args.spellId, 35) -- No Empowered on LFR
@@ -282,7 +282,7 @@ do
 	function mod:GraspingHands(args)
 		foulCount = foulCount - 1
 		phaseAbilityCount = phaseAbilityCount + 1
-		self:Message(181299, "Important", nil, args.spellId)
+		self:Message(181299, "red", nil, args.spellId)
 		self:OpenProximity(181299, 4)
 		if self:LFR() then
 			if foulCount > 0 then
@@ -297,7 +297,7 @@ end
 
 function mod:Pound(args)
 	isPounding = true
-	self:Message(args.spellId, "Urgent", "Alert", CL.count:format(args.spellName, poundCount))
+	self:Message(args.spellId, "orange", "Alert", CL.count:format(args.spellName, poundCount))
 	poundCount = poundCount + 1
 	if poundCount % 2 == 0 then -- Only 2 per phase
 		if self:LFR() then
@@ -319,7 +319,7 @@ end
 
 function mod:Enrage(args)
 	enrageMod = self:Mythic() and 0.604 or 0.84 -- 0.604 is not 100% accurate - if it's too inaccurate, we have to do separate mythic times
-	self:Message(args.spellId, "Important", "Alarm")
+	self:Message(args.spellId, "red", "Alarm")
 end
 
 do
@@ -327,7 +327,7 @@ do
 	function mod:Residue(args)
 		if self:Me(args.destGUID) and GetTime()-prev > 2.5 then
 			prev = GetTime()
-			self:Message(args.spellId, "Personal", "Alarm", CL.underyou:format(args.spellName))
+			self:Message(args.spellId, "blue", "Alarm", CL.underyou:format(args.spellName))
 		end
 	end
 end

@@ -137,16 +137,16 @@ end
 
 function mod:EyeOfAnzu(args)
 	eyeTarget = args.destGUID
-	--self:TargetMessage(args.spellId, args.destName, "Positive") -- XXX info display instead?
+	--self:TargetMessage(args.spellId, args.destName, "green") -- XXX info display instead?
 	if self:Me(eyeTarget) then
-		self:TargetMessage(args.spellId, args.destName, "Personal", #windTargets > 0 and "Warning" or "Info")
+		self:TargetMessage(args.spellId, args.destName, "blue", #windTargets > 0 and "Warning" or "Info")
 		self:Flash(args.spellId)
 	end
 end
 
 do
 	local function printTarget(self, name, guid)
-		self:TargetMessage(185345, name, "Important", "Long") -- Warning is used in Eye+Winds events, so Long here to be distinct
+		self:TargetMessage(185345, name, "red", "Long") -- Warning is used in Eye+Winds events, so Long here to be distinct
 	end
 	function mod:ShadowRiposte(args)
 		if self:MobId(args.sourceGUID) == 90316 then -- prevent Dark Simulacrum from messing with the cd
@@ -164,9 +164,9 @@ do
 	local isOnMe = nil
 	local function warn(self, spellName)
 		if isOnMe then
-			self:TargetMessage(181956, isOnMe, "Personal" , "Alarm")
+			self:TargetMessage(181956, isOnMe, "blue" , "Alarm")
 		else
-			self:Message(181956, "Attention", self:UnitBuff("player", self:SpellName(179202)) and "Warning") -- Warning if you have the Eye
+			self:Message(181956, "yellow", self:UnitBuff("player", self:SpellName(179202)) and "Warning") -- Warning if you have the Eye
 		end
 		isOnMe = nil
 	end
@@ -198,7 +198,7 @@ do
 		local t = GetTime()
 		if t-prev > 2 then
 			prev = t
-			self:Message(182323, "Urgent")
+			self:Message(182323, "orange")
 			self:CDBar(182323, self:Easy() and 40 or 33)
 		end
 	end
@@ -207,7 +207,7 @@ end
 function mod:PhantasmalCorruption(args)
 	if args.destGUID ~= eyeTarget then
 		self:TargetBar(181824, 10, args.destName)
-		self:TargetMessage(181824, args.destName, "Urgent", "Warning", nil, nil, true)
+		self:TargetMessage(181824, args.destName, "orange", "Warning", nil, nil, true)
 		if self:Me(args.destGUID) then
 			self:Say(181824)
 			self:OpenProximity(181824, 15) -- Range discovered from LFR testing
@@ -224,7 +224,7 @@ function mod:PhantasmalCorruptionRemoved(args)
 end
 
 function mod:FelBomb(args)
-	self:TargetMessage(args.spellId, args.destName, "Important", self:Dispeller("magic") and "Alert")
+	self:TargetMessage(args.spellId, args.destName, "red", self:Dispeller("magic") and "Alert")
 	if self:Me(args.destGUID) then
 		self:Say(args.spellId)
 	end
@@ -232,20 +232,20 @@ function mod:FelBomb(args)
 end
 
 function mod:FocusedBlast(args)
-	self:Message(args.spellId, "Important", nil, CL.casting:format(args.spellName))
+	self:Message(args.spellId, "red", nil, CL.casting:format(args.spellName))
 	self:Bar(args.spellId, 12)
-	self:DelayedMessage(args.spellId, 9, "Important", CL.incoming:format(args.spellName), nil, "Long")
+	self:DelayedMessage(args.spellId, 9, "red", CL.incoming:format(args.spellName), nil, "Long")
 	self:ScheduleTimer("Flash", 9, args.spellId)
 end
 
 function mod:FelConduit(args)
-	self:Message(181827, "Urgent", "Alert")
+	self:Message(181827, "orange", "Alert")
 	self:CDBar(181827, self:Easy() and 19.3 or 15.9)
 end
 
 function mod:RAID_BOSS_WHISPER(event, msg)
 	if msg:find(182582) then -- Fel Incineration
-		self:Message(182582, "Personal", "Alarm", CL.you:format(self:SpellName(182582)))
+		self:Message(182582, "blue", "Alarm", CL.you:format(self:SpellName(182582)))
 		self:Say(182582)
 	end
 end
@@ -255,7 +255,7 @@ do
 	function mod:FelChakram(args)
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessage", 0.3, 182200, list, "Attention", "Alert")
+			self:ScheduleTimer("TargetMessage", 0.3, 182200, list, "yellow", "Alert")
 			self:CDBar(182200, 34)
 		end
 		if self:Me(args.destGUID) then
@@ -267,7 +267,7 @@ end
 
 function mod:DarkBindingsCast()
 	bindingsRemoved = 0
-	self:Message(185510, "Urgent", "Info", CL.casting:format(self:SpellName(185510))) -- Dark Bindings, actual cast is called "Chains of Despair"
+	self:Message(185510, "orange", "Info", CL.casting:format(self:SpellName(185510))) -- Dark Bindings, actual cast is called "Chains of Despair"
 	self:Bar(185510, 30)
 end
 
@@ -276,7 +276,7 @@ do
 	function mod:DarkBindings(args)
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "Attention")
+			self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "yellow")
 		end
 		if self:Me(args.destGUID) then
 			self:Say(args.spellId)
@@ -292,7 +292,7 @@ do
 			SetRaidTarget(args.destName, 0)
 		end
 		if bindingsRemoved % 2 == 0 then -- 2 events per pair of bindings removed (player a and player b)
-			self:Message(args.spellId, "Neutral", nil, L.bindings_removed:format(bindingsRemoved/2))
+			self:Message(args.spellId, "cyan", nil, L.bindings_removed:format(bindingsRemoved/2))
 		end
 	end
 end
@@ -308,7 +308,7 @@ function mod:Stage2() -- Shadow Escape
 	self:StopBar(182323) -- Phantasmal Wounds
 	shadowEscapeCount = shadowEscapeCount + 1
 
-	self:Message("stages", "Neutral", "Info", ("%d%% - %s"):format(nextPhase, CL.phase:format(2)), false)
+	self:Message("stages", "cyan", "Info", ("%d%% - %s"):format(nextPhase, CL.phase:format(2)), false)
 	nextPhase = nextPhase - 25
 	self:ScheduleTimer("Stage1", self:Easy() and 50 or 40) -- event for when Iskar is attackable again?
 	self:Bar("stages", self:Easy() and 50 or 40, CL.phase:format(1), "achievement_boss_hellfire_felarakkoa")
@@ -327,7 +327,7 @@ end
 
 function mod:Stage1() -- Shadow Escape over
 	self:StopBar(181912) -- Focused Blast
-	self:Message("stages", "Neutral", "Info", CL.phase:format(1), false)
+	self:Message("stages", "cyan", "Info", CL.phase:format(1), false)
 	if self:Mythic() then
 		self:CDBar(185345, remainingRiposte) -- Shadow Riposte
 	end
@@ -342,7 +342,7 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and t-prev > 1.5 then
 			prev = t
-			self:Message(182582, "Personal", "Alert", CL.underyou:format(args.spellName))
+			self:Message(182582, "blue", "Alert", CL.underyou:format(args.spellName))
 		end
 	end
 end
@@ -354,7 +354,7 @@ function mod:UNIT_HEALTH_FREQUENT(event, unit)
 		if nextPhaseSoon < 20 then
 			self:UnregisterUnitEvent(event, unit)
 		end
-		self:Message("stages", "Neutral", nil, CL.soon:format(CL.phase:format(2)), false)
+		self:Message("stages", "cyan", nil, CL.soon:format(CL.phase:format(2)), false)
 	end
 end
 

@@ -188,21 +188,21 @@ end
 function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, _, spellId)
 	if spellId == 156991 then -- Throw Slag Bombs
 		if phase < 3 then
-			self:Message(156030, "Attention", self:Melee() and "Long")
+			self:Message(156030, "yellow", self:Melee() and "Long")
 			self:Bar(156030, 25)
 		end
 	elseif spellId == 156425 then -- Demolition
-		self:Message(spellId, "Urgent", "Alert")
+		self:Message(spellId, "orange", "Alert")
 		local massiveDemolition = self:SpellName(156479) -- Massive Demolition
 		local mythic = self:Mythic()
 		self:Bar(spellId, 6, CL.count:format(massiveDemolition, 1))
 		if mythic then
 			self:ScheduleTimer("Bar", 3, spellId, 6, CL.count:format(massiveDemolition, 2))
-			self:ScheduleTimer("Message", 3, spellId, "Urgent", "Alert", CL.count:format(massiveDemolition, 2))
+			self:ScheduleTimer("Message", 3, spellId, "orange", "Alert", CL.count:format(massiveDemolition, 2))
 			self:ScheduleTimer("Bar", 6, spellId, 6, CL.count:format(massiveDemolition, 3))
-			self:ScheduleTimer("Message", 6, spellId, "Urgent", "Alert", CL.count:format(massiveDemolition, 3))
+			self:ScheduleTimer("Message", 6, spellId, "orange", "Alert", CL.count:format(massiveDemolition, 3))
 			self:ScheduleTimer("Bar", 9, spellId, 6, CL.count:format(massiveDemolition, 4))
-			self:ScheduleTimer("Message", 9, spellId, "Urgent", "Alert", CL.count:format(massiveDemolition, 4))
+			self:ScheduleTimer("Message", 9, spellId, "orange", "Alert", CL.count:format(massiveDemolition, 4))
 		else
 			self:ScheduleTimer("Bar", 5, spellId, 6, CL.count:format(massiveDemolition, 2))
 			self:ScheduleTimer("Bar", 10, spellId, 6, CL.count:format(massiveDemolition, 3))
@@ -230,7 +230,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, _, spellId)
 			self:StopBar(156030) -- Throw Slag Bombs
 
 			phase = 2
-			self:Message("stages", "Neutral", "Long", CL.stage:format(phase), false)
+			self:Message("stages", "cyan", "Long", CL.stage:format(phase), false)
 		end
 	elseif spellId == 161348 then -- Jump To Third Floor
 		self:StopBar(CL.count:format(self:SpellName(128270), smashCount)) -- Shattering Smash (Smash)
@@ -245,7 +245,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, _, spellId)
 			self:CloseProximity(156728) -- Explosive Round
 		end
 
-		self:Message("stages", "Neutral", "Long", CL.stage:format(phase), false)
+		self:Message("stages", "cyan", "Long", CL.stage:format(phase), false)
 		self:Bar(157000, 12) -- Attach Slag Bombs
 		self:Bar(156096, 16) -- Marked for Death
 		self:CDBar(158054, 26, CL.count:format(self:SpellName(128270), smashCount)) -- Massive Shattering Smash, 128270 = "Smash"
@@ -258,7 +258,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, _, spellId)
 end
 
 function mod:ShatteringSmash(args)
-	self:Message(155992, "Urgent", "Warning", CL.count:format(self:SpellName(128270), smashCount)) -- 128270 = "Smash"
+	self:Message(155992, "orange", "Warning", CL.count:format(self:SpellName(128270), smashCount)) -- 128270 = "Smash"
 	smashCount = smashCount + 1
 	local cd = self:Mythic() and 30 or phase == 2 and 45 or (phase == 1 and smashCount == 2 and 35) or 30 -- this is getting a bit unwieldy
 	self:CDBar(155992, cd, CL.count:format(self:SpellName(128270), smashCount)) -- 128270 = "Smash"
@@ -269,7 +269,7 @@ do
 	function mod:MarkedForDeathApplied(args)
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessage", 0.2, args.spellId, list, phase == 3 and "Important" or "Attention", "Alarm", phase == 2 and CL.count:format(args.spellName, markCount), nil, phase == 3)
+			self:ScheduleTimer("TargetMessage", 0.2, args.spellId, list, phase == 3 and "red" or "yellow", "Alarm", phase == 2 and CL.count:format(args.spellName, markCount), nil, phase == 3)
 			self:Bar(156107, 5) -- Impaling Throw
 			markCount = markCount + 1
 			if markCount > 3 and not self:Mythic() then markCount = 1 end
@@ -305,7 +305,7 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and t-prev > 2 then
 			prev = t
-			self:Message(args.spellId, "Personal", "Info", CL.underyou:format(args.spellName))
+			self:Message(args.spellId, "blue", "Info", CL.underyou:format(args.spellName))
 		end
 	end
 end
@@ -313,17 +313,17 @@ end
 -- Stage 2
 
 function mod:Siegemaker(args)
-	self:Message("siegemaker", "Attention", nil, CL.count:format(self:SpellName(L.siegemaker), siegemakerCount), L.siegemaker_icon)
+	self:Message("siegemaker", "yellow", nil, CL.count:format(self:SpellName(L.siegemaker), siegemakerCount), L.siegemaker_icon)
 	siegemakerCount = siegemakerCount + 1
 	self:Bar("siegemaker", 50, CL.count:format(self:SpellName(L.siegemaker), siegemakerCount), L.siegemaker_icon)
 end
 
 function mod:BlackironPlatingRemoved(args)
-	self:Message(args.spellId, "Attention", "Info", CL.removed:format(args.spellName))
+	self:Message(args.spellId, "yellow", "Info", CL.removed:format(args.spellName))
 end
 
 function mod:Fixate(args)
-	self:TargetMessage(args.spellId, args.destName, "Attention", "Alert")
+	self:TargetMessage(args.spellId, args.destName, "yellow", "Alert")
 	if self:Me(args.destGUID) then
 		self:Say(args.spellId)
 	end
@@ -342,7 +342,7 @@ do
 		self:CDBar(158054, nextSmash, CL.count:format(self:SpellName(128270), smashCount)) -- 128270 = "Smash"
 	end
 	function mod:MassiveShatteringSmash(args)
-		self:Message(args.spellId, "Urgent", "Warning", CL.count:format(self:SpellName(128270), smashCount)) -- 128270 = "Smash"
+		self:Message(args.spellId, "orange", "Warning", CL.count:format(self:SpellName(128270), smashCount)) -- 128270 = "Smash"
 		smashCount = smashCount + 1
 		self:CDBar(args.spellId, 25, CL.count:format(self:SpellName(128270), smashCount)) -- 128270 = "Smash"
 		scheduled = self:ScheduleTimer(openSmashProximity, 22, self) -- 3 sec before + 2 sec cast should be enough
@@ -364,10 +364,10 @@ do
 		if count == 1 then
 			self:PlaySound(157000, "Alert") -- Play sound ASAP
 			self:Bar(157000, 25)
-			slagBombTimer = self:ScheduleTimer("TargetMessage", 1.8, 157000, list, "Urgent")
+			slagBombTimer = self:ScheduleTimer("TargetMessage", 1.8, 157000, list, "orange")
 		elseif count == 3 then
 			self:CancelTimer(slagBombTimer)
-			self:TargetMessage(157000, list, "Urgent")
+			self:TargetMessage(157000, list, "orange")
 		end
 	end
 	function mod:AttachSlagBombsOver(args)
@@ -378,17 +378,17 @@ do
 end
 
 function mod:SlagEruption(args)
-	self:Message(args.spellId, "Attention")
+	self:Message(args.spellId, "yellow")
 	self:Bar(args.spellId, 33)
 end
 
 function mod:MassiveExplosion(args)
-	self:Message(args.spellId, "Urgent", "Alarm")
+	self:Message(args.spellId, "orange", "Alarm")
 	self:Bar(args.spellId, 5)
 end
 
 function mod:FallingDebris(args)
-	self:Message(162585, "Important", "Alarm")
+	self:Message(162585, "red", "Alarm")
 	self:Bar(162585, 40)
 	self:Bar(162585, 6, CL.cast:format(args.spellName))
 end

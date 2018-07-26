@@ -1,28 +1,28 @@
 
 BigWigs:AddColors("Drov the Ruiner", {
-	[175791] = "Important",
-	[175827] = "Attention",
-	[175915] = "Personal",
+	[175791] = "red",
+	[175827] = "yellow",
+	[175915] = "blue",
 })
 
 BigWigs:AddColors("Tarlna the Ageless", {
-	[175973] = "Important",
-	[175979] = "Attention",
-	[176001] = "Personal",
-	[176013] = "Urgent",
-	[176037] = "Personal",
+	[175973] = "red",
+	[175979] = "yellow",
+	[176001] = "blue",
+	[176013] = "orange",
+	[176037] = "blue",
 })
 
 BigWigs:AddColors("Rukhmar", {
-	[167615] = {"Attention","Personal"},
-	[167647] = "Attention",
-	[167679] = "Urgent",
-	[167757] = "Personal",
+	[167615] = {"yellow","blue"},
+	[167647] = "yellow",
+	[167679] = "orange",
+	[167757] = "blue",
 })
 
 BigWigs:AddColors("Supreme Lord Kazzak", {
-	[187471] = {"Attention","Personal"},
-	[187664] = {"Personal","Urgent"},
-	[187668] = "Personal",
-	[187702] = "Important",
+	[187471] = {"yellow","blue"},
+	[187664] = {"blue","orange"},
+	[187668] = "blue",
+	[187702] = "red",
 })

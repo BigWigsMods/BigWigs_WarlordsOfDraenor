@@ -113,7 +113,7 @@ do
 
 	function mod:DemolishingLeapStart(args)
 		-- Start initial bar on buff gain (happens once) then every other bar on spell completion
-		self:Message(184366, "Important", nil, CL.incoming:format(args.spellName))
+		self:Message(184366, "red", nil, CL.incoming:format(args.spellName))
 		leapCount = leapCount + 1
 		self:Bar(184366, leapCount == 1 and 4.8 or 5.8, CL.count:format(args.spellName, leapCount))
 		if args.spellId == 184365 then
@@ -133,7 +133,7 @@ do
 		local t = GetTime()
 		if t-prev > 5 then
 			prev = t
-			self:Message(184449, "Attention")
+			self:Message(184449, "yellow")
 
 			if args.spellId == 184676 then -- 30% Mark of the Necromancer
 				self:StopBar(184476) -- Reap
@@ -152,7 +152,7 @@ do
 				prev = t
 				self:Say(184476)
 				self:OpenProximity(184476, 5) -- 5 yard guess
-				self:Message(184476, "Personal", "Alarm", ("%s (%s)"):format(CL.you:format(self:SpellName(184476)), self:SpellName(135856))) -- 135856 = Dispel
+				self:Message(184476, "blue", "Alarm", ("%s (%s)"):format(CL.you:format(self:SpellName(184476)), self:SpellName(135856))) -- 135856 = Dispel
 			end
 		end
 	end
@@ -162,9 +162,9 @@ function mod:Reap(args)
 	if self:UnitDebuff("player", self:SpellName(184449)) then -- Mark of the Necromancer
 		self:Say(args.spellId)
 		self:OpenProximity(args.spellId, 5) -- 5 yard guess
-		self:Message(args.spellId, "Personal", "Alarm", CL.you:format(args.spellName))
+		self:Message(args.spellId, "blue", "Alarm", CL.you:format(args.spellName))
 	else
-		self:Message(args.spellId, "Attention", "Info", CL.casting:format(args.spellName))
+		self:Message(args.spellId, "yellow", "Info", CL.casting:format(args.spellName))
 		self:Log("SPELL_AURA_APPLIED", "MarkOfTheNecromancerApplied", 184450, 185065, 185066)
 	end
 	self:Bar(args.spellId, 4, CL.cast:format(args.spellName))
@@ -180,7 +180,7 @@ end
 do
 	local timers = {0, 67, 76, 82} -- pretty consistent now
 	function mod:FelRage(args)
-		self:TargetMessage(184358, args.destName, "Urgent", "Warning")
+		self:TargetMessage(184358, args.destName, "orange", "Warning")
 		self:TargetBar(184358, 25, args.destName)
 		self:PrimaryIcon(184358, args.destName)
 
@@ -198,7 +198,7 @@ function mod:FelRageRemoved(args)
 end
 
 function mod:NightmareVisage(args)
-	self:Message(args.spellId, "Important", "Long")
+	self:Message(args.spellId, "red", "Long")
 	self:Bar(args.spellId, 16, CL.cast:format(args.spellName))
 	self:CDBar(args.spellId, 32) -- 32 - 35
 end
@@ -218,7 +218,7 @@ do
 
 	function mod:CHAT_MSG_RAID_BOSS_EMOTE(event, msg)
 		if msg:find("184681", nil, true) then
-			self:Message(184681, "Urgent", "Alert", CL.count:format(self:SpellName(184681), horrorCount))
+			self:Message(184681, "orange", "Alert", CL.count:format(self:SpellName(184681), horrorCount))
 			horrorCount = horrorCount + 1
 			startMirrorCD(self)
 		end
@@ -230,20 +230,20 @@ do
 	function mod:Bloodboil(args)
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "Attention", "Alarm")
+			self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "yellow", "Alarm")
 		end
 	end
 end
 
 function mod:BloodboilDose(args)
 	if self:Me(args.destGUID) and args.amount > 2 and self:Mythic() then
-		self:Message(args.spellId, "Personal", "Alert", CL.you:format(CL.count:format(args.spellName, args.amount)))
+		self:Message(args.spellId, "blue", "Alert", CL.you:format(CL.count:format(args.spellName, args.amount)))
 	end
 end
 
 function mod:AcidicWound(args)
 	if args.amount % 5 == 0 then
-		self:StackMessage(args.spellId, args.destName, args.amount, "Urgent")
+		self:StackMessage(args.spellId, args.destName, args.amount, "orange")
 	end
 end
 
@@ -261,7 +261,7 @@ do
 	end
 
 	function mod:MirrorImages(args)
-		self:Message(args.spellId, "Attention")
+		self:Message(args.spellId, "yellow")
 		startLeapCD(self)
 	end
 end
@@ -272,7 +272,7 @@ do
 		local t = GetTime()
 		if t-prev > 1.5 and self:Me(args.destGUID) then
 			prev = t
-			self:Message(184476, "Personal", "Alarm", CL.underyou:format(args.spellName))
+			self:Message(184476, "blue", "Alarm", CL.underyou:format(args.spellName))
 		end
 	end
 end
