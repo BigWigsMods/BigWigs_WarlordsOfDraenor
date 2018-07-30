@@ -141,7 +141,7 @@ function mod:ExplosiveShard(args)
 	end
 end
 
-function mod:BlackrockSpines(args)
+function mod:BlackrockSpines()
 	barrageCount = 1
 	self:CDBar(156877, 20.7) -- Blackrock Barrage, 20.7-23.3
 end
@@ -166,7 +166,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, _, spellId)
 	end
 end
 
-function mod:HungerDriveRemoved(args) -- Entering phase 1
+function mod:HungerDriveRemoved() -- Entering phase 1
 	frenzyCount = frenzyCount + 1
 	torrentCount = 1
 

@@ -340,7 +340,7 @@ end
 --	self:Message(args.spellId, "red")
 --end
 
-function mod:BelchFlame(args)
+function mod:BelchFlame()
 	self:Message(188101, "red")
 end
 

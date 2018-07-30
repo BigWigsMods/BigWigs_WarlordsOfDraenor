@@ -287,7 +287,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, _, spellId)
 	end
 end
 
-function mod:DiaDeath(args)
+function mod:DiaDeath()
 	diaIsDead = true
 	self:StopBar(184657) -- Nightmare Visage
 	self:StopBar(CL.cast:format(self:SpellName(184657))) -- Nightmare Visage cast
@@ -297,7 +297,7 @@ function mod:DiaDeath(args)
 	end
 end
 
-function mod:GurtoggDeath(args)
+function mod:GurtoggDeath()
 	gurtoggIsDead = true
 	if nextAbility == 3 then -- leap
 		startHorrorCD(self, nextAbilityTime - GetTime())

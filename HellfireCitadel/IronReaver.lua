@@ -239,7 +239,7 @@ function mod:FallingSlam(args)
 	self:Bar(args.spellId, self:Easy() and 9 or 6, CL.cast:format(args.spellName))
 end
 
-function mod:FallingSlamSuccess(args)
+function mod:FallingSlamSuccess()
 	phase = 1
 	blitzCount = 1
 	barrageCount = 1

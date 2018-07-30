@@ -180,7 +180,7 @@ function mod:UNIT_TARGETABLE_CHANGED(_, unit)
 				break
 			end
 		end
-		self:Message("stages", "cyan", "Info", mountId and UnitName(mountId) or self:SpellName(169650), false) -- 169650 = Mounted
+		self:Message("stages", "cyan", "Info", mountId and self:UnitName(mountId) or self:SpellName(169650), false) -- 169650 = Mounted
 		if not mountId then return end -- rip initial timers with 4x Chimearon pets
 
 		local mobId = self:MobId(UnitGUID(mountId))

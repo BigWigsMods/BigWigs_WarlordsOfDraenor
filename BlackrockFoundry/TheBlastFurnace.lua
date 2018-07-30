@@ -219,7 +219,7 @@ end
 do
 	-- Operators
 	local prev = 0
-	function mod:Loading(args)
+	function mod:Loading()
 		local t = GetTime()
 		if t-prev > 5 then
 			prev = t

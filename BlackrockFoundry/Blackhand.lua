@@ -257,7 +257,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, _, spellId)
 	end
 end
 
-function mod:ShatteringSmash(args)
+function mod:ShatteringSmash()
 	self:Message(155992, "orange", "Warning", CL.count:format(self:SpellName(128270), smashCount)) -- 128270 = "Smash"
 	smashCount = smashCount + 1
 	local cd = self:Mythic() and 30 or phase == 2 and 45 or (phase == 1 and smashCount == 2 and 35) or 30 -- this is getting a bit unwieldy
@@ -312,7 +312,7 @@ end
 
 -- Stage 2
 
-function mod:Siegemaker(args)
+function mod:Siegemaker()
 	self:Message("siegemaker", "yellow", nil, CL.count:format(self:SpellName(L.siegemaker), siegemakerCount), L.siegemaker_icon)
 	siegemakerCount = siegemakerCount + 1
 	self:Bar("siegemaker", 50, CL.count:format(self:SpellName(L.siegemaker), siegemakerCount), L.siegemaker_icon)
@@ -333,7 +333,7 @@ end
 
 do
 	local scheduled = nil
-	function mod:SmashReschedule(args)
+	function mod:SmashReschedule()
 		if scheduled then
 			self:CancelTimer(scheduled)
 		end

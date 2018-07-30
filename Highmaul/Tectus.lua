@@ -34,7 +34,6 @@ if L then
 	L.custom_on_shard_marker_desc = "Marks the two Shard of Tectus that spawn with {rt8}{rt7}, requires promoted or leader."
 	L.custom_on_shard_marker_icon = 8
 
-	L.tectus = EJ_GetEncounterInfo(1195)
 	L.shard = "Shard"
 	L.motes = "Motes"
 end
@@ -220,7 +219,7 @@ end
 
 do
 	local prev = 0
-	local names = { [78948] = L.tectus, [80551] = L.shard, [80557] = L.motes }
+	local names = { [78948] = mod.displayName, [80551] = L.shard, [80557] = L.motes }
 	function mod:TectonicUpheaval(args)
 		local t = GetTime()
 		local id = self:MobId(args.sourceGUID)
