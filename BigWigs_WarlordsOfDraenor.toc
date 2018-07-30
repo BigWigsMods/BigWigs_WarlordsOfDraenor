@@ -29,6 +29,7 @@
 
 ## X-Category: Raid
 ## X-License: All Rights Reserved: You are free to fork and modify on GitHub, please ask us about anything else.
+## X-Website: https://github.com/BigWigsMods/BigWigs_WarlordsOfDraenor
 ## X-Curse-Project-ID: 101160
 ## X-WoWI-ID: 24167
 ## X-BigWigs-ExtraMenu: -572
