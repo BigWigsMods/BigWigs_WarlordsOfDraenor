@@ -494,7 +494,7 @@ do
 	function mod:Branded(args)
 		brandedMarks[#brandedMarks+1] = args.destName
 
-		local _, amount = self:UnitDebuff(self:Me(args.destGUID) and "player" or args.destName, args.spellName)
+		local _, amount = self:UnitDebuff(self:Me(args.destGUID) and "player" or args.destName, args.spellName, args.spellId)
 		if not amount then amount = 0 end -- don't show count or distance (never got any reports of this happening, but just to make sure)
 		local isFortification = args.spellId == 164005 or (self:Mythic() and phase == 3)
 		local jumpDistance = (isFortification and 0.75 or 0.5)^(amount - 1) * 200 -- Fortification takes longer to get rid of
