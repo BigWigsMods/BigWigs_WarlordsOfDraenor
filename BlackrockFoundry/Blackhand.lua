@@ -122,7 +122,7 @@ end
 -- Event Handlers
 --
 
-function mod:UNIT_TARGET(_, unit)
+function mod:UNIT_TARGET()
 	local newTarget = self:UnitName("boss1target")
 	-- No target or target isn't a tank
 	if not newTarget or not self:Tank(newTarget) then return end

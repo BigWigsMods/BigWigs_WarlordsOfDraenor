@@ -145,7 +145,7 @@ function mod:EyeOfAnzu(args)
 end
 
 do
-	local function printTarget(self, name, guid)
+	local function printTarget(self, name)
 		self:TargetMessage(185345, name, "red", "Long") -- Warning is used in Eye+Winds events, so Long here to be distinct
 	end
 	function mod:ShadowRiposte(args)
@@ -162,7 +162,7 @@ end
 
 do
 	local isOnMe = nil
-	local function warn(self, spellName)
+	local function warn(self)
 		if isOnMe then
 			self:TargetMessage(181956, isOnMe, "blue" , "Alarm")
 		else
@@ -173,7 +173,7 @@ do
 	function mod:PhantasmalWindsApplied(args)
 		windTargets[#windTargets + 1] = args.destName
 		if #windTargets == 1 then
-			self:ScheduleTimer(warn, 0.3, self, args.spellName)
+			self:ScheduleTimer(warn, 0.3, self)
 			self:CDBar(181956, self:Easy() and 45 or 36)
 		end
 		if self:Me(args.destGUID) then
@@ -243,7 +243,7 @@ function mod:FelConduit(args)
 	self:CDBar(181827, self:Easy() and 19.3 or 15.9)
 end
 
-function mod:RAID_BOSS_WHISPER(event, msg)
+function mod:RAID_BOSS_WHISPER(_, msg)
 	if msg:find(182582) then -- Fel Incineration
 		self:Message(182582, "blue", "Alarm", CL.you:format(self:SpellName(182582)))
 		self:Say(182582)

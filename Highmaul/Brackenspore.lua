@@ -183,7 +183,7 @@ function mod:Decay(args)
 	self:Bar(args.spellId, 9.5, CL.count:format(args.spellName, decayCount))
 end
 
-function mod:SporeShooter(args)
+function mod:SporeShooter()
 	self:Message("spore_shooter", "yellow", self:Damager() and "Info", CL.small_adds, L.spore_shooter_icon)
 	self:Bar("spore_shooter", 60, CL.small_adds, L.spore_shooter_icon)
 	if self.db.profile.custom_off_spore_shooter_marker then -- Marking

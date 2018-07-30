@@ -364,7 +364,7 @@ function mod:BellowingShout(args)
 end
 
 do
-	local function printTarget(self, name, guid)
+	local function printTarget(self, name)
 		self:TargetMessage(187814, name, "red", "Alert", nil, nil, self:Tank() or self:Damager())
 	end
 	function mod:RagingCharge(args)

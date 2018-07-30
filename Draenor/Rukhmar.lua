@@ -86,7 +86,7 @@ function mod:LooseQuillsOver(args)
 	self:Message(args.spellId, "yellow", nil, CL.over:format(args.spellName))
 end
 
-function mod:BOSS_KILL(event, id)
+function mod:BOSS_KILL(_, id)
 	if id == 1755 then
 		self:Win()
 	end

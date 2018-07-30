@@ -355,7 +355,7 @@ do
 		self:Bar(181597, 47, args.spellName)
 	end
 
-	local function gazeSay(self, spellName)
+	local function gazeSay(self)
 		timer = nil
 		sort(list)
 		for i = 1, #list do
@@ -382,10 +382,10 @@ do
 
 		list[#list+1] = args.destName
 		if #list == 1 then
-			timer = self:ScheduleTimer(gazeSay, 2, self, args.spellName) -- Large delays sometimes.
+			timer = self:ScheduleTimer(gazeSay, 2, self) -- Large delays sometimes.
 		elseif timer and #list == 3 then
 			self:CancelTimer(timer)
-			gazeSay(self, args.spellName)
+			gazeSay(self)
 		end
 	end
 

@@ -116,7 +116,7 @@ function mod:OnBossEnable()
 	self:Death("FaultlineDies", 76946)
 end
 
-function mod:OnEngage(diff)
+function mod:OnEngage()
 	phase = 1
 	conflagMark = 1
 	tantrumCount = 1
@@ -345,7 +345,7 @@ function mod:SavageHowl(args)
 end
 
 do
-	function mod:Conflagration(args)
+	function mod:Conflagration()
 		conflagMark = 1
 		self:Bar(154981, 20)
 	end
@@ -381,7 +381,7 @@ function mod:CrushArmor(args)
 	self:StackMessage(args.spellId, args.destName, args.amount, "yellow", args.amount and "Warning")
 end
 
-function mod:Epicenter(args)
+function mod:Epicenter()
 	self:Message(159043, "orange")
 	self:CDBar(159043, 19)
 end

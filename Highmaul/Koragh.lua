@@ -201,7 +201,7 @@ function mod:ExpelMagicShadow(args)
 end
 
 do
-	local function printTarget(self, name, guid)
+	local function printTarget(self, _, guid)
 		if self:Me(guid) then
 			self:Message(162186, "blue", "Warning", CL.casting:format(CL.you:format(self:SpellName(162186))))
 		else

@@ -219,7 +219,7 @@ end
 --	self:ScheduleTimer(checkBoat, 6)
 --end
 
-function mod:ShipPhase(msg, sender)
+function mod:ShipPhase(_, sender)
 	shipCount = shipCount + 1
 	self:Message("ship", "cyan", "Info", CL.other:format(L.ship, sender), false)
 	if sender == self:SpellName(-10025) then -- Gar'an
@@ -273,7 +273,7 @@ function mod:EarthenBarrier(args)
 end
 
 do
-	local function printTarget(self, name, guid)
+	local function printTarget(self, name)
 		self:TargetMessage(158692, name, "orange", "Alert", nil, nil, self:Tank())
 	end
 	function mod:DeadlyThrow(args)
@@ -286,7 +286,7 @@ end
 
 -- Gar'an
 
-function mod:RAID_BOSS_WHISPER(_, msg, sender)
+function mod:RAID_BOSS_WHISPER(_, msg)
 	if msg:find("156626", nil, true) then -- Rapid Fire
 		local text = CL.you:format(self:SpellName(156631))
 		self:Message(156631, "blue", "Alarm", text)

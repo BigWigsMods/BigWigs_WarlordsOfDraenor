@@ -3,7 +3,7 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("Supreme Lord Kazzak", -534, 1452)
+local mod = BigWigs:NewBoss("Supreme Lord Kazzak", -534, 1452)
 if not mod then return end
 mod:RegisterEnableMob(94015)
 mod.otherMenu = -572
@@ -114,13 +114,13 @@ function mod:MarkOfKazzakRemoved(args)
 	end
 end
 
-function mod:RAID_BOSS_EMOTE(event, msg)
+function mod:RAID_BOSS_EMOTE(_, msg)
 	if msg:find("187702", nil, true) then -- hidden cast, has unit event
 		self:Message(187702, "red", "Long")
 	end
 end
 
-function mod:BOSS_KILL(event, id)
+function mod:BOSS_KILL(_, id)
 	if id == 1801 then
 		self:Win()
 	end

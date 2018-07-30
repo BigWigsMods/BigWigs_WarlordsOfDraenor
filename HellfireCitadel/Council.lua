@@ -216,7 +216,7 @@ do
 		end
 	end
 
-	function mod:CHAT_MSG_RAID_BOSS_EMOTE(event, msg)
+	function mod:CHAT_MSG_RAID_BOSS_EMOTE(_, msg)
 		if msg:find("184681", nil, true) then
 			self:Message(184681, "orange", "Alert", CL.count:format(self:SpellName(184681), horrorCount))
 			horrorCount = horrorCount + 1

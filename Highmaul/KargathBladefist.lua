@@ -108,7 +108,7 @@ function mod:OnTheHunt(args)
 end
 
 do
-	local function printTarget(self, name, guid)
+	local function printTarget(self, name)
 		self:TargetMessage(159113, name, "orange", "Warning", nil, nil, true)
 		self:TargetBar(159113, 10.2, name) -- cast+channel (10.25 - 0.05)
 	end
@@ -152,7 +152,7 @@ function mod:BerserkerRushRemoved(args)
 	self:PrimaryIcon(args.spellId)
 end
 
-function mod:FirePillar(args)
+function mod:FirePillar()
 	self:Bar(-9394, 20) -- Fire Pillar
 end
 

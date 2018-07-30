@@ -435,7 +435,7 @@ function mod:PhaseEnd()
 	end
 end
 
-function mod:DisplacementPhaseStart(args)
+function mod:DisplacementPhaseStart()
 	if not self:Mythic() then
 		self:ResumeBar(156238) -- Arcane Wrath
 		self:CDBar(156467, 15) -- Destructive Resonance
@@ -475,7 +475,7 @@ function mod:ArcaneAberration(args)
 	end
 end
 
-function mod:ArcaneWrath(args)
+function mod:ArcaneWrath()
 	self:Message(156238, "orange", self:Healer() and "Alert")
 	self:Bar(156238, 50)
 	wipe(brandedMarks)
@@ -540,7 +540,7 @@ do
 	local mineTimes = {
 		[3] = { 24, 15.8, 24, 19.4, 28, 23 },
 	}
-	function mod:DestructiveResonance(args)
+	function mod:DestructiveResonance()
 		self:Message(156467, "red", self:Ranged() and "Warning")
 		local t = mineCount == 1 and 24 or (not self:Mythic() and mineTimes[phase] and mineTimes[phase][mineCount]) or 15.8
 		self:CDBar(156467, t)
@@ -597,7 +597,7 @@ function mod:MarkOfChaosApplied(args)
 	updateProximity()
 end
 
-function mod:MarkOfChaosRemoved(args)
+function mod:MarkOfChaosRemoved()
 	markOfChaosTarget = nil
 	self:PrimaryIcon(158605)
 	self:CloseProximity(158605)
@@ -627,7 +627,7 @@ do
 		self:ScheduleTimer(nextAdd, 2, self)
 	end
 
-	function mod:IntermissionEnd(args)
+	function mod:IntermissionEnd()
 		self:Message("stages", "cyan", "Long", CL.phase:format(phase), false)
 	end
 end
@@ -687,7 +687,7 @@ function mod:KickToTheFace(args)
 	self:CDBar(args.spellId, 20) -- 20-30
 end
 
-function mod:ReaverDeath(args)
+function mod:ReaverDeath()
 	self:StopBar(158553)
 	self:StopBar(158563)
 end
