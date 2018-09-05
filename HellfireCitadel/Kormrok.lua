@@ -33,7 +33,7 @@ function mod:GetOptions()
 		181208, -- Shadow Residue
 		--[[ General ]]--
 		181307, -- Foul Crush
-		{181306, "PROXIMITY", "FLASH", "SAY"}, -- Explosive Burst
+		{181306, "PROXIMITY", "FLASH", "SAY", "ICON"}, -- Explosive Burst
 		{181305, "TANK_HEALER"}, -- Swat
 		{181299, "PROXIMITY"}, -- Grasping Hands
 		181296, -- Explosive Runes
@@ -252,7 +252,7 @@ function mod:FelOutpouring(args)
 	self:Message(181292, "yellow", "Long", args.spellId)
 	if self:LFR() then
 		if shadowCount > 0 then
-			self:CDBar(args.spellId, 45) -- No Empowered on LFR
+			self:CDBar(181292, 45) -- No Empowered on LFR
 		end
 	elseif phase == 3 and phaseAbilityCount == 1 then -- Shadow
 		self:CDBar(181292, 108 * enrageMod, shadowCount > 0 and 181293) -- [Empowered] Fel Outpouring
@@ -265,7 +265,7 @@ function mod:ExplosiveRunes(args)
 	self:Message(181296, "orange", "Info", args.spellId)
 	if self:LFR() then
 		if explosiveCount > 0 then
-			self:CDBar(args.spellId, 35) -- No Empowered on LFR
+			self:CDBar(181296, 35) -- No Empowered on LFR
 		end
 	elseif phase == 1 and phaseAbilityCount == 1 then -- Explosive
 		self:CDBar(181296, 108 * enrageMod, explosiveCount > 0 and 181297) -- [Empowered] Explosive Runes
@@ -273,8 +273,8 @@ function mod:ExplosiveRunes(args)
 end
 
 do
-	local function closeProx(self, id)
-		self:CloseProximity(id)
+	local function closeProx(self)
+		self:CloseProximity(181299)
 		if self:Ranged() then
 			self:OpenProximity("proximity", 4)
 		end
@@ -286,12 +286,12 @@ do
 		self:OpenProximity(181299, 4)
 		if self:LFR() then
 			if foulCount > 0 then
-				self:CDBar(args.spellId, 35) -- No Empowered (Dragging) on LFR
+				self:CDBar(181299, 35) -- No Empowered (Dragging) on LFR
 			end
 		elseif phase == 2 and phaseAbilityCount == 1 then -- Foul
 			self:CDBar(181299, 108 * enrageMod, foulCount > 0 and 181300) -- Grasping Hands / Dragging Hands
 		end
-		self:ScheduleTimer(closeProx, 6, self, 181299) -- Hands spawn delayed and you still have time to move
+		self:ScheduleTimer(closeProx, 6, self) -- Hands spawn delayed and you still have time to move
 	end
 end
 

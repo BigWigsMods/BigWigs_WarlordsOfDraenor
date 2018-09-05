@@ -1,14 +1,14 @@
 
 BigWigs:AddColors("Kargath Bladefist", {
 	[-9396] = "cyan",
-	[158986] = {"red","blue"},
+	[158986] = {"blue","red"},
 	[159113] = {"blue","orange"},
 	[159250] = "yellow",
 	[159311] = "blue",
 	[159413] = "blue",
-	[159947] = {"yellow","blue","orange"},
+	[159947] = {"blue","orange","yellow"},
 	[160521] = "yellow",
-	[162497] = {"red","blue"},
+	[162497] = {"blue","red"},
 	["arena_sweeper"] = "orange",
 })
 
@@ -19,7 +19,7 @@ BigWigs:AddColors("The Butcher", {
 	[156157] = "yellow",
 	[156197] = "orange",
 	[163046] = "blue",
-	["frenzy"] = {"red","cyan"},
+	["frenzy"] = {"cyan","red"},
 })
 
 BigWigs:AddColors("Tectus", {
@@ -29,7 +29,7 @@ BigWigs:AddColors("Tectus", {
 	[162518] = "red",
 	[162892] = {"blue","orange"},
 	[162894] = "orange",
-	[162968] = {"yellow","blue"},
+	[162968] = {"blue","yellow"},
 	[163312] = "orange",
 	["adds"] = "yellow",
 })
@@ -38,7 +38,7 @@ BigWigs:AddColors("Brackenspore", {
 	[159219] = "orange",
 	[159996] = "red",
 	[160013] = "blue",
-	[163241] = {"yellow","blue"},
+	[163241] = {"blue","yellow"},
 	[163755] = "orange",
 	[163794] = "orange",
 	[164125] = "red",
@@ -59,40 +59,40 @@ BigWigs:AddColors("Twin Ogron", {
 	[158241] = "blue",
 	[158385] = "orange",
 	[158521] = "yellow",
-	[163297] = {"cyan","blue"},
+	[163297] = {"blue","cyan"},
 	[163372] = "cyan",
-	[167200] = {"cyan","blue"},
+	[167200] = {"blue","cyan"},
 	["volatility_self"] = "blue",
 })
 
 BigWigs:AddColors("Ko'ragh", {
 	[160734] = {"cyan","green"},
 	[161242] = {"blue","green"},
-	[161328] = {"yellow","blue"},
+	[161328] = {"blue","yellow"},
 	[161612] = "green",
 	[162184] = "yellow",
 	[162185] = "red",
 	[162186] = {"blue","orange"},
 	[163472] = {"blue","orange"},
-	[172747] = {"cyan","blue"},
-	[172895] = {"yellow","blue"},
+	[172747] = {"blue","cyan"},
+	[172895] = {"blue","yellow"},
 	["volatile_anomaly"] = "yellow",
 })
 
 BigWigs:AddColors("Imperator Mar'gok", {
 	[-9921] = "cyan",
-	[156225] = {"yellow","blue"},
+	[156225] = {"blue","yellow"},
 	[156238] = "orange",
 	[156467] = "red",
 	[156471] = "yellow",
 	[157349] = "orange",
 	[157763] = "blue",
-	[157801] = {"yellow","red","blue"},
-	[158553] = {"yellow","blue"},
+	[157801] = {"blue","red","yellow"},
+	[158553] = {"blue","yellow"},
 	[158563] = "orange",
 	[158605] = {"blue","orange"},
-	[159515] = {"yellow","blue"},
-	[165102] = {"yellow","blue"},
+	[159515] = {"blue","yellow"},
+	[165102] = {"blue","yellow"},
 	[165116] = "green",
 	[165243] = "yellow",
 	[165595] = "blue",

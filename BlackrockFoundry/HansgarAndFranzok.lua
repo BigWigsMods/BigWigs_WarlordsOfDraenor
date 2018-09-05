@@ -25,7 +25,7 @@ function mod:GetOptions()
 		--[[ Mythic ]]--
 		162124, -- Smart Stampers
 		--[[ General ]]--
-		160838, -- Disrupting Roar
+		{160838, "FLASH"}, -- Disrupting Roar
 		{153470, "HEALER"}, -- Skullcracker
 		{156938, "TANK_HEALER", "FLASH"}, -- Crippling Suplex
 		157139, -- Shattered Vertebrae
@@ -169,16 +169,16 @@ function mod:DisruptingRoar(args)
 		local _, _, _, _, endTime = UnitCastingInfo(unit)
 		local cast = endTime and (endTime / 1000 - GetTime()) or 0
 		if cast > 1 then
-			self:Bar(args.spellId, cast, CL.cast:format(args.spellName))
+			self:Bar(160838, cast, CL.cast:format(args.spellName))
 		end
 	end
 
-	self:Message(args.spellId, "orange", nil, CL.casting:format(args.spellName))
+	self:Message(160838, "orange", nil, CL.casting:format(args.spellName))
 	if self:Ranged() then
-		self:PlaySound(args.spellId, "Long")
-		self:Flash(args.spellId)
+		self:PlaySound(160838, "Long")
+		self:Flash(160838)
 	end
-	self:CDBar(args.spellId, 46)
+	self:CDBar(160838, 46)
 end
 
 function mod:Skullcracker(args)

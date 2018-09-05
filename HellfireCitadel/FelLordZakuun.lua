@@ -207,15 +207,15 @@ end
 
 do
 	local list, isOnMe, timer = {}, nil, nil
-	local function seedSay(self, spellId)
+	local function seedSay(self)
 		timer = nil
 		sort(list)
 		for i = 1, #list do
 			local target = list[i]
 			if target == isOnMe then
-				self:Say(spellId, self:LFR() and L.seed or CL.count_rticon:format(L.seed, i, i))
-				self:Flash(spellId, i)
-				self:TargetMessage(spellId, target, "green", "Alarm", not self:LFR() and CL.count_icon:format(L.seed, i, i))
+				self:Say(181508, self:LFR() and L.seed or CL.count_rticon:format(L.seed, i, i))
+				self:Flash(181508, i)
+				self:TargetMessage(181508, target, "green", "Alarm", not self:LFR() and CL.count_icon:format(L.seed, i, i))
 			end
 			if self:GetOption("custom_off_seed_marker") then
 				SetRaidTarget(target, i)
@@ -223,7 +223,7 @@ do
 			list[i] = self:ColorName(target)
 		end
 		if not isOnMe then
-			self:TargetMessage(spellId, list, "yellow")
+			self:TargetMessage(181508, list, "yellow")
 		else
 			wipe(list)
 		end
@@ -243,10 +243,10 @@ do
 				self:CDBar(181508, 14.5)
 			end
 			self:Bar(181508, 5, 84474, "spell_shadow_seedofdestruction") -- 84474 = "Explosion"
-			timer = self:ScheduleTimer(seedSay, self:Mythic() and 1 or 0.4, self, 181508)
+			timer = self:ScheduleTimer(seedSay, self:Mythic() and 1 or 0.4, self)
 		elseif timer and #list == 5 then -- Seeds scale with players on non-Mythic
 			self:CancelTimer(timer)
-			seedSay(self, 181508)
+			seedSay(self)
 		end
 	end
 

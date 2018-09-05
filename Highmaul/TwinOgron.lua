@@ -52,7 +52,7 @@ function mod:GetOptions()
 		--[[ Pol ]]--
 		{143834, "TANK"}, -- Shield Bash
 		158134, -- Shield Charge
-		158093, -- Interrupting Shout
+		{158093, "FLASH"}, -- Interrupting Shout
 		{158385, "PROXIMITY"}, -- Pulverize
 		--[[ Phemos ]]--
 		{158521, "TANK"}, -- Double Slash

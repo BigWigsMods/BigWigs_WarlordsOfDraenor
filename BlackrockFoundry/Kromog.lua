@@ -195,7 +195,7 @@ end
 function mod:RipplingSmash(args)
 	self:Message(157592, "orange", "Alert")
 	if args.spellId == 157592 then
-		self:CDBar(args.spellId, self:Mythic() and 41 or 24) -- 22-29
+		self:CDBar(157592, self:Mythic() and 41 or 24) -- 22-29
 	end
 	-- second cast is always skipped in mythic, it comes off cd during a stone breath->pillars->call combo
 	-- next cast happens 72-88s after pillars, so what happened to the third cast? sigh.

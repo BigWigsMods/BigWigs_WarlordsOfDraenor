@@ -14,14 +14,14 @@ BigWigs:AddColors("Tarlna the Ageless", {
 })
 
 BigWigs:AddColors("Rukhmar", {
-	[167615] = {"yellow","blue"},
+	[167615] = {"blue","yellow"},
 	[167647] = "yellow",
 	[167679] = "orange",
 	[167757] = "blue",
 })
 
 BigWigs:AddColors("Supreme Lord Kazzak", {
-	[187471] = {"yellow","blue"},
+	[187471] = {"blue","yellow"},
 	[187664] = {"blue","orange"},
 	[187668] = "blue",
 	[187702] = "red",

@@ -49,7 +49,7 @@ function mod:GetOptions()
 		--[[ Soulbound Construct (Phase 1) ]]--
 		180008, -- Reverberating Blow
 		182038, -- Shattered Defenses
-		{180221, "SAY"}, -- Volatile Fel Orb
+		{180221, "SAY", "FLASH"}, -- Volatile Fel Orb
 		{182051, "SAY"}, -- Felblaze Charge
 		182218, -- Felblaze Residue
 		181288, -- Fel Prison

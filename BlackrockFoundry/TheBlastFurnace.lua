@@ -93,7 +93,7 @@ function mod:GetOptions()
 		"custom_on_shieldsdown_marker",
 		{155173, "DISPEL"}, -- Reactive Earth Shield
 		--[[ Slag Elemental ]]--
-		-10324, -- Fixate
+		{-10324, "FLASH"}, -- Fixate
 		{177744, "PROXIMITY"}, -- Burn on fixated target (Mythic)
 		176141, -- Hardened Slag (Mythic)
 		176133, -- Slag Bomb

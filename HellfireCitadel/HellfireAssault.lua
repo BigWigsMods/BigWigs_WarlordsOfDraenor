@@ -198,7 +198,7 @@ end
 function mod:GetOptions()
 	return {
 		--[[ Mar'tak ]]--
-		{184369, "FLASH", "SAY"}, -- Howling Axe
+		{184369, "FLASH", "SAY", "PROXIMITY"}, -- Howling Axe
 		184394, -- Shockwave
 		185090, -- Inspiring Presence
 		--[[ Reinforcements ]]--
