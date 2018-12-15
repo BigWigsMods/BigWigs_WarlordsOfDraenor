@@ -7,7 +7,7 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("Hellfire Assault", 1026, 1426)
+local mod, CL = BigWigs:NewBoss("Hellfire Assault", 1448, 1426)
 if not mod then return end
 mod:RegisterEnableMob(93023, 90019) -- Siegemaster Mar'tak, Reinforced Hellfire Door
 mod.engageId = 1778
@@ -266,7 +266,7 @@ do
 	function mod:HowlingAxe(args)
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "Attention", "Alarm")
+			self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "yellow", "Alarm")
 		end
 		if self:Me(args.destGUID) then
 			self:Say(args.spellId)
@@ -286,32 +286,32 @@ function mod:HowlingAxeRemoved(args)
 end
 
 function mod:Shockwave(args)
-	self:Message(args.spellId, "Urgent", "Info", CL.casting:format(args.spellName))
+	self:Message(args.spellId, "orange", "Info", CL.casting:format(args.spellName))
 	self:Bar(args.spellId, 8.5)
 end
 
-do
-	local prev = 0
-	function mod:InspiringPresence(args)
-		local t = GetTime()
-		if t-prev > 3 then
-			prev = t
-			self:Message(args.spellId, "Positive")
-			self:Bar(args.spellId, 15)
-		end
-	end
-end
+--do
+--	local prev = 0
+--	function mod:InspiringPresence(args)
+--		local t = GetTime()
+--		if t-prev > 3 then
+--			prev = t
+--			self:Message(args.spellId, "green")
+--			self:Bar(args.spellId, 15)
+--		end
+--	end
+--end
 
 function mod:Slam(args)
-	self:StackMessage(args.spellId, args.destName, args.amount, "Urgent")
+	self:StackMessage(args.spellId, args.destName, args.amount, "orange")
 end
 
 function mod:Cower(args)
-	self:Message(args.spellId, "Urgent", "Info", CL.casting:format(args.spellName))
+	self:Message(args.spellId, "orange", "Info", CL.casting:format(args.spellName))
 end
 
 function mod:Repair(args)
-	self:Message(args.spellId, "Important", "Alert", CL.casting:format(args.spellName))
+	self:Message(args.spellId, "red", "Alert", CL.casting:format(args.spellName))
 end
 
 do
@@ -319,43 +319,43 @@ do
 	function mod:ConductedShockPulse(args)
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "Attention")
+			self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "yellow")
 		end
 	end
 end
 
 function mod:Metamorphosis(args)
-	self:Message(args.spellId, "Positive")
+	self:Message(args.spellId, "green")
 end
 
-function mod:FelfireVolley(args)
-	self:Message(180417, "Urgent", "Info", CL.casting:format(args.spellName))
-end
+--function mod:FelfireVolley(args)
+--	self:Message(180417, "orange", "Info", CL.casting:format(args.spellName))
+--end
 
 function mod:SiegeNova(args)
-	self:Message(args.spellId, "Urgent", "Long", CL.incoming:format(args.spellName))
+	self:Message(args.spellId, "orange", "Long", CL.incoming:format(args.spellName))
 end
 
-function mod:Flameorb(args)
-	self:Message(args.spellId, "Important")
-end
+--function mod:Flameorb(args)
+--	self:Message(args.spellId, "red")
+--end
 
-function mod:BelchFlame(args)
-	self:Message(188101, "Important")
+function mod:BelchFlame()
+	self:Message(188101, "red")
 end
 
 function mod:CallToArms(args)
-	self:Message(args.spellId, "Attention")
+	self:Message(args.spellId, "yellow")
 	self:Bar(args.spellId, 9)
 end
 
 function mod:Crush(args)
-	self:Message(args.spellId, "Urgent", "Long", CL.incoming:format(args.spellName))
+	self:Message(args.spellId, "orange", "Long", CL.incoming:format(args.spellName))
 end
 
 do
 	local function printTarget(self, name, guid)
-		self:TargetMessage(190748, name, "Attention", "Info", nil, nil, true)
+		self:TargetMessage(190748, name, "yellow", "Info", nil, nil, true)
 		if self:Me(guid) then
 			self:Say(190748)
 			self:Flash(190748)
@@ -379,7 +379,7 @@ function mod:StartVehicleTimer(lane, count)
 	local length = floor(time - (GetTime() - engageTime))
 	local pos = lane == 1 and L.left or lane == 2 and L.middle or L.right
 
-	self:DelayedMessage("siegevehicles", length, "Neutral", CL.incoming:format(pos:format(self:SpellName(L[type]))), L[type.."_icon"], "Info")
+	self:DelayedMessage("siegevehicles", length, "cyan", CL.incoming:format(pos:format(self:SpellName(L[type]))), L[type.."_icon"], "Info")
 	self:Bar("siegevehicles", length, pos:format(self:SpellName(L[type])), L[type.."_icon"])
 	self:ScheduleTimer("StartVehicleTimer", length, lane, count+1)
 end
@@ -396,7 +396,7 @@ function mod:StartAddTimer(lane, count)
 	local length = floor(time - (GetTime() - engageTime))
 	local pos = lane == 1 and L.left or lane == 2 and L.middle or L.right
 
-	self:DelayedMessage("adds", length, "Neutral", CL.spawned:format(pos:format(type == "adds" and L[type] or self:SpellName(L[type]))), L[type.."_icon"])
+	self:DelayedMessage("adds", length, "cyan", CL.spawned:format(pos:format(type == "adds" and L[type] or self:SpellName(L[type]))), L[type.."_icon"])
 	self:Bar("adds", length, pos:format(type == "adds" and L[type] or self:SpellName(L[type])), L[type.."_icon"])
 	self:ScheduleTimer("StartAddTimer", length, lane, count+1)
 end

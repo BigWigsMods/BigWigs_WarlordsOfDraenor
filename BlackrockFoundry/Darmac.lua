@@ -3,7 +3,7 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("Beastlord Darmac", 988, 1122)
+local mod, CL = BigWigs:NewBoss("Beastlord Darmac", 1205, 1122)
 if not mod then return end
 mod:RegisterEnableMob(76865, 76884, 76874, 76945, 76946) -- Darmac, Cruelfang, Dreadwing, Ironcrusher, Faultline (Mythic)
 mod.engageId = 1694
@@ -116,7 +116,7 @@ function mod:OnBossEnable()
 	self:Death("FaultlineDies", 76946)
 end
 
-function mod:OnEngage(diff)
+function mod:OnEngage()
 	phase = 1
 	conflagMark = 1
 	tantrumCount = 1
@@ -165,7 +165,7 @@ function mod:FaultlineDies() -- Mythic Clefthoof
 	self:CDBar(155321, 21) -- Unstoppable
 end
 
-function mod:UNIT_TARGETABLE_CHANGED(unit)
+function mod:UNIT_TARGETABLE_CHANGED(_, unit)
 	if not UnitExists(unit) then -- Mount
 		self:StopBar(155061) -- Rend and Tear
 		self:StopBar(155499) -- Superheated Shrapnel
@@ -180,7 +180,7 @@ function mod:UNIT_TARGETABLE_CHANGED(unit)
 				break
 			end
 		end
-		self:Message("stages", "Neutral", "Info", mountId and UnitName(mountId) or self:SpellName(169650), false) -- 169650 = Mounted
+		self:Message("stages", "cyan", "Info", mountId and self:UnitName(mountId) or self:SpellName(169650), false) -- 169650 = Mounted
 		if not mountId then return end -- rip initial timers with 4x Chimearon pets
 
 		local mobId = self:MobId(UnitGUID(mountId))
@@ -200,20 +200,20 @@ function mod:UNIT_TARGETABLE_CHANGED(unit)
 			self:CDBar(155321, 11) -- Unstoppable
 		end
 	else -- Dismount
-		self:Message("stages", "Neutral", "Info", 45874, false) -- 45874 = Mount Dismount
+		self:Message("stages", "cyan", "Info", 45874, false) -- 45874 = Mount Dismount
 	end
 end
 
-function mod:UNIT_HEALTH_FREQUENT(unit)
+function mod:UNIT_HEALTH_FREQUENT(event, unit)
 	if self:MobId(UnitGUID(unit)) == 76865 then -- Darmac
 		local hp = UnitHealth(unit) / UnitHealthMax(unit) * 100
 		-- Warnings for 85%, 65%, 45%, and 25% for mythic
 		if (phase == 1 and hp < 90) or (phase == 2 and hp < 71) or (phase == 3 and hp < 50) or (phase == 4 and hp < 30) then
 			phase = phase + 1
 			if phase > (self:Mythic() and 4 or 3) then
-				self:UnregisterUnitEvent("UNIT_HEALTH_FREQUENT", unit)
+				self:UnregisterUnitEvent(event, unit)
 			end
-			self:Message("stages", "Neutral", "Info", L.next_mount, false)
+			self:Message("stages", "cyan", "Info", L.next_mount, false)
 		end
 	end
 end
@@ -223,7 +223,7 @@ do
 	-- The behaviour for this ability is odd in that the boss will swap target to
 	-- the player it is going to cast the ability on, and then drop its target immediately
 	-- afterwards. Use this method to minimize the chance of missing the target.
-	function mod:BreathTarget(unit)
+	function mod:BreathTarget(_, unit)
 		if not aboutToCast then return end
 		aboutToCast = false
 
@@ -231,32 +231,30 @@ do
 		local guid = UnitGUID(target)
 
 		if not guid then
-			self:Message(unit == "boss1" and 155499 or 154989, "Urgent", "Alert") -- There's a ~5% chance he won't target anyone, show a generic message
+			self:Message(unit == "boss1" and 155499 or 154989, "orange", "Alert") -- There's a ~5% chance he won't target anyone, show a generic message
 			return
 		end
 
 		if UnitDetailedThreatSituation(target, unit) ~= false or self:MobId(guid) ~= 1 then return end
 
-		local currentBreathId = unit == "boss1" and 155499 or 154989
-
 		if self:Me(guid) then
-			self:Say(currentBreathId, 18584) -- 18584 = Breath
-			self:Flash(currentBreathId)
+			self:Say(unit == "boss1" and 155499 or 154989, 18584) -- 18584 = Breath
+			self:Flash(unit == "boss1" and 155499 or 154989)
 		end
-		self:TargetMessage(currentBreathId, self:UnitName(target), "Urgent", "Alert", nil, nil, true)
+		self:TargetMessage(unit == "boss1" and 155499 or 154989, self:UnitName(target), "orange", "Alert", nil, nil, true)
 	end
 
-	function mod:UNIT_SPELLCAST_SUCCEEDED(unit, spellName, _, _, spellId)
+	function mod:UNIT_SPELLCAST_SUCCEEDED(_, unit, _, spellId)
 		if spellId == 155221 then -- Tantrum, from Iron Crusher
-			self:StopBar(CL.count:format(spellName, tantrumCount))
-			self:Message(155222, "Attention", nil, CL.count:format(spellName, tantrumCount))
+			self:StopBar(CL.count:format(self:SpellName(spellId), tantrumCount))
+			self:Message(155222, "yellow", nil, CL.count:format(self:SpellName(spellId), tantrumCount))
 			tantrumCount = tantrumCount + 1
-			self:CDBar(155222, 23, CL.count:format(spellName, tantrumCount))
+			self:CDBar(155222, 23, CL.count:format(self:SpellName(spellId), tantrumCount))
 		elseif spellId == 155520 then -- Tantrum, from Darmac
-			self:StopBar(CL.count:format(spellName, tantrumCount))
-			self:Message(155222, "Attention", nil, CL.count:format(spellName, tantrumCount))
+			self:StopBar(CL.count:format(self:SpellName(spellId), tantrumCount))
+			self:Message(155222, "yellow", nil, CL.count:format(self:SpellName(spellId), tantrumCount))
 			tantrumCount = tantrumCount + 1
-			self:CDBar(155222, 23, CL.count:format(spellName, tantrumCount))
+			self:CDBar(155222, 23, CL.count:format(self:SpellName(spellId), tantrumCount))
 		elseif spellId == 155423 then -- Face Random Non-Tank (Inferno Breath by Dreadwing)
 			if not mountId then
 				self:RegisterUnitEvent("UNIT_TARGET", "BreathTarget", unit)
@@ -270,7 +268,7 @@ do
 		elseif spellId == 155385 or spellId == 155515 then -- Rend and Tear first jump casts (Cruelfang, Darmac)
 			self:CDBar(155061, 12) -- Rend and Tear, 12-16
 			if self:Melee() then
-				self:Message(155061, "Urgent", nil, CL.incoming:format(self:SpellName(155061)))
+				self:Message(155061, "orange", nil, CL.incoming:format(self:SpellName(155061)))
 			end
 		end
 	end
@@ -302,7 +300,7 @@ do
 
 		pinnedList[#pinnedList+1] = args.destName
 		if #pinnedList == 1 then
-			self:ScheduleTimer("TargetMessage", 0.2, args.spellId, pinnedList, "Important", "Alarm", nil, nil, true)
+			self:ScheduleTimer("TargetMessage", 0.2, args.spellId, pinnedList, "red", "Alarm", nil, nil, true)
 		end
 
 		if self.db.profile.custom_off_pinned_marker and not spearList[args.sourceGUID] then -- One spear can hit multiple people, so don't overwrite existing entries
@@ -312,7 +310,7 @@ do
 
 	function mod:PinDown(args)
 		local ranged = self:Ranged()
-		self:Message(154960, "Urgent", ranged and "Warning", CL.incoming:format(args.spellName))
+		self:Message(154960, "orange", ranged and "Warning", CL.incoming:format(args.spellName))
 		self:CDBar(154960, 20)
 		if ranged then
 			self:Flash(154960)
@@ -329,7 +327,7 @@ do
 end
 
 function mod:CallThePack(args)
-	self:Message(args.spellId, "Attention")
+	self:Message(args.spellId, "yellow")
 	self:CDBar(args.spellId, self:Easy() and 40 or 30) -- can be delayed
 end
 
@@ -337,17 +335,17 @@ end
 
 function mod:RendAndTear(args)
 	if self:Tank(args.destName) then
-		self:StackMessage(155061, args.destName, args.amount, "Attention", args.amount and "Warning")
+		self:StackMessage(155061, args.destName, args.amount, "yellow", args.amount and "Warning")
 	end
 end
 
 function mod:SavageHowl(args)
-	self:Message(args.spellId, "Important", self:Dispeller("enrage", true) and "Alert")
+	self:Message(args.spellId, "red", self:Dispeller("enrage", true) and "Alert")
 	self:Bar(args.spellId, 26)
 end
 
 do
-	function mod:Conflagration(args)
+	function mod:Conflagration()
 		conflagMark = 1
 		self:Bar(154981, 20)
 	end
@@ -358,7 +356,7 @@ do
 			conflagMark = conflagMark + 1
 		end
 		-- Time between applications can be so long that delaying is pointless.
-		self:TargetMessage(args.spellId, args.destName, "Urgent", self:Dispeller("magic") and "Info")
+		self:TargetMessage(args.spellId, args.destName, "orange", self:Dispeller("magic") and "Info")
 	end
 
 	function mod:ConflagrationRemoved(args)
@@ -370,21 +368,21 @@ end
 
 function mod:SearedFlesh(args)
 	if args.amount % 3 == 0 then
-		self:StackMessage(args.spellId, args.destName, args.amount, "Attention", args.amount > 8 and "Warning")
+		self:StackMessage(args.spellId, args.destName, args.amount, "yellow", args.amount > 8 and "Warning")
 	end
 end
 
 function mod:Stampede(args)
-	self:Message(args.spellId, "Attention")
+	self:Message(args.spellId, "yellow")
 	self:CDBar(args.spellId, 20)
 end
 
 function mod:CrushArmor(args)
-	self:StackMessage(args.spellId, args.destName, args.amount, "Attention", args.amount and "Warning")
+	self:StackMessage(args.spellId, args.destName, args.amount, "yellow", args.amount and "Warning")
 end
 
-function mod:Epicenter(args)
-	self:Message(159043, "Urgent")
+function mod:Epicenter()
+	self:Message(159043, "orange")
 	self:CDBar(159043, 19)
 end
 
@@ -394,13 +392,13 @@ do
 		local t = GetTime()
 		if t-prev > 2 and self:Me(args.destGUID) then
 			prev = t
-			self:Message(159043, "Personal", "Alarm", CL.underyou:format(args.spellName))
+			self:Message(159043, "blue", "Alarm", CL.underyou:format(args.spellName))
 		end
 	end
 end
 
 function mod:Unstoppable(args)
-	self:Message(args.spellId, "Attention", nil, CL.count:format(args.spellName, args.amount or 1))
+	self:Message(args.spellId, "yellow", nil, CL.count:format(args.spellName, args.amount or 1))
 	self:Bar(args.spellId, 15)
 end
 
@@ -412,7 +410,7 @@ do
 		local t = GetTime()
 		if t-prev > 0.5 and self:Me(args.destGUID) then
 			prev = t
-			self:Message(args.spellId, "Personal", "Alarm", CL.underyou:format(args.spellName))
+			self:Message(args.spellId, "blue", "Alarm", CL.underyou:format(args.spellName))
 		end
 	end
 end

@@ -3,10 +3,10 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("Supreme Lord Kazzak", -945, 1452)
+local mod = BigWigs:NewBoss("Supreme Lord Kazzak", -534, 1452)
 if not mod then return end
 mod:RegisterEnableMob(94015)
-mod.otherMenu = 962
+mod.otherMenu = -572
 mod.worldBoss = 94015
 --BOSS_KILL#1801#Supreme Lord Kazzak
 
@@ -67,7 +67,7 @@ end
 
 function mod:FelBreath(args)
 	if self:Tank(args.destName) then
-		self:TargetMessage(args.spellId, args.destName, "Urgent", self:Tank() and "Alert")
+		self:TargetMessage(args.spellId, args.destName, "orange", self:Tank() and "Alert")
 		if self:Me(args.destGUID) then
 			self:TargetBar(args.spellId, 30, args.destName)
 		end
@@ -93,14 +93,14 @@ do
 	function mod:SupremeDoom(args)
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "Attention", "Info", nil, nil, self:Healer())
+			self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "yellow", "Info", nil, nil, self:Healer())
 		end
 	end
 end
 
 function mod:MarkOfKazzak(args)
 	if self:Me(args.destGUID) then
-		self:TargetMessage(args.spellId, args.destName, "Personal", "Alarm")
+		self:TargetMessage(args.spellId, args.destName, "blue", "Alarm")
 		self:TargetBar(args.spellId, 15, args.destName)
 		self:Say(args.spellId)
 		self:OpenProximity(args.spellId, 8)
@@ -114,13 +114,13 @@ function mod:MarkOfKazzakRemoved(args)
 	end
 end
 
-function mod:RAID_BOSS_EMOTE(event, msg)
+function mod:RAID_BOSS_EMOTE(_, msg)
 	if msg:find("187702", nil, true) then -- hidden cast, has unit event
-		self:Message(187702, "Important", "Long")
+		self:Message(187702, "red", "Long")
 	end
 end
 
-function mod:BOSS_KILL(event, id)
+function mod:BOSS_KILL(_, id)
 	if id == 1801 then
 		self:Win()
 	end

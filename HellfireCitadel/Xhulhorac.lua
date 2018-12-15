@@ -3,7 +3,7 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("Xhul'horac", 1026, 1447)
+local mod, CL = BigWigs:NewBoss("Xhul'horac", 1448, 1447)
 if not mod then return end
 mod:RegisterEnableMob(93068)
 mod.engageId = 1800
@@ -101,13 +101,13 @@ end
 -- Event Handlers
 --
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(unit, spellName, _, _, spellId)
+function mod:UNIT_SPELLCAST_SUCCEEDED(event, unit, _, spellId)
 	if spellId == 190306 then -- Activate Fel Portal
 		impCount = 1
 		self:Bar("imps", 12, CL.count:format(self:SpellName(L.imps), impCount), L.imps_icon)
 
 	elseif spellId == 187196 then -- Fel Feedback (Vanguard Akkelion Spawned)
-		self:Message("stages", "Neutral", "Info", "90% - ".. CL.spawned:format(self:SpellName(-11691)), false)
+		self:Message("stages", "cyan", "Info", "90% - ".. CL.spawned:format(self:SpellName(-11691)), false)
 		self:CDBar(186490, self:Mythic() and 57 or 33) -- Chains of Fel, to _start
 		self:CDBar(186453, 12) -- Felblaze Flurry
 
@@ -117,19 +117,19 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(unit, spellName, _, _, spellId)
 			self:StopBar(190223) -- Fel Strike
 			self:StopBar(186407) -- Fel Surge
 
-			self:Message("stages", "Neutral", "Info", "65% - ".. CL.phase:format(2), false)
+			self:Message("stages", "cyan", "Info", "65% - ".. CL.phase:format(2), false)
 			self:CDBar(190224, 17) -- Void Strike
 			self:CDBar(186333, 24) -- Void Surge
 		else
 			felAndVoid = true -- both portals up
-			self:Message("stages", "Neutral", "Info", "85% - ".. CL.phase:format(2), false)
+			self:Message("stages", "cyan", "Info", "85% - ".. CL.phase:format(2), false)
 		end
 
 	elseif spellId == 189806 then -- Void Feedback (Omnus Spawned)
 		if not self:Mythic() then
-			self:Message("stages", "Neutral", "Info", "60% - ".. CL.spawned:format(self:SpellName(-11688)), false)
+			self:Message("stages", "cyan", "Info", "60% - ".. CL.spawned:format(self:SpellName(-11688)), false)
 		else
-			self:Message("stages", "Neutral", "Info", "80% - ".. CL.spawned:format(self:SpellName(-11688)), false)
+			self:Message("stages", "cyan", "Info", "80% - ".. CL.spawned:format(self:SpellName(-11688)), false)
 		end
 		self:CDBar(186546, 18) -- Black Hole
 		self:CDBar(186783, 6) -- Withering Gaze
@@ -140,13 +140,13 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(unit, spellName, _, _, spellId)
 			self:StopBar(190224) -- Void Strike
 			self:StopBar(186333) -- Void Surge
 
-			self:Message("stages", "Neutral", "Info", "35% - ".. CL.phase:format(3), false)
+			self:Message("stages", "cyan", "Info", "35% - ".. CL.phase:format(3), false)
 			-- Void Strike comes soon after (1-3s), then he switches to fel
 			self:CDBar(186407, 6) -- Fel Surge
 		end
 
 	elseif spellId == 187209 then -- Overwhelming Chaos (cast to gain the p4 buff, which just stacks on its own)
-		self:UnregisterUnitEvent("UNIT_SPELLCAST_SUCCEEDED", unit)
+		self:UnregisterUnitEvent(event, unit)
 		self:StopBar(CL.count:format(self:SpellName(L.imps), impCount))
 		self:StopBar(L.voidfiend)
 		self:StopBar(190223) -- Fel Strike
@@ -154,7 +154,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(unit, spellName, _, _, spellId)
 		self:StopBar(190224) -- Void Strike
 		self:StopBar(186333) -- Void Surge
 
-		self:Message("stages", "Neutral", "Info", "20% - ".. spellName, false)
+		self:Message("stages", "cyan", "Info", "20% - ".. self:SpellName(spellId), false)
 		self:Bar(187204, 10) -- Overwhelming Chaos
 	end
 end
@@ -163,7 +163,7 @@ function mod:AkkelionDies(args)
 	self:StopBar(186453) -- Felblaze Flurry
 	self:StopBar(186490) -- Chains of Fel
 	if self:Mythic() then
-		self:Message("stages", "Neutral", "Info", "50% - ".. L.killed:format(args.destName), false)
+		self:Message("stages", "cyan", "Info", "50% - ".. L.killed:format(args.destName), false)
 		self:CDBar(186490, 27.5) -- (Empowered) Chains of Fel
 	end
 end
@@ -172,7 +172,7 @@ function mod:OmnusDies(args)
 	self:StopBar(186783) -- Withering Gaze
 	self:StopBar(186546) -- Black Hole
 	if self:Mythic() then
-		self:Message("stages", "Neutral", "Info", "40% - ".. L.killed:format(args.destName), false)
+		self:Message("stages", "cyan", "Info", "40% - ".. L.killed:format(args.destName), false)
 		self:CDBar(186546, 21) -- (Empowered) Black Hole
 		self:CDBar(186490, 27.5) -- (Empowered) Chains of Fel
 	end
@@ -214,7 +214,7 @@ do
 			local t = GetTime()
 			if t-prev > 8 then -- Fire lasts 8 sec and keeps refreshing touched
 				prev = t
-				self:Message(args.spellId, "Personal", not self:Tank() and "Long", CL.you:format(args.spellName))
+				self:Message(args.spellId, "blue", not self:Tank() and "Long", CL.you:format(args.spellName))
 			end
 		end
 	end
@@ -222,7 +222,7 @@ end
 
 function mod:Felsinged_WastingVoid(args)
 	if self:Me(args.destGUID) then
-		self:StackMessage(args.spellId, args.destName, args.amount, "Personal")
+		self:StackMessage(args.spellId, args.destName, args.amount, "blue")
 	end
 end
 
@@ -231,7 +231,7 @@ do
 	function mod:Surge(args)
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "Attention", "Alarm")
+			self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "yellow", "Alarm")
 			if not felAndVoid then
 				self:CDBar(args.spellId, 30)
 			else -- alternates
@@ -257,7 +257,7 @@ function mod:SurgeRemoved(args)
 end
 
 function mod:FelStrike(args)
-	self:Message(args.spellId, "Urgent", nil, CL.casting:format(args.spellName))
+	self:Message(args.spellId, "orange", nil, CL.casting:format(args.spellName))
 	if not felAndVoid then
 		self:CDBar(args.spellId, 16) -- 15.8
 	else -- alternates
@@ -267,7 +267,7 @@ function mod:FelStrike(args)
 end
 
 function mod:VoidStrike(args)
-	self:Message(args.spellId, "Urgent", nil, CL.casting:format(args.spellName))
+	self:Message(args.spellId, "orange", nil, CL.casting:format(args.spellName))
 	if not felAndVoid then
 		self:CDBar(args.spellId, 17) -- 17.1/18.2
 	else -- alternates
@@ -279,7 +279,7 @@ end
 function mod:Striked(args)
 	if felAndVoid and not self:Me(args.destGUID) then
 		local spellId = args.spellId == 186271 and 190223 or 190224 -- 186271 -> 190223 (Fel), 186292 -> 190224 (Void)
-		self:TargetMessage(spellId, args.destName, "Attention")
+		self:TargetMessage(spellId, args.destName, "yellow")
 		if self:Tank() then -- don't spam long for non-tanks that enable strike
 			self:PlaySound(spellId, "Long")
 		end
@@ -287,13 +287,13 @@ function mod:Striked(args)
 end
 
 function mod:FelblazeFlurry(args)
-	self:TargetMessage(args.spellId, args.destName, "Important")
+	self:TargetMessage(args.spellId, args.destName, "red")
 	self:CDBar(args.spellId, 17)
 end
 
 do
 	local function printTarget(self, name, guid)
-		self:TargetMessage(186490, name, "Urgent", "Alert", CL.casting:format(self:SpellName(184656))) -- 184656 = "Chains"
+		self:TargetMessage(186490, name, "orange", "Alert", CL.casting:format(self:SpellName(184656))) -- 184656 = "Chains"
 		if self:Me(guid) then
 			self:Say(186490, 184656) -- 184656 = "Chains"
 			self:Flash(186490) -- Flash for cast only
@@ -313,25 +313,25 @@ do
 		end
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessage", 0.3, 186490, list, "Urgent", "Alarm", 184656, 186490) -- 184656 = "Chains"
+			self:ScheduleTimer("TargetMessage", 0.3, 186490, list, "orange", "Alarm", 184656, 186490) -- 184656 = "Chains"
 		end
 	end
 end
 
 function mod:WitheringGaze(args)
-	self:TargetMessage(args.spellId, args.destName, "Important")
+	self:TargetMessage(args.spellId, args.destName, "red")
 	self:Bar(args.spellId, 24.3)
 end
 
 function mod:BlackHole(args)
-	self:Message(186546, "Urgent", "Alert", CL.incoming:format(CL.count:format(self:SpellName(186546), blackHoleCount)))
+	self:Message(186546, "orange", "Alert", CL.incoming:format(CL.count:format(self:SpellName(186546), blackHoleCount)))
 	blackHoleCount = blackHoleCount + 1
 	self:CDBar(186546, args.spellId == 189779 and 30 or blackHoleCount % 2 == 0 and 30 or 40, CL.count:format(args.spellName, blackHoleCount)) -- 30, 40, 30 is as long a p2 as i've seen
 end
 
 function mod:OverwhelmingChaos(args)
 	local amount = args.amount or 1
-	self:StackMessage(args.spellId, args.destName, amount, "Important")
+	self:StackMessage(args.spellId, args.destName, amount, "red")
 	self:Bar(args.spellId, 10, CL.count:format(args.spellName, amount + 1))
 end
 

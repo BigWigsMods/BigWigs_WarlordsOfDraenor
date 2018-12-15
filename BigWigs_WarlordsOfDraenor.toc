@@ -1,4 +1,4 @@
-## Interface: 70000
+## Interface: 80000
 
 ## Title: BigWigs [|cffeda55fWarlords of Draenor|r]
 ## Title-zhCN: BigWigs [|cffeda55f德拉诺之王|r]
@@ -6,7 +6,7 @@
 ## Title-deDE: BigWigs [|cffeda55fWarlords of Draenor|r]
 ## Title-frFR: BigWigs [|cffeda55fWarlords of Draenor|r]
 ## Title-itIT: BigWigs [|cffeda55fWarlords of Draenor|r]
-## Title-koKR: BigWigs [|cffeda55fWarlords of Draenor|r]
+## Title-koKR: BigWigs [|cffeda55f드레노어의 전쟁군주|r]
 ## Title-ruRU: BigWigs [|cffeda55fWarlords of Draenor|r]
 ## Title-ptBR: BigWigs [|cffeda55fWarlords of Draenor|r]
 ## Title-esES: BigWigs [|cffeda55fWarlords of Draenor|r]
@@ -17,9 +17,9 @@
 ## Notes-deDE: Eine Sammlung von BigWigs-Modulen aus der Ära Warlords of Draenor.
 ## Notes-frFR: A collection of BigWigs modules from the Warlords of Draenor era.
 ## Notes-itIT: A collection of BigWigs modules from the Warlords of Draenor era.
-## Notes-koKR: A collection of BigWigs modules from the Warlords of Draenor era.
+## Notes-koKR: 드레노어의 전쟁군주 BigWigs 모듈 모음집입니다.
 ## Notes-ruRU: A collection of BigWigs modules from the Warlords of Draenor era.
-## Notes-ptBR: A collection of BigWigs modules from the Warlords of Draenor era.
+## Notes-ptBR: Uma coleção de módulos do BigWigs da era de Warlords of Draenor.
 ## Notes-esES: A collection of BigWigs modules from the Warlords of Draenor era.
 ## Notes-esMX: A collection of BigWigs modules from the Warlords of Draenor era.
 
@@ -29,10 +29,12 @@
 
 ## X-Category: Raid
 ## X-License: All Rights Reserved: You are free to fork and modify on GitHub, please ask us about anything else.
-## X-Curse-Project-ID: bigwigs_warlordsofdraenor
+## X-Website: https://github.com/BigWigsMods/BigWigs_WarlordsOfDraenor
+## X-Curse-Project-ID: 101160
 ## X-WoWI-ID: 24167
-## X-BigWigs-LoadOn-ZoneId: 994, 988, 1026, 962
-## X-BigWigs-LoadOn-WorldBoss: -948, 83746, -949, 81535, -949, 81252, -945, 94015
+## X-BigWigs-ExtraMenu: -572
+## X-BigWigs-LoadOn-InstanceId: 1205, 1228, 1448
+## X-BigWigs-LoadOn-WorldBoss: -542, 83746, -543, 81535, -543, 81252, -534, 94015
 
 modules.xml
 

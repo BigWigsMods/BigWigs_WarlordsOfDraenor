@@ -3,7 +3,7 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("The Blast Furnace", 988, 1154)
+local mod, CL = BigWigs:NewBoss("The Blast Furnace", 1205, 1154)
 if not mod then return end
 mod:RegisterEnableMob(76809, 76808, 76806, 76815) -- Foreman Feldspar, Heat Regulator, Heart of the Mountain, Primal Elementalist
 mod.engageId = 1690
@@ -117,12 +117,12 @@ function mod:GetOptions()
 	}
 end
 
-function mod:VerifyEnable()
+--[[function mod:VerifyEnable()
 	local _, x = UnitPosition("player")
 	if x > 3475 then
 		return true
 	end
-end
+end]]
 
 function mod:OnBossEnable()
 	self:Log("SPELL_AURA_APPLIED", "Loading", 155181) -- Bellows Operator
@@ -219,7 +219,7 @@ end
 do
 	-- Operators
 	local prev = 0
-	function mod:Loading(args)
+	function mod:Loading()
 		local t = GetTime()
 		if t-prev > 5 then
 			prev = t
@@ -227,7 +227,7 @@ do
 				firstOperators = true
 				-- We fire the first bar on engage, this event fires a few seconds after engage
 			else
-				self:Message("operator", "Attention", "Info", CL.incoming:format(self:SpellName(-9650)), L.operator_icon) -- Bellows Operator
+				self:Message("operator", "yellow", "Info", CL.incoming:format(self:SpellName(-9650)), L.operator_icon) -- Bellows Operator
 				self:CDBar("operator", 59, -9650, L.operator_icon) -- Bellows Operator
 			end
 		end
@@ -237,7 +237,7 @@ end
 function mod:SecurityRepeater() -- Guards
 	local timer = regulatorDeaths > 1 and 40 or 30
 	securityTimer = self:ScheduleTimer("SecurityRepeater", timer)
-	self:Message("guard", "Attention", "Info", CL.spawning:format(self:SpellName(-10803)), L.guard_icon) -- Security Guard
+	self:Message("guard", "yellow", "Info", CL.spawning:format(self:SpellName(-10803)), L.guard_icon) -- Security Guard
 	self:CDBar("guard", timer, -10803, L.guard_icon) -- Security Guard
 end
 
@@ -273,13 +273,13 @@ do
 			self:RegisterEvent("UNIT_TARGET")
 		end
 
-		self:Message("firecaller", "Attention", "Info", CL.spawning:format(self:SpellName(-9659)), L.firecaller_icon) -- Firecaller
+		self:Message("firecaller", "yellow", "Info", CL.spawning:format(self:SpellName(-9659)), L.firecaller_icon) -- Firecaller
 		self:CDBar("firecaller", timer, -9659, L.firecaller_icon) -- Firecaller
 	end
 
 	function mod:CauterizeWounds(args)
 		if UnitGUID("target") == args.sourceGUID or UnitGUID("focus") == args.sourceGUID then
-			self:Message(args.spellId, "Urgent", not self:Healer() and "Alert")
+			self:Message(args.spellId, "orange", not self:Healer() and "Alert")
 		end
 	end
 end
@@ -289,13 +289,13 @@ do
 	function mod:EngineerRepeater()
 		local timer = self:Heroic() and 40 or 35
 		engiTimer = self:ScheduleTimer("EngineerRepeater", timer)
-		self:Message("engineer", "Attention", "Info", CL.spawning:format(self:SpellName(-9649)), L.engineer_icon) -- Furnace Engineer
+		self:Message("engineer", "yellow", "Info", CL.spawning:format(self:SpellName(-9649)), L.engineer_icon) -- Furnace Engineer
 		self:CDBar("engineer", timer, -9649, L.engineer_icon) -- Furnace Engineer
 	end
 
 	function mod:Repair(args)
 		if not self:Healer() then
-			self:Message(args.spellId, "Personal", "Alert", CL.other:format(args.sourceName, args.spellName))
+			self:Message(args.spellId, "blue", "Alert", CL.other:format(args.sourceName, args.spellName))
 		end
 	end
 
@@ -308,7 +308,7 @@ do
 		if self:Me(args.destGUID) then
 			local t = GetTime()
 			local cd = 15
-			local _, _, _, _, _, _, expires = UnitDebuff("player", args.spellName)
+			local _, _, _, expires = self:UnitDebuff("player", args.spellName)
 			if expires and expires > 0 then
 				cd = expires - t
 			end
@@ -317,7 +317,7 @@ do
 
 			if t-prev > 3 then
 				prev = t
-				self:Message(155192, "Positive", "Alarm", CL.you:format(args.spellName)) -- is good thing
+				self:Message(155192, "green", "Alarm", CL.you:format(args.spellName)) -- is good thing
 				self:Flash(155192)
 				self:Say(155192)
 			end
@@ -348,13 +348,13 @@ end
 -- Primal Elementalist
 
 function mod:ShieldsDown(args)
-	self:Message(-10325, "Positive", "Info", CL.removed:format(self:SpellName(155176))) -- Damage Shield Removed!
+	self:Message(-10325, "green", "Info", CL.removed:format(self:SpellName(155176))) -- Damage Shield Removed!
 	self:Bar(-10325, self:Mythic() and 20 or self:Normal() and 40 or 30)
 
 	if self.db.profile.custom_on_shieldsdown_marker then
 		for i = 2, 5 do -- boss1 is always Heart of the Mountain
 			local boss = ("boss%d"):format(i)
-			if UnitBuff(boss, args.spellName) then -- Shields Down
+			if self:UnitBuff(boss, args.spellName) then -- Shields Down
 				SetRaidTarget(boss, 8)
 				break
 			end
@@ -376,7 +376,7 @@ end
 
 function mod:Fixate(args)
 	if self:Me(args.destGUID) then
-		self:Message(-10324, "Personal", "Alarm", CL.you:format(args.spellName))
+		self:Message(-10324, "blue", "Alarm", CL.you:format(args.spellName))
 		self:Flash(-10324)
 		fixateOnMe = true
 	end
@@ -392,23 +392,23 @@ function mod:FixateRemoved(args)
 end
 
 function mod:SlagBomb(args)
-	self:Message(args.spellId, "Important", "Alarm", CL.casting:format(args.spellName))
+	self:Message(args.spellId, "red", "Alarm", CL.casting:format(args.spellName))
 	self:Bar(args.spellId, 2, CL.cast:format(args.spellName))
 end
 
 function mod:HardenedSlagRemoved(args)
-	self:Message(args.spellId, "Positive", nil, CL.removed:format(args.spellName))
+	self:Message(args.spellId, "green", nil, CL.removed:format(args.spellName))
 end
 
 function mod:ReactiveEarthShield(args)
 	if self:MobId(args.destGUID) == 76815 and self:Dispeller("magic", true, args.spellId) then
-		self:TargetMessage(args.spellId, args.destName, "Urgent", "Alert", nil, nil, true)
+		self:TargetMessage(args.spellId, args.destName, "orange", "Alert", nil, nil, true)
 	end
 end
 
 function mod:VolatileFireApplied(args)
 	if self:Me(args.destGUID) then
-		self:Message(args.spellId, "Personal", "Alarm", CL.you:format(args.spellName))
+		self:Message(args.spellId, "blue", "Alarm", CL.you:format(args.spellName))
 		if not self:LFR() then
 			self:Say(args.spellId)
 		end
@@ -416,7 +416,7 @@ function mod:VolatileFireApplied(args)
 		volatileFireOnMe = true
 
 		local cd, t = 8, GetTime()
-		local _, _, _, _, _, _, expires = UnitDebuff("player", args.spellName)
+		local _, _, _, expires = self:UnitDebuff("player", args.spellName)
 		if expires and expires > 0 then
 			cd = expires - t
 		end
@@ -431,7 +431,7 @@ function mod:VolatileFireApplied(args)
 end
 
 function mod:VolatileFireRemoved(args)
-	if not UnitDebuff(args.destName, args.spellName) then -- Check if player has a 2nd debuff before closing proximity
+	if not self:UnitDebuff(args.destName, args.spellName) then -- Check if player has a 2nd debuff before closing proximity
 		if self:Me(args.destGUID) then
 			self:CloseProximity(args.spellId)
 			volatileFireOnMe = nil
@@ -450,16 +450,16 @@ end
 -- Foreman Feldspar
 
 function mod:Pyroclasm(args)
-	self:Message(args.spellId, "Attention", nil, CL.casting:format(args.spellName))
+	self:Message(args.spellId, "yellow", nil, CL.casting:format(args.spellName))
 end
 
 function mod:MeltArmor(args)
-	self:TargetMessage(args.spellId, args.destName, "Attention")
+	self:TargetMessage(args.spellId, args.destName, "yellow")
 	self:Bar(args.spellId, 10)
 end
 
 function mod:Rupture(args)
-	self:TargetMessage(args.spellId, args.destName, "Urgent", "Alarm")
+	self:TargetMessage(args.spellId, args.destName, "orange", "Alarm")
 	if self:Me(args.destGUID) then
 		self:Bar(args.spellId, 5, CL.you:format(args.spellName))
 		self:Flash(args.spellId)
@@ -473,7 +473,7 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and t-prev > 2 then
 			prev = t
-			self:Message(156934, "Personal", "Info", CL.underyou:format(args.spellName))
+			self:Message(156934, "blue", "Info", CL.underyou:format(args.spellName))
 			self:Flash(156934)
 		end
 	end
@@ -483,10 +483,10 @@ end
 
 do
 	local warned = nil
-	function mod:UNIT_POWER_FREQUENT(unit, powerType)
+	function mod:UNIT_POWER_FREQUENT(_, unit, powerType)
 		if powerType == "ALTERNATE" then
 			-- energy rate is based on altpower
-			local altpower = UnitPower(unit, 10)
+			local altpower = UnitPower(unit, 10) -- Enum.PowerType.Alternate = 10
 			local newTime = self:Mythic() and 25 or 30
 			if altpower == 100 then
 				newTime = self:Mythic() and 5 or 6
@@ -501,7 +501,7 @@ do
 			-- adjust Blast timer
 			if newTime ~= blastTime then
 				if newTime < blastTime then
-					self:Message(155209, "Attention", nil, L.heat_increased_message:format(newTime))
+					self:Message(155209, "yellow", nil, L.heat_increased_message:format(newTime))
 				end
 				blastTime = newTime
 				local t = ceil((100-UnitPower(unit))/(100/newTime))
@@ -521,13 +521,13 @@ do
 end
 
 function mod:Heat(args)
-	self:StackMessage(args.spellId, args.destName, args.amount, "Attention", args.amount and "Warning")
+	self:StackMessage(args.spellId, args.destName, args.amount, "yellow", args.amount and "Warning")
 	self:Bar(args.spellId, 10)
 end
 
 function mod:Melt(args)
 	if self:Me(args.destGUID) then
-		self:Message(args.spellId, "Personal", "Alarm", CL.you:format(args.spellName))
+		self:Message(args.spellId, "blue", "Alarm", CL.you:format(args.spellName))
 		self:Bar(args.spellId, 6, CL.you:format(args.spellName))
 		self:Flash(args.spellId)
 		self:Say(args.spellId)
@@ -540,14 +540,14 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and t-prev > 2 then
 			prev = t
-			self:Message(155225, "Personal", "Info", CL.underyou:format(args.spellName))
+			self:Message(155225, "blue", "Info", CL.underyou:format(args.spellName))
 			self:Flash(155225)
 		end
 	end
 end
 
 function mod:Superheated(args)
-	self:Message(args.spellId, "Important", "Long")
+	self:Message(args.spellId, "red", "Long")
 
 	self:UnregisterUnitEvent("UNIT_POWER_FREQUENT", "boss1")
 
@@ -562,7 +562,7 @@ end
 
 function mod:RegulatorDeath(args)
 	regulatorDeaths = regulatorDeaths + 1
-	self:Message("stages", "Neutral", "Info", CL.mob_killed:format(args.destName, regulatorDeaths, 2), false)
+	self:Message("stages", "cyan", "Info", CL.mob_killed:format(args.destName, regulatorDeaths, 2), false)
 	if regulatorDeaths > 1 then
 		-- Primalists spawn
 		self:StopBar(-9650) -- Bellows Operator
@@ -579,7 +579,7 @@ end
 function mod:ElementalistDeath(args)
 	shamanDeaths = shamanDeaths + 1
 	self:StopBar(-10325) -- Shields down
-	self:Message("stages", "Neutral", "Info", CL.mob_killed:format(args.destName, shamanDeaths, 4), false)
+	self:Message("stages", "cyan", "Info", CL.mob_killed:format(args.destName, shamanDeaths, 4), false)
 	if shamanDeaths > 3 then
 		-- The Fury is free! (after the next Blast cast?)
 		self:CancelTimer(securityTimer)
@@ -596,11 +596,11 @@ function mod:EngineerDeath(args)
 	if regulatorDeaths < 2 then -- p1: pick up bombs
 		local bombs = self:Mythic() and 3 or engineerBombs[args.destGUID] or 5
 		if bombs > 0 then
-			self:Message(174731, "Positive", "Info", L.bombs_dropped:format(bombs))
+			self:Message(174731, "green", "Info", L.bombs_dropped:format(bombs))
 		end
 		engineerBombs[args.destGUID] = nil
 	else -- p2: care
-		self:Message(174731, "Important", nil, L.bombs_dropped_p2)
+		self:Message(174731, "red", nil, L.bombs_dropped_p2)
  	end
 end
 

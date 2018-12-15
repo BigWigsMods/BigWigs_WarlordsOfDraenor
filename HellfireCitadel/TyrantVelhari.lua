@@ -3,7 +3,7 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("Tyrant Velhari", 1026, 1394)
+local mod, CL = BigWigs:NewBoss("Tyrant Velhari", 1448, 1394)
 if not mod then return end
 mod:RegisterEnableMob(90269)
 mod.engageId = 1784
@@ -117,19 +117,19 @@ end
 -- Event Handlers
 --
 
-function mod:CHAT_MSG_RAID_BOSS_EMOTE(_, text, sender, _, _, target)
+function mod:CHAT_MSG_RAID_BOSS_EMOTE(_, _, sender, _, _, target)
 	if target == self.displayName then -- Tyrant Velhari (target is blank for Ancient spell cast emotes)
 		if sender == self:SpellName(-11155) then -- Ancient Enforcer
-			self:Message(-11155, "Neutral", nil, "90% - ".. CL.spawned:format(self:SpellName(-11155)), false)
+			self:Message(-11155, "cyan", nil, "90% - ".. CL.spawned:format(self:SpellName(-11155)), false)
 			self:CDBar(180004, 13) -- Enforcer's Onslaught, 13-15
 		elseif sender == self:SpellName(-11163) then -- Ancient Harbinger
-			self:Message(-11163, "Neutral", nil, "60% - ".. CL.spawned:format(self:SpellName(-11163)), false)
+			self:Message(-11163, "cyan", nil, "60% - ".. CL.spawned:format(self:SpellName(-11163)), false)
 			self:Bar(180025, 16, CL.count:format(self:SpellName(180025), 1)) -- Harbinger's Mending
 			if self:LFR() then
 				self:RegisterUnitEvent("UNIT_SPELLCAST_START", "HarbingersMendingLFR", "boss2")
 			end
 		elseif sender == self:SpellName(-11170) then -- Ancient Sovereign
-			self:Message(-11170, "Neutral", nil, "30% - ".. CL.spawned:format(self:SpellName(-11170)), false)
+			self:Message(-11170, "cyan", nil, "30% - ".. CL.spawned:format(self:SpellName(-11170)), false)
 			self:Bar(180040, 14) -- Sovereign's Ward
 		end
 	end
@@ -151,18 +151,18 @@ end
 -- Stage 1
 
 function mod:AuraOfOppression()
-	self:Message("stages", "Neutral", nil, CL.phase:format(phase), false)
+	self:Message("stages", "cyan", nil, CL.phase:format(phase), false)
 end
 
 function mod:EnforcersOnslaught(args)
-	self:Message(args.spellId, "Attention")
+	self:Message(args.spellId, "yellow")
 	self:Bar(args.spellId, self:Mythic() and 11 or 18) -- 18.2-18.7
 end
 
 do
 	local function printTarget(self, name, guid)
 		local count = strikeCount > 0 and strikeCount or 3 -- off because of GetBossTarget
-		self:TargetMessage(180260, name, "Attention", "Info", CL.count:format(self:SpellName(180260), count), nil, nil, true)
+		self:TargetMessage(180260, name, "yellow", "Info", CL.count:format(self:SpellName(180260), count), nil, nil, true)
 		if self:Me(guid) then
 			self:Say(180260)
 		end
@@ -179,7 +179,7 @@ do
 end
 
 function mod:InfernalTempestStart(args)
-	self:Message(args.spellId, "Important", "Long", CL.incoming:format(args.spellName))
+	self:Message(args.spellId, "red", "Long", CL.incoming:format(args.spellName))
 	self:Bar(args.spellId, 6.5, CL.cast:format(args.spellName))
 	self:Bar(args.spellId, 40)
 	if not edictOnMe then
@@ -202,7 +202,7 @@ function mod:AuraOfContempt()
 	self:StopBar(180300) -- Infernal Tempest
 	phase = 2
 	strikeCount = 0
-	self:Message("stages", "Neutral", nil, "70% - ".. CL.phase:format(phase), false)
+	self:Message("stages", "cyan", nil, "70% - ".. CL.phase:format(phase), false)
 	self:Bar(180533, 5, CL.count:format(self:SpellName(180533), 1)) -- Tainted Shadows
 	self:Bar(180526, 22) -- Font of Corruption, 20sec timer + 2sec cast
 	if self:Tank() and not self:LFR() then
@@ -211,21 +211,21 @@ function mod:AuraOfContempt()
 end
 
 function mod:HarbingersMending(args)
-	self:Message(180025, "Attention", self:Interrupter() and "Alert", CL.casting:format(CL.count:format(args.spellName, mendingCount)))
+	self:Message(180025, "yellow", self:Interrupter() and "Alert", CL.casting:format(CL.count:format(args.spellName, mendingCount)))
 	mendingCount = mendingCount + 1
 	self:Bar(180025, self:Normal() and 16 or 11, CL.count:format(args.spellName, mendingCount))
 end
 
-function mod:HarbingersMendingLFR(unit, spellName, _, _, spellId)
+function mod:HarbingersMendingLFR(_, _, _, spellId)
 	if spellId == 180025 then -- On LFR this event is hidden and lacking an icon, even though it's the same id :S
-		self:Message(spellId, "Attention", self:Interrupter() and "Alert", CL.casting:format(CL.count:format(spellName, mendingCount)), "spell_shadow_shadowmend")
+		self:Message(spellId, "yellow", self:Interrupter() and "Alert", CL.casting:format(CL.count:format(self:SpellName(spellId), mendingCount)), "spell_shadow_shadowmend")
 		mendingCount = mendingCount + 1
-		self:Bar(spellId, 25, CL.count:format(spellName, mendingCount), "spell_shadow_shadowmend")
+		self:Bar(spellId, 25, CL.count:format(self:SpellName(spellId), mendingCount), "spell_shadow_shadowmend")
 	end
 end
 
 function mod:HarbingersMendingApplied(args)
-	self:TargetMessage(180025, args.destName, "Attention", self:Dispeller("magic", true) and "Alert", nil, nil, true)
+	self:TargetMessage(180025, args.destName, "yellow", self:Dispeller("magic", true) and "Alert", nil, nil, true)
 end
 
 function mod:TaintedShadows(args)
@@ -274,7 +274,7 @@ end
 do
 	local list = mod:NewTargetList()
 	local function updateProximity(self, spellId)
-		self:TargetMessage(spellId, list, "Important", "Alarm")
+		self:TargetMessage(spellId, list, "red", "Alarm")
 		if fontOnMe and not edictOnMe then -- stack near other fonts of corruption / away from the raid
 			self:OpenProximity(spellId, 5, inverseFontTargets)
 		end
@@ -286,11 +286,11 @@ do
 			self:Bar(args.spellId, 20)
 		end
 		if self:Me(args.destGUID) then
-			local _, _, _, _, _, _, expires = UnitDebuff("player", args.spellName)
+			local _, _, _, expires = self:UnitDebuff("player", args.spellName)
 			if expires and expires > 0 then
 				local timeLeft = expires - GetTime()
 				self:TargetBar(args.spellId, timeLeft, args.destName)
-				self:DelayedMessage(args.spellId, timeLeft - 5, "Personal", L.font_removed_soon, nil, "Alarm")
+				self:DelayedMessage(args.spellId, timeLeft - 5, "blue", L.font_removed_soon, nil, "Alarm")
 				self:ScheduleTimer("Flash", timeLeft - 5, args.spellId)
 			end
 			self:Flash(args.spellId)
@@ -336,23 +336,23 @@ function mod:AuraOfMalice()
 	self:CancelDelayedMessage(L.font_removed_soon)
 	phase = 3
 	strikeCount = 0
-	self:Message("stages", "Neutral", nil, "40% - ".. CL.phase:format(phase), false)
+	self:Message("stages", "cyan", nil, "40% - ".. CL.phase:format(phase), false)
 	self:Bar(180600, 10) -- Bulwark of the Tyrant
 	self:Bar(180608, 40) -- Gavel of the Tyrant
 end
 
 function mod:SovereignsWard(args)
-	self:Message(args.spellId, "Urgent", "Long")
+	self:Message(args.spellId, "orange", "Long")
 	self:Bar(args.spellId, 25)
 end
 
 function mod:SovereignsWardRemoved(args)
-	self:Message(args.spellId, "Positive", nil, CL.removed:format(args.spellName))
+	self:Message(args.spellId, "green", nil, CL.removed:format(args.spellName))
 end
 
 function mod:BulwarkOfTheTyrant(args)
 	strikeCount = strikeCount + 1
-	self:Message(args.spellId, "Attention", "Info", CL.count:format(args.spellName, strikeCount))
+	self:Message(args.spellId, "yellow", "Info", CL.count:format(args.spellName, strikeCount))
 	if strikeCount > 2 then
 		strikeCount = 0
 	end
@@ -366,13 +366,13 @@ do
 		if self:Me(args.destGUID) and t-prev > 1.5 then
 			prev = t
 			self:Flash(180600) -- 180600 = Bulwark of the Tyrant
-			self:Message(180600, "Personal", "Alarm", CL.underyou:format(args.spellName))
+			self:Message(180600, "blue", "Alarm", CL.underyou:format(args.spellName))
 		end
 	end
 end
 
 function mod:GavelOfTheTyrant(args)
-	self:Message(args.spellId, "Important", "Alert", CL.casting:format(args.spellName))
+	self:Message(args.spellId, "red", "Alert", CL.casting:format(args.spellName))
 	self:Bar(args.spellId, 40)
 end
 
@@ -380,12 +380,12 @@ end
 
 function mod:SealOfDecay(args)
 	local amount = args.amount or 1
-	self:StackMessage(180000, args.destName, amount, "Urgent", amount > 2 and "Warning")
+	self:StackMessage(180000, args.destName, amount, "orange", amount > 2 and "Warning")
 end
 
 function mod:TouchOfHarm(args)
 	-- if someone really wants sound on this, changing Font to Long and using Alarm here would work
-	self:TargetMessage(185237, args.destName, "Urgent")
+	self:TargetMessage(185237, args.destName, "orange")
 	self:Bar(185237, 45)
 	if self:Me(args.destGUID) then
 		self:Flash(185237)
@@ -393,7 +393,7 @@ function mod:TouchOfHarm(args)
 end
 
 function mod:TouchOfHarmDispelled(args)
-	self:TargetMessage(185237, args.destName, "Urgent")
+	self:TargetMessage(185237, args.destName, "orange")
 	if self:Me(args.destGUID) then
 		self:Flash(185237)
 	end
@@ -402,7 +402,7 @@ end
 do
 	local timer1, timer2 = nil, nil
 	function mod:EdictOfCondemnation(args)
-		self:TargetMessage(182459, args.destName, "Important", not self:Tank() and "Warning", nil, nil, true)
+		self:TargetMessage(182459, args.destName, "red", not self:Tank() and "Warning", nil, nil, true)
 		self:TargetBar(182459, 9, args.destName)
 		self:Bar(182459, 60)
 		self:PrimaryIcon(182459, args.destName)

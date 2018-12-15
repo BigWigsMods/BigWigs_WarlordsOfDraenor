@@ -3,7 +3,7 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("Kargath Bladefist", 994, 1128)
+local mod, CL = BigWigs:NewBoss("Kargath Bladefist", 1228, 1128)
 if not mod then return end
 mod:RegisterEnableMob(78714)
 mod.engageId = 1721
@@ -95,12 +95,12 @@ end
 --
 
 function mod:CatSpawn()
-	self:Message(-9396, "Neutral", nil, nil, false) -- Ravenous Bloodmaw
+	self:Message(-9396, "cyan", nil, nil, false) -- Ravenous Bloodmaw
 	self:Bar(-9396, 110, nil, "ability_druid_tigersroar")
 end
 
 function mod:OnTheHunt(args)
-	self:TargetMessage(args.spellId, args.destName, "Important", "Alarm")
+	self:TargetMessage(args.spellId, args.destName, "red", "Alarm")
 	if self:Me(args.destGUID) then
 		self:Flash(args.spellId)
 		self:Say(args.spellId)
@@ -108,8 +108,8 @@ function mod:OnTheHunt(args)
 end
 
 do
-	local function printTarget(self, name, guid)
-		self:TargetMessage(159113, name, "Urgent", "Warning", nil, nil, true)
+	local function printTarget(self, name)
+		self:TargetMessage(159113, name, "orange", "Warning", nil, nil, true)
 		self:TargetBar(159113, 10.2, name) -- cast+channel (10.25 - 0.05)
 	end
 	function mod:Impale(args)
@@ -119,7 +119,7 @@ do
 end
 
 function mod:BladeDance(args)
-	self:Message(args.spellId, "Attention")
+	self:Message(args.spellId, "yellow")
 	self:Bar(args.spellId, 10, L.blade_dance_bar)
 	--self:CDBar(args.spellId, 20)
 end
@@ -132,7 +132,7 @@ do
 			self:Say(158986)
 			self:Flash(158986)
 		end
-		self:TargetMessage(158986, name, "Important", "Long", nil, nil, true)
+		self:TargetMessage(158986, name, "red", "Long", nil, nil, true)
 	end
 	function mod:BerserkerRushAppliedFallback(args)
 		-- Kargath will rarely drop his target (bug?) and swap to another one mid cast.
@@ -152,7 +152,7 @@ function mod:BerserkerRushRemoved(args)
 	self:PrimaryIcon(args.spellId)
 end
 
-function mod:FirePillar(args)
+function mod:FirePillar()
 	self:Bar(-9394, 20) -- Fire Pillar
 end
 
@@ -164,12 +164,12 @@ do
 	end
 
 	local function printTargets(spellId)
-		mod:TargetMessage(spellId, hurlList, "Attention")
+		mod:TargetMessage(spellId, hurlList, "yellow")
 		scheduled = nil
 	end
 
 	function mod:ChainHurl(args)
-		self:Message(args.spellId, "Urgent", "Alert", CL.incoming:format(args.spellName))
+		self:Message(args.spellId, "orange", "Alert", CL.incoming:format(args.spellName))
 		self:Bar(args.spellId, 3.4)
 	end
 
@@ -178,7 +178,7 @@ do
 		if self:Me(args.destGUID) then
 			hurled = true
 			self:Bar("arena_sweeper", 55, L.arena_sweeper, L.arena_sweeper_icon)
-			self:DelayedMessage("arena_sweeper", 55, "Urgent", CL.incoming:format(self:SpellName(L.arena_sweeper)), false, "Info")
+			self:DelayedMessage("arena_sweeper", 55, "orange", CL.incoming:format(self:SpellName(L.arena_sweeper)), false, "Info")
 			self:ScheduleTimer(knockdown, 65)
 		end
 		if not scheduled then
@@ -194,7 +194,7 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and t-prev > 1 then
 			prev = t
-			self:Message(args.spellId, "Personal", "Info", CL.underyou:format(args.spellName))
+			self:Message(args.spellId, "blue", "Info", CL.underyou:format(args.spellName))
 		end
 	end
 end
@@ -205,14 +205,14 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and t-prev > 1 then
 			prev = t
-			self:Message(args.spellId, "Personal", "Info", CL.underyou:format(args.spellName))
+			self:Message(args.spellId, "blue", "Info", CL.underyou:format(args.spellName))
 		end
 	end
 end
 
 function mod:VileBreath(args)
 	if hurled then
-		self:Message(args.spellId, "Attention", "Alarm")
+		self:Message(args.spellId, "yellow", "Alarm")
 	end
 end
 

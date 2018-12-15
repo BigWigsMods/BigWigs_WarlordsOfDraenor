@@ -3,7 +3,7 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("Twin Ogron", 994, 1148)
+local mod, CL = BigWigs:NewBoss("Twin Ogron", 1228, 1148)
 if not mod then return end
 mod:RegisterEnableMob(78238, 78237) -- Pol, Phemos
 mod.engageId = 1719
@@ -155,7 +155,7 @@ local function updateProximity()
 end
 
 local function openPulverizeProximity()
-	mod:Message(158385, "Urgent", "Alarm", CL.incoming:format(mod:SpellName(158385)))
+	mod:Message(158385, "orange", "Alarm", CL.incoming:format(mod:SpellName(158385)))
 	pulverizeProximity = true
 	updateProximity()
 end
@@ -165,7 +165,7 @@ end
 function mod:ShieldBash(args)
 	local unit = self:GetUnitIdByGUID(args.sourceGUID)
 	if (unit and UnitDetailedThreatSituation("player", unit)) or not self:Tank() then -- Exclude the tank tanking Phemos
-		self:Message(args.spellId, "Urgent")
+		self:Message(args.spellId, "orange")
 		if self:Mythic() and isNextEmpowered(args.sourceGUID, 23) then
 			self:CDBar(args.spellId, 23, ("%s (%s)"):format(args.spellName, STRING_SCHOOL_ARCANE))
 		else
@@ -177,22 +177,22 @@ end
 function mod:ShieldCharge(args)
 	self:Bar(args.spellId, 3)
 	if arcaneTwisted == args.sourceGUID then
-		self:Message(args.spellId, "Urgent", "Alarm", ("%s (%s)"):format(args.spellName, STRING_SCHOOL_ARCANE)) -- Shield Charge (Arcane)
+		self:Message(args.spellId, "orange", "Alarm", ("%s (%s)"):format(args.spellName, STRING_SCHOOL_ARCANE)) -- Shield Charge (Arcane)
 		self:Bar(args.spellId, 4, 163336) -- Arcane Charge
 	else
-		self:Message(args.spellId, "Urgent", "Alarm")
+		self:Message(args.spellId, "orange", "Alarm")
 	end
 	self:CDBar(158093, polInterval) -- Interrupting Shout
 end
 
 function mod:InterruptingShout(args)
-	local _, _, _, _, _, endTime = UnitCastingInfo(self:GetUnitIdByGUID(args.sourceGUID))
+	local _, _, _, _, endTime = UnitCastingInfo(self:GetUnitIdByGUID(args.sourceGUID))
 	local cast = endTime and (endTime / 1000 - GetTime()) or 0
 	if cast > 1.5 then
 		self:Bar(args.spellId, cast, CL.cast:format(args.spellName))
 	end
 
-	self:Message(args.spellId, "Urgent", nil, CL.casting:format(args.spellName))
+	self:Message(args.spellId, "orange", nil, CL.casting:format(args.spellName))
 	if self:Ranged() then
 		self:PlaySound(args.spellId, "Long")
 		self:Flash(args.spellId)
@@ -206,8 +206,8 @@ do
 	function mod:Pulverize(args)
 		count = 1
 		-- skip the first actual cast (157952) in favor of announcing it at the start of the sequence to give people more time to spread out
-		self:Message(158385, "Urgent", "Info", CL.count:format(args.spellName, count))
-		self:Bar(158385, 3.1, ("<%s>"):format(CL.count:format(args.spellName, count)))
+		self:Message(158385, "orange", "Info", CL.count:format(args.spellName, count))
+		self:CastBar(158385, 3.1, CL.count:format(args.spellName, count))
 		if self:Mythic() and isNextEmpowered(args.sourceGUID, polInterval) then
 			self:CDBar(158134, polInterval, ("%s (%s)"):format(self:SpellName(158134), STRING_SCHOOL_ARCANE)) -- Shield Charge (Arcane)
 		else
@@ -216,7 +216,7 @@ do
 	end
 	function mod:PulverizeCast(args)
 		count = count + 1
-		self:Message(158385, "Urgent", "Info", CL.count:format(args.spellName, count))
+		self:Message(158385, "orange", "Info", CL.count:format(args.spellName, count))
 		self:CDBar(158385, count == 2 and 3.3 or 6.6, ("<%s>"):format(CL.count:format(args.spellName, count))) -- these can vary by 1s or so
 		pulverizeProximity = nil
 		self:CloseProximity(158385)
@@ -229,7 +229,7 @@ end
 function mod:DoubleSlash(args)
 	local unit = self:GetUnitIdByGUID(args.sourceGUID)
 	if (unit and UnitDetailedThreatSituation("player", unit)) or not self:Tank() then -- Exclude the tank tanking Pol
-		self:Message(args.spellId, "Attention")
+		self:Message(args.spellId, "yellow")
 		if self:Mythic() and isNextEmpowered(args.sourceGUID, 27) then
 			self:CDBar(args.spellId, 27, ("%s (%s)"):format(args.spellName, STRING_SCHOOL_ARCANE))
 		else
@@ -239,39 +239,39 @@ function mod:DoubleSlash(args)
 end
 
 function mod:ArcaneWound(args)
-	self:TargetMessage(args.spellId, args.destName, "Neutral")
+	self:TargetMessage(args.spellId, args.destName, "cyan")
 end
 
 function mod:Whirlwind(args)
 	if arcaneTwisted == args.sourceGUID then
-		self:Message(args.spellId, "Attention", "Alert", ("%s (%s)"):format(args.spellName, STRING_SCHOOL_ARCANE)) -- Whirlwind (Arcane)
+		self:Message(args.spellId, "yellow", "Alert", ("%s (%s)"):format(args.spellName, STRING_SCHOOL_ARCANE)) -- Whirlwind (Arcane)
 	else
-		self:Message(args.spellId, "Attention")
+		self:Message(args.spellId, "yellow")
 	end
 	self:CDBar(158057, phemosInterval) -- Enfeebling Roar
 end
 
 function mod:EnfeeblingRoar(args)
-	local _, _, _, _, _, endTime = UnitCastingInfo(self:GetUnitIdByGUID(args.sourceGUID))
+	local _, _, _, _, endTime = UnitCastingInfo(self:GetUnitIdByGUID(args.sourceGUID))
 	local cast = endTime and (endTime / 1000 - GetTime()) or 0
 	if cast > 1.5 then
 		self:Bar(args.spellId, cast, CL.cast:format(args.spellName))
 	end
 
-	self:Message(args.spellId, "Attention", "Alert", CL.casting:format(args.spellName))
+	self:Message(args.spellId, "yellow", "Alert", CL.casting:format(args.spellName))
 	self:CDBar(158200, phemosInterval, CL.count:format(self:SpellName(158200), quakeCount+1)) -- Quake
 end
 
 function mod:EnfeeblingRoarApplied(args)
 	if self:Me(args.destGUID) then
-		local value = select(16, UnitDebuff("player", args.spellName))
-		self:Message(158057, "Attention", nil, ("%s: %d%%"):format(args.spellName, value))
+		local _, _, _, _, value = self:UnitDebuff("player", args.spellName)
+		self:Message(158057, "yellow", nil, ("%s: %d%%"):format(args.spellName, value))
 	end
 end
 
 function mod:Quake(args)
 	quakeCount = quakeCount + 1
-	self:Message(args.spellId, "Attention", "Alert", CL.incoming:format(CL.count:format(args.spellName, quakeCount)))
+	self:Message(args.spellId, "yellow", "Alert", CL.incoming:format(CL.count:format(args.spellName, quakeCount)))
 	if self:Mythic() and isNextEmpowered(args.sourceGUID, phemosInterval) then
 		self:CDBar(157943, phemosInterval, ("%s (%s)"):format(self:SpellName(157943), STRING_SCHOOL_ARCANE)) -- Whirlwind (Arcane)
 	else
@@ -285,7 +285,7 @@ end
 
 function mod:BlazeApplied(args)
 	if self:Me(args.destGUID) then
-		self:Message(args.spellId, "Personal", "Info", CL.underyou:format(args.spellName))
+		self:Message(args.spellId, "blue", "Info", CL.underyou:format(args.spellName))
 	end
 end
 
@@ -296,7 +296,7 @@ do
 		local t = GetTime()
 		if t-prev > 4 then -- Fired once per player
 			prev = t
-			self:Message(args.spellId, "Neutral")
+			self:Message(args.spellId, "cyan")
 			local duration = times[volatilityCount]
 			if duration then
 				self:CDBar(args.spellId, duration)
@@ -326,7 +326,7 @@ do
 			timer = self:ScheduleRepeatingTimer(sayCountdown, 1, self)
 			self:TargetBar("volatility_self", 6, args.destName, 67735, args.spellId) -- 67735 = "Volatility"
 			volatilityOnMe = true
-			self:Message("volatility_self", "Personal", "Warning", CL.you:format(args.spellName))
+			self:Message("volatility_self", "blue", "Warning", CL.you:format(args.spellName))
 			self:Flash("volatility_self", args.spellId)
 			self:Say("volatility_self", args.spellId)
 		end
@@ -360,7 +360,7 @@ do
 end
 
 function mod:ArcaneTwisted(args)
-	self:TargetMessage(args.spellId, args.destName, "Neutral")
+	self:TargetMessage(args.spellId, args.destName, "cyan")
 	arcaneTwisted = args.destGUID
 	arcaneTwistedTime = GetTime() + 55
 end

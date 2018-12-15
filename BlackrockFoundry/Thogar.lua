@@ -3,7 +3,7 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("Operator Thogar", 988, 1147)
+local mod, CL = BigWigs:NewBoss("Operator Thogar", 1205, 1147)
 if not mod then return end
 mod:RegisterEnableMob(76906, 80791) -- Operator Thogar, Grom'kar Man-at-Arms
 mod.engageId = 1692
@@ -229,7 +229,7 @@ if L then
 	L.adds_train = "Adds train"
 	L.big_add_train = "Big add train"
 	L.cannon_train = "Cannon train"
-	L.deforester = "Deforester" -- /dump (EJ_GetSectionInfo(10329))
+	L.deforester = "Deforester" -- /dump (C_EncounterJournal.GetSectionInfo(10329)).title
 	L.random = "Random trains"
 
 	L.train_you = "Train on your lane! (%d)"
@@ -259,19 +259,19 @@ function mod:GetOptions()
 		--[[ General ]]--
 		{155921, "TANK"}, -- Enkindle
 		{155864, "SAY"}, -- Prototype Pulse Grenade (Grenade)
-		{"trains", "FLASH"},
+		"trains",
 	}, {
 		["custom_on_manatarms_marker"] = -9537, -- Reinforcements
 		[155921] = "general",
 	}
 end
 
-function mod:VerifyEnable()
+--[[function mod:VerifyEnable()
 	local y = UnitPosition("player")
 	if y > 430 then
 		return true
 	end
-end
+end]]
 
 function mod:OnBossEnable()
 	self:Log("SPELL_AURA_APPLIED", "Enkindle", 155921)
@@ -300,13 +300,13 @@ function mod:OnEngage()
 	-- 15s warning on splits
 	local split = self:SpellName(143020)
 	if self:Mythic() then
-		self:DelayedMessage("trains", 130, "Neutral", CL.custom_sec:format(CL.count:format(split, 1), 15), false, "Long")
-		self:DelayedMessage("trains", 286, "Neutral", CL.custom_sec:format(CL.count:format(split, 2), 15), false, "Long")
+		self:DelayedMessage("trains", 130, "cyan", CL.custom_sec:format(CL.count:format(split, 1), 15), false, "Long")
+		self:DelayedMessage("trains", 286, "cyan", CL.custom_sec:format(CL.count:format(split, 2), 15), false, "Long")
 	else
 		if not self:LFR() then
-			self:DelayedMessage("trains", 106, "Neutral", CL.custom_sec:format(CL.count:format(split, 1), 15), false, "Long")
+			self:DelayedMessage("trains", 106, "cyan", CL.custom_sec:format(CL.count:format(split, 1), 15), false, "Long")
 		end
-		self:DelayedMessage("trains", 356, "Neutral", CL.custom_sec:format(CL.count:format(split, 2), 15), false, "Long")
+		self:DelayedMessage("trains", 356, "cyan", CL.custom_sec:format(CL.count:format(split, 2), 15), false, "Long")
 	end
 	self:RegisterEvent("INSTANCE_ENCOUNTER_ENGAGE_UNIT")
 	self:RegisterUnitEvent("UNIT_TARGET", "GrenadeTarget", "boss1")
@@ -328,22 +328,6 @@ function mod:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
 	end
 end
 
-local function checkLane(warnLane)
-	if UnitIsDead("player") then return end
-	-- nice square room!
-	local lane = 0
-	local pos = UnitPosition("player")
-	if pos < 529.7 then lane = 4
-	elseif pos > 577.7 then lane = 1
-	elseif pos > 553.7 then lane = 2
-	elseif pos < 553.8 then	lane = 3 end
-
-	if lane == warnLane then
-		mod:Message("trains", "Personal", "Info", L.train_you:format(lane), false)
-		mod:Flash("trains", L.trains_icon)
-	end
-end
-
 local randomCount = 0
 function mod:StartTrainTimer(lane, count)
 	local data = self:Mythic() and trainDataMythic or self:LFR() and trainDataLFR or trainData
@@ -357,15 +341,14 @@ function mod:StartTrainTimer(lane, count)
 	local length = floor(time - (GetTime() - engageTime))
 	if type ~= "random" then
 		if type ~= "train" then -- no messages for the non-stop trains
-			self:DelayedMessage("trains", length-1, "Neutral", CL.incoming:format(L[type]), false) -- Incoming Adds train!
+			self:DelayedMessage("trains", length-1, "cyan", CL.incoming:format(L[type]), false) -- Incoming Adds train!
 		end
 		self:CDBar("trains", length, L.lane:format(type ~= "random" and lane or "?", L[type]), icons[type]) -- Lane 1: Adds train
 		self:ScheduleTimer("StartTrainTimer", length, lane, count+1)
-		self:ScheduleTimer(checkLane, length-1, lane) -- gives you ~2s to move
 	else -- random
 		if lane == 1 then -- only show one bar
 			local pad = strrep(" ", randomCount) -- hack so i can have two bars/messages for the same thing up
-			self:DelayedMessage("trains", length-5, "Neutral", CL.soon:format(L[type])..pad, false) -- Random trains soon!
+			self:DelayedMessage("trains", length-5, "cyan", CL.soon:format(L[type])..pad, false) -- Random trains soon!
 			self:CDBar("trains", length, L[type]..pad, icons[type]) -- Random trains
 			randomCount = 1 - randomCount
 		end
@@ -376,12 +359,12 @@ end
 -- General
 
 function mod:Enkindle(args)
-	self:StackMessage(args.spellId, args.destName, args.amount, "Attention", args.amount and "Warning")
+	self:StackMessage(args.spellId, args.destName, args.amount, "yellow", args.amount and "Warning")
 	self:CDBar(args.spellId, 12) -- can be delayed by Pulse Grenade for ~2s
 end
 
 do
-	function mod:GrenadeTarget(unit)
+	function mod:GrenadeTarget(_, unit)
 		local target = unit.."target"
 		local guid = UnitGUID(target)
 		if not guid or UnitDetailedThreatSituation(target, unit) ~= false or self:MobId(guid) ~= 1 then return end
@@ -390,7 +373,7 @@ do
 		if self:Me(guid) and not self:LFR() then
 			self:Say(155864, grenade)
 		end
-		self:TargetMessage(155864, self:UnitName(target), "Attention", "Alarm", grenade)
+		self:TargetMessage(155864, self:UnitName(target), "yellow", "Alarm", grenade)
 	end
 
 	local prev = 0
@@ -405,29 +388,29 @@ end
 
 function mod:PulseGrenadeDamage(args)
 	if self:Me(args.destGUID) then
-		self:Message(155864, "Personal", "Alarm", CL.underyou:format(self:SpellName(135592))) -- 135592 = "Grenade"
+		self:Message(155864, "blue", "Alarm", CL.underyou:format(self:SpellName(135592))) -- 135592 = "Grenade"
 	end
 end
 
 function mod:IronBellow(args)
-	self:Message(args.spellId, "Urgent")
+	self:Message(args.spellId, "orange")
 	self:CDBar(args.spellId, 12)
 end
 
 function mod:CauterizingBolt(args)
-	self:Message(args.spellId, "Important", "Alert")
+	self:Message(args.spellId, "red", "Alert")
 end
 
 function mod:CauterizingBoltApplied(args)
 	if UnitGUID("target") == args.destGUID and self:Dispeller("magic", true) then
-		self:TargetMessage(args.spellId, args.destName, "Important", "Alert", nil, nil, true)
+		self:TargetMessage(args.spellId, args.destName, "red", "Alert", nil, nil, true)
 	end
 end
 
 do
 	local function printTarget(self, name, guid)
 		-- 119342 = Bombs
-		self:TargetMessage(159481, name, "Attention", "Warning", 119342, 159481)
+		self:TargetMessage(159481, name, "yellow", "Warning", 119342, 159481)
 		if self:Me(guid) then
 			self:Flash(159481)
 			self:Say(159481, 119342)

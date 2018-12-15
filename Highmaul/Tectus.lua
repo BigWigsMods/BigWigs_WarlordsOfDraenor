@@ -3,7 +3,7 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("Tectus", 994, 1195)
+local mod, CL = BigWigs:NewBoss("Tectus", 1228, 1195)
 if not mod then return end
 mod:RegisterEnableMob(78948)
 mod.engageId = 1722
@@ -34,7 +34,6 @@ if L then
 	L.custom_on_shard_marker_desc = "Marks the two Shard of Tectus that spawn with {rt8}{rt7}, requires promoted or leader."
 	L.custom_on_shard_marker_icon = 8
 
-	L.tectus = EJ_GetEncounterInfo(1195)
 	L.shard = "Shard"
 	L.motes = "Motes"
 end
@@ -137,7 +136,7 @@ end
 
 do
 	local prev = 0
-	function mod:UNIT_POWER_FREQUENT(unit)
+	function mod:UNIT_POWER_FREQUENT(_, unit)
 		local power = UnitPower(unit)
 		if power == 1 then
 			pillarWarned[unit] = nil
@@ -146,7 +145,7 @@ do
 			local t = GetTime()
 			local isMote = self:MobId(UnitGUID(unit)) == 80557
 			if not isMote or t-prev > 5 then -- not Mote or first Mote cast in 5s
-				self:Message(162518, "Important", "Warning", CL.soon:format(self:SpellName(162518)))
+				self:Message(162518, "red", "Warning", CL.soon:format(self:SpellName(162518)))
 				if isMote then prev = t end
 			end
 		end
@@ -156,14 +155,14 @@ end
 function mod:Accretion(args)
 	if self:MobId(args.sourceGUID) ~= 80557 and UnitGUID("target") == args.sourceGUID and args.amount > 3 then
 		local raidIcon = CombatLog_String_GetIcon(args.sourceRaidFlags)
-		self:Message(args.spellId, "Attention", nil, raidIcon..CL.count:format(args.spellName, args.amount))
+		self:Message(args.spellId, "yellow", nil, raidIcon..CL.count:format(args.spellName, args.amount))
 	end
 end
 
 do
 	local list, scheduled = mod:NewTargetList(), nil
 	local function warn(self, spellId)
-		self:TargetMessage(spellId, list, "Positive") -- ME_ONLY by default, too spammy
+		self:TargetMessage(spellId, list, "green") -- ME_ONLY by default, too spammy
 		scheduled = nil
 	end
 	function mod:CrystallineBarrage(args)
@@ -173,7 +172,7 @@ do
 		if self:Me(args.destGUID) then
 			self:Flash(args.spellId)
 			self:Say(args.spellId, 120361) -- 120361 = "Barrage"
-			self:TargetMessage(args.spellId, args.destName, "Personal", "Alarm")
+			self:TargetMessage(args.spellId, args.destName, "blue", "Alarm")
 		else
 			list[#list+1] = args.destName
 			if not scheduled then
@@ -212,7 +211,7 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and t-prev > 1 then
 			prev = t
-			self:Message(162346, "Personal", "Alarm", CL.underyou:format(args.spellName))
+			self:Message(162346, "blue", "Alarm", CL.underyou:format(args.spellName))
 			self:Flash(162346)
 		end
 	end
@@ -220,13 +219,13 @@ end
 
 do
 	local prev = 0
-	local names = { [78948] = L.tectus, [80551] = L.shard, [80557] = L.motes }
+	local names = { [78948] = mod.displayName, [80551] = L.shard, [80557] = L.motes }
 	function mod:TectonicUpheaval(args)
 		local t = GetTime()
 		local id = self:MobId(args.sourceGUID)
 		if id ~= 80557 or t-prev > 5 then -- not Mote or first Mote cast in 5s
 			local raidIcon = CombatLog_String_GetIcon(args.sourceRaidFlags)
-			self:Message(args.spellId, "Positive", "Long", CL.other:format(raidIcon .. names[id], args.spellName))
+			self:Message(args.spellId, "green", "Long", CL.other:format(raidIcon .. names[id], args.spellName))
 			if id == 80557 then prev = t end
 		end
 	end
@@ -243,28 +242,28 @@ end
 
 function mod:AddsSpawn(args)
 	if self:MobId(args.sourceGUID) == 80599 then -- Night-Twisted Earthwarper
-		self:Message("adds", "Attention", "Info", -10061, false)
+		self:Message("adds", "yellow", "Info", -10061, false)
 		self:CDBar("adds", 41, -10061, "spell_shadow_raisedead")
 		self:CDBar(162894, 10) -- Gift of Earth
 		self:CDBar(162968, 15) -- Earthen Flechettes
 	elseif self:MobId(args.sourceGUID) == 80822 then -- Night-Twisted Berserker
-		self:Message("adds", "Attention", "Info", -10062, false)
+		self:Message("adds", "yellow", "Info", -10062, false)
 		self:CDBar("adds", 41, -10062, "ability_warrior_endlessrage")
 		self:CDBar(163312, 13) -- Raving Assault (~10s + 3s cast)
 	end
 end
 
 function mod:GiftOfEarth(args)
-	self:Message(args.spellId, "Urgent", "Alert")
+	self:Message(args.spellId, "orange", "Alert")
 	self:CDBar(args.spellId, 11)
 end
 
 function mod:Petrification(args)
-	self:TargetMessage(args.spellId, args.destName, "Urgent", "Warning")
+	self:TargetMessage(args.spellId, args.destName, "orange", "Warning")
 end
 
 function mod:EarthenFlechettes(args)
-	self:Message(args.spellId, "Attention", self:Tank() and "Alert")
+	self:Message(args.spellId, "yellow", self:Tank() and "Alert")
 	self:CDBar(args.spellId, 15)
 end
 
@@ -274,12 +273,12 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and not self:Tank() and t-prev > 1 then
 			prev = t
-			self:Message(args.spellId, "Personal", "Alarm", CL.underyou:format(args.spellName))
+			self:Message(args.spellId, "blue", "Alarm", CL.underyou:format(args.spellName))
 		end
 	end
 end
 
 function mod:RavingAssault(args)
-	self:Message(args.spellId, "Urgent")
+	self:Message(args.spellId, "orange")
 end
 

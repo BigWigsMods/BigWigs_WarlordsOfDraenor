@@ -3,7 +3,7 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("The Butcher", 994, 971)
+local mod, CL = BigWigs:NewBoss("The Butcher", 1228, 971)
 if not mod then return end
 mod:RegisterEnableMob(77404)
 mod.engageId = 1706
@@ -108,7 +108,7 @@ do
 		if t-prev > 5 then
 			-- every four waves adds another add: 3x1, 4x2, 4x3, etc
 			local num = floor(addCount / 4) + 1
-			self:Message(-10228, "Attention", nil, CL.spawning:format(L.adds_multiple:format(num)), "spell_shadow_corpseexplode")
+			self:Message(-10228, "yellow", nil, CL.spawning:format(L.adds_multiple:format(num)), "spell_shadow_corpseexplode")
 			addCount = addCount + 1
 			local nextNum = floor((addCount) / 4) + 1
 			self:Bar(-10228, 14.5, L.adds_multiple:format(nextNum), "spell_shadow_corpseexplode")
@@ -123,7 +123,7 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and t-prev > 1 then
 			prev = t
-			self:Message(args.spellId, "Personal", "Alarm", CL.underyou:format(args.spellName))
+			self:Message(args.spellId, "blue", "Alarm", CL.underyou:format(args.spellName))
 			self:Flash(args.spellId)
 		end
 	end
@@ -132,19 +132,19 @@ end
 function mod:BoundingCleave(args)
 	local frenzied = args.spellId == 156257 and true
 	cleaveCount = 1
-	self:Message(156197, "Urgent", "Alert")
+	self:Message(156197, "orange", "Alert")
 	self:Bar(156197, frenzied and 30 or 60) -- Bounding Cleave
 	self:CDBar(156157, frenzied and 5 or 8) -- Cleave
 	self:CDBar(156151, 17) -- Tenderizer
 end
 
 function mod:Tenderizer(args)
-	self:StackMessage(args.spellId, args.destName, args.amount, "Urgent", args.amount and "Warning")
+	self:StackMessage(args.spellId, args.destName, args.amount, "orange", args.amount and "Warning")
 	self:CDBar(args.spellId, 17)
 end
 
 function mod:Cleave(args)
-	self:Message(156157, "Attention", nil, CL.count:format(args.spellName, cleaveCount))
+	self:Message(156157, "yellow", nil, CL.count:format(args.spellName, cleaveCount))
 	--self:StopBar(CL.count:format(args.spellName, cleaveCount))
 	cleaveCount = cleaveCount + 1
 	--self:CDBar(args.spellId, 6, CL.count:format(args.spellName, cleaveCount))
@@ -152,7 +152,7 @@ end
 
 function mod:GushingWounds(args)
 	if self:Me(args.destGUID) and args.amount > 2 then
-		self:StackMessage(args.spellId, args.destName, args.amount, "Personal", "Alarm")
+		self:StackMessage(args.spellId, args.destName, args.amount, "blue", "Alarm")
 		self:TargetBar(args.spellId, 15, args.destName)
 	end
 end
@@ -163,16 +163,16 @@ function mod:GushingWoundsRemoved(args)
 	end
 end
 
-function mod:UNIT_HEALTH_FREQUENT(unit)
+function mod:UNIT_HEALTH_FREQUENT(event, unit)
 	local hp = UnitHealth(unit) / UnitHealthMax(unit) * 100
 	if hp < 36 then
-		self:UnregisterUnitEvent("UNIT_HEALTH_FREQUENT", unit)
-		self:Message("frenzy", "Neutral", nil, CL.soon:format(self:SpellName(L.frenzy)), false)
+		self:UnregisterUnitEvent(event, unit)
+		self:Message("frenzy", "cyan", nil, CL.soon:format(self:SpellName(L.frenzy)), false)
 	end
 end
 
 function mod:Frenzy(args)
-	self:Message("frenzy", "Important", "Alarm", args.spellName, L.frenzy_icon)
+	self:Message("frenzy", "red", "Alarm", args.spellName, L.frenzy_icon)
 	-- gains power faster while frenzied
 	local left = (100 - UnitPower("boss1")) * 0.3
 	self:Bar(156197, left) -- Bounding Cleave

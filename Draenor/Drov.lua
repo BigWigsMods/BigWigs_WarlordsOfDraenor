@@ -3,10 +3,10 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("Drov the Ruiner", -949, 1291)
+local mod, CL = BigWigs:NewBoss("Drov the Ruiner", -543, 1291)
 if not mod then return end
 mod:RegisterEnableMob(81252)
-mod.otherMenu = 962
+mod.otherMenu = -572
 mod.worldBoss = 81252
 
 --------------------------------------------------------------------------------
@@ -36,18 +36,18 @@ end
 --
 
 function mod:ColossalSlam(args)
-	self:Message(args.spellId, "Important", "Alarm")
+	self:Message(args.spellId, "red", "Alarm")
 end
 
 function mod:CallOfEarth(args)
-	self:Message(args.spellId, "Attention")
+	self:Message(args.spellId, "yellow")
 	self:CDBar(args.spellId, 90)
 	self:Bar(args.spellId, 20, CL.cast:format(args.spellName))
 end
 
 function mod:AcidBreath(args)
 	if not self:Tank() and self:Me(args.destGUID) then
-		self:Message(args.spellId, "Personal", "Alarm", CL.you:format(args.spellName))
+		self:Message(args.spellId, "blue", "Alarm", CL.you:format(args.spellName))
 		self:Flash(args.spellId)
 	end
 end

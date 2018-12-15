@@ -3,7 +3,7 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("Archimonde", 1026, 1438)
+local mod, CL = BigWigs:NewBoss("Archimonde", 1448, 1438)
 if not mod then return end
 mod:RegisterEnableMob(91331)
 mod.engageId = 1799
@@ -68,9 +68,6 @@ if L then
 	L.custom_off_infernal_marker_desc = "Mark the Infernals spawned by Rain of Chaos with {rt1}{rt2}{rt3}{rt4}{rt5}, requires promoted or leader."
 	L.custom_off_infernal_marker_icon = 1
 
-	L.custom_off_chaos_helper = "Wrought Chaos helper"
-	L.custom_off_chaos_helper_desc = "For Mythic difficulty only. This feature will tell you what chaos number you are, showing you a normal message and printing to say chat. Depending on what tactic you use, this feature may or may not be useful."
-	L.custom_off_chaos_helper_icon = 186123 -- spell_misc_zandalari_council_soulswap / Wrought Chaos
 	L.chaos_helper_message = "Your Chaos position: %d"
 end
 
@@ -89,7 +86,6 @@ function mod:GetOptions()
 		{184964, "SAY", "FLASH"}, -- Shackled Torment
 		"custom_off_torment_marker",
 		{186123, "ICON", "SAY", "FLASH"}, -- Wrought Chaos
-		"custom_off_chaos_helper",
 		183865, -- Demonic Havoc
 		"overfiend",
 		-- P3
@@ -197,7 +193,7 @@ end
 -- Event Handlers
 --
 
-function mod:Phases(unit, spellName, _, _, spellId)
+function mod:Phases(_, _, _, spellId)
 	if spellId == 190117 then -- Allow Phase 2 Spells
 		self:StopBar(182826) -- Doomfire
 		self:StopBar(183817) -- Shadowfel Burst
@@ -207,7 +203,7 @@ function mod:Phases(unit, spellName, _, _, spellId)
 		self:CancelTimer(burstTimer)
 
 		phase = 2
-		self:Message("stages", "Neutral", "Long", "70% - " .. CL.phase:format(2), false)
+		self:Message("stages", "cyan", "Long", "70% - " .. CL.phase:format(2), false)
 		self:CDBar(186123, 7) -- Wrought Chaos
 		self:CDBar(184964, 27, CL.count:format(self:SpellName(184964), tormentCount)) -- Shackled Torment
 		self:CDBar(183828, 38) -- Death Brand
@@ -218,7 +214,7 @@ function mod:Phases(unit, spellName, _, _, spellId)
 		self:StopBar(L.overfiend) -- Felborne Overfiend
 
 		phase = 3
-		self:Message("stages", "Neutral", "Long", "40% - " .. CL.phase:format(3), false)
+		self:Message("stages", "cyan", "Long", "40% - " .. CL.phase:format(3), false)
 		self:CDBar(186961, 13) -- Nether Banish
 		self:CDBar(186123, 27) -- Wrought Chaos
 		self:CDBar(187180, 35) -- Demonic Feedback
@@ -241,7 +237,7 @@ function mod:Phases(unit, spellName, _, _, spellId)
 		self:StopBar(L.overfiend) -- Felborne Overfiend
 		self:UnregisterUnitEvent("UNIT_HEALTH_FREQUENT", "boss1") -- Ignore 40%, 25% warnings inside mythic P3 (50%->0%)
 
-		self:Message("stages", "Neutral", "Long", CL.phase:format(3), false)
+		self:Message("stages", "cyan", "Long", CL.phase:format(3), false)
 		self:Bar(190394, 9.5) -- Dark Conduit
 		self:Bar(187050, 21.5, CL.count:format(self:SpellName(187050), markOfTheLegionCount)) -- Mark of the Legion
 		self:Bar(182225, 35, L.infernal_count:format(self:SpellName(182225), markOfTheLegionCount, infernalAmount)) -- Rain of Chaos
@@ -260,13 +256,13 @@ do
 		[43] = CL.phase:format(3), -- 40%
 		[28] = mod:SpellName(182225), -- 25% Rain of Chaos
 	}
-	function mod:UNIT_HEALTH_FREQUENT(unit)
+	function mod:UNIT_HEALTH_FREQUENT(event, unit)
 		local hp = UnitHealth(unit) / UnitHealthMax(unit) * 100
 		if hp < nextPhaseSoon then
-			self:Message("stages", "Neutral", "Info", CL.soon:format(phaseMessage[nextPhaseSoon]), false)
+			self:Message("stages", "cyan", "Info", CL.soon:format(phaseMessage[nextPhaseSoon]), false)
 			nextPhaseSoon = nextPhaseSoon - 15
 			if nextPhaseSoon < 30 then
-				self:UnregisterUnitEvent("UNIT_HEALTH_FREQUENT", unit)
+				self:UnregisterUnitEvent(event, unit)
 			end
 		end
 	end
@@ -278,36 +274,36 @@ do
 		local t = GetTime()
 		if t-prev > 5 and self:Me(args.destGUID) then
 			prev = t
-			self:TargetMessage(args.spellId, args.destName, "Personal", self:Tank() and "Info")
+			self:TargetMessage(args.spellId, args.destName, "blue", self:Tank() and "Info")
 		end
 	end
 end
 
 function mod:AllureOfFlamesCast(args)
-	self:Message(args.spellId, "Urgent", nil, CL.incoming:format(args.spellName))
+	self:Message(args.spellId, "orange", nil, CL.incoming:format(args.spellName))
 	self:CDBar(args.spellId, 48) -- Min: 47.5/Avg: 49.8/Max: 54.1
 end
 
 function mod:AllureOfFlames(args)
-	self:Message(args.spellId, "Urgent", "Alert")
+	self:Message(args.spellId, "orange", "Alert")
 end
 
 function mod:DeathBrandCast(args)
 	if self:Tank() then
-		self:Message(args.spellId, "Attention", "Warning", CL.casting:format(args.spellName))
+		self:Message(args.spellId, "yellow", "Warning", CL.casting:format(args.spellName))
 	end
 	self:CDBar(args.spellId, 43)
 end
 
 function mod:DeathBrand(args)
-	self:TargetMessage(args.spellId, args.destName, "Attention")
+	self:TargetMessage(args.spellId, args.destName, "yellow")
 	if self:Tank() and not self:Me(args.destGUID) and not UnitDetailedThreatSituation("player", "boss1") then -- second taunt warning for other tank
 		self:PlaySound(args.spellId, "Warning")
 	end
 end
 
 function mod:ShadowBlast(args)
-	self:StackMessage(args.spellId, args.destName, args.amount, "Attention")
+	self:StackMessage(args.spellId, args.destName, args.amount, "yellow")
 end
 
 -- Phase 1
@@ -317,7 +313,7 @@ function mod:Doomfire(args)
 end
 
 function mod:DoomfireFixate(args)
-	self:TargetMessage(182826, args.destName, "Important", "Alarm")
+	self:TargetMessage(182826, args.destName, "red", "Alarm")
 	self:PrimaryIcon(182826, args.destName)
 	self:TargetBar(182826, 10, args.destName)
 	if self:Me(args.destGUID) then
@@ -336,14 +332,14 @@ do
 		local t = GetTime()
 		if t-prev > 2 and self:Me(args.destGUID) then
 			prev = t
-			self:Message(182826, "Personal", "Alarm", CL.underyou:format(args.spellName))
+			self:Message(182826, "blue", "Alarm", CL.underyou:format(args.spellName))
 		end
 	end
 end
 
 function mod:ShadowfelBurstSoon()
 	burstTimer = nil
-	self:Message(183817, "Urgent", nil, CL.soon:format(self:SpellName(183817)))
+	self:Message(183817, "orange", nil, CL.soon:format(self:SpellName(183817)))
 	if self:Ranged() then
 		self:OpenProximity(183817, 9) -- 8+1 safety
 	end
@@ -358,7 +354,7 @@ do
 			wipe(proxList)
 			self:OpenProximity(args.spellId, 9) -- 8+1 safety
 		end
-		self:Message(args.spellId, "Urgent", "Warning")
+		self:Message(args.spellId, "orange", "Warning")
 		if burstTimer then
 			self:CancelTimer(burstTimer)
 		end
@@ -369,7 +365,7 @@ do
 	function mod:ShadowfelBurstApplied(args)
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessage", 0.3, 183817, list, "Urgent")
+			self:ScheduleTimer("TargetMessage", 0.3, 183817, list, "orange")
 			self:Bar(183817, (self:Mythic() and 52) or (burstCount == 2 and 61) or 56)
 			if self:Ranged() then
 				self:ScheduleTimer("CloseProximity", 6, 183817)
@@ -388,7 +384,7 @@ do
 end
 
 function mod:Desecrate(args)
-	self:Message(args.spellId, "Attention", "Alarm")
+	self:Message(args.spellId, "yellow", "Alarm")
 	self:CDBar(args.spellId, 27) -- Min: 26.8/Avg: 29.2/Max: 33.4
 end
 
@@ -409,7 +405,7 @@ do
 				local torment = CL.count:format(self:SpellName(187553), i) -- 187553 = "Torment"
 				self:Say(spellId, torment)
 				self:Flash(spellId)
-				self:TargetMessage(spellId, target, "Personal", "Alarm", torment)
+				self:TargetMessage(spellId, target, "blue", "Alarm", torment)
 			end
 			if self:GetOption("custom_off_torment_marker") then
 				SetRaidTarget(target, i)
@@ -417,7 +413,7 @@ do
 			list[i] = self:ColorName(target)
 		end
 		if not isOnMe and not banished then
-			self:TargetMessage(spellId, list, "Attention", nil, CL.count:format(self:SpellName(spellId), tormentCount))
+			self:TargetMessage(spellId, list, "yellow", nil, CL.count:format(self:SpellName(spellId), tormentCount))
 			if self:Mythic() then
 				self:PlaySound(spellId, "Alarm")
 			end
@@ -454,7 +450,7 @@ do
 
 		currentTorment = currentTorment - 1 -- Compensates for a shackle not being broken before the next 3 arrive (count the current total)
 		if not banished then
-			self:TargetMessage(args.spellId, args.destName, "Neutral", isOnMe and "Info", L.torment_removed:format(maxTorment - currentTorment, maxTorment))
+			self:TargetMessage(args.spellId, args.destName, "cyan", isOnMe and "Info", L.torment_removed:format(maxTorment - currentTorment, maxTorment))
 		end
 		if currentTorment == 0 then
 			maxTorment = 0
@@ -471,7 +467,7 @@ do
 	function mod:DemonicHavoc(args)
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "Attention", self:Dispeller("magic") and "Alert", nil, nil, true)
+			self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "yellow", self:Dispeller("magic") and "Alert", nil, nil, true)
 		end
 	end
 end
@@ -479,22 +475,21 @@ end
 do
 	local chaosFrom, chaosTo = 0, 0
 	local function MythicChaos(self)
-		--xxx todo: say number to position yourself
 		local wroughtChaos = self:SpellName(186123) -- Wrought Chaos
 		local focusedChaos = self:SpellName(185014) -- Focused Chaos
 		for unit in self:IterateGroup() do
-			if UnitDebuff(unit, wroughtChaos) then
+			if self:UnitDebuff(unit, wroughtChaos) then
 				chaosFrom = chaosFrom + 1
 				if UnitIsUnit("player", unit) then
-					self:Message(false, "Positive", "Info", L.chaos_helper_message:format(chaosFrom), 186123)
-					self:Say(false, chaosFrom, true)
+					self:Message(186123, "green", "Info", L.chaos_helper_message:format(chaosFrom))
+					self:Say(186123, chaosFrom, true)
 					return
 				end
-			elseif UnitDebuff(unit, focusedChaos) then -- if an odd number of players is alive on cast you do not get a debuff at all
+			elseif self:UnitDebuff(unit, focusedChaos) then -- if an odd number of players is alive on cast you do not get a debuff at all
 				chaosTo = chaosTo + 1
 				if UnitIsUnit("player", unit) then
-					self:Message(false, "Positive", "Info", L.chaos_helper_message:format(chaosTo + 10), 186123)
-					self:Say(false, chaosTo + 10, true)
+					self:Message(186123, "green", "Info", L.chaos_helper_message:format(chaosTo + 10))
+					self:Say(186123, chaosTo + 10, true)
 					return
 				end
 			end
@@ -505,26 +500,24 @@ do
 	function mod:WroughtChaosCast(args)
 		chaosCount = 0
 		if self:Mythic() then
-			if self:GetOption("custom_off_chaos_helper") then
-				chaosFrom = 0
-				chaosTo = 0
-				self:ScheduleTimer(MythicChaos, 0.2, self)
-			end
+			chaosFrom = 0
+			chaosTo = 0
+			self:ScheduleTimer(MythicChaos, 0.2, self)
 			self:Bar(186123, 18, CL.cast:format(args.spellName))
-			mythicChaosMsg = self:ScheduleTimer("Message", 18, 186123, "Personal", nil, CL.over:format(args.spellName))
+			mythicChaosMsg = self:ScheduleTimer("Message", 18, 186123, "blue", nil, CL.over:format(args.spellName))
 			mythicChaosBar = self:ScheduleTimer("CDBar", 18, 186123, 34)
 		end
 	end
 
 	function mod:FocusedChaos(args)
-		if self:Mythic() and self:GetOption("custom_off_chaos_helper") then return end -- Mythic static position tactic handled in WroughtChaosCast
+		if self:Mythic() then return end -- Mythic static position tactic handled in WroughtChaosCast
 
 		local isOnMe = nil
 		chaosCount = chaosCount + 1
 
 		if self:Me(args.sourceGUID) then -- Wrought Chaos (1) to PLAYER
 			--local spell = CL.count:format(self:SpellName(186123), chaosCount)
-			self:TargetMessage(186123, args.sourceName, "Personal", "Info", L.chaos_to:format(self:SpellName(186123), self:ColorName(args.destName)))
+			self:TargetMessage(186123, args.sourceName, "blue", "Info", L.chaos_to:format(self:SpellName(186123), self:ColorName(args.destName)))
 			if not self:Mythic() then
 				self:Say(186123)
 			end
@@ -532,7 +525,7 @@ do
 		end
 		if self:Me(args.destGUID) then -- Focused Chaos (1) from PLAYER
 			--local spell = CL.count:format(args.spellName, chaosCount)
-			self:TargetMessage(186123, args.destName, "Positive", "Alarm", L.chaos_from:format(args.spellName, self:ColorName(args.sourceName)), args.spellId)
+			self:TargetMessage(186123, args.destName, "green", "Alarm", L.chaos_from:format(args.spellName, self:ColorName(args.sourceName)), args.spellId)
 			if not self:Mythic() then
 				self:Say(186123, args.spellName)
 				--self:Flash(186123, args.spellId)
@@ -553,7 +546,7 @@ do
 
 			if not banished and not isOnMe and not self:CheckOption(186123, "ME_ONLY") then
 				local spell = CL.count:format(self:SpellName(186123), chaosCount)
-				self:Message(186123, "Important", nil, CL.other:format(spell, L.chaos_bar:format(self:ColorName(args.sourceName), self:ColorName(args.destName)))) -- Wrought Chaos (1): Player -> Player
+				self:Message(186123, "red", nil, CL.other:format(spell, L.chaos_bar:format(self:ColorName(args.sourceName), self:ColorName(args.destName)))) -- Wrought Chaos (1): Player -> Player
 				self:Bar(186123, 5, ("(%d) %s"):format(chaosCount, L.chaos_bar:format(args.sourceName:gsub("%-.+", "*"), args.destName:gsub("%-.+", "*"))), "spell_shadow_soulleech_1") -- (1) Player -> Player
 			end
 		end
@@ -563,8 +556,8 @@ do
 		if not self:Mythic() and chaosCount == 4 then
 			self:SecondaryIcon(186123)
 			self:PrimaryIcon(186123)
-			if UnitDebuff("player", self:SpellName(184964)) then -- Shackled Torment
-				self:Message(186123, "Positive", "Info", CL.over:format(self:SpellName(186123))) -- Wrought Chaos
+			if self:UnitDebuff("player", self:SpellName(184964)) then -- Shackled Torment
+				self:Message(186123, "green", "Info", CL.over:format(self:SpellName(186123))) -- Wrought Chaos
 			end
 			self:CDBar(186123, 32) -- 52s - 20s of tossing
 		end
@@ -572,7 +565,7 @@ do
 end
 
 function mod:HeartOfArgus(args)
-	self:Message("overfiend", "Positive", "Alert", CL.spawned:format(self:SpellName(L.overfiend)), false)
+	self:Message("overfiend", "green", "Alert", CL.spawned:format(self:SpellName(L.overfiend)), false)
 	if phase < 3 then -- they can spawn just before the transition happens then jump down and gain the buff after
 		self:Bar("overfiend", 45, L.overfiend, L.overfiend_icon)
 	end
@@ -582,7 +575,7 @@ end
 
 function mod:RainOfChaos(args)
 	if not banished then
-		self:Message(args.spellId, "Urgent", "Alert")
+		self:Message(args.spellId, "orange", "Alert")
 	end
 	self:Bar(args.spellId, 62)
 end
@@ -592,7 +585,7 @@ end
 function mod:TouchOfShadows(args)
 	if banished then
 		if self:Interrupter(args.sourceGUID) then
-			self:Message(args.spellId, "Attention", "Long", CL.count:format(args.spellName, shadowsCount))
+			self:Message(args.spellId, "yellow", "Long", CL.count:format(args.spellName, shadowsCount))
 		end
 		shadowsCount = shadowsCount + 1
 		if shadowsCount == 3 then
@@ -617,7 +610,7 @@ do
 
 	function mod:TankNetherBanish(args)
 		self:CDBar(args.spellId, 62)
-		self:TargetMessage(args.spellId, args.destName, "Urgent", "Warning", nil, nil, true)
+		self:TargetMessage(args.spellId, args.destName, "orange", "Warning", nil, nil, true)
 		self:TargetBar(args.spellId, 7, args.destName)
 		self:PrimaryIcon(args.spellId, args.destName)
 		if self:Me(args.destGUID) then
@@ -656,7 +649,7 @@ function mod:NetherBanishRemoved(args)
 		self:StopBar(189894) -- Void Star
 		self:StopBar(CL.count:format(self:SpellName(190050), shadowsCount)) -- Touch of Shadows
 		if feedbackSoon then
-			self:ScheduleTimer("Message", 1, 187180, "Attention", "Info", CL.soon:format(self:SpellName(187180))) -- loading screen delay
+			self:ScheduleTimer("Message", 1, 187180, "yellow", "Info", CL.soon:format(self:SpellName(187180))) -- loading screen delay
 			self:OpenProximity(187180, 7) -- Demonic Feedback
 		end
 	end
@@ -668,7 +661,7 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and t-prev > 2 then
 			prev = t
-			self:Message(args.spellId, "Personal", "Info", CL.underyou:format(args.spellName))
+			self:Message(args.spellId, "blue", "Info", CL.underyou:format(args.spellName))
 			self:Flash(args.spellId)
 		end
 	end
@@ -676,7 +669,7 @@ end
 
 function mod:VoidStarFixate(args)
 	if banished then
-		self:TargetMessage(189894, args.destName, "Personal", "Alarm")
+		self:TargetMessage(189894, args.destName, "blue", "Alarm")
 		self:Bar(189894, 15.8)
 	end
 	if self:Me(args.destGUID) then
@@ -694,7 +687,7 @@ end
 function mod:DemonicFeedbackSoon()
 	feedbackSoon = true
 	if not banished then
-		self:Message(187180, "Attention", "Info", CL.soon:format(self:SpellName(187180)))
+		self:Message(187180, "yellow", "Info", CL.soon:format(self:SpellName(187180)))
 		self:OpenProximity(187180, 7)
 	end
 end
@@ -702,7 +695,7 @@ end
 function mod:DemonicFeedback(args)
 	feedbackSoon = nil
 	if not banished then
-		self:Message(args.spellId, "Attention", "Warning")
+		self:Message(args.spellId, "yellow", "Warning")
 		self:OpenProximity(187180, 7)
 		self:ScheduleTimer("CloseProximity", 2, 187180)
 	end
@@ -745,7 +738,7 @@ do
 		if self:Mythic() then
 			local barTime = 61
 			local p3Duration = t - p3Start
-			self:Message(182225, "Urgent", "Alert", L.infernal_count:format(self:SpellName(182225), count, infernalAmount))
+			self:Message(182225, "orange", "Alert", L.infernal_count:format(self:SpellName(182225), count, infernalAmount))
 
 			for i = 1, #timers.infernals do
 				local v = timers.infernals[i]
@@ -770,7 +763,7 @@ end
 
 function mod:DarkConduit(args)
 	conduitCount = (conduitCount % 3) + 1
-	self:Message(args.spellId, "Positive", "Alert", CL.count:format(args.spellName, conduitCount))
+	self:Message(args.spellId, "green", "Alert", CL.count:format(args.spellName, conduitCount))
 	local time = 60
 	local p3Duration = GetTime() - p3Start
 	for _,v in ipairs(timers.dc) do
@@ -783,7 +776,7 @@ function mod:DarkConduit(args)
 end
 
 function mod:TwistedDarkness(args)
-	self:Message(args.spellId, "Attention", "Alarm")
+	self:Message(args.spellId, "yellow", "Alarm")
 	local time = 42
 	local p3Duration = GetTime() - p3Start
 	for _,v in ipairs(timers.twisted) do
@@ -796,7 +789,7 @@ function mod:TwistedDarkness(args)
 end
 
 function mod:SummonSourceOfChaos(args)
-	self:Message(190703, "Attention", "Alarm")
+	self:Message(190703, "yellow", "Alarm")
 	local time = 58
 	local p3Duration = GetTime() - p3Start
 	for _,v in ipairs(timers.chaos) do
@@ -809,7 +802,7 @@ function mod:SummonSourceOfChaos(args)
 end
 
 function mod:SeethingCorruption(args)
-	self:Message(args.spellId, "Urgent", "Alert")
+	self:Message(args.spellId, "orange", "Alert")
 	local time = 58
 	local p3Duration = GetTime() - p3Start
 	for _,v in ipairs(timers.seething) do
@@ -847,7 +840,7 @@ do
 				self:Say(spellId, CL.count_rticon:format(self:SpellName(28836), i, i)) -- 28836 = "Mark"
 				self:Flash(spellId)
 				self:OpenProximity(spellId, 10, nil, true)
-				self:TargetMessage(spellId, target, "Personal", "Alarm", CL.count_icon:format(self:SpellName(28836), i, i)) -- 28836 = "Mark"
+				self:TargetMessage(spellId, target, "blue", "Alarm", CL.count_icon:format(self:SpellName(28836), i, i)) -- 28836 = "Mark"
 			end
 			if self:GetOption("custom_off_legion_marker") then
 				SetRaidTarget(target, i)
@@ -856,7 +849,7 @@ do
 			list[i] = self:ColorName(target)
 		end
 		if not isOnMe then
-			self:TargetMessage(spellId, list, "Attention", nil, CL.count:format(self:SpellName(spellId), markOfTheLegionCount-1))
+			self:TargetMessage(spellId, list, "yellow", nil, CL.count:format(self:SpellName(spellId), markOfTheLegionCount-1))
 			self:OpenProximity(spellId, 10, proxList, true)
 		else
 			wipe(list)
@@ -885,7 +878,7 @@ do
 			isOnMe = args.destName
 			timeLeft = 5
 			local t = GetTime()
-			local _, _, _, _, _, _, expires = UnitDebuff("player", args.spellName)
+			local _, _, _, expires = self:UnitDebuff("player", args.spellName)
 			if expires and expires > 0 then
 				timeLeft = expires - t
 			end

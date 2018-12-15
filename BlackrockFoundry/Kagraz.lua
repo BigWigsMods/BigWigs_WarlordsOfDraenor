@@ -3,7 +3,7 @@
 -- Module Declaration
 --
 
-local mod, CL = BigWigs:NewBoss("Flamebender Ka'graz", 988, 1123)
+local mod, CL = BigWigs:NewBoss("Flamebender Ka'graz", 1205, 1123)
 if not mod then return end
 mod:RegisterEnableMob(76814, 77337) -- Flamebender Ka'graz, Aknor Steelbringer
 mod.engageId = 1689
@@ -143,19 +143,19 @@ do
 	end
 end
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(unit, spellName, _, _, spellId)
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, _, spellId)
 	if spellId == 154914 then -- Lava Slash
-		self:Message(155318, "Urgent")
+		self:Message(155318, "orange")
 		if self:Ranged() then
 			self:Bar(155318, 14.5)
 		end
 	elseif spellId == 163644 then -- Summon Enchanted Armaments
-		self:Message(-9352, "Attention", nil, 175007, "inv_sword_1h_firelandsraid_d_04")
+		self:Message(-9352, "yellow", nil, 175007, "inv_sword_1h_firelandsraid_d_04")
 		self:Bar(-9352, self:Mythic() and 20 or 46, 175007, "inv_sword_1h_firelandsraid_d_04")
 	elseif spellId == 155564 then -- Firestorm
-		self:Message(155493, "Important", "Long", CL.count:format(self:SpellName(155493), firestormCount))
+		self:Message(155493, "red", "Long", CL.count:format(self:SpellName(155493), firestormCount))
 		firestormCount = firestormCount + 1
-		self:Bar(155493, 14, CL.cast:format(spellName))
+		self:CastBar(155493, 14, spellId)
 
 		--self:StopBar(155277) -- Blazing Radiance
 		self:Bar(-9352, 18, 175007, "inv_sword_1h_firelandsraid_d_04") -- Summon Enchanted Armaments
@@ -173,7 +173,7 @@ do
 		local t = GetTime()
 		if t-prev > 1.5 and self:Me(args.destGUID) then
 			prev = t
-			self:Message(155318, "Personal", "Alarm", CL.underyou:format(args.spellName))
+			self:Message(155318, "blue", "Alarm", CL.underyou:format(args.spellName))
 		end
 	end
 end
@@ -191,7 +191,7 @@ do
 		end
 	end
 	function mod:MoltenTorrentApplied(args)
-		self:TargetMessage(args.spellId, args.destName, "Positive", "Warning") -- positive for wanting to stack
+		self:TargetMessage(args.spellId, args.destName, "green", "Warning") -- positive for wanting to stack
 		self:Bar(args.spellId, 14.5)
 		self:SecondaryIcon(args.spellId, args.destName)
 		if self:Me(args.destGUID) then
@@ -223,31 +223,31 @@ function mod:CinderWolves(args)
 		wipe(wolvesMarked)
 	end
 
-	self:Message(args.spellId, "Important", "Alarm")
+	self:Message(args.spellId, "red", "Alarm")
 
 	--self:Bar(155277, 32) -- Blazing Radiance
 	self:Bar(155493, 62, CL.count:format(self:SpellName(155493), firestormCount)) -- Firestorm
-	self:DelayedMessage(155493, 55, "Neutral", CL.soon:format(self:SpellName(155493)), nil, "Info") -- Firestorm
+	self:DelayedMessage(155493, 55, "cyan", CL.soon:format(self:SpellName(155493)), nil, "Info") -- Firestorm
 end
 
 function mod:Fixate(args)
 	if self:Me(args.destGUID) and not fixateOnMe then -- Multiple debuffs, warn for the first.
 		fixateOnMe = true
-		self:TargetMessage(args.spellId, args.destName, "Personal", "Alarm")
+		self:TargetMessage(args.spellId, args.destName, "blue", "Alarm")
 		self:Flash(args.spellId)
 		-- If we want a personal bar we will need to compensate for multiple debuffs
 	end
 end
 
 function mod:FixateOver(args)
-	if self:Me(args.destGUID) and not UnitDebuff("player", args.spellName) then
+	if self:Me(args.destGUID) and not self:UnitDebuff("player", args.spellName) then
 		fixateOnMe = nil
-		self:Message(args.spellId, "Personal", "Alarm", CL.over:format(args.spellName))
+		self:Message(args.spellId, "blue", "Alarm", CL.over:format(args.spellName))
 	end
 end
 
 function mod:Overheated(args)
-	self:TargetMessage(args.spellId, args.destName, "Attention", "Info", nil, nil, true)
+	self:TargetMessage(args.spellId, args.destName, "yellow", "Info", nil, nil, true)
 	self:Bar(args.spellId, 20)
 	self:CDBar(155074, 6) -- Charring Breath
 end
@@ -259,12 +259,12 @@ end
 function mod:CharringBreath(args)
 	if self:Tank(args.destName) then
 		local amount = args.amount or 1
-		self:StackMessage(args.spellId, args.destName, amount, "Attention", amount > 2 and "Warning")
+		self:StackMessage(args.spellId, args.destName, amount, "yellow", amount > 2 and "Warning")
 	end
 end
 
 function mod:Rekindle(args)
-	self:TargetMessage(args.spellId, args.sourceName, "Positive", "Warning")
+	self:TargetMessage(args.spellId, args.sourceName, "green", "Warning")
 	self:Bar(args.spellId, 8)
 end
 
@@ -280,10 +280,10 @@ do
 		if self:Mythic() then -- Multiple targets in Mythic
 			blazingTargets[#blazingTargets+1] = args.destName
 			if #blazingTargets == 1 then
-				self:ScheduleTimer("TargetMessage", 0.2, args.spellId, blazingTargets, "Attention", "Alert")
+				self:ScheduleTimer("TargetMessage", 0.2, args.spellId, blazingTargets, "yellow", "Alert")
 			end
 		else
-			self:TargetMessage(args.spellId, args.destName, "Attention", "Alert")
+			self:TargetMessage(args.spellId, args.destName, "yellow", "Alert")
 			self:PrimaryIcon(args.spellId, args.destName)
 		end
 	end
@@ -304,19 +304,19 @@ end
 function mod:RisingFlames(args)
 	local amount = args.amount or 1
 	if amount % 3 == 0 then
-		self:StackMessage(args.spellId, args.destName, amount, "Attention", amount > 5 and "Warning")
+		self:StackMessage(args.spellId, args.destName, amount, "yellow", amount > 5 and "Warning")
 	end
 end
 
 -- Aknor Steelbringer
 
 function mod:DevastatingSlam(args)
-	self:Message(args.spellId, "Attention")
+	self:Message(args.spellId, "yellow")
 	--self:CDBar(args.spellId, 6) -- 6-10.9
 end
 
 function mod:DropTheHammer(args)
-	self:Message(args.spellId, "Attention")
+	self:Message(args.spellId, "yellow")
 	--self:CDBar(args.spellId, 11) -- 11.3-14.4
 end
 
