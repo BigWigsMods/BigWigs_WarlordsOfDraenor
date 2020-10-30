@@ -308,7 +308,7 @@ do
 		if self:Me(args.destGUID) then
 			local t = GetTime()
 			local cd = 15
-			local _, _, _, expires = self:UnitDebuff("player", args.spellName)
+			local _, _, _, expires = self:UnitDebuff("player", args.spellName, 155192, 174716)
 			if expires and expires > 0 then
 				cd = expires - t
 			end
@@ -354,7 +354,7 @@ function mod:ShieldsDown(args)
 	if self.db.profile.custom_on_shieldsdown_marker then
 		for i = 2, 5 do -- boss1 is always Heart of the Mountain
 			local boss = ("boss%d"):format(i)
-			if self:UnitBuff(boss, args.spellName) then -- Shields Down
+			if self:UnitBuff(boss, args.spellName, 158345) then -- Shields Down
 				SetRaidTarget(boss, 8)
 				break
 			end
