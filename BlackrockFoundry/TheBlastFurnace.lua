@@ -416,7 +416,7 @@ function mod:VolatileFireApplied(args)
 		volatileFireOnMe = true
 
 		local cd, t = 8, GetTime()
-		local _, _, _, expires = self:UnitDebuff("player", args.spellName)
+		local _, _, _, expires = self:UnitDebuff("player", args.spellName, 176121)
 		if expires and expires > 0 then
 			cd = expires - t
 		end
