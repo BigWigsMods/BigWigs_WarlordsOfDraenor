@@ -878,7 +878,7 @@ do
 			isOnMe = args.destName
 			timeLeft = 5
 			local t = GetTime()
-			local _, _, _, expires = self:UnitDebuff("player", args.spellName)
+			local _, _, _, expires = self:UnitDebuff("player", args.spellName, 187050)
 			if expires and expires > 0 then
 				timeLeft = expires - t
 			end
