@@ -45,7 +45,7 @@ function mod:OnBossEnable()
 	if not GetLocale():find("^en") and L.engage_yell:find("^You face") then
 		self:RegisterEvent("PLAYER_REGEN_DISABLED", "CheckForEngage")
 	else
-		self:Yell("Engage", L.engage_yell)
+		self:BossYell("Engage", L.engage_yell)
 	end
 	self:RegisterEvent("PLAYER_REGEN_ENABLED", "CheckForWipe")
 	self:RegisterEvent("RAID_BOSS_EMOTE")
