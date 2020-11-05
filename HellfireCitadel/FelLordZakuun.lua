@@ -160,7 +160,7 @@ do
 		if args.spellId == 189030 then -- Red debuff gets applied initially
 			list[#list+1] = args.destName
 			if #list == 1 then
-				self:ScheduleTimer("TargetMessage", 0.3, 179711, list, "yellow", "Alert")
+				self:ScheduleTimer("TargetMessageOld", 0.3, 179711, list, "yellow", "Alert")
 				if phaseEnd-GetTime() > 40 then
 					self:CDBar(179711, 40)
 				end

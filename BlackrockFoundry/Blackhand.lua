@@ -269,7 +269,7 @@ do
 	function mod:MarkedForDeathApplied(args)
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessage", 0.2, args.spellId, list, phase == 3 and "red" or "yellow", "Alarm", phase == 2 and CL.count:format(args.spellName, markCount), nil, phase == 3)
+			self:ScheduleTimer("TargetMessageOld", 0.2, args.spellId, list, phase == 3 and "red" or "yellow", "Alarm", phase == 2 and CL.count:format(args.spellName, markCount), nil, phase == 3)
 			self:Bar(156107, 5) -- Impaling Throw
 			markCount = markCount + 1
 			if markCount > 3 and not self:Mythic() then markCount = 1 end
@@ -364,7 +364,7 @@ do
 		if count == 1 then
 			self:PlaySound(157000, "Alert") -- Play sound ASAP
 			self:Bar(157000, 25)
-			slagBombTimer = self:ScheduleTimer("TargetMessage", 1.8, 157000, list, "orange")
+			slagBombTimer = self:ScheduleTimer("TargetMessageOld", 1.8, 157000, list, "orange")
 		elseif count == 3 then
 			self:CancelTimer(slagBombTimer)
 			self:TargetMessageOld(157000, list, "orange")

@@ -365,7 +365,7 @@ do
 	function mod:ShadowfelBurstApplied(args)
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessage", 0.3, 183817, list, "orange")
+			self:ScheduleTimer("TargetMessageOld", 0.3, 183817, list, "orange")
 			self:Bar(183817, (self:Mythic() and 52) or (burstCount == 2 and 61) or 56)
 			if self:Ranged() then
 				self:ScheduleTimer("CloseProximity", 6, 183817)
@@ -467,7 +467,7 @@ do
 	function mod:DemonicHavoc(args)
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "yellow", self:Dispeller("magic") and "Alert", nil, nil, true)
+			self:ScheduleTimer("TargetMessageOld", 0.3, args.spellId, list, "yellow", self:Dispeller("magic") and "Alert", nil, nil, true)
 		end
 	end
 end

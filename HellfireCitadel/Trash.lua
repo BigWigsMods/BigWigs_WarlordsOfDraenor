@@ -387,7 +387,7 @@ do
 			self:TargetBar(args.spellId, 20, args.destName)
 		end
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "yellow", "Alarm")
+			self:ScheduleTimer("TargetMessageOld", 0.3, args.spellId, list, "yellow", "Alarm")
 		end
 	end
 end
@@ -419,7 +419,7 @@ do
 			self:OpenProximity(args.spellId, 40)
 		end
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "red", "Alarm")
+			self:ScheduleTimer("TargetMessageOld", 0.3, args.spellId, list, "red", "Alarm")
 		end
 	end
 end

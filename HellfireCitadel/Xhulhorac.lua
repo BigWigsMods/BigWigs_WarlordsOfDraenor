@@ -231,7 +231,7 @@ do
 	function mod:Surge(args)
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "yellow", "Alarm")
+			self:ScheduleTimer("TargetMessageOld", 0.3, args.spellId, list, "yellow", "Alarm")
 			if not felAndVoid then
 				self:CDBar(args.spellId, 30)
 			else -- alternates
@@ -313,7 +313,7 @@ do
 		end
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessage", 0.3, 186490, list, "orange", "Alarm", 184656, 186490) -- 184656 = "Chains"
+			self:ScheduleTimer("TargetMessageOld", 0.3, 186490, list, "orange", "Alarm", 184656, 186490) -- 184656 = "Chains"
 		end
 	end
 end

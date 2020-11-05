@@ -140,7 +140,7 @@ do
 
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "red", "Alarm")
+			self:ScheduleTimer("TargetMessageOld", 0.3, args.spellId, list, "red", "Alarm")
 			self:CDBar(args.spellId, 25.5) -- 25.5-32.9
 		end
 		if self:Me(args.destGUID) then

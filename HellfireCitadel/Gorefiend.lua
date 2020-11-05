@@ -155,7 +155,7 @@ do
 	function mod:TouchOfDoom(args)
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessage", 0.3, 179977, list, "red", "Alarm")
+			self:ScheduleTimer("TargetMessageOld", 0.3, 179977, list, "red", "Alarm")
 			self:Bar(179977, 25)
 		end
 		if self:Me(args.destGUID) then
@@ -298,7 +298,7 @@ do
 
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "orange", "Alarm", text)
+			self:ScheduleTimer("TargetMessageOld", 0.3, args.spellId, list, "orange", "Alarm", text)
 
 			local count = shadowOfDeathInfo.count[role]
 			count = count + 1

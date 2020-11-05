@@ -300,7 +300,7 @@ do
 
 		pinnedList[#pinnedList+1] = args.destName
 		if #pinnedList == 1 then
-			self:ScheduleTimer("TargetMessage", 0.2, args.spellId, pinnedList, "red", "Alarm", nil, nil, true)
+			self:ScheduleTimer("TargetMessageOld", 0.2, args.spellId, pinnedList, "red", "Alarm", nil, nil, true)
 		end
 
 		if self.db.profile.custom_off_pinned_marker and not spearList[args.sourceGUID] then -- One spear can hit multiple people, so don't overwrite existing entries

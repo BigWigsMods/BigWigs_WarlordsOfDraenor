@@ -255,7 +255,7 @@ do
 	function mod:FelChakram(args)
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessage", 0.3, 182200, list, "yellow", "Alert")
+			self:ScheduleTimer("TargetMessageOld", 0.3, 182200, list, "yellow", "Alert")
 			self:CDBar(182200, 34)
 		end
 		if self:Me(args.destGUID) then
@@ -276,7 +276,7 @@ do
 	function mod:DarkBindings(args)
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessage", 0.3, args.spellId, list, "yellow")
+			self:ScheduleTimer("TargetMessageOld", 0.3, args.spellId, list, "yellow")
 		end
 		if self:Me(args.destGUID) then
 			self:Say(args.spellId)

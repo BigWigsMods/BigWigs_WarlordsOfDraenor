@@ -280,7 +280,7 @@ do
 		if self:Mythic() then -- Multiple targets in Mythic
 			blazingTargets[#blazingTargets+1] = args.destName
 			if #blazingTargets == 1 then
-				self:ScheduleTimer("TargetMessage", 0.2, args.spellId, blazingTargets, "yellow", "Alert")
+				self:ScheduleTimer("TargetMessageOld", 0.2, args.spellId, blazingTargets, "yellow", "Alert")
 			end
 		else
 			self:TargetMessageOld(args.spellId, args.destName, "yellow", "Alert")

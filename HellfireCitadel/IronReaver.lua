@@ -127,7 +127,7 @@ do
 
 			playerList[#playerList+1] = args.destName
 			if #playerList == 1 then
-				self:ScheduleTimer("TargetMessage", 0.3, args.spellId, playerList, "orange", "Warning")
+				self:ScheduleTimer("TargetMessageOld", 0.3, args.spellId, playerList, "orange", "Warning")
 				if not isOnMe then -- Personal bar when on you
 					self:Bar(args.spellId, 13)
 				end

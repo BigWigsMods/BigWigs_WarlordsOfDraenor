@@ -193,7 +193,7 @@ do
 		local count = #list
 
 		if count == 1 then
-			timer = self:ScheduleTimer("TargetMessage", 2, args.spellId, list, "yellow", "Alarm")
+			timer = self:ScheduleTimer("TargetMessageOld", 2, args.spellId, list, "yellow", "Alarm")
 		end
 
 		if self:Me(args.destGUID) then
@@ -276,7 +276,7 @@ do
 		local count = #list
 		local reverseCount = 9-count
 		if count == 1 then
-			timer = self:ScheduleTimer("TargetMessage", 1, args.spellId, list, "yellow", "Alarm")
+			timer = self:ScheduleTimer("TargetMessageOld", 1, args.spellId, list, "yellow", "Alarm")
 		end
 
 		if self:Me(args.destGUID) then

@@ -443,7 +443,7 @@ do
 				boatTimers[args.spellId] = GetTime() + 70
 			else
 				self:CDBar(args.spellId, 70)
-				self:ScheduleTimer("TargetMessage", 0.2, args.spellId, targets, "orange", "Alert")
+				self:ScheduleTimer("TargetMessageOld", 0.2, args.spellId, targets, "orange", "Alert")
 			end
 		end
 	end
