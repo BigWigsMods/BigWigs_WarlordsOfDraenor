@@ -323,7 +323,7 @@ function mod:BlackironPlatingRemoved(args)
 end
 
 function mod:Fixate(args)
-	self:TargetMessage(args.spellId, args.destName, "yellow", "Alert")
+	self:TargetMessageOld(args.spellId, args.destName, "yellow", "Alert")
 	if self:Me(args.destGUID) then
 		self:Say(args.spellId)
 	end
@@ -367,7 +367,7 @@ do
 			slagBombTimer = self:ScheduleTimer("TargetMessage", 1.8, 157000, list, "orange")
 		elseif count == 3 then
 			self:CancelTimer(slagBombTimer)
-			self:TargetMessage(157000, list, "orange")
+			self:TargetMessageOld(157000, list, "orange")
 		end
 	end
 	function mod:AttachSlagBombsOver(args)

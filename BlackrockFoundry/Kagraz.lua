@@ -191,7 +191,7 @@ do
 		end
 	end
 	function mod:MoltenTorrentApplied(args)
-		self:TargetMessage(args.spellId, args.destName, "green", "Warning") -- positive for wanting to stack
+		self:TargetMessageOld(args.spellId, args.destName, "green", "Warning") -- positive for wanting to stack
 		self:Bar(args.spellId, 14.5)
 		self:SecondaryIcon(args.spellId, args.destName)
 		if self:Me(args.destGUID) then
@@ -233,7 +233,7 @@ end
 function mod:Fixate(args)
 	if self:Me(args.destGUID) and not fixateOnMe then -- Multiple debuffs, warn for the first.
 		fixateOnMe = true
-		self:TargetMessage(args.spellId, args.destName, "blue", "Alarm")
+		self:TargetMessageOld(args.spellId, args.destName, "blue", "Alarm")
 		self:Flash(args.spellId)
 		-- If we want a personal bar we will need to compensate for multiple debuffs
 	end
@@ -247,7 +247,7 @@ function mod:FixateOver(args)
 end
 
 function mod:Overheated(args)
-	self:TargetMessage(args.spellId, args.destName, "yellow", "Info", nil, nil, true)
+	self:TargetMessageOld(args.spellId, args.destName, "yellow", "Info", nil, nil, true)
 	self:Bar(args.spellId, 20)
 	self:CDBar(155074, 6) -- Charring Breath
 end
@@ -264,7 +264,7 @@ function mod:CharringBreath(args)
 end
 
 function mod:Rekindle(args)
-	self:TargetMessage(args.spellId, args.sourceName, "green", "Warning")
+	self:TargetMessageOld(args.spellId, args.sourceName, "green", "Warning")
 	self:Bar(args.spellId, 8)
 end
 
@@ -283,7 +283,7 @@ do
 				self:ScheduleTimer("TargetMessage", 0.2, args.spellId, blazingTargets, "yellow", "Alert")
 			end
 		else
-			self:TargetMessage(args.spellId, args.destName, "yellow", "Alert")
+			self:TargetMessageOld(args.spellId, args.destName, "yellow", "Alert")
 			self:PrimaryIcon(args.spellId, args.destName)
 		end
 	end

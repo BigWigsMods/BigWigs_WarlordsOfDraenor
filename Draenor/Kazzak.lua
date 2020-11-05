@@ -67,7 +67,7 @@ end
 
 function mod:FelBreath(args)
 	if self:Tank(args.destName) then
-		self:TargetMessage(args.spellId, args.destName, "orange", self:Tank() and "Alert")
+		self:TargetMessageOld(args.spellId, args.destName, "orange", self:Tank() and "Alert")
 		if self:Me(args.destGUID) then
 			self:TargetBar(args.spellId, 30, args.destName)
 		end
@@ -100,7 +100,7 @@ end
 
 function mod:MarkOfKazzak(args)
 	if self:Me(args.destGUID) then
-		self:TargetMessage(args.spellId, args.destName, "blue", "Alarm")
+		self:TargetMessageOld(args.spellId, args.destName, "blue", "Alarm")
 		self:TargetBar(args.spellId, 15, args.destName)
 		self:Say(args.spellId)
 		self:OpenProximity(args.spellId, 8)

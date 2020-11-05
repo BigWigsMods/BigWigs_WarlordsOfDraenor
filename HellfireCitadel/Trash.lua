@@ -181,7 +181,7 @@ function mod:FocusedFire(args)
 		self:Say(args.spellId)
 		self:OpenProximity(args.spellId, 5, nil, true)
 	end
-	self:TargetMessage(args.spellId, args.destName, "yellow", "Alarm")
+	self:TargetMessageOld(args.spellId, args.destName, "yellow", "Alarm")
 end
 
 function mod:FocusedFireRemoved(args)
@@ -205,7 +205,7 @@ end
 
 function mod:BlazingFelTouch(args)
 	if self:Me(args.destGUID) then
-		self:TargetMessage(args.spellId, args.destName, "blue", "Alarm")
+		self:TargetMessageOld(args.spellId, args.destName, "blue", "Alarm")
 		self:OpenProximity(args.spellId, 6)
 	end
 end
@@ -222,7 +222,7 @@ function mod:GraggraSmash(args)
 		self:Say(args.spellId)
 	end
 	self:TargetBar(args.spellId, 5, args.destName)
-	self:TargetMessage(args.spellId, args.destName, "yellow", "Alarm")
+	self:TargetMessageOld(args.spellId, args.destName, "yellow", "Alarm")
 end
 
 --[[ Bleeding Darkcaster ]]--
@@ -233,7 +233,7 @@ function mod:DarkFate(args)
 		self:OpenProximity(args.spellId, 10, nil, true) -- Guessed range
 	end
 	self:TargetBar(args.spellId, 15, args.destName)
-	self:TargetMessage(args.spellId, args.destName, "orange", "Long", nil, nil, true)
+	self:TargetMessageOld(args.spellId, args.destName, "orange", "Long", nil, nil, true)
 end
 
 function mod:DarkFateRemoved(args)
@@ -262,7 +262,7 @@ do
 			self:Say(spellId)
 			self:OpenProximity(spellId, 15) -- XXX verify range
 		end
-		self:TargetMessage(spellId, list, "yellow", "Alarm")
+		self:TargetMessageOld(spellId, list, "yellow", "Alarm")
 		isOnMe = nil
 	end
 
@@ -298,7 +298,7 @@ end
 
 function mod:SeverSoul(args)
 	self:TargetBar(args.spellId, 6, args.destName)
-	self:TargetMessage(args.spellId, args.destName, "orange", "Warning", nil, nil, true)
+	self:TargetMessageOld(args.spellId, args.destName, "orange", "Warning", nil, nil, true)
 end
 
 function mod:SeverSoulRemoved(args)
@@ -310,7 +310,7 @@ end
 function mod:TouchOfMortality(args)
 	if self:Me(args.destGUID) then
 		self:TargetBar(args.spellId, 9, args.destName)
-		self:TargetMessage(args.spellId, args.destName, "blue", "Alarm")
+		self:TargetMessageOld(args.spellId, args.destName, "blue", "Alarm")
 	end
 end
 
@@ -340,7 +340,7 @@ function mod:DemonicSacrifice(args)
 	if self:Me(args.destGUID) then
 		self:Say(args.spellId)
 	end
-	self:TargetMessage(args.spellId, args.destName, "yellow", "Warning", nil, nil, true)
+	self:TargetMessageOld(args.spellId, args.destName, "yellow", "Warning", nil, nil, true)
 end
 
 --[[ Shadow Burster ]]--
@@ -352,7 +352,7 @@ function mod:VoidBlast(args)
 		for unit in self:IterateGroup() do
 			if UnitDetailedThreatSituation(unit, npcUnit) then
 				warn = true
-				self:TargetMessage(186130, self:UnitName(unit), "red", "Warning", nil, nil, true)
+				self:TargetMessageOld(186130, self:UnitName(unit), "red", "Warning", nil, nil, true)
 				if self:Me(UnitGUID(unit)) then
 					self:Say(186130)
 				end

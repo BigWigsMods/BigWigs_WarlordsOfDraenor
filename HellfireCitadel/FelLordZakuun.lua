@@ -191,7 +191,7 @@ end
 
 function mod:Disembodied(args)
 	if self:Tank(args.destName) then
-		self:TargetMessage(args.spellId, args.destName, "red", self:Tank() and "Warning")
+		self:TargetMessageOld(args.spellId, args.destName, "red", self:Tank() and "Warning")
 	end
 	if self:Mythic() then
 		self:Bar(args.spellId, 15) -- Multiple targets on Mythic
@@ -215,7 +215,7 @@ do
 			if target == isOnMe then
 				self:Say(181508, self:LFR() and L.seed or CL.count_rticon:format(L.seed, i, i))
 				self:Flash(181508, i)
-				self:TargetMessage(181508, target, "green", "Alarm", not self:LFR() and CL.count_icon:format(L.seed, i, i))
+				self:TargetMessageOld(181508, target, "green", "Alarm", not self:LFR() and CL.count_icon:format(L.seed, i, i))
 			end
 			if self:GetOption("custom_off_seed_marker") then
 				SetRaidTarget(target, i)
@@ -223,7 +223,7 @@ do
 			list[i] = self:ColorName(target)
 		end
 		if not isOnMe then
-			self:TargetMessage(181508, list, "yellow")
+			self:TargetMessageOld(181508, list, "yellow")
 		else
 			wipe(list)
 		end

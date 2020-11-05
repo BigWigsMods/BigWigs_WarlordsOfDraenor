@@ -402,7 +402,7 @@ end
 
 function mod:ReactiveEarthShield(args)
 	if self:MobId(args.destGUID) == 76815 and self:Dispeller("magic", true, args.spellId) then
-		self:TargetMessage(args.spellId, args.destName, "orange", "Alert", nil, nil, true)
+		self:TargetMessageOld(args.spellId, args.destName, "orange", "Alert", nil, nil, true)
 	end
 end
 
@@ -454,12 +454,12 @@ function mod:Pyroclasm(args)
 end
 
 function mod:MeltArmor(args)
-	self:TargetMessage(args.spellId, args.destName, "yellow")
+	self:TargetMessageOld(args.spellId, args.destName, "yellow")
 	self:Bar(args.spellId, 10)
 end
 
 function mod:Rupture(args)
-	self:TargetMessage(args.spellId, args.destName, "orange", "Alarm")
+	self:TargetMessageOld(args.spellId, args.destName, "orange", "Alarm")
 	if self:Me(args.destGUID) then
 		self:Bar(args.spellId, 5, CL.you:format(args.spellName))
 		self:Flash(args.spellId)

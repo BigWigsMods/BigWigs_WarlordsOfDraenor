@@ -133,7 +133,7 @@ do
 				end
 			end
 		else
-			self:TargetMessage(args.spellId, args.destName, "orange", "Warning", nil, nil, self:Tank())
+			self:TargetMessageOld(args.spellId, args.destName, "orange", "Warning", nil, nil, self:Tank())
 			if not self:Me(args.destGUID) then -- Check again as isOnMe can be true when this lands on someone else
 				self:TargetBar(args.spellId, 13, args.destName)
 				if self:Melee() then

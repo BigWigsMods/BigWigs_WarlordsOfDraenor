@@ -162,7 +162,7 @@ end
 do
 	local function printTarget(self, name, guid)
 		local count = strikeCount > 0 and strikeCount or 3 -- off because of GetBossTarget
-		self:TargetMessage(180260, name, "yellow", "Info", CL.count:format(self:SpellName(180260), count), nil, nil, true)
+		self:TargetMessageOld(180260, name, "yellow", "Info", CL.count:format(self:SpellName(180260), count), nil, nil, true)
 		if self:Me(guid) then
 			self:Say(180260)
 		end
@@ -225,7 +225,7 @@ function mod:HarbingersMendingLFR(_, _, _, spellId)
 end
 
 function mod:HarbingersMendingApplied(args)
-	self:TargetMessage(180025, args.destName, "yellow", self:Dispeller("magic", true) and "Alert", nil, nil, true)
+	self:TargetMessageOld(180025, args.destName, "yellow", self:Dispeller("magic", true) and "Alert", nil, nil, true)
 end
 
 function mod:TaintedShadows(args)
@@ -274,7 +274,7 @@ end
 do
 	local list = mod:NewTargetList()
 	local function updateProximity(self, spellId)
-		self:TargetMessage(spellId, list, "red", "Alarm")
+		self:TargetMessageOld(spellId, list, "red", "Alarm")
 		if fontOnMe and not edictOnMe then -- stack near other fonts of corruption / away from the raid
 			self:OpenProximity(spellId, 5, inverseFontTargets)
 		end
@@ -385,7 +385,7 @@ end
 
 function mod:TouchOfHarm(args)
 	-- if someone really wants sound on this, changing Font to Long and using Alarm here would work
-	self:TargetMessage(185237, args.destName, "orange")
+	self:TargetMessageOld(185237, args.destName, "orange")
 	self:Bar(185237, 45)
 	if self:Me(args.destGUID) then
 		self:Flash(185237)
@@ -393,7 +393,7 @@ function mod:TouchOfHarm(args)
 end
 
 function mod:TouchOfHarmDispelled(args)
-	self:TargetMessage(185237, args.destName, "orange")
+	self:TargetMessageOld(185237, args.destName, "orange")
 	if self:Me(args.destGUID) then
 		self:Flash(185237)
 	end
@@ -402,7 +402,7 @@ end
 do
 	local timer1, timer2 = nil, nil
 	function mod:EdictOfCondemnation(args)
-		self:TargetMessage(182459, args.destName, "red", not self:Tank() and "Warning", nil, nil, true)
+		self:TargetMessageOld(182459, args.destName, "red", not self:Tank() and "Warning", nil, nil, true)
 		self:TargetBar(182459, 9, args.destName)
 		self:Bar(182459, 60)
 		self:PrimaryIcon(182459, args.destName)

@@ -98,7 +98,7 @@ function mod:RadiatingPoison(args)
 	if self:Me(args.destGUID) then
 		self:Flash(args.spellId)
 		self:OpenProximity(args.spellId, 10)
-		self:TargetMessage(args.spellId, args.destName, "blue", "Alarm")
+		self:TargetMessageOld(args.spellId, args.destName, "blue", "Alarm")
 		if not self:LFR() then
 			self:Say(args.spellId)
 		end
@@ -119,7 +119,7 @@ function mod:RuneOfDestruction(args)
 	if self:Me(args.destGUID) then
 		self:Flash(args.spellId)
 		self:OpenProximity(args.spellId, 6)
-		self:TargetMessage(args.spellId, args.destName, "blue", "Alarm")
+		self:TargetMessageOld(args.spellId, args.destName, "blue", "Alarm")
 		if not self:LFR() then
 			self:Say(args.spellId)
 		end
@@ -140,7 +140,7 @@ function mod:ArcaneVolatility(args)
 	if self:Me(args.destGUID) then
 		self:Flash(args.spellId)
 		self:OpenProximity(args.spellId, 8)
-		self:TargetMessage(args.spellId, args.destName, "blue", "Alarm")
+		self:TargetMessageOld(args.spellId, args.destName, "blue", "Alarm")
 		if not self:LFR() then
 			self:Say(args.spellId)
 		end
@@ -161,7 +161,7 @@ function mod:FrozenCore(args)
 	if self:Me(args.destGUID) then
 		self:Flash(args.spellId)
 		self:OpenProximity(args.spellId, 8)
-		self:TargetMessage(args.spellId, args.destName, "blue", "Alarm")
+		self:TargetMessageOld(args.spellId, args.destName, "blue", "Alarm")
 		if not self:LFR() then
 			self:Say(args.spellId)
 		end

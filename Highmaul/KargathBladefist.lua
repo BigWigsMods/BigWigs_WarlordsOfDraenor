@@ -100,7 +100,7 @@ function mod:CatSpawn()
 end
 
 function mod:OnTheHunt(args)
-	self:TargetMessage(args.spellId, args.destName, "red", "Alarm")
+	self:TargetMessageOld(args.spellId, args.destName, "red", "Alarm")
 	if self:Me(args.destGUID) then
 		self:Flash(args.spellId)
 		self:Say(args.spellId)
@@ -109,7 +109,7 @@ end
 
 do
 	local function printTarget(self, name)
-		self:TargetMessage(159113, name, "orange", "Warning", nil, nil, true)
+		self:TargetMessageOld(159113, name, "orange", "Warning", nil, nil, true)
 		self:TargetBar(159113, 10.2, name) -- cast+channel (10.25 - 0.05)
 	end
 	function mod:Impale(args)
@@ -132,7 +132,7 @@ do
 			self:Say(158986)
 			self:Flash(158986)
 		end
-		self:TargetMessage(158986, name, "red", "Long", nil, nil, true)
+		self:TargetMessageOld(158986, name, "red", "Long", nil, nil, true)
 	end
 	function mod:BerserkerRushAppliedFallback(args)
 		-- Kargath will rarely drop his target (bug?) and swap to another one mid cast.
@@ -164,7 +164,7 @@ do
 	end
 
 	local function printTargets(spellId)
-		mod:TargetMessage(spellId, hurlList, "yellow")
+		mod:TargetMessageOld(spellId, hurlList, "yellow")
 		scheduled = nil
 	end
 

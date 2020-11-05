@@ -239,7 +239,7 @@ function mod:DoubleSlash(args)
 end
 
 function mod:ArcaneWound(args)
-	self:TargetMessage(args.spellId, args.destName, "cyan")
+	self:TargetMessageOld(args.spellId, args.destName, "cyan")
 end
 
 function mod:Whirlwind(args)
@@ -360,7 +360,7 @@ do
 end
 
 function mod:ArcaneTwisted(args)
-	self:TargetMessage(args.spellId, args.destName, "cyan")
+	self:TargetMessageOld(args.spellId, args.destName, "cyan")
 	arcaneTwisted = args.destGUID
 	arcaneTwistedTime = GetTime() + 55
 end

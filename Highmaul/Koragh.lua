@@ -221,7 +221,7 @@ function mod:ExpelMagicArcaneApplied(args)
 		self:Say(args.spellId)
 		self:OpenProximity(args.spellId, 8)
 	end
-	self:TargetMessage(args.spellId, args.destName, "orange", "Warning", nil, nil, self:Tank())
+	self:TargetMessageOld(args.spellId, args.destName, "orange", "Warning", nil, nil, self:Tank())
 	self:TargetBar(args.spellId, 10, args.destName)
 end
 
@@ -251,7 +251,7 @@ do
 			self:Say(172747)
 			self:PlaySound(172747, "Alarm")
 		end
-		self:TargetMessage(172747, name, "cyan")
+		self:TargetMessageOld(172747, name, "cyan")
 	end
 	function mod:ExpelMagicFrost(args)
 		self:GetBossTarget(printTarget, 0.5, args.sourceGUID)
@@ -272,7 +272,7 @@ do
 				self:Flash(161328)
 				self:Say(161328)
 			end
-			self:TargetMessage(161328, suppressionTarget, "yellow", "Alarm")
+			self:TargetMessageOld(161328, suppressionTarget, "yellow", "Alarm")
 		end
 	end
 end
@@ -280,7 +280,7 @@ end
 do
 	local list, scheduled = mod:NewTargetList(), nil
 	local function warn(self, spellId)
-		self:TargetMessage(spellId, list, "green")
+		self:TargetMessageOld(spellId, list, "green")
 		scheduled = nil
 	end
 	function mod:CausticEnergy(args)
@@ -371,7 +371,7 @@ end
 do
 	local list, scheduled = mod:NewTargetList(), nil
 	local function warn(self, spellId)
-		self:TargetMessage(spellId, list, "orange")
+		self:TargetMessageOld(spellId, list, "orange")
 		scheduled = nil
 	end
 	function mod:DominatingPower(args)

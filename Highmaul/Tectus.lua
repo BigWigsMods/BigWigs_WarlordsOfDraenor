@@ -162,7 +162,7 @@ end
 do
 	local list, scheduled = mod:NewTargetList(), nil
 	local function warn(self, spellId)
-		self:TargetMessage(spellId, list, "green") -- ME_ONLY by default, too spammy
+		self:TargetMessageOld(spellId, list, "green") -- ME_ONLY by default, too spammy
 		scheduled = nil
 	end
 	function mod:CrystallineBarrage(args)
@@ -172,7 +172,7 @@ do
 		if self:Me(args.destGUID) then
 			self:Flash(args.spellId)
 			self:Say(args.spellId, 120361) -- 120361 = "Barrage"
-			self:TargetMessage(args.spellId, args.destName, "blue", "Alarm")
+			self:TargetMessageOld(args.spellId, args.destName, "blue", "Alarm")
 		else
 			list[#list+1] = args.destName
 			if not scheduled then
@@ -259,7 +259,7 @@ function mod:GiftOfEarth(args)
 end
 
 function mod:Petrification(args)
-	self:TargetMessage(args.spellId, args.destName, "orange", "Warning")
+	self:TargetMessageOld(args.spellId, args.destName, "orange", "Warning")
 end
 
 function mod:EarthenFlechettes(args)

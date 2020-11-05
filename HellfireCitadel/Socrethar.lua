@@ -159,7 +159,7 @@ end
 
 function mod:VolatileFelOrb(args)
 	self:CDBar(180221, 30)
-	self:TargetMessage(180221, args.destName, "orange", "Alarm")
+	self:TargetMessageOld(180221, args.destName, "orange", "Alarm")
 	if self:Me(args.destGUID) then
 		self:Say(180221)
 		self:Flash(180221)
@@ -168,7 +168,7 @@ end
 
 do
 	local function printTarget(self, name, guid)
-		self:TargetMessage(182051, name, "orange", "Alarm")
+		self:TargetMessageOld(182051, name, "orange", "Alarm")
 		if self:Me(guid) then
 			self:Say(182051)
 		end
@@ -312,7 +312,7 @@ end
 
 function mod:GhastlyFixation(args)
 	if self:Me(args.destGUID) then
-		self:TargetMessage(args.spellId, args.destName, "blue", "Alarm")
+		self:TargetMessageOld(args.spellId, args.destName, "blue", "Alarm")
 		self:Flash(args.spellId)
 	end
 end

@@ -274,7 +274,7 @@ end
 
 do
 	local function printTarget(self, name)
-		self:TargetMessage(158692, name, "orange", "Alert", nil, nil, self:Tank())
+		self:TargetMessageOld(158692, name, "orange", "Alert", nil, nil, self:Tank())
 	end
 	function mod:DeadlyThrow(args)
 		if isOnABoat() then
@@ -306,7 +306,7 @@ do
 			return
 		end
 		if not self:Me(args.destGUID) then
-			self:TargetMessage(args.spellId, args.destName, "orange")
+			self:TargetMessageOld(args.spellId, args.destName, "orange")
 		end
 		self:Bar(args.spellId, 31.6)
 	end
@@ -340,7 +340,7 @@ do
 			self:Flash(args.spellId)
 			self:Say(args.spellId)
 		else
-			self:TargetMessage(args.spellId, args.destName, "red", "Warning", nil, nil, true)
+			self:TargetMessageOld(args.spellId, args.destName, "red", "Warning", nil, nil, true)
 		end
 		self:TargetBar(args.spellId, self:Normal() and 8 or 6, args.destName)
 		self:Bar(args.spellId, 30)
@@ -365,7 +365,7 @@ function mod:BladeDash(args)
 		boatTimers[args.spellId] = GetTime() + 18
 		return
 	end
-	self:TargetMessage(args.spellId, args.destName, "yellow")
+	self:TargetMessageOld(args.spellId, args.destName, "yellow")
 	self:Bar(args.spellId, 18)
 end
 
@@ -373,7 +373,7 @@ do
 	local dispeller = nil
 	local function printTarget(self, name, guid)
 		if dispeller or self:Me(guid) then
-			self:TargetMessage(156109, name, "orange", "Info")
+			self:TargetMessageOld(156109, name, "orange", "Info")
 		end
 		if self:Me(guid) then
 			self:Flash(156109)
@@ -394,7 +394,7 @@ do
 end
 
 function mod:DarkHunt(args)
-	self:TargetMessage(args.spellId, args.destName, "yellow")
+	self:TargetMessageOld(args.spellId, args.destName, "yellow")
 	self:TargetBar(args.spellId, 8, args.destName)
 	--self:CDBar(args.spellId, 13) -- 13.39-15.89
 end
@@ -410,7 +410,7 @@ do
 			boatTimers[args.spellId] = GetTime() + 20
 			return
 		end
-		self:TargetMessage(args.spellId, args.destName, "yellow", "Alert", nil, nil, self:Tank())
+		self:TargetMessageOld(args.spellId, args.destName, "yellow", "Alert", nil, nil, self:Tank())
 		self:Bar(args.spellId, 20)
 		if self:Me(args.destGUID) then
 			self:TargetBar(args.spellId, 5, args.destName)

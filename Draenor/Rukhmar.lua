@@ -55,7 +55,7 @@ end
 function mod:Fixate(args)
 	if self:Me(args.destGUID) and not fixateOnMe then -- Multiple debuffs, warn for the first.
 		fixateOnMe = true
-		self:TargetMessage(args.spellId, args.destName, "blue", "Alarm")
+		self:TargetMessageOld(args.spellId, args.destName, "blue", "Alarm")
 		self:Flash(args.spellId)
 	end
 end

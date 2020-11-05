@@ -373,7 +373,7 @@ do
 		if self:Me(guid) and not self:LFR() then
 			self:Say(155864, grenade)
 		end
-		self:TargetMessage(155864, self:UnitName(target), "yellow", "Alarm", grenade)
+		self:TargetMessageOld(155864, self:UnitName(target), "yellow", "Alarm", grenade)
 	end
 
 	local prev = 0
@@ -403,14 +403,14 @@ end
 
 function mod:CauterizingBoltApplied(args)
 	if UnitGUID("target") == args.destGUID and self:Dispeller("magic", true) then
-		self:TargetMessage(args.spellId, args.destName, "red", "Alert", nil, nil, true)
+		self:TargetMessageOld(args.spellId, args.destName, "red", "Alert", nil, nil, true)
 	end
 end
 
 do
 	local function printTarget(self, name, guid)
 		-- 119342 = Bombs
-		self:TargetMessage(159481, name, "yellow", "Warning", 119342, 159481)
+		self:TargetMessageOld(159481, name, "yellow", "Warning", 119342, 159481)
 		if self:Me(guid) then
 			self:Flash(159481)
 			self:Say(159481, 119342)

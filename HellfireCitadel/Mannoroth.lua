@@ -164,7 +164,7 @@ function mod:CurseOfTheLegionSuccess(args)
 end
 
 function mod:CurseOfTheLegion(args)
-	self:TargetMessage(args.spellId, args.destName, "yellow", "Alarm", CL.count:format(args.spellName, curseCount-1))
+	self:TargetMessageOld(args.spellId, args.destName, "yellow", "Alarm", CL.count:format(args.spellName, curseCount-1))
 	self:TargetBar(args.spellId, 20, args.destName)
 	self:PrimaryIcon(args.spellId, args.destName)
 	if self:Me(args.destGUID) then
@@ -201,7 +201,7 @@ do
 			timer = nil
 			markOfDoomOnMe = self:Mythic() and CL.count_icon:format(self:SpellName(28836), count, count) or CL.count:format(self:SpellName(28836), count) -- 28836 = "Mark"
 			self:Say(args.spellId, self:Mythic() and CL.count_rticon:format(self:SpellName(28836), count, count) or CL.count:format(self:SpellName(28836), count))
-			self:TargetMessage(args.spellId, args.destName, "blue", "Alarm", markOfDoomOnMe)
+			self:TargetMessageOld(args.spellId, args.destName, "blue", "Alarm", markOfDoomOnMe)
 			self:TargetBar(args.spellId, 15, args.destName, markOfDoomOnMe)
 			self:Flash(args.spellId)
 			self:ScheduleTimer(wipe, 1, list)
@@ -210,7 +210,7 @@ do
 		if count == 3 and timer then -- After the :Me check as we might be the last player
 			self:CancelTimer(timer)
 			timer = nil
-			self:TargetMessage(args.spellId, list, "yellow", "Alarm")
+			self:TargetMessageOld(args.spellId, list, "yellow", "Alarm")
 		end
 
 		if self:GetOption("custom_off_doom_marker") and self:Mythic() then
@@ -284,7 +284,7 @@ do
 			self:CancelTimer(timer)
 			timer = nil
 			self:Say(args.spellId, CL.count_rticon:format(self:SpellName(170963), count, reverseCount)) -- 170963 = "Wrath"
-			self:TargetMessage(args.spellId, args.destName, "blue", "Alarm", CL.count_icon:format(self:SpellName(170963), count, reverseCount))
+			self:TargetMessageOld(args.spellId, args.destName, "blue", "Alarm", CL.count_icon:format(self:SpellName(170963), count, reverseCount))
 			self:Flash(args.spellId)
 			self:ScheduleTimer(wipe, 1, list)
 		end
@@ -292,7 +292,7 @@ do
 		if count == 5 and timer then -- After the :Me check as we might be the last player
 			self:CancelTimer(timer)
 			timer = nil
-			self:TargetMessage(args.spellId, list, "yellow", "Alarm")
+			self:TargetMessageOld(args.spellId, list, "yellow", "Alarm")
 		end
 
 		if self:GetOption("custom_off_wrath_marker") then
@@ -343,7 +343,7 @@ function mod:GlaiveThrust(args)
 end
 
 function mod:MassiveBlast(args)
-	self:TargetMessage(181359, args.destName, "orange", nil, args.spellName)
+	self:TargetMessageOld(181359, args.destName, "orange", nil, args.spellName)
 end
 
 do
@@ -363,7 +363,7 @@ do
 			if target == isOnMe then
 				local gaze = L.gaze:format(i)
 				self:Say(181597, gaze)
-				self:TargetMessage(181597, target, "blue", "Alarm", gaze)
+				self:TargetMessageOld(181597, target, "blue", "Alarm", gaze)
 			end
 			if self:GetOption("custom_off_gaze_marker") then
 				SetRaidTarget(target, i)
@@ -371,7 +371,7 @@ do
 			list[i] = self:ColorName(target)
 		end
 		if not isOnMe then
-			self:TargetMessage(181597, list, "yellow")
+			self:TargetMessageOld(181597, list, "yellow")
 		end
 	end
 

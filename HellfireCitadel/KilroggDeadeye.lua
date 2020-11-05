@@ -188,7 +188,7 @@ function mod:ShreddedArmor(args) -- Tank Failed
 end
 
 function mod:CleansingAura(args)
-	self:TargetMessage(args.spellId, args.destName, "green")
+	self:TargetMessageOld(args.spellId, args.destName, "green")
 end
 
 --[[ Hulking Terror ]]--

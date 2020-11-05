@@ -274,7 +274,7 @@ do
 		local t = GetTime()
 		if t-prev > 5 and self:Me(args.destGUID) then
 			prev = t
-			self:TargetMessage(args.spellId, args.destName, "blue", self:Tank() and "Info")
+			self:TargetMessageOld(args.spellId, args.destName, "blue", self:Tank() and "Info")
 		end
 	end
 end
@@ -296,7 +296,7 @@ function mod:DeathBrandCast(args)
 end
 
 function mod:DeathBrand(args)
-	self:TargetMessage(args.spellId, args.destName, "yellow")
+	self:TargetMessageOld(args.spellId, args.destName, "yellow")
 	if self:Tank() and not self:Me(args.destGUID) and not UnitDetailedThreatSituation("player", "boss1") then -- second taunt warning for other tank
 		self:PlaySound(args.spellId, "Warning")
 	end
@@ -313,7 +313,7 @@ function mod:Doomfire(args)
 end
 
 function mod:DoomfireFixate(args)
-	self:TargetMessage(182826, args.destName, "red", "Alarm")
+	self:TargetMessageOld(182826, args.destName, "red", "Alarm")
 	self:PrimaryIcon(182826, args.destName)
 	self:TargetBar(182826, 10, args.destName)
 	if self:Me(args.destGUID) then
@@ -405,7 +405,7 @@ do
 				local torment = CL.count:format(self:SpellName(187553), i) -- 187553 = "Torment"
 				self:Say(spellId, torment)
 				self:Flash(spellId)
-				self:TargetMessage(spellId, target, "blue", "Alarm", torment)
+				self:TargetMessageOld(spellId, target, "blue", "Alarm", torment)
 			end
 			if self:GetOption("custom_off_torment_marker") then
 				SetRaidTarget(target, i)
@@ -413,7 +413,7 @@ do
 			list[i] = self:ColorName(target)
 		end
 		if not isOnMe and not banished then
-			self:TargetMessage(spellId, list, "yellow", nil, CL.count:format(self:SpellName(spellId), tormentCount))
+			self:TargetMessageOld(spellId, list, "yellow", nil, CL.count:format(self:SpellName(spellId), tormentCount))
 			if self:Mythic() then
 				self:PlaySound(spellId, "Alarm")
 			end
@@ -450,7 +450,7 @@ do
 
 		currentTorment = currentTorment - 1 -- Compensates for a shackle not being broken before the next 3 arrive (count the current total)
 		if not banished then
-			self:TargetMessage(args.spellId, args.destName, "cyan", isOnMe and "Info", L.torment_removed:format(maxTorment - currentTorment, maxTorment))
+			self:TargetMessageOld(args.spellId, args.destName, "cyan", isOnMe and "Info", L.torment_removed:format(maxTorment - currentTorment, maxTorment))
 		end
 		if currentTorment == 0 then
 			maxTorment = 0
@@ -517,7 +517,7 @@ do
 
 		if self:Me(args.sourceGUID) then -- Wrought Chaos (1) to PLAYER
 			--local spell = CL.count:format(self:SpellName(186123), chaosCount)
-			self:TargetMessage(186123, args.sourceName, "blue", "Info", L.chaos_to:format(self:SpellName(186123), self:ColorName(args.destName)))
+			self:TargetMessageOld(186123, args.sourceName, "blue", "Info", L.chaos_to:format(self:SpellName(186123), self:ColorName(args.destName)))
 			if not self:Mythic() then
 				self:Say(186123)
 			end
@@ -525,7 +525,7 @@ do
 		end
 		if self:Me(args.destGUID) then -- Focused Chaos (1) from PLAYER
 			--local spell = CL.count:format(args.spellName, chaosCount)
-			self:TargetMessage(186123, args.destName, "green", "Alarm", L.chaos_from:format(args.spellName, self:ColorName(args.sourceName)), args.spellId)
+			self:TargetMessageOld(186123, args.destName, "green", "Alarm", L.chaos_from:format(args.spellName, self:ColorName(args.sourceName)), args.spellId)
 			if not self:Mythic() then
 				self:Say(186123, args.spellName)
 				--self:Flash(186123, args.spellId)
@@ -610,7 +610,7 @@ do
 
 	function mod:TankNetherBanish(args)
 		self:CDBar(args.spellId, 62)
-		self:TargetMessage(args.spellId, args.destName, "orange", "Warning", nil, nil, true)
+		self:TargetMessageOld(args.spellId, args.destName, "orange", "Warning", nil, nil, true)
 		self:TargetBar(args.spellId, 7, args.destName)
 		self:PrimaryIcon(args.spellId, args.destName)
 		if self:Me(args.destGUID) then
@@ -669,7 +669,7 @@ end
 
 function mod:VoidStarFixate(args)
 	if banished then
-		self:TargetMessage(189894, args.destName, "blue", "Alarm")
+		self:TargetMessageOld(189894, args.destName, "blue", "Alarm")
 		self:Bar(189894, 15.8)
 	end
 	if self:Me(args.destGUID) then
@@ -840,7 +840,7 @@ do
 				self:Say(spellId, CL.count_rticon:format(self:SpellName(28836), i, i)) -- 28836 = "Mark"
 				self:Flash(spellId)
 				self:OpenProximity(spellId, 10, nil, true)
-				self:TargetMessage(spellId, target, "blue", "Alarm", CL.count_icon:format(self:SpellName(28836), i, i)) -- 28836 = "Mark"
+				self:TargetMessageOld(spellId, target, "blue", "Alarm", CL.count_icon:format(self:SpellName(28836), i, i)) -- 28836 = "Mark"
 			end
 			if self:GetOption("custom_off_legion_marker") then
 				SetRaidTarget(target, i)
@@ -849,7 +849,7 @@ do
 			list[i] = self:ColorName(target)
 		end
 		if not isOnMe then
-			self:TargetMessage(spellId, list, "yellow", nil, CL.count:format(self:SpellName(spellId), markOfTheLegionCount-1))
+			self:TargetMessageOld(spellId, list, "yellow", nil, CL.count:format(self:SpellName(spellId), markOfTheLegionCount-1))
 			self:OpenProximity(spellId, 10, proxList, true)
 		else
 			wipe(list)

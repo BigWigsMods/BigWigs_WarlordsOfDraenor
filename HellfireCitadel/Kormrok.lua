@@ -190,7 +190,7 @@ end
 -- Tank Debuffs
 
 function mod:ExplosiveBurst(args)
-	self:TargetMessage(args.spellId, args.destName, "orange", "Warning", nil, nil, true)
+	self:TargetMessageOld(args.spellId, args.destName, "orange", "Warning", nil, nil, true)
 	self:TargetBar(args.spellId, 10, args.destName)
 	tankDebuffCount = tankDebuffCount + 1
 	if self:LFR() then
@@ -220,7 +220,7 @@ function mod:ExplosiveBurstRemoved(args)
 end
 
 function mod:FoulCrush(args)
-	self:TargetMessage(args.spellId, args.destName, "orange", self:Tank() and "Warning")
+	self:TargetMessageOld(args.spellId, args.destName, "orange", self:Tank() and "Warning")
 	tankDebuffCount = tankDebuffCount + 1
 	if self:LFR() then
 		if tankDebuffCount == 2 then -- Only time for 1 more in LFR

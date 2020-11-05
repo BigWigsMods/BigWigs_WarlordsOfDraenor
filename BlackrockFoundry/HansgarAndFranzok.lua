@@ -140,7 +140,7 @@ function mod:BodySlamTarget(_, unit)
 	if self:Me(guid) then
 		self:Say(155747)
 	end
-	self:TargetMessage(155747, self:UnitName(target), "yellow", "Alarm")
+	self:TargetMessageOld(155747, self:UnitName(target), "yellow", "Alarm")
 end
 
 function mod:UNIT_SPELLCAST_SUCCEEDED(_, unit, _, spellId)

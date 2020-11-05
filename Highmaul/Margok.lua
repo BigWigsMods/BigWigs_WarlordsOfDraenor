@@ -253,7 +253,7 @@ end
 do
 	local list, scheduled = mod:NewTargetList(), nil
 	local function warn(self, spellId)
-		self:TargetMessage(spellId, list, "yellow", self:Healer() and "Alert", nil, nil, true)
+		self:TargetMessageOld(spellId, list, "yellow", self:Healer() and "Alert", nil, nil, true)
 		scheduled = nil
 	end
 	function mod:InfiniteDarkness(args)
@@ -515,7 +515,7 @@ do
 				updateProximity()
 			end
 		end
-		self:TargetMessage(156225, args.destName, "yellow", nil, amount > 0 and L.branded_say:format(self:SpellName(156225), amount, jumpDistance))
+		self:TargetMessageOld(156225, args.destName, "yellow", nil, amount > 0 and L.branded_say:format(self:SpellName(156225), amount, jumpDistance))
 
 		if self.db.profile.custom_off_branded_marker and not scheduled then
 			scheduled = self:ScheduleTimer(mark, 0.2)
@@ -588,7 +588,7 @@ end
 function mod:MarkOfChaosApplied(args)
 	markOfChaosTarget = args.destName
 	self:PrimaryIcon(158605, args.destName)
-	self:TargetMessage(158605, args.destName, "orange", "Alarm") -- warn again in case the cast target changed
+	self:TargetMessageOld(158605, args.destName, "orange", "Alarm") -- warn again in case the cast target changed
 	self:TargetBar(158605, 8, args.destName)
 	if self:Me(args.destGUID) then
 		self:Flash(158605)
@@ -635,7 +635,7 @@ end
 -- Warmage
 function mod:Slow(args)
 	if self:Dispeller("magic", nil, args.spellId) then
-		self:TargetMessage(args.spellId, args.destName, "yellow", "Alert", nil, nil, true)
+		self:TargetMessageOld(args.spellId, args.destName, "yellow", "Alert", nil, nil, true)
 	end
 end
 
@@ -648,7 +648,7 @@ function mod:FixateApplied(args)
 		self:Say(args.spellId)
 		updateProximity()
 	elseif self:Dispeller("magic", nil, 157801) and self:UnitDebuff(args.destName, self:SpellName(157801)) then -- check if they have Slow and warn again
-		self:TargetMessage(157801, args.destName, "red", "Alert", L.slow_fixate, nil, true)
+		self:TargetMessageOld(157801, args.destName, "red", "Alert", L.slow_fixate, nil, true)
 	end
 	if self.db.profile.custom_off_fixate_marker and not fixateMarks[args.destName] then
 		local index = next(fixateMarks) and 2 or 1

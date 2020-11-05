@@ -110,7 +110,7 @@ do
 			self:Say(156203)
 			self:Flash(156203)
 		end
-		self:TargetMessage(156203, name, "yellow", "Alarm")
+		self:TargetMessageOld(156203, name, "yellow", "Alarm")
 	end
 	function mod:RetchedBlackrock(args)
 		self:GetBossTarget(printTarget, 0.2, args.sourceGUID)

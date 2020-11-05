@@ -241,7 +241,7 @@ do
 			self:Say(unit == "boss1" and 155499 or 154989, 18584) -- 18584 = Breath
 			self:Flash(unit == "boss1" and 155499 or 154989)
 		end
-		self:TargetMessage(unit == "boss1" and 155499 or 154989, self:UnitName(target), "orange", "Alert", nil, nil, true)
+		self:TargetMessageOld(unit == "boss1" and 155499 or 154989, self:UnitName(target), "orange", "Alert", nil, nil, true)
 	end
 
 	function mod:UNIT_SPELLCAST_SUCCEEDED(_, unit, _, spellId)
@@ -356,7 +356,7 @@ do
 			conflagMark = conflagMark + 1
 		end
 		-- Time between applications can be so long that delaying is pointless.
-		self:TargetMessage(args.spellId, args.destName, "orange", self:Dispeller("magic") and "Info")
+		self:TargetMessageOld(args.spellId, args.destName, "orange", self:Dispeller("magic") and "Info")
 	end
 
 	function mod:ConflagrationRemoved(args)

@@ -279,7 +279,7 @@ end
 function mod:Striked(args)
 	if felAndVoid and not self:Me(args.destGUID) then
 		local spellId = args.spellId == 186271 and 190223 or 190224 -- 186271 -> 190223 (Fel), 186292 -> 190224 (Void)
-		self:TargetMessage(spellId, args.destName, "yellow")
+		self:TargetMessageOld(spellId, args.destName, "yellow")
 		if self:Tank() then -- don't spam long for non-tanks that enable strike
 			self:PlaySound(spellId, "Long")
 		end
@@ -287,13 +287,13 @@ function mod:Striked(args)
 end
 
 function mod:FelblazeFlurry(args)
-	self:TargetMessage(args.spellId, args.destName, "red")
+	self:TargetMessageOld(args.spellId, args.destName, "red")
 	self:CDBar(args.spellId, 17)
 end
 
 do
 	local function printTarget(self, name, guid)
-		self:TargetMessage(186490, name, "orange", "Alert", CL.casting:format(self:SpellName(184656))) -- 184656 = "Chains"
+		self:TargetMessageOld(186490, name, "orange", "Alert", CL.casting:format(self:SpellName(184656))) -- 184656 = "Chains"
 		if self:Me(guid) then
 			self:Say(186490, 184656) -- 184656 = "Chains"
 			self:Flash(186490) -- Flash for cast only
@@ -319,7 +319,7 @@ do
 end
 
 function mod:WitheringGaze(args)
-	self:TargetMessage(args.spellId, args.destName, "red")
+	self:TargetMessageOld(args.spellId, args.destName, "red")
 	self:Bar(args.spellId, 24.3)
 end
 

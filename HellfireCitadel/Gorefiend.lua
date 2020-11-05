@@ -196,7 +196,7 @@ do
 			self:Say(args.spellId, 135484) -- 135484 = "Rooted"
 			self:Message(args.spellId, "blue", "Alert", L.fate_root_you)
 		else
-			self:TargetMessage(args.spellId, fatePlayer, "yellow", nil, self:SpellName(135484)) -- 135484 = "Rooted"
+			self:TargetMessageOld(args.spellId, fatePlayer, "yellow", nil, self:SpellName(135484)) -- 135484 = "Rooted"
 		end
 		self:PrimaryIcon(args.spellId, fatePlayer)
 
@@ -220,7 +220,7 @@ function mod:SharedFateRun(args)
 			self:Message(179909, "blue", "Warning", L.fate_you:format(self:ColorName(fatePlayer)))
 			self:OpenProximity(179909, 6, fatePlayer, true)
 		else
-			self:TargetMessage(179909, args.destName, "blue", "Warning")
+			self:TargetMessageOld(179909, args.destName, "blue", "Warning")
 		end
 	end
 end
@@ -344,7 +344,7 @@ end
 function mod:HungerForLife(args)
 	if self:Me(args.destGUID) and not fixateOnMe then -- Multiple debuffs, warn for the first.
 		fixateOnMe = true
-		self:TargetMessage(args.spellId, args.destName, "blue", "Warning")
+		self:TargetMessageOld(args.spellId, args.destName, "blue", "Warning")
 		self:Flash(args.spellId)
 	end
 end
@@ -365,7 +365,7 @@ end
 
 do
 	local function printTarget(self, name)
-		self:TargetMessage(187814, name, "red", "Alert", nil, nil, self:Tank() or self:Damager())
+		self:TargetMessageOld(187814, name, "red", "Alert", nil, nil, self:Tank() or self:Damager())
 	end
 	function mod:RagingCharge(args)
 		self:GetUnitTarget(printTarget, 0.2, args.sourceGUID)

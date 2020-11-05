@@ -137,16 +137,16 @@ end
 
 function mod:EyeOfAnzu(args)
 	eyeTarget = args.destGUID
-	--self:TargetMessage(args.spellId, args.destName, "green") -- XXX info display instead?
+	--self:TargetMessageOld(args.spellId, args.destName, "green") -- XXX info display instead?
 	if self:Me(eyeTarget) then
-		self:TargetMessage(args.spellId, args.destName, "blue", #windTargets > 0 and "Warning" or "Info")
+		self:TargetMessageOld(args.spellId, args.destName, "blue", #windTargets > 0 and "Warning" or "Info")
 		self:Flash(args.spellId)
 	end
 end
 
 do
 	local function printTarget(self, name)
-		self:TargetMessage(185345, name, "red", "Long") -- Warning is used in Eye+Winds events, so Long here to be distinct
+		self:TargetMessageOld(185345, name, "red", "Long") -- Warning is used in Eye+Winds events, so Long here to be distinct
 	end
 	function mod:ShadowRiposte(args)
 		if self:MobId(args.sourceGUID) == 90316 then -- prevent Dark Simulacrum from messing with the cd
@@ -164,7 +164,7 @@ do
 	local isOnMe = nil
 	local function warn(self)
 		if isOnMe then
-			self:TargetMessage(181956, isOnMe, "blue" , "Alarm")
+			self:TargetMessageOld(181956, isOnMe, "blue" , "Alarm")
 		else
 			self:Message(181956, "yellow", self:UnitBuff("player", self:SpellName(179202)) and "Warning") -- Warning if you have the Eye
 		end
@@ -207,7 +207,7 @@ end
 function mod:PhantasmalCorruption(args)
 	if args.destGUID ~= eyeTarget then
 		self:TargetBar(181824, 10, args.destName)
-		self:TargetMessage(181824, args.destName, "orange", "Warning", nil, nil, true)
+		self:TargetMessageOld(181824, args.destName, "orange", "Warning", nil, nil, true)
 		if self:Me(args.destGUID) then
 			self:Say(181824)
 			self:OpenProximity(181824, 15) -- Range discovered from LFR testing
@@ -224,7 +224,7 @@ function mod:PhantasmalCorruptionRemoved(args)
 end
 
 function mod:FelBomb(args)
-	self:TargetMessage(args.spellId, args.destName, "red", self:Dispeller("magic") and "Alert")
+	self:TargetMessageOld(args.spellId, args.destName, "red", self:Dispeller("magic") and "Alert")
 	if self:Me(args.destGUID) then
 		self:Say(args.spellId)
 	end

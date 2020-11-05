@@ -180,7 +180,7 @@ end
 do
 	local timers = {0, 67, 76, 82} -- pretty consistent now
 	function mod:FelRage(args)
-		self:TargetMessage(184358, args.destName, "orange", "Warning")
+		self:TargetMessageOld(184358, args.destName, "orange", "Warning")
 		self:TargetBar(184358, 25, args.destName)
 		self:PrimaryIcon(184358, args.destName)
 

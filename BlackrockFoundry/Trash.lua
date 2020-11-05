@@ -140,9 +140,9 @@ end
 
 function mod:Enrage(args) -- Enrage / Held to Task
 	if self:Dispeller("enrage", true) then
-		self:TargetMessage(args.spellId, args.destName, "orange", "Warning", nil, nil, true)
+		self:TargetMessageOld(args.spellId, args.destName, "orange", "Warning", nil, nil, true)
 	else
-		self:TargetMessage(args.spellId, args.destName, "yellow")
+		self:TargetMessageOld(args.spellId, args.destName, "yellow")
 	end
 end
 
@@ -174,7 +174,7 @@ end
 function mod:OverheadSmash(args)
 	if self:Tank(args.destName) then
 		self:TargetBar(args.spellId, 10, args.destName)
-		self:TargetMessage(args.spellId, args.destName, "orange", "Warning", nil, nil, true)
+		self:TargetMessageOld(args.spellId, args.destName, "orange", "Warning", nil, nil, true)
 	end
 end
 
@@ -195,7 +195,7 @@ function mod:LumberingStrength(args)
 			if UnitDetailedThreatSituation(unit, npcUnit) then
 				warn = true
 				-- NPC gains the buff and chases the tank. We try to warn which tank is being chased.
-				self:TargetMessage(args.spellId, self:UnitName(unit), "red", "Warning", icon .. args.spellName)
+				self:TargetMessageOld(args.spellId, self:UnitName(unit), "red", "Warning", icon .. args.spellName)
 				if self:Me(UnitGUID(unit)) then
 					self:Flash(args.spellId)
 				end
@@ -215,7 +215,7 @@ function mod:InsatiableHunger(args)
 	self:TargetBar(args.spellId, 8, args.destName)
 	if self:Me(args.destGUID) then
 		self:Flash(args.spellId)
-		self:TargetMessage(args.spellId, args.destName, "blue", "Alarm")
+		self:TargetMessageOld(args.spellId, args.destName, "blue", "Alarm")
 	end
 end
 
@@ -255,7 +255,7 @@ function mod:LivingBlaze(args)
 		self:OpenProximity(args.spellId, 6)
 		self:Flash(args.spellId)
 		self:TargetBar(args.spellId, 10, args.destName)
-		self:TargetMessage(args.spellId, args.destName, "blue", "Alarm")
+		self:TargetMessageOld(args.spellId, args.destName, "blue", "Alarm")
 	end
 end
 
