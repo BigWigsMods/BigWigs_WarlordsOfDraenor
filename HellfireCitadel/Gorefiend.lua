@@ -185,7 +185,7 @@ end
 
 function mod:GoreboundFortitude()
 	-- Enraged Spirit moving to the 'real' realm (becomes Gorebound Spirit)
-	self:Message(-11020, "cyan", self:Tank() and "Warning" or "Info", CL.spawning:format(self:SpellName(-11020)), false)
+	self:MessageOld(-11020, "cyan", self:Tank() and "Warning" or "Info", CL.spawning:format(self:SpellName(-11020)), false)
 end
 
 do
@@ -194,7 +194,7 @@ do
 		fatePlayer = args.destName
 		if self:Me(args.destGUID) then
 			self:Say(args.spellId, 135484) -- 135484 = "Rooted"
-			self:Message(args.spellId, "blue", "Alert", L.fate_root_you)
+			self:MessageOld(args.spellId, "blue", "Alert", L.fate_root_you)
 		else
 			self:TargetMessageOld(args.spellId, fatePlayer, "yellow", nil, self:SpellName(135484)) -- 135484 = "Rooted"
 		end
@@ -217,7 +217,7 @@ function mod:SharedFateRun(args)
 	if self:Me(args.destGUID) then
 		self:Flash(179909)
 		if fatePlayer then -- Failsafe for whenever root doesn't end up first in the combat log
-			self:Message(179909, "blue", "Warning", L.fate_you:format(self:ColorName(fatePlayer)))
+			self:MessageOld(179909, "blue", "Warning", L.fate_you:format(self:ColorName(fatePlayer)))
 			self:OpenProximity(179909, 6, fatePlayer, true)
 		else
 			self:TargetMessageOld(179909, args.destName, "blue", "Warning")
@@ -234,7 +234,7 @@ end
 
 function mod:FeastOfSoulsStart(args)
 	self:CloseProximity("proximity")
-	self:Message(args.spellId, "green", "Long")
+	self:MessageOld(args.spellId, "green", "Long")
 	self:Bar(args.spellId, 60, self:SpellName(117847))
 	-- cancel timers
 	self:StopBar(shadowOfDeathInfo.icon.dps.." "..self:SpellName(179864))
@@ -246,7 +246,7 @@ end
 
 function mod:FeastOfSoulsOver(args)
 	showProximity()
-	self:Message(args.spellId, "green", nil, CL.over:format(self:SpellName(117847))) -- Weakened
+	self:MessageOld(args.spellId, "green", nil, CL.over:format(self:SpellName(117847))) -- Weakened
 	self:StopBar(117847) -- If it finishes early due to failing
 	self:Bar(args.spellId, 123) -- Based on pull->first feast
 	self:Bar(179864, self:Mythic() and 3 or 2, shadowOfDeathInfo.icon.dps.." "..self:SpellName(179864)) -- DPS Shadow of Death
@@ -266,7 +266,7 @@ end
 function mod:Digest(args)
 	if self:Me(args.destGUID) then
 		self:CloseProximity("proximity")
-		self:Message(args.spellId, "yellow", "Long", CL.custom_sec:format(args.spellName, self:Mythic() and 30 or 40))
+		self:MessageOld(args.spellId, "yellow", "Long", CL.custom_sec:format(args.spellName, self:Mythic() and 30 or 40))
 		if not self:Mythic() then -- you don't have any control over it on mythic
 			self:DelayedMessage(args.spellId, 20, "yellow", CL.custom_sec:format(args.spellName, 20))
 			self:DelayedMessage(args.spellId, 30, "yellow", CL.custom_sec:format(args.spellName, 10), nil, "Alert")
@@ -316,7 +316,7 @@ do
 end
 
 --function mod:CrushingDarkness(args)
---	self:Message(args.spellId, "red", "Info", CL.incoming:format(args.spellName))
+--	self:MessageOld(args.spellId, "red", "Info", CL.incoming:format(args.spellName))
 --end
 
 do
@@ -325,7 +325,7 @@ do
 		local t = GetTime()
 		if t-prev > 1.5 and self:Me(args.destGUID) then
 			prev = t
-			self:Message(args.spellId, "blue", "Alarm", CL.underyou:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "Alarm", CL.underyou:format(args.spellName))
 		end
 	end
 end
@@ -336,7 +336,7 @@ do
 		local t = GetTime()
 		if t-prev > 2 and self:Me(args.destGUID) then
 			prev = t
-			self:Message(args.spellId, "blue", "Alarm", CL.you:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "Alarm", CL.you:format(args.spellName))
 		end
 	end
 end
@@ -352,14 +352,14 @@ end
 function mod:HungerForLifeOver(args)
 	if self:Me(args.destGUID) and not self:UnitDebuff("player", args.spellName) then
 		fixateOnMe = nil
-		self:Message(args.spellId, "blue", "Alarm", CL.over:format(args.spellName))
+		self:MessageOld(args.spellId, "blue", "Alarm", CL.over:format(args.spellName))
 	end
 end
 
 function mod:BellowingShout(args)
 	self:CDBar(args.spellId, 13.5)
 	if self:Interrupter(args.sourceGUID) then
-		self:Message(args.spellId, "red", "Alert", CL.casting:format(args.spellName))
+		self:MessageOld(args.spellId, "red", "Alert", CL.casting:format(args.spellName))
 	end
 end
 

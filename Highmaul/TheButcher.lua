@@ -108,7 +108,7 @@ do
 		if t-prev > 5 then
 			-- every four waves adds another add: 3x1, 4x2, 4x3, etc
 			local num = floor(addCount / 4) + 1
-			self:Message(-10228, "yellow", nil, CL.spawning:format(L.adds_multiple:format(num)), "spell_shadow_corpseexplode")
+			self:MessageOld(-10228, "yellow", nil, CL.spawning:format(L.adds_multiple:format(num)), "spell_shadow_corpseexplode")
 			addCount = addCount + 1
 			local nextNum = floor((addCount) / 4) + 1
 			self:Bar(-10228, 14.5, L.adds_multiple:format(nextNum), "spell_shadow_corpseexplode")
@@ -123,7 +123,7 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and t-prev > 1 then
 			prev = t
-			self:Message(args.spellId, "blue", "Alarm", CL.underyou:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "Alarm", CL.underyou:format(args.spellName))
 			self:Flash(args.spellId)
 		end
 	end
@@ -132,7 +132,7 @@ end
 function mod:BoundingCleave(args)
 	local frenzied = args.spellId == 156257 and true
 	cleaveCount = 1
-	self:Message(156197, "orange", "Alert")
+	self:MessageOld(156197, "orange", "Alert")
 	self:Bar(156197, frenzied and 30 or 60) -- Bounding Cleave
 	self:CDBar(156157, frenzied and 5 or 8) -- Cleave
 	self:CDBar(156151, 17) -- Tenderizer
@@ -144,7 +144,7 @@ function mod:Tenderizer(args)
 end
 
 function mod:Cleave(args)
-	self:Message(156157, "yellow", nil, CL.count:format(args.spellName, cleaveCount))
+	self:MessageOld(156157, "yellow", nil, CL.count:format(args.spellName, cleaveCount))
 	--self:StopBar(CL.count:format(args.spellName, cleaveCount))
 	cleaveCount = cleaveCount + 1
 	--self:CDBar(args.spellId, 6, CL.count:format(args.spellName, cleaveCount))
@@ -167,12 +167,12 @@ function mod:UNIT_HEALTH_FREQUENT(event, unit)
 	local hp = UnitHealth(unit) / UnitHealthMax(unit) * 100
 	if hp < 36 then
 		self:UnregisterUnitEvent(event, unit)
-		self:Message("frenzy", "cyan", nil, CL.soon:format(self:SpellName(L.frenzy)), false)
+		self:MessageOld("frenzy", "cyan", nil, CL.soon:format(self:SpellName(L.frenzy)), false)
 	end
 end
 
 function mod:Frenzy(args)
-	self:Message("frenzy", "red", "Alarm", args.spellName, L.frenzy_icon)
+	self:MessageOld("frenzy", "red", "Alarm", args.spellName, L.frenzy_icon)
 	-- gains power faster while frenzied
 	local left = (100 - UnitPower("boss1")) * 0.3
 	self:Bar(156197, left) -- Bounding Cleave

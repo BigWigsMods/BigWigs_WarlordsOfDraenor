@@ -133,7 +133,7 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and t-prev > 1.5 then
 			prev = t
-			self:Message(args.spellId, "blue", "Alert", CL.underyou:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "Alert", CL.underyou:format(args.spellName))
 		end
 	end
 end
@@ -165,7 +165,7 @@ do
 		scheduledPrints[args.destGUID] = nil
 		local wound = self:SpellName(16405) -- Wound
 		self:StopBar(wound, args.destName)
-		self:Message(args.spellId, "green", nil, CL.other:format(CL.removed:format(wound), self:ColorName(args.destName)))
+		self:MessageOld(args.spellId, "green", nil, CL.other:format(CL.removed:format(wound), self:ColorName(args.destName)))
 	end
 end
 
@@ -205,7 +205,7 @@ function mod:LumberingStrength(args)
 	end
 	self:Bar(args.spellId, 8, icon .. args.spellName)
 	if not warn then
-		self:Message(args.spellId, "red", nil, icon .. args.spellName)
+		self:MessageOld(args.spellId, "red", nil, icon .. args.spellName)
 	end
 end
 
@@ -222,7 +222,7 @@ end
 function mod:InsatiableHungerRemoved(args)
 	self:StopBar(args.spellName, args.destName)
 	if self:Me(args.destGUID) then
-		self:Message(args.spellId, "green", nil, CL.over:format(args.spellName))
+		self:MessageOld(args.spellId, "green", nil, CL.over:format(args.spellName))
 	end
 end
 
@@ -230,14 +230,14 @@ end
 
 function mod:FurnaceFlameFun(args)
 	if self:Me(args.destGUID) then
-		self:Message(args.spellId, "green", nil, L[("furnace_msg%d"):format(random(1,3))])
+		self:MessageOld(args.spellId, "green", nil, L[("furnace_msg%d"):format(random(1,3))])
 	end
 end
 
 --[[ Iron Earthbinder ]]--
 
 function mod:InfernoTotem(args)
-	self:Message(args.spellId, "orange", "Warning")
+	self:MessageOld(args.spellId, "orange", "Warning")
 	self:Flash(args.spellId)
 end
 
@@ -262,7 +262,7 @@ end
 function mod:LivingBlazeRemoved(args)
 	self:StopBar(args.spellName, args.destName)
 	if self:Me(args.destGUID) then
-		self:Message(args.spellId, "green", nil, CL.over:format(args.spellName))
+		self:MessageOld(args.spellId, "green", nil, CL.over:format(args.spellName))
 		self:CloseProximity(args.spellId)
 	end
 end
@@ -275,7 +275,7 @@ end
 
 function mod:BurningRemoved(args)
 	if self:Me(args.destGUID) then
-		self:Message(args.spellId, "green", "Warning", CL.over:format(args.spellName))
+		self:MessageOld(args.spellId, "green", "Warning", CL.over:format(args.spellName))
 	end
 end
 

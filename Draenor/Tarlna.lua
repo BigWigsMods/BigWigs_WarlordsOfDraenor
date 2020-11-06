@@ -47,22 +47,22 @@ end
 --
 
 function mod:ColossalBlow(args)
-	self:Message(args.spellId, "red", "Alarm")
+	self:MessageOld(args.spellId, "red", "Alarm")
 end
 
 function mod:Genesis(args)
-	self:Message(175979, "yellow", "Long")
+	self:MessageOld(175979, "yellow", "Long")
 	self:Bar(175979, 14, CL.cast:format(args.spellName)) -- 2 sec cast, 12 sec channel
 	self:CDBar(175979, 45)
 end
 
 function mod:GrowMandragora(args)
-	self:Message(args.spellId, "orange", nil, CL.spawning:format(CL.big_add))
+	self:MessageOld(args.spellId, "orange", nil, CL.spawning:format(CL.big_add))
 end
 
 function mod:SavageVines(args)
 	if self:Dispeller("magic", nil, args.spellId) then
-		self:Message(args.spellId, "blue", "Alert")
+		self:MessageOld(args.spellId, "blue", "Alert")
 	end
 end
 
@@ -73,7 +73,7 @@ do
 		if self:Me(args.destGUID) and t-prev > 1.5 then
 			prev = t
 			self:Flash(args.spellId)
-			self:Message(args.spellId, "blue", "Alert", CL.underyou:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "Alert", CL.underyou:format(args.spellName))
 		end
 	end
 end

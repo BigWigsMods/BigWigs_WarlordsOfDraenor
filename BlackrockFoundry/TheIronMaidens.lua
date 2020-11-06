@@ -163,7 +163,7 @@ do
 				self:CDBar(164271, 21) -- Penetrating Shot
 				self:CDBar(158010, 32) -- Bloodsoaked Heartseeker 32-35
 			elseif power == 30 or power == 100 then
-				self:Message(159336, "cyan", "Long", L.power_message:format(power), false)
+				self:MessageOld(159336, "cyan", "Long", L.power_message:format(power), false)
 			end
 			prev = power
 		end
@@ -176,7 +176,7 @@ do
 		local t = GetTime()
 		if t-prev > 5 then
 			prev = t
-			self:Message(args.spellId, "red", "Long")
+			self:MessageOld(args.spellId, "red", "Long")
 			self:UnregisterUnitEvent("UNIT_POWER_FREQUENT", "boss1", "boss2", "boss3")
 			self:StopBar(L.ship) -- Jump to Ship
 		end
@@ -211,7 +211,7 @@ end
 -- XXX 6.1
 --function mod:ShipPhase(args)
 --	shipCount = shipCount + 1
---	self:Message("ship", "cyan", "Info", CL.other:format(L.ship, args.sourceName), false)
+--	self:MessageOld("ship", "cyan", "Info", CL.other:format(L.ship, args.sourceName), false)
 --	stopBars(self:MobId(args.sourceGUID))
 --	if shipCount < 3 then
 --		self:Bar("ship", 198, L.ship, L.ship_icon)
@@ -221,7 +221,7 @@ end
 
 function mod:ShipPhase(_, sender)
 	shipCount = shipCount + 1
-	self:Message("ship", "cyan", "Info", CL.other:format(L.ship, sender), false)
+	self:MessageOld("ship", "cyan", "Info", CL.other:format(L.ship, sender), false)
 	if sender == self:SpellName(-10025) then -- Gar'an
 		stopBars(77557)
 	elseif sender == self:SpellName(-10030) then -- Sorka
@@ -239,7 +239,7 @@ function mod:BombardmentAlpha(args)
 	if isOnABoat() then
 		self:Bar("bombardment", 11, CL.count:format(self:SpellName(157884), 1), "ability_ironmaidens_incindiarydevice") -- Detonation Sequence (1)
 	else
-		self:Message("bombardment", "cyan", nil, args.spellId)
+		self:MessageOld("bombardment", "cyan", nil, args.spellId)
 		self:CDBar("bombardment", 18, L.bombardment, L.bombardment_icon)
 	end
 end
@@ -248,7 +248,7 @@ function mod:BombardmentOmega(args)
 	if isOnABoat() then
 		self:Bar("bombardment", 11, CL.count:format(self:SpellName(157884), 2), "ability_ironmaidens_incindiarydevice") -- Detonation Sequence (2)
 	else
-		self:Message("bombardment", "cyan", nil, args.spellId)
+		self:MessageOld("bombardment", "cyan", nil, args.spellId)
 	end
 end
 
@@ -258,7 +258,7 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and t-prev > 1 then
 			prev = t
-			self:Message(args.spellId, "blue", "Alarm", CL.underyou:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "Alarm", CL.underyou:format(args.spellName))
 			self:Flash(args.spellId)
 		end
 	end
@@ -267,7 +267,7 @@ end
 function mod:EarthenBarrier(args)
 	barrierCount = barrierCount + 1
 	if isOnABoat() then
-		self:Message(args.spellId, "orange", "Alert", CL.count:format(args.spellName, barrierCount))
+		self:MessageOld(args.spellId, "orange", "Alert", CL.count:format(args.spellName, barrierCount))
 		self:CDBar(args.spellId, 10)
 	end
 end
@@ -289,7 +289,7 @@ end
 function mod:RAID_BOSS_WHISPER(_, msg)
 	if msg:find("156626", nil, true) then -- Rapid Fire
 		local text = CL.you:format(self:SpellName(156631))
-		self:Message(156631, "blue", "Alarm", text)
+		self:MessageOld(156631, "blue", "Alarm", text)
 		self:Bar(156631, 10.5, text)
 		self:Flash(156631)
 		self:Say(156631)
@@ -323,7 +323,7 @@ end
 --	if isOnABoat() then
 --		return
 --	end
---	self:Message(args.spellId, "red")
+--	self:MessageOld(args.spellId, "red")
 --end
 
 do
@@ -336,7 +336,7 @@ do
 			return
 		end
 		if self:Me(args.destGUID) then
-			self:Message(args.spellId, "blue", "Alarm", CL.you:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "Alarm", CL.you:format(args.spellName))
 			self:Flash(args.spellId)
 			self:Say(args.spellId)
 		else
@@ -354,7 +354,7 @@ do
 end
 
 function mod:DeployTurret(args)
-	self:Message(args.spellId, "yellow")
+	self:MessageOld(args.spellId, "yellow")
 	--self:CDBar(args.spellId, 20) -- 19.8-22.6
 end
 
@@ -455,7 +455,7 @@ do
 end
 
 function mod:SanguineStrikes(args)
-	self:Message(args.spellId, "red")
+	self:MessageOld(args.spellId, "red")
 end
 
 function mod:Deaths(args)

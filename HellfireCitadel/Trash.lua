@@ -168,7 +168,7 @@ do
 	function mod:FelDestructionDamage(args)
 		if self:Me(args.destGUID) and GetTime()-prev > 2.5 then
 			prev = GetTime()
-			self:Message(args.spellId, "blue", "Alarm", CL.near:format(L.orb))
+			self:MessageOld(args.spellId, "blue", "Alarm", CL.near:format(L.orb))
 		end
 	end
 end
@@ -194,7 +194,7 @@ end
 --[[ Graggra ]]--
 
 function mod:BadBreathCasting(args)
-	self:Message(args.spellId, "orange")
+	self:MessageOld(args.spellId, "orange")
 end
 
 function mod:BadBreath(args)
@@ -212,7 +212,7 @@ end
 
 function mod:BlazingFelTouchRemoved(args)
 	if self:Me(args.destGUID) then
-		self:Message(args.spellId, "blue", "Alarm", CL.over:format(args.spellName))
+		self:MessageOld(args.spellId, "blue", "Alarm", CL.over:format(args.spellName))
 		self:CloseProximity(args.spellId)
 	end
 end
@@ -247,7 +247,7 @@ end
 
 function mod:RendingHowl(args)
 	if self:Interrupter(args.sourceGUID) then
-		self:Message(args.spellId, "orange", "Info")
+		self:MessageOld(args.spellId, "orange", "Info")
 	end
 end
 
@@ -290,7 +290,7 @@ end
 --[[ Construct Peacekeeper ]]--
 
 function mod:ProtocolCrowdControl(args)
-	self:Message(args.spellId, "orange", "Warning")
+	self:MessageOld(args.spellId, "orange", "Warning")
 	self:Flash(args.spellId)
 end
 
@@ -361,7 +361,7 @@ function mod:VoidBlast(args)
 		end
 	end
 	if not warn then
-		self:Message(186130, "red", "Warning")
+		self:MessageOld(186130, "red", "Warning")
 	end
 	self:Flash(186130)
 end
@@ -393,7 +393,7 @@ do
 end
 
 function mod:DoomRemoved(args)
-	self:Message(args.spellId, "orange", "Long", self:SpellName(31350)) -- Summon Lesser Doomguard
+	self:MessageOld(args.spellId, "orange", "Long", self:SpellName(31350)) -- Summon Lesser Doomguard
 end
 
 do
@@ -401,7 +401,7 @@ do
 	function mod:RainOfFire(args)
 		if self:Me(args.destGUID) and GetTime()-prev > 1.5 then
 			prev = GetTime()
-			self:Message(args.spellId, "blue", "Alert", CL.you:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "Alert", CL.you:format(args.spellName))
 		end
 	end
 end
@@ -439,15 +439,15 @@ end
 
 function mod:Sleep(args)
 	if self:Interrupter(args.sourceGUID) then
-		self:Message(args.spellId, "orange", "Info", CL.casting:format(args.spellName))
+		self:MessageOld(args.spellId, "orange", "Info", CL.casting:format(args.spellName))
 	end
 end
 
 function mod:SummonToweringInfernal(args)
-	self:Message(args.spellId, "green", "Long")
+	self:MessageOld(args.spellId, "green", "Long")
 end
 
 function mod:CarrionSwarm(args)
-	self:Message(args.spellId, "yellow", "Warning")
+	self:MessageOld(args.spellId, "yellow", "Warning")
 end
 

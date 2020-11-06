@@ -124,7 +124,7 @@ function mod:UNIT_POWER_FREQUENT(event, unit, powerType)
 		local power = UnitPower(unit, 10) -- Enum.PowerType.Alternate = 10
 		if power < 25 then
 			self:UnregisterUnitEvent(event, unit)
-			self:Message(160734, "cyan", "Info", CL.soon:format(self:SpellName(160734))) -- Vulnerability soon!
+			self:MessageOld(160734, "cyan", "Info", CL.soon:format(self:SpellName(160734))) -- Vulnerability soon!
 			-- Knockback at 0 power, Vulnerability ~4s later
 		end
 	end
@@ -134,14 +134,14 @@ do
 	local count = 0
 	local function nextAdd(self)
 		count = count + 1
-		self:Message("volatile_anomaly", "yellow", "Info", ("%s %d/3"):format(self:SpellName(L.volatile_anomaly), count), L.volatile_anomaly_icon)
+		self:MessageOld("volatile_anomaly", "yellow", "Info", ("%s %d/3"):format(self:SpellName(L.volatile_anomaly), count), L.volatile_anomaly_icon)
 		if count < 3 then
 			self:Bar("volatile_anomaly", 8, CL.count:format(self:SpellName(L.volatile_anomaly), count+1), L.volatile_anomaly_icon)
 			self:ScheduleTimer(nextAdd, 8, self)
 		end
 	end
 	function mod:Vulnerability(args)
-		self:Message(args.spellId, "green", "Long")
+		self:MessageOld(args.spellId, "green", "Long")
 		self:Bar(args.spellId, 20)
 		count = 0
 		self:ScheduleTimer(nextAdd, 1, self)
@@ -150,7 +150,7 @@ end
 
 function mod:BarrierRemoved(args)
 	intermission = true
-	self:Message(160734, "green", nil, CL.removed:format(args.spellName)) -- Nullification Barrier removed!
+	self:MessageOld(160734, "green", nil, CL.removed:format(args.spellName)) -- Nullification Barrier removed!
 	-- cds pause for the duration of the shield charging phase
 	self:PauseBar(161328) -- Suppression Field
 	self:PauseBar(162184) -- Expel Magic: Shadow
@@ -171,7 +171,7 @@ end
 function mod:BarrierApplied(args)
 	if not self.isEngaged then return end -- Prevent this running when he gains the shield on engage, but before encounter engage events fire. 
 	intermission = nil
-	self:Message(160734, "green", nil, args.spellName)
+	self:MessageOld(160734, "green", nil, args.spellName)
 	self:ResumeBar(161328) -- Suppression Field
 	self:ResumeBar(162184) -- Expel Magic: Shadow
 	self:ResumeBar(162185) -- Expel Magic: Fire
@@ -196,16 +196,16 @@ function mod:BarrierApplied(args)
 end
 
 function mod:ExpelMagicShadow(args)
-	self:Message(args.spellId, "yellow", "Alert")
+	self:MessageOld(args.spellId, "yellow", "Alert")
 	self:CDBar(args.spellId, 63) -- 63-65
 end
 
 do
 	local function printTarget(self, _, guid)
 		if self:Me(guid) then
-			self:Message(162186, "blue", "Warning", CL.casting:format(CL.you:format(self:SpellName(162186))))
+			self:MessageOld(162186, "blue", "Warning", CL.casting:format(CL.you:format(self:SpellName(162186))))
 		else
-			self:Message(162186, "orange", "Warning", CL.casting:format(self:SpellName(162186)))
+			self:MessageOld(162186, "orange", "Warning", CL.casting:format(self:SpellName(162186)))
 		end
 	end
 	function mod:ExpelMagicArcaneStart(args)
@@ -237,7 +237,7 @@ function mod:ExpelMagicArcaneRemoved(args)
 end
 
 function mod:ExpelMagicFire(args)
-	self:Message(args.spellId, "red", "Alarm")
+	self:MessageOld(args.spellId, "red", "Alarm")
 	self:CDBar(args.spellId, 63) -- 63-65
 	self:Bar(args.spellId, 10, L.fire_bar)
 	self:OpenProximity(args.spellId, 6)
@@ -324,7 +324,7 @@ do
 
 	local function warn(self, spellId)
 		if not isOnMe then
-			self:Message(spellId, "yellow")
+			self:MessageOld(spellId, "yellow")
 		end
 		scheduled = nil
 	end
@@ -332,7 +332,7 @@ do
 		felMarks[#felMarks+1] = args.destName
 		if self:Me(args.destGUID) then
 			isOnMe = true
-			self:Message(args.spellId, "blue", "Info", CL.you:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "Info", CL.you:format(args.spellName))
 			self:TargetBar(args.spellId, 12, args.destName)
 			self:Flash(args.spellId)
 			self:Say(args.spellId)
@@ -363,7 +363,7 @@ do
 		if self:Me(args.destGUID) and t-prev > 1.5 then
 			prev = t
 			self:Flash(172895)
-			self:Message(172895, "blue", "Alert", CL.underyou:format(args.spellName))
+			self:MessageOld(172895, "blue", "Alert", CL.underyou:format(args.spellName))
 		end
 	end
 end

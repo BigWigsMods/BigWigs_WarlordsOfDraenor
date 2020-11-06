@@ -286,7 +286,7 @@ function mod:HowlingAxeRemoved(args)
 end
 
 function mod:Shockwave(args)
-	self:Message(args.spellId, "orange", "Info", CL.casting:format(args.spellName))
+	self:MessageOld(args.spellId, "orange", "Info", CL.casting:format(args.spellName))
 	self:Bar(args.spellId, 8.5)
 end
 
@@ -296,7 +296,7 @@ end
 --		local t = GetTime()
 --		if t-prev > 3 then
 --			prev = t
---			self:Message(args.spellId, "green")
+--			self:MessageOld(args.spellId, "green")
 --			self:Bar(args.spellId, 15)
 --		end
 --	end
@@ -307,11 +307,11 @@ function mod:Slam(args)
 end
 
 function mod:Cower(args)
-	self:Message(args.spellId, "orange", "Info", CL.casting:format(args.spellName))
+	self:MessageOld(args.spellId, "orange", "Info", CL.casting:format(args.spellName))
 end
 
 function mod:Repair(args)
-	self:Message(args.spellId, "red", "Alert", CL.casting:format(args.spellName))
+	self:MessageOld(args.spellId, "red", "Alert", CL.casting:format(args.spellName))
 end
 
 do
@@ -325,32 +325,32 @@ do
 end
 
 function mod:Metamorphosis(args)
-	self:Message(args.spellId, "green")
+	self:MessageOld(args.spellId, "green")
 end
 
 --function mod:FelfireVolley(args)
---	self:Message(180417, "orange", "Info", CL.casting:format(args.spellName))
+--	self:MessageOld(180417, "orange", "Info", CL.casting:format(args.spellName))
 --end
 
 function mod:SiegeNova(args)
-	self:Message(args.spellId, "orange", "Long", CL.incoming:format(args.spellName))
+	self:MessageOld(args.spellId, "orange", "Long", CL.incoming:format(args.spellName))
 end
 
 --function mod:Flameorb(args)
---	self:Message(args.spellId, "red")
+--	self:MessageOld(args.spellId, "red")
 --end
 
 function mod:BelchFlame()
-	self:Message(188101, "red")
+	self:MessageOld(188101, "red")
 end
 
 function mod:CallToArms(args)
-	self:Message(args.spellId, "yellow")
+	self:MessageOld(args.spellId, "yellow")
 	self:Bar(args.spellId, 9)
 end
 
 function mod:Crush(args)
-	self:Message(args.spellId, "orange", "Long", CL.incoming:format(args.spellName))
+	self:MessageOld(args.spellId, "orange", "Long", CL.incoming:format(args.spellName))
 end
 
 do

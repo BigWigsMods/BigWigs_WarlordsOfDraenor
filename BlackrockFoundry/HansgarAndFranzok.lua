@@ -74,14 +74,14 @@ end
 function mod:SmartStampers(args)
 	if not stamperWarned then
 		stamperWarned = true
-		self:Message(args.spellId, "cyan", "Alert")
+		self:MessageOld(args.spellId, "cyan", "Alert")
 	end
 end
 
 function mod:SmartStampersRemoved(args)
 	if stamperWarned then
 		stamperWarned = nil
-		self:Message(args.spellId, "cyan", "Alert", CL.over:format(args.spellName))
+		self:MessageOld(args.spellId, "cyan", "Alert", CL.over:format(args.spellName))
 	end
 end
 
@@ -95,7 +95,7 @@ do
 	}
 
 	function mod:JumpAway(unit)
-		self:Message("stages", "cyan", "Info", phaseThreats[phase], false)
+		self:MessageOld("stages", "cyan", "Info", phaseThreats[phase], false)
 		if self:MobId(UnitGUID(unit)) == 76974 then -- Franzok
 			self:StopBar(153470) -- Skullcracker
 			self:StopBar(160838) -- Disrupting Roar
@@ -105,7 +105,7 @@ do
 	function mod:Jumps(_, unit)
 		if UnitExists(unit) then -- jumped back
 			if phase < 3 then
-				self:Message("stages", "cyan", "Info", CL.over:format(phaseThreats[phase]), false)
+				self:MessageOld("stages", "cyan", "Info", CL.over:format(phaseThreats[phase]), false)
 				phase = phase + 1
 				--self:RegisterUnitEvent("UNIT_HEALTH_FREQUENT", "Phases", "boss1")
 				--[[
@@ -120,10 +120,10 @@ do
 				end
 			else
 				-- phase 3, Searing while Hans'gar is up, then Stamping when he jumps back down
-				self:Message("stages", "cyan", "Info", CL.soon:format(self:SpellName(158139)), false) -- Stamping Presses
+				self:MessageOld("stages", "cyan", "Info", CL.soon:format(self:SpellName(158139)), false) -- Stamping Presses
 			end
 		elseif self:MobId(UnitGUID(unit)) == 76974 then -- Franzok jumped away (doesn't Tactical Retreat anymore?)
-			self:Message("stages", "cyan", "Info", phaseThreats[phase], false)
+			self:MessageOld("stages", "cyan", "Info", phaseThreats[phase], false)
 			if self:MobId(UnitGUID(unit)) == 76974 then -- Franzok
 				self:StopBar(153470) -- Skullcracker
 				self:StopBar(160838) -- Disrupting Roar
@@ -147,12 +147,12 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, unit, _, spellId)
 	if spellId == 156220 then -- Tactical Retreat (Hans'gar jumped away)
 		self:JumpAway(unit)
 	elseif spellId == 156546 or spellId == 156542 then -- Crippling Suplex (tank picked up)
-		self:Message(156938, "red", "Alarm", CL.soon:format(self:SpellName(spellId)))
+		self:MessageOld(156938, "red", "Alarm", CL.soon:format(self:SpellName(spellId)))
 	end
 end
 
 function mod:CripplingSuplex(args)
-	self:Message(args.spellId, self:Tank() and "blue" or "red", "Warning", CL.casting:format(args.spellName))
+	self:MessageOld(args.spellId, self:Tank() and "blue" or "red", "Warning", CL.casting:format(args.spellName))
 	self:Flash(args.spellId)
 	self:Bar(args.spellId, 3)
 end
@@ -173,7 +173,7 @@ function mod:DisruptingRoar(args)
 		end
 	end
 
-	self:Message(160838, "orange", nil, CL.casting:format(args.spellName))
+	self:MessageOld(160838, "orange", nil, CL.casting:format(args.spellName))
 	if self:Ranged() then
 		self:PlaySound(160838, "Long")
 		self:Flash(160838)
@@ -182,7 +182,7 @@ function mod:DisruptingRoar(args)
 end
 
 function mod:Skullcracker(args)
-	self:Message(args.spellId, "yellow")
+	self:MessageOld(args.spellId, "yellow")
 	self:CDBar(args.spellId, 21) -- 21-26
 end
 
@@ -192,7 +192,7 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and t-prev > 2 then
 			prev = t
-			self:Message(args.spellId, "blue", "Alarm", CL.you:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "Alarm", CL.you:format(args.spellName))
 			self:Flash(args.spellId)
 		end
 	end

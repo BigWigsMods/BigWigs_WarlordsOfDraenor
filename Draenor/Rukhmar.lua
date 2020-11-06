@@ -63,7 +63,7 @@ end
 function mod:FixateOver(args)
 	if self:Me(args.destGUID) and not self:UnitDebuff("player", args.spellName, 167757) then
 		fixateOnMe = nil
-		self:Message(args.spellId, "blue", "Alarm", CL.over:format(args.spellName))
+		self:MessageOld(args.spellId, "blue", "Alarm", CL.over:format(args.spellName))
 	end
 end
 
@@ -72,18 +72,18 @@ function mod:PiercedArmor(args)
 end
 
 function mod:SolarBreath(args)
-	self:Message(args.spellId, "orange")
+	self:MessageOld(args.spellId, "orange")
 	self:CDBar(args.spellId, 28)
 end
 
 function mod:LooseQuills(args)
-	self:Message(args.spellId, "yellow", "Long")
+	self:MessageOld(args.spellId, "yellow", "Long")
 	self:Bar(args.spellId, 30)
 	self:StopBar(167679) -- Solar Breath
 end
 
 function mod:LooseQuillsOver(args)
-	self:Message(args.spellId, "yellow", nil, CL.over:format(args.spellName))
+	self:MessageOld(args.spellId, "yellow", nil, CL.over:format(args.spellName))
 end
 
 function mod:BOSS_KILL(_, id)

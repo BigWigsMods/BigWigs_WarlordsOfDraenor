@@ -133,15 +133,15 @@ end
 --
 
 function mod:CallOfTheTides(args)
-	self:Message(args.spellId, "orange", "Alarm", L.mythic_ability_wave)
+	self:MessageOld(args.spellId, "orange", "Alarm", L.mythic_ability_wave)
 	self:Flash(args.spellId)
-	self:ScheduleTimer("Message", 3, args.spellId, "orange", "Alarm", L.mythic_ability_wave)
-	self:ScheduleTimer("Message", 6, args.spellId, "orange", "Alarm", L.mythic_ability_wave)
+	self:ScheduleTimer("MessageOld", 3, args.spellId, "orange", "Alarm", L.mythic_ability_wave)
+	self:ScheduleTimer("MessageOld", 6, args.spellId, "orange", "Alarm", L.mythic_ability_wave)
 	self:CDBar("mythic_ability", 20, L.mythic_ability, L.mythic_ability_icon) -- can be delayed by other casts
 end
 
 function mod:ExplodingFungus(args)
-	self:Message(args.spellId, "orange")
+	self:MessageOld(args.spellId, "orange")
 	self:Flash(args.spellId)
 	self:Bar(args.spellId, 7)
 	self:CDBar("mythic_ability", 20, L.mythic_ability, L.mythic_ability_icon) -- can be delayed by other casts
@@ -151,9 +151,9 @@ function mod:CreepingMossHeal(args)
 	if not self:LFR() then
 		local mobId = self:MobId(args.destGUID)
 		if mobId == 78491 then -- Brackenspore
-			self:Message(164125, "red", "Info", L.creeping_moss_boss_heal)
+			self:MessageOld(164125, "red", "Info", L.creeping_moss_boss_heal)
 		elseif mobId == 79092 and decayCount > 1 then -- Fungal Flesh-Eater. If decayCount is 1 it probably just spawned on moss, so don't bother warning.
-			self:Message(164125, "red", nil, L.creeping_moss_add_heal)
+			self:MessageOld(164125, "red", nil, L.creeping_moss_add_heal)
 		end
 	end
 end
@@ -164,12 +164,12 @@ function mod:Rot(args)
 end
 
 function mod:NecroticBreath(args)
-	self:Message(args.spellId, "orange", "Warning")
+	self:MessageOld(args.spellId, "orange", "Warning")
 	self:Bar(args.spellId, 32)
 end
 
 function mod:InfestingSpores(args)
-	self:Message(args.spellId, "red", "Alarm", CL.casting:format(CL.count:format(args.spellName, infestingSporesCount)))
+	self:MessageOld(args.spellId, "red", "Alarm", CL.casting:format(CL.count:format(args.spellName, infestingSporesCount)))
 	self:Bar(args.spellId, 12, CL.cast:format(args.spellName)) -- 2s cast + 10s channel
 	infestingSporesCount = infestingSporesCount + 1
 	self:Bar(args.spellId, 58, CL.count:format(args.spellName, infestingSporesCount)) -- happens at 100 energy
@@ -178,13 +178,13 @@ end
 
 function mod:Decay(args)
 	local playSound = self:Damager() or (self:Tank() and UnitGUID("target") == args.sourceGUID)
-	self:Message(args.spellId, "blue", playSound and "Alert", CL.casting:format(CL.count:format(args.spellName, decayCount)))
+	self:MessageOld(args.spellId, "blue", playSound and "Alert", CL.casting:format(CL.count:format(args.spellName, decayCount)))
 	decayCount = decayCount + 1
 	self:Bar(args.spellId, 9.5, CL.count:format(args.spellName, decayCount))
 end
 
 function mod:SporeShooter()
-	self:Message("spore_shooter", "yellow", self:Damager() and "Info", CL.small_adds, L.spore_shooter_icon)
+	self:MessageOld("spore_shooter", "yellow", self:Damager() and "Info", CL.small_adds, L.spore_shooter_icon)
 	self:Bar("spore_shooter", 60, CL.small_adds, L.spore_shooter_icon)
 	if self.db.profile.custom_off_spore_shooter_marker then -- Marking
 		wipe(markableMobs)
@@ -217,30 +217,30 @@ end
 
 function mod:RejuvenatingMushroom(_, _, _, spellId)
 	if spellId == 177820 then -- Rejuvenating Mushroom
-		self:Message("rejuvenating_mushroom", "green", self:Healer() and "Info", self:SpellName(spellId), L.rejuvenating_mushroom_icon)
+		self:MessageOld("rejuvenating_mushroom", "green", self:Healer() and "Info", self:SpellName(spellId), L.rejuvenating_mushroom_icon)
 		self:CDBar("rejuvenating_mushroom", 120, self:SpellName(spellId), L.rejuvenating_mushroom_icon) -- spawns most of the time just after 2min, sometimes delayed by boss casts (?)
 	end
 end
 
 function mod:SummonMindFungus()
-	self:Message("mind_fungus", "yellow", self:Damager() and "Long", L.mind_fungus, L.mind_fungus_icon)
+	self:MessageOld("mind_fungus", "yellow", self:Damager() and "Long", L.mind_fungus, L.mind_fungus_icon)
 	self:CDBar("mind_fungus", self:Mythic() and 30 or 51, L.mind_fungus, L.mind_fungus_icon) -- 51.1, 58.6, 55.5, 55, 61.5, 59.5
 end
 
 function mod:SummonFungalFleshEater()
-	self:Message("flesh_eater", "orange", self:Tank() and "Long", CL.spawning:format(CL.big_add), L.flesh_eater_icon)
+	self:MessageOld("flesh_eater", "orange", self:Tank() and "Long", CL.spawning:format(CL.big_add), L.flesh_eater_icon)
 	self:Bar("flesh_eater", 120, CL.big_add, L.flesh_eater_icon)
 	decayCount = 1
 end
 
 -- XXX for patch 6.1
 --function mod:RejuvenatingMushroom(args)
---	self:Message("rejuvenating_mushroom", "green", self:Healer() and "Info", args.spellName, L.rejuvenating_mushroom_icon)
+--	self:MessageOld("rejuvenating_mushroom", "green", self:Healer() and "Info", args.spellName, L.rejuvenating_mushroom_icon)
 --	self:CDBar("rejuvenating_mushroom", 120, args.spellName, L.rejuvenating_mushroom_icon) -- spawns most of the time just after 2min, sometimes delayed by boss casts (?)
 --end
 
 function mod:LivingMushroom(args)
-	self:Message("living_mushroom", "green", self:Healer() and "Long", CL.count:format(args.spellName, livingMushroomCount), L.living_mushroom_icon)
+	self:MessageOld("living_mushroom", "green", self:Healer() and "Long", CL.count:format(args.spellName, livingMushroomCount), L.living_mushroom_icon)
 	livingMushroomCount = livingMushroomCount + 1
 	self:Bar("living_mushroom", 58, CL.count:format(args.spellName, livingMushroomCount), L.living_mushroom_icon)
 end

@@ -36,18 +36,18 @@ end
 --
 
 function mod:ColossalSlam(args)
-	self:Message(args.spellId, "red", "Alarm")
+	self:MessageOld(args.spellId, "red", "Alarm")
 end
 
 function mod:CallOfEarth(args)
-	self:Message(args.spellId, "yellow")
+	self:MessageOld(args.spellId, "yellow")
 	self:CDBar(args.spellId, 90)
 	self:Bar(args.spellId, 20, CL.cast:format(args.spellName))
 end
 
 function mod:AcidBreath(args)
 	if not self:Tank() and self:Me(args.destGUID) then
-		self:Message(args.spellId, "blue", "Alarm", CL.you:format(args.spellName))
+		self:MessageOld(args.spellId, "blue", "Alarm", CL.you:format(args.spellName))
 		self:Flash(args.spellId)
 	end
 end

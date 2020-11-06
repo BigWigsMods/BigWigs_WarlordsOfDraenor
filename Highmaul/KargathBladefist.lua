@@ -95,7 +95,7 @@ end
 --
 
 function mod:CatSpawn()
-	self:Message(-9396, "cyan", nil, nil, false) -- Ravenous Bloodmaw
+	self:MessageOld(-9396, "cyan", nil, nil, false) -- Ravenous Bloodmaw
 	self:Bar(-9396, 110, nil, "ability_druid_tigersroar")
 end
 
@@ -119,7 +119,7 @@ do
 end
 
 function mod:BladeDance(args)
-	self:Message(args.spellId, "yellow")
+	self:MessageOld(args.spellId, "yellow")
 	self:Bar(args.spellId, 10, L.blade_dance_bar)
 	--self:CDBar(args.spellId, 20)
 end
@@ -169,7 +169,7 @@ do
 	end
 
 	function mod:ChainHurl(args)
-		self:Message(args.spellId, "orange", "Alert", CL.incoming:format(args.spellName))
+		self:MessageOld(args.spellId, "orange", "Alert", CL.incoming:format(args.spellName))
 		self:Bar(args.spellId, 3.4)
 	end
 
@@ -194,7 +194,7 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and t-prev > 1 then
 			prev = t
-			self:Message(args.spellId, "blue", "Info", CL.underyou:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "Info", CL.underyou:format(args.spellName))
 		end
 	end
 end
@@ -205,14 +205,14 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and t-prev > 1 then
 			prev = t
-			self:Message(args.spellId, "blue", "Info", CL.underyou:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "Info", CL.underyou:format(args.spellName))
 		end
 	end
 end
 
 function mod:VileBreath(args)
 	if hurled then
-		self:Message(args.spellId, "yellow", "Alarm")
+		self:MessageOld(args.spellId, "yellow", "Alarm")
 	end
 end
 

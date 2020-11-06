@@ -185,7 +185,7 @@ end
 do
 	local timers = {0, 54, 24}
 	function mod:Pounding(args)
-		self:Message(args.spellId, "yellow", "Long", CL.count:format(args.spellName, poundingCount))
+		self:MessageOld(args.spellId, "yellow", "Long", CL.count:format(args.spellName, poundingCount))
 		poundingCount = poundingCount + 1
 		if timers[poundingCount] then
 			self:Bar(args.spellId, timers[poundingCount], CL.count:format(args.spellName, poundingCount))
@@ -196,7 +196,7 @@ end
 do
 	local timers = {0, 30, 12, 45}
 	function mod:Barrage(args)
-		self:Message(args.spellId, "yellow", "Long", CL.count:format(args.spellName, barrageCount))
+		self:MessageOld(args.spellId, "yellow", "Long", CL.count:format(args.spellName, barrageCount))
 		barrageCount = barrageCount + 1
 		if timers[barrageCount] then
 			self:Bar(args.spellId, timers[barrageCount], CL.count:format(args.spellName, barrageCount))
@@ -208,7 +208,7 @@ do
 	local prev = 0
 	function mod:UnstableOrb(args)
 		if self:Me(args.destGUID) then
-			self:Message(args.spellId, "blue", "Alarm", CL.you:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "Alarm", CL.you:format(args.spellName))
 		end
 		local t = GetTime()
 		if t-prev > 2 then
@@ -229,13 +229,13 @@ do
 		local t = GetTime()
 		if t-prev > 2 and self:Me(args.destGUID) then
 			prev = t
-			self:Message(args.spellId, "blue", "Alarm", CL.underyou:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "Alarm", CL.underyou:format(args.spellName))
 		end
 	end
 end
 
 function mod:FallingSlam(args)
-	self:Message(args.spellId, "red", "Info")
+	self:MessageOld(args.spellId, "red", "Info")
 	self:Bar(args.spellId, self:Easy() and 9 or 6, CL.cast:format(args.spellName))
 end
 
@@ -259,7 +259,7 @@ function mod:FallingSlamSuccess()
 end
 
 function mod:Blitz(args)
-	self:Message(args.spellId, "red", "Info")
+	self:MessageOld(args.spellId, "red", "Info")
 	if blitzCount == 2 then -- Blitz is casted twice each cooldown, show the bar after the second
 		self:Bar(args.spellId, 58)
 	end
@@ -271,7 +271,7 @@ function mod:FullCharge(args)
 
 	phase = 2
 	firebombCount = 1
-	self:Message(args.spellId, "red", "Info")
+	self:MessageOld(args.spellId, "red", "Info")
 	--self:Bar(182280, 9) -- Artillery APPLICATION
 	self:Bar(181999, 11, CL.count:format(self:SpellName(181999), firebombCount)) -- Firebomb
 	self:Bar(182066, 54) -- Falling Slam
@@ -281,7 +281,7 @@ function mod:FullCharge(args)
 end
 
 function mod:Firebomb(args)
-	self:Message(args.spellId, "red", "Alarm", CL.count:format(args.spellName, firebombCount))
+	self:MessageOld(args.spellId, "red", "Alarm", CL.count:format(args.spellName, firebombCount))
 	firebombCount = firebombCount + 1
 	if firebombCount < 4 then
 		self:Bar(args.spellId, 15, CL.count:format(args.spellName, firebombCount))

@@ -120,16 +120,16 @@ end
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(_, _, sender, _, _, target)
 	if target == self.displayName then -- Tyrant Velhari (target is blank for Ancient spell cast emotes)
 		if sender == self:SpellName(-11155) then -- Ancient Enforcer
-			self:Message(-11155, "cyan", nil, "90% - ".. CL.spawned:format(self:SpellName(-11155)), false)
+			self:MessageOld(-11155, "cyan", nil, "90% - ".. CL.spawned:format(self:SpellName(-11155)), false)
 			self:CDBar(180004, 13) -- Enforcer's Onslaught, 13-15
 		elseif sender == self:SpellName(-11163) then -- Ancient Harbinger
-			self:Message(-11163, "cyan", nil, "60% - ".. CL.spawned:format(self:SpellName(-11163)), false)
+			self:MessageOld(-11163, "cyan", nil, "60% - ".. CL.spawned:format(self:SpellName(-11163)), false)
 			self:Bar(180025, 16, CL.count:format(self:SpellName(180025), 1)) -- Harbinger's Mending
 			if self:LFR() then
 				self:RegisterUnitEvent("UNIT_SPELLCAST_START", "HarbingersMendingLFR", "boss2")
 			end
 		elseif sender == self:SpellName(-11170) then -- Ancient Sovereign
-			self:Message(-11170, "cyan", nil, "30% - ".. CL.spawned:format(self:SpellName(-11170)), false)
+			self:MessageOld(-11170, "cyan", nil, "30% - ".. CL.spawned:format(self:SpellName(-11170)), false)
 			self:Bar(180040, 14) -- Sovereign's Ward
 		end
 	end
@@ -151,11 +151,11 @@ end
 -- Stage 1
 
 function mod:AuraOfOppression()
-	self:Message("stages", "cyan", nil, CL.phase:format(phase), false)
+	self:MessageOld("stages", "cyan", nil, CL.phase:format(phase), false)
 end
 
 function mod:EnforcersOnslaught(args)
-	self:Message(args.spellId, "yellow")
+	self:MessageOld(args.spellId, "yellow")
 	self:Bar(args.spellId, self:Mythic() and 11 or 18) -- 18.2-18.7
 end
 
@@ -179,7 +179,7 @@ do
 end
 
 function mod:InfernalTempestStart(args)
-	self:Message(args.spellId, "red", "Long", CL.incoming:format(args.spellName))
+	self:MessageOld(args.spellId, "red", "Long", CL.incoming:format(args.spellName))
 	self:Bar(args.spellId, 6.5, CL.cast:format(args.spellName))
 	self:Bar(args.spellId, 40)
 	if not edictOnMe then
@@ -202,7 +202,7 @@ function mod:AuraOfContempt()
 	self:StopBar(180300) -- Infernal Tempest
 	phase = 2
 	strikeCount = 0
-	self:Message("stages", "cyan", nil, "70% - ".. CL.phase:format(phase), false)
+	self:MessageOld("stages", "cyan", nil, "70% - ".. CL.phase:format(phase), false)
 	self:Bar(180533, 5, CL.count:format(self:SpellName(180533), 1)) -- Tainted Shadows
 	self:Bar(180526, 22) -- Font of Corruption, 20sec timer + 2sec cast
 	if self:Tank() and not self:LFR() then
@@ -211,14 +211,14 @@ function mod:AuraOfContempt()
 end
 
 function mod:HarbingersMending(args)
-	self:Message(180025, "yellow", self:Interrupter() and "Alert", CL.casting:format(CL.count:format(args.spellName, mendingCount)))
+	self:MessageOld(180025, "yellow", self:Interrupter() and "Alert", CL.casting:format(CL.count:format(args.spellName, mendingCount)))
 	mendingCount = mendingCount + 1
 	self:Bar(180025, self:Normal() and 16 or 11, CL.count:format(args.spellName, mendingCount))
 end
 
 function mod:HarbingersMendingLFR(_, _, _, spellId)
 	if spellId == 180025 then -- On LFR this event is hidden and lacking an icon, even though it's the same id :S
-		self:Message(spellId, "yellow", self:Interrupter() and "Alert", CL.casting:format(CL.count:format(self:SpellName(spellId), mendingCount)), "spell_shadow_shadowmend")
+		self:MessageOld(spellId, "yellow", self:Interrupter() and "Alert", CL.casting:format(CL.count:format(self:SpellName(spellId), mendingCount)), "spell_shadow_shadowmend")
 		mendingCount = mendingCount + 1
 		self:Bar(spellId, 25, CL.count:format(self:SpellName(spellId), mendingCount), "spell_shadow_shadowmend")
 	end
@@ -336,23 +336,23 @@ function mod:AuraOfMalice()
 	self:CancelDelayedMessage(L.font_removed_soon)
 	phase = 3
 	strikeCount = 0
-	self:Message("stages", "cyan", nil, "40% - ".. CL.phase:format(phase), false)
+	self:MessageOld("stages", "cyan", nil, "40% - ".. CL.phase:format(phase), false)
 	self:Bar(180600, 10) -- Bulwark of the Tyrant
 	self:Bar(180608, 40) -- Gavel of the Tyrant
 end
 
 function mod:SovereignsWard(args)
-	self:Message(args.spellId, "orange", "Long")
+	self:MessageOld(args.spellId, "orange", "Long")
 	self:Bar(args.spellId, 25)
 end
 
 function mod:SovereignsWardRemoved(args)
-	self:Message(args.spellId, "green", nil, CL.removed:format(args.spellName))
+	self:MessageOld(args.spellId, "green", nil, CL.removed:format(args.spellName))
 end
 
 function mod:BulwarkOfTheTyrant(args)
 	strikeCount = strikeCount + 1
-	self:Message(args.spellId, "yellow", "Info", CL.count:format(args.spellName, strikeCount))
+	self:MessageOld(args.spellId, "yellow", "Info", CL.count:format(args.spellName, strikeCount))
 	if strikeCount > 2 then
 		strikeCount = 0
 	end
@@ -366,13 +366,13 @@ do
 		if self:Me(args.destGUID) and t-prev > 1.5 then
 			prev = t
 			self:Flash(180600) -- 180600 = Bulwark of the Tyrant
-			self:Message(180600, "blue", "Alarm", CL.underyou:format(args.spellName))
+			self:MessageOld(180600, "blue", "Alarm", CL.underyou:format(args.spellName))
 		end
 	end
 end
 
 function mod:GavelOfTheTyrant(args)
-	self:Message(args.spellId, "red", "Alert", CL.casting:format(args.spellName))
+	self:MessageOld(args.spellId, "red", "Alert", CL.casting:format(args.spellName))
 	self:Bar(args.spellId, 40)
 end
 

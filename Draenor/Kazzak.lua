@@ -116,7 +116,7 @@ end
 
 function mod:RAID_BOSS_EMOTE(_, msg)
 	if msg:find("187702", nil, true) then -- hidden cast, has unit event
-		self:Message(187702, "red", "Long")
+		self:MessageOld(187702, "red", "Long")
 	end
 end
 

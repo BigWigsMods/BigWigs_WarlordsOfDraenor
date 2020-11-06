@@ -139,13 +139,13 @@ function mod:TremblingEarth(args)
 	self:StopBar(args.spellName)
 
 	callOfTheMountainCount = 1
-	self:Message(args.spellId, "yellow")
+	self:MessageOld(args.spellId, "yellow")
 	self:Bar(args.spellId, 25, L.destroy_pillars)
 	self:Bar(158217, 31, CL.count:format(self:SpellName(158217), callOfTheMountainCount)) -- Call of the Mountain
 end
 
 function mod:CallOfTheMountainStart(args)
-	self:Message(args.spellId, "red", nil, CL.count:format(args.spellName, callOfTheMountainCount))
+	self:MessageOld(args.spellId, "red", nil, CL.count:format(args.spellName, callOfTheMountainCount))
 	callOfTheMountainCount = callOfTheMountainCount + 1
 end
 
@@ -165,13 +165,13 @@ function mod:UNIT_HEALTH_FREQUENT(event, unit)
 	local hp = UnitHealth(unit) / UnitHealthMax(unit) * 100
 	if hp < 35 then
 		self:UnregisterUnitEvent(event, unit)
-		self:Message(156861, "cyan", "Info", CL.soon:format(self:SpellName(156861))) -- Frenzy
+		self:MessageOld(156861, "cyan", "Info", CL.soon:format(self:SpellName(156861))) -- Frenzy
 	end
 end
 
 function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, _, spellId)
 	if spellId == 156980 then -- Rune of Crushing Earth
-		self:Message(-9702, "yellow")
+		self:MessageOld(-9702, "yellow")
 		--self:Bar(spellId, 5, "Clap!")
 	end
 end
@@ -182,18 +182,18 @@ function mod:WarpedArmor(args)
 end
 
 function mod:StoneBreath(args)
-	self:Message(args.spellId, "orange", nil, CL.casting:format(CL.count:format(args.spellName, breathCount)))
+	self:MessageOld(args.spellId, "orange", nil, CL.casting:format(CL.count:format(args.spellName, breathCount)))
 	breathCount = breathCount + 1
 	self:CDBar(args.spellId, 24, CL.count:format(args.spellName, breathCount))
 end
 
 function mod:Slam(args)
-	self:Message(args.spellId, "orange", self:Melee() and "Alarm", CL.casting:format(args.spellName))
+	self:MessageOld(args.spellId, "orange", self:Melee() and "Alarm", CL.casting:format(args.spellName))
 	self:CDBar(args.spellId, 24)
 end
 
 function mod:RipplingSmash(args)
-	self:Message(157592, "orange", "Alert")
+	self:MessageOld(157592, "orange", "Alert")
 	if args.spellId == 157592 then
 		self:CDBar(157592, self:Mythic() and 41 or 24) -- 22-29
 	end
@@ -220,7 +220,7 @@ do
 	end
 
 	function mod:GraspingEarth(args)
-		self:Message(args.spellId, "green", "Info")
+		self:MessageOld(args.spellId, "green", "Info")
 		self:CDBar(args.spellId, 112) -- 112-114
 		self:CDBar(157054, 13) -- Thundering Blows
 
@@ -246,11 +246,11 @@ do
 end
 
 function mod:ThunderingBlows(args)
-	self:Message(args.spellId, "red", nil, CL.casting:format(args.spellName))
+	self:MessageOld(args.spellId, "red", nil, CL.casting:format(args.spellName))
 	self:Bar(args.spellId, 7, CL.cast:format(args.spellName))
 end
 
 function mod:Frenzy(args)
-	self:Message(args.spellId, "red", "Alarm")
+	self:MessageOld(args.spellId, "red", "Alarm")
 end
 

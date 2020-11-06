@@ -145,15 +145,15 @@ end
 
 function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, _, spellId)
 	if spellId == 154914 then -- Lava Slash
-		self:Message(155318, "orange")
+		self:MessageOld(155318, "orange")
 		if self:Ranged() then
 			self:Bar(155318, 14.5)
 		end
 	elseif spellId == 163644 then -- Summon Enchanted Armaments
-		self:Message(-9352, "yellow", nil, 175007, "inv_sword_1h_firelandsraid_d_04")
+		self:MessageOld(-9352, "yellow", nil, 175007, "inv_sword_1h_firelandsraid_d_04")
 		self:Bar(-9352, self:Mythic() and 20 or 46, 175007, "inv_sword_1h_firelandsraid_d_04")
 	elseif spellId == 155564 then -- Firestorm
-		self:Message(155493, "red", "Long", CL.count:format(self:SpellName(155493), firestormCount))
+		self:MessageOld(155493, "red", "Long", CL.count:format(self:SpellName(155493), firestormCount))
 		firestormCount = firestormCount + 1
 		self:CastBar(155493, 14, spellId)
 
@@ -173,7 +173,7 @@ do
 		local t = GetTime()
 		if t-prev > 1.5 and self:Me(args.destGUID) then
 			prev = t
-			self:Message(155318, "blue", "Alarm", CL.underyou:format(args.spellName))
+			self:MessageOld(155318, "blue", "Alarm", CL.underyou:format(args.spellName))
 		end
 	end
 end
@@ -223,7 +223,7 @@ function mod:CinderWolves(args)
 		wipe(wolvesMarked)
 	end
 
-	self:Message(args.spellId, "red", "Alarm")
+	self:MessageOld(args.spellId, "red", "Alarm")
 
 	--self:Bar(155277, 32) -- Blazing Radiance
 	self:Bar(155493, 62, CL.count:format(self:SpellName(155493), firestormCount)) -- Firestorm
@@ -242,7 +242,7 @@ end
 function mod:FixateOver(args)
 	if self:Me(args.destGUID) and not self:UnitDebuff("player", args.spellName) then
 		fixateOnMe = nil
-		self:Message(args.spellId, "blue", "Alarm", CL.over:format(args.spellName))
+		self:MessageOld(args.spellId, "blue", "Alarm", CL.over:format(args.spellName))
 	end
 end
 
@@ -311,12 +311,12 @@ end
 -- Aknor Steelbringer
 
 function mod:DevastatingSlam(args)
-	self:Message(args.spellId, "yellow")
+	self:MessageOld(args.spellId, "yellow")
 	--self:CDBar(args.spellId, 6) -- 6-10.9
 end
 
 function mod:DropTheHammer(args)
-	self:Message(args.spellId, "yellow")
+	self:MessageOld(args.spellId, "yellow")
 	--self:CDBar(args.spellId, 11) -- 11.3-14.4
 end
 

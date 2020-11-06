@@ -388,17 +388,17 @@ end
 
 function mod:PulseGrenadeDamage(args)
 	if self:Me(args.destGUID) then
-		self:Message(155864, "blue", "Alarm", CL.underyou:format(self:SpellName(135592))) -- 135592 = "Grenade"
+		self:MessageOld(155864, "blue", "Alarm", CL.underyou:format(self:SpellName(135592))) -- 135592 = "Grenade"
 	end
 end
 
 function mod:IronBellow(args)
-	self:Message(args.spellId, "orange")
+	self:MessageOld(args.spellId, "orange")
 	self:CDBar(args.spellId, 12)
 end
 
 function mod:CauterizingBolt(args)
-	self:Message(args.spellId, "red", "Alert")
+	self:MessageOld(args.spellId, "red", "Alert")
 end
 
 function mod:CauterizingBoltApplied(args)
