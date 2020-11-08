@@ -152,7 +152,7 @@ do
 				prev = t
 				self:Say(184476)
 				self:OpenProximity(184476, 5) -- 5 yard guess
-				self:MessageOld(184476, "blue", "Alarm", ("%s (%s)"):format(CL.you:format(self:SpellName(184476)), self:SpellName(135856))) -- 135856 = Dispel
+				self:MessageOld(184476, "blue", "alarm", ("%s (%s)"):format(CL.you:format(self:SpellName(184476)), self:SpellName(135856))) -- 135856 = Dispel
 			end
 		end
 	end
@@ -162,9 +162,9 @@ function mod:Reap(args)
 	if self:UnitDebuff("player", self:SpellName(184449), 184449) then -- Mark of the Necromancer
 		self:Say(args.spellId)
 		self:OpenProximity(args.spellId, 5) -- 5 yard guess
-		self:MessageOld(args.spellId, "blue", "Alarm", CL.you:format(args.spellName))
+		self:MessageOld(args.spellId, "blue", "alarm", CL.you:format(args.spellName))
 	else
-		self:MessageOld(args.spellId, "yellow", "Info", CL.casting:format(args.spellName))
+		self:MessageOld(args.spellId, "yellow", "info", CL.casting:format(args.spellName))
 		self:Log("SPELL_AURA_APPLIED", "MarkOfTheNecromancerApplied", 184450, 185065, 185066)
 	end
 	self:Bar(args.spellId, 4, CL.cast:format(args.spellName))
@@ -180,7 +180,7 @@ end
 do
 	local timers = {0, 67, 76, 82} -- pretty consistent now
 	function mod:FelRage(args)
-		self:TargetMessageOld(184358, args.destName, "orange", "Warning")
+		self:TargetMessageOld(184358, args.destName, "orange", "warning")
 		self:TargetBar(184358, 25, args.destName)
 		self:PrimaryIcon(184358, args.destName)
 
@@ -198,7 +198,7 @@ function mod:FelRageRemoved(args)
 end
 
 function mod:NightmareVisage(args)
-	self:MessageOld(args.spellId, "red", "Long")
+	self:MessageOld(args.spellId, "red", "long")
 	self:Bar(args.spellId, 16, CL.cast:format(args.spellName))
 	self:CDBar(args.spellId, 32) -- 32 - 35
 end
@@ -218,7 +218,7 @@ do
 
 	function mod:CHAT_MSG_RAID_BOSS_EMOTE(_, msg)
 		if msg:find("184681", nil, true) then
-			self:MessageOld(184681, "orange", "Alert", CL.count:format(self:SpellName(184681), horrorCount))
+			self:MessageOld(184681, "orange", "alert", CL.count:format(self:SpellName(184681), horrorCount))
 			horrorCount = horrorCount + 1
 			startMirrorCD(self)
 		end
@@ -230,14 +230,14 @@ do
 	function mod:Bloodboil(args)
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessageOld", 0.3, args.spellId, list, "yellow", "Alarm")
+			self:ScheduleTimer("TargetMessageOld", 0.3, args.spellId, list, "yellow", "alarm")
 		end
 	end
 end
 
 function mod:BloodboilDose(args)
 	if self:Me(args.destGUID) and args.amount > 2 and self:Mythic() then
-		self:MessageOld(args.spellId, "blue", "Alert", CL.you:format(CL.count:format(args.spellName, args.amount)))
+		self:MessageOld(args.spellId, "blue", "alert", CL.you:format(CL.count:format(args.spellName, args.amount)))
 	end
 end
 
@@ -272,7 +272,7 @@ do
 		local t = GetTime()
 		if t-prev > 1.5 and self:Me(args.destGUID) then
 			prev = t
-			self:MessageOld(184476, "blue", "Alarm", CL.underyou:format(args.spellName))
+			self:MessageOld(184476, "blue", "alarm", CL.underyou:format(args.spellName))
 		end
 	end
 end

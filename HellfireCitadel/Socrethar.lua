@@ -141,7 +141,7 @@ function mod:SocretharsContingency(args)
 end
 
 function mod:UnstoppableTenacity(args)
-	self:MessageOld(args.spellId, "orange", "Info")
+	self:MessageOld(args.spellId, "orange", "info")
 	self:Bar(args.spellId, 20)
 end
 
@@ -151,7 +151,7 @@ do
 		if isHostile then
 			list[#list+1] = args.destName
 			if #list == 1 then
-				self:ScheduleTimer("TargetMessageOld", 0.3, args.spellId, list, "yellow", "Alarm")
+				self:ScheduleTimer("TargetMessageOld", 0.3, args.spellId, list, "yellow", "alarm")
 			end
 		end
 	end
@@ -159,7 +159,7 @@ end
 
 function mod:VolatileFelOrb(args)
 	self:CDBar(180221, 30)
-	self:TargetMessageOld(180221, args.destName, "orange", "Alarm")
+	self:TargetMessageOld(180221, args.destName, "orange", "alarm")
 	if self:Me(args.destGUID) then
 		self:Say(180221)
 		self:Flash(180221)
@@ -168,7 +168,7 @@ end
 
 do
 	local function printTarget(self, name, guid)
-		self:TargetMessageOld(182051, name, "orange", "Alarm")
+		self:TargetMessageOld(182051, name, "orange", "alarm")
 		if self:Me(guid) then
 			self:Say(182051)
 		end
@@ -181,18 +181,18 @@ end
 
 
 function mod:ApocalypticFelburst(args)
-	self:MessageOld(args.spellId, "red", "Alert", CL.count:format(args.spellName, felburstCount))
+	self:MessageOld(args.spellId, "red", "alert", CL.count:format(args.spellName, felburstCount))
 	felburstCount = felburstCount + 1
 	self:CDBar(args.spellId, 30.5, CL.count:format(args.spellName, felburstCount))
 end
 
 
 function mod:ApocalypticFelburstConstruct()
-	self:MessageOld(188693, "red", "Alert")
+	self:MessageOld(188693, "red", "alert")
 end
 
 function mod:FelPrison(args)
-	self:MessageOld(args.spellId, "orange", "Alarm")
+	self:MessageOld(args.spellId, "orange", "alarm")
 	self:CDBar(args.spellId, 45)
 end
 
@@ -214,13 +214,13 @@ do
 		local t = GetTime()
 		if t-prev > 1.5 and self:Me(args.destGUID) then
 			prev = t
-			self:MessageOld(args.spellId, "blue", "Alarm", CL.underyou:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "alarm", CL.underyou:format(args.spellName))
 		end
 	end
 end
 
 function mod:ReverberatingBlow(args)
-	self:MessageOld(args.spellId, "orange", "Info")
+	self:MessageOld(args.spellId, "orange", "info")
 	self:CDBar(args.spellId, 17)
 end
 
@@ -228,7 +228,7 @@ end
 
 do
 	local function portalsMove(self)
-		self:MessageOld("portals", "cyan", "Info", L.portals_msg, L.portals_icon)
+		self:MessageOld("portals", "cyan", "info", L.portals_msg, L.portals_icon)
 		self:Bar("portals", 130, L.portals, L.portals_icon) -- Portals Move
 		self:CDBar(-11462, 23, nil, "achievement_halloween_ghost_01") -- Haunting Soul
 		portalTimer = self:ScheduleTimer(portalsMove, 130, self)
@@ -249,13 +249,13 @@ do
 		self:Bar("dominator", 24, CL.count:format(self:SpellName(L.dominator), dominatorCount), L.dominator_icon) -- Sargerei Dominator
 		self:CDBar(-11462, 30, nil, "achievement_halloween_ghost_01") -- Haunting Soul
 		self:CDBar(183329, 51.5, CL.count:format(self:SpellName(183329), apocalypseCount)) -- Apocalypse
-		self:MessageOld("stages", "cyan", "Long", CL.phase:format(2), false)
+		self:MessageOld("stages", "cyan", "long", CL.phase:format(2), false)
 	end
 end
 
 function mod:FelBarrier()
 	inBarrier = true
-	self:MessageOld("dominator", "cyan", "Warning", CL.count:format(self:SpellName(L.dominator), dominatorCount), L.dominator_icon)
+	self:MessageOld("dominator", "cyan", "warning", CL.count:format(self:SpellName(L.dominator), dominatorCount), L.dominator_icon)
 	dominatorCount = dominatorCount + 1
 	self:Bar("dominator", self:Mythic() and 130 or (dominatorCount % 2 == 0 and 60 or 70), CL.count:format(self:SpellName(L.dominator), dominatorCount), L.dominator_icon) -- Sargerei Dominator
 	self:CDBar(184124, 5) -- Gift of the Man'ari
@@ -267,12 +267,12 @@ function mod:FelBarrierRemoved()
 end
 
 function mod:ExertDominance(args)
-	self:MessageOld(args.spellId, "yellow", self:Interrupter(args.sourceGUID) and not inBarrier and "Alert", CL.count:format(args.spellName, dominanceCount))
+	self:MessageOld(args.spellId, "yellow", self:Interrupter(args.sourceGUID) and not inBarrier and "alert", CL.count:format(args.spellName, dominanceCount))
 	dominanceCount = (dominanceCount % 3) + 1
 end
 
 function mod:Apocalypse(args)
-	self:MessageOld(args.spellId, "red", "Long", CL.count:format(args.spellName, apocalypseCount))
+	self:MessageOld(args.spellId, "red", "long", CL.count:format(args.spellName, apocalypseCount))
 	self:Bar(args.spellId, 12, CL.count:format(args.spellName, apocalypseCount))
 end
 
@@ -286,7 +286,7 @@ do
 	function mod:GiftOfTheManari(args)
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessageOld", 0.3, args.spellId, list, "yellow", "Alarm")
+			self:ScheduleTimer("TargetMessageOld", 0.3, args.spellId, list, "yellow", "alarm")
 		end
 		if self:Me(args.destGUID) then
 			self:Say(args.spellId)
@@ -312,7 +312,7 @@ end
 
 function mod:GhastlyFixation(args)
 	if self:Me(args.destGUID) then
-		self:TargetMessageOld(args.spellId, args.destName, "blue", "Alarm")
+		self:TargetMessageOld(args.spellId, args.destName, "blue", "alarm")
 		self:Flash(args.spellId)
 	end
 end
@@ -325,7 +325,7 @@ end
 
 function mod:ShadowBoltVolley(args)
 	if self:Interrupter(args.sourceGUID) then
-		self:MessageOld(args.spellId, "yellow", "Alert", CL.casting:format(args.spellName))
+		self:MessageOld(args.spellId, "yellow", "alert", CL.casting:format(args.spellName))
 	end
 end
 
@@ -338,7 +338,7 @@ function mod:IncompleteBindingRemoved(args) -- Phase 2 End
 	self:StopBar(-11462) -- Haunting Soul
 	self:StopBar(CL.count:format(self:SpellName(183329), apocalypseCount)) -- Apocalypse
 	-- Start P1 bars
-	self:MessageOld("stages", "cyan", "Long", CL.phase:format(1), false)
+	self:MessageOld("stages", "cyan", "long", CL.phase:format(1), false)
 	self:CDBar(181288, 46) -- Fel Prison
 	self:CDBar(180221, 8) -- Volatile Fel Orb
 	self:CDBar(182051, 26) -- Felblaze Charge

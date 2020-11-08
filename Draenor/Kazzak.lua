@@ -67,7 +67,7 @@ end
 
 function mod:FelBreath(args)
 	if self:Tank(args.destName) then
-		self:TargetMessageOld(args.spellId, args.destName, "orange", self:Tank() and "Alert")
+		self:TargetMessageOld(args.spellId, args.destName, "orange", self:Tank() and "alert")
 		if self:Me(args.destGUID) then
 			self:TargetBar(args.spellId, 30, args.destName)
 		end
@@ -93,14 +93,14 @@ do
 	function mod:SupremeDoom(args)
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessageOld", 0.3, args.spellId, list, "yellow", "Info", nil, nil, self:Healer())
+			self:ScheduleTimer("TargetMessageOld", 0.3, args.spellId, list, "yellow", "info", nil, nil, self:Healer())
 		end
 	end
 end
 
 function mod:MarkOfKazzak(args)
 	if self:Me(args.destGUID) then
-		self:TargetMessageOld(args.spellId, args.destName, "blue", "Alarm")
+		self:TargetMessageOld(args.spellId, args.destName, "blue", "alarm")
 		self:TargetBar(args.spellId, 15, args.destName)
 		self:Say(args.spellId)
 		self:OpenProximity(args.spellId, 8)
@@ -116,7 +116,7 @@ end
 
 function mod:RAID_BOSS_EMOTE(_, msg)
 	if msg:find("187702", nil, true) then -- hidden cast, has unit event
-		self:MessageOld(187702, "red", "Long")
+		self:MessageOld(187702, "red", "long")
 	end
 end
 

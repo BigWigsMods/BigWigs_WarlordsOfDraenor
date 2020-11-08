@@ -100,7 +100,7 @@ function mod:CatSpawn()
 end
 
 function mod:OnTheHunt(args)
-	self:TargetMessageOld(args.spellId, args.destName, "red", "Alarm")
+	self:TargetMessageOld(args.spellId, args.destName, "red", "alarm")
 	if self:Me(args.destGUID) then
 		self:Flash(args.spellId)
 		self:Say(args.spellId)
@@ -109,7 +109,7 @@ end
 
 do
 	local function printTarget(self, name)
-		self:TargetMessageOld(159113, name, "orange", "Warning", nil, nil, true)
+		self:TargetMessageOld(159113, name, "orange", "warning", nil, nil, true)
 		self:TargetBar(159113, 10.2, name) -- cast+channel (10.25 - 0.05)
 	end
 	function mod:Impale(args)
@@ -132,7 +132,7 @@ do
 			self:Say(158986)
 			self:Flash(158986)
 		end
-		self:TargetMessageOld(158986, name, "red", "Long", nil, nil, true)
+		self:TargetMessageOld(158986, name, "red", "long", nil, nil, true)
 	end
 	function mod:BerserkerRushAppliedFallback(args)
 		-- Kargath will rarely drop his target (bug?) and swap to another one mid cast.
@@ -169,7 +169,7 @@ do
 	end
 
 	function mod:ChainHurl(args)
-		self:MessageOld(args.spellId, "orange", "Alert", CL.incoming:format(args.spellName))
+		self:MessageOld(args.spellId, "orange", "alert", CL.incoming:format(args.spellName))
 		self:Bar(args.spellId, 3.4)
 	end
 
@@ -178,7 +178,7 @@ do
 		if self:Me(args.destGUID) then
 			hurled = true
 			self:Bar("arena_sweeper", 55, L.arena_sweeper, L.arena_sweeper_icon)
-			self:DelayedMessage("arena_sweeper", 55, "orange", CL.incoming:format(self:SpellName(L.arena_sweeper)), false, "Info")
+			self:DelayedMessage("arena_sweeper", 55, "orange", CL.incoming:format(self:SpellName(L.arena_sweeper)), false, "info")
 			self:ScheduleTimer(knockdown, 65)
 		end
 		if not scheduled then
@@ -194,7 +194,7 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and t-prev > 1 then
 			prev = t
-			self:MessageOld(args.spellId, "blue", "Info", CL.underyou:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "info", CL.underyou:format(args.spellName))
 		end
 	end
 end
@@ -205,14 +205,14 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and t-prev > 1 then
 			prev = t
-			self:MessageOld(args.spellId, "blue", "Info", CL.underyou:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "info", CL.underyou:format(args.spellName))
 		end
 	end
 end
 
 function mod:VileBreath(args)
 	if hurled then
-		self:MessageOld(args.spellId, "yellow", "Alarm")
+		self:MessageOld(args.spellId, "yellow", "alarm")
 	end
 end
 

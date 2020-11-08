@@ -115,7 +115,7 @@ do
 				mobCollector[guid] = true
 				local id = adds[self:MobId(guid)]
 				if id then
-					self:MessageOld(id, "cyan", "Info", self:SpellName(id), false) -- SetOption:-11269,-11266,-11261,-11263:::
+					self:MessageOld(id, "cyan", "info", self:SpellName(id), false) -- SetOption:-11269,-11266,-11261,-11263:::
 					if id == -11269 then
 						self:CDBar(-11269, 70, nil, "spell_nature_shamanrage") -- Hulking Terror, 70-75
 					end
@@ -126,7 +126,7 @@ do
 
 	function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, _, spellId) -- Bloodthirster reaches the pool
 		if spellId == 182012 then -- Max Health Increase
-			self:MessageOld(-11269, "cyan", "Info", self:SpellName(-11269), false) -- Hulking Terror
+			self:MessageOld(-11269, "cyan", "info", self:SpellName(-11269), false) -- Hulking Terror
 		end
 	end
 end
@@ -140,7 +140,7 @@ do
 
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessageOld", 0.3, args.spellId, list, "red", "Alarm")
+			self:ScheduleTimer("TargetMessageOld", 0.3, args.spellId, list, "red", "alarm")
 			self:CDBar(args.spellId, 25.5) -- 25.5-32.9
 		end
 		if self:Me(args.destGUID) then
@@ -157,20 +157,20 @@ do
 		local t = GetTime()
 		if t-prev > 1.5 and self:Me(args.destGUID) then
 			prev = t
-			self:MessageOld(args.spellId, "blue", "Alarm", CL.underyou:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "alarm", CL.underyou:format(args.spellName))
 		end
 	end
 end
 
 function mod:VisionOfDeath(args)
-	self:MessageOld(args.spellId, "green", "Long", CL.count:format(args.spellName, visionCount))
+	self:MessageOld(args.spellId, "green", "long", CL.count:format(args.spellName, visionCount))
 	self:Bar(args.spellId, 8, CL.cast:format(CL.count:format(args.spellName, visionCount)))
 	visionCount = visionCount + 1
 	self:CDBar(args.spellId, 75.5, CL.count:format(args.spellName, visionCount)) -- 75.5-84.2
 end
 
 function mod:DeathThroes(args)
-	self:MessageOld(args.spellId, "orange", "Long", CL.count:format(args.spellName, deathThroesCount))
+	self:MessageOld(args.spellId, "orange", "long", CL.count:format(args.spellName, deathThroesCount))
 	self:Bar(args.spellId, 7, CL.cast:format(CL.count:format(args.spellName, deathThroesCount))) -- 1s Cast + 6s Channel
 	deathThroesCount = deathThroesCount + 1
 	self:CDBar(args.spellId, 40, CL.count:format(args.spellName, deathThroesCount))
@@ -178,7 +178,7 @@ end
 
 function mod:ShredArmor(args)
 	if UnitDetailedThreatSituation("player", "boss1") then
-		self:MessageOld(args.spellId, "red", "Warning")
+		self:MessageOld(args.spellId, "red", "warning")
 	end
 	self:CDBar(args.spellId, 17) -- 17s but can be delayed by other abilities
 end
@@ -194,7 +194,7 @@ end
 --[[ Hulking Terror ]]--
 
 function mod:RendingHowl(args)
-	self:MessageOld(args.spellId, "orange", self:Interrupter(args.sourceGUID) and "Alert", CL.casting:format(args.spellName))
+	self:MessageOld(args.spellId, "orange", self:Interrupter(args.sourceGUID) and "alert", CL.casting:format(args.spellName))
 end
 
 function mod:SavageStrikes(args)

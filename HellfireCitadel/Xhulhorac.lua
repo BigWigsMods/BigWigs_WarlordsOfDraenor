@@ -107,7 +107,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(event, unit, _, spellId)
 		self:Bar("imps", 12, CL.count:format(self:SpellName(L.imps), impCount), L.imps_icon)
 
 	elseif spellId == 187196 then -- Fel Feedback (Vanguard Akkelion Spawned)
-		self:MessageOld("stages", "cyan", "Info", "90% - ".. CL.spawned:format(self:SpellName(-11691)), false)
+		self:MessageOld("stages", "cyan", "info", "90% - ".. CL.spawned:format(self:SpellName(-11691)), false)
 		self:CDBar(186490, self:Mythic() and 57 or 33) -- Chains of Fel, to _start
 		self:CDBar(186453, 12) -- Felblaze Flurry
 
@@ -117,19 +117,19 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(event, unit, _, spellId)
 			self:StopBar(190223) -- Fel Strike
 			self:StopBar(186407) -- Fel Surge
 
-			self:MessageOld("stages", "cyan", "Info", "65% - ".. CL.phase:format(2), false)
+			self:MessageOld("stages", "cyan", "info", "65% - ".. CL.phase:format(2), false)
 			self:CDBar(190224, 17) -- Void Strike
 			self:CDBar(186333, 24) -- Void Surge
 		else
 			felAndVoid = true -- both portals up
-			self:MessageOld("stages", "cyan", "Info", "85% - ".. CL.phase:format(2), false)
+			self:MessageOld("stages", "cyan", "info", "85% - ".. CL.phase:format(2), false)
 		end
 
 	elseif spellId == 189806 then -- Void Feedback (Omnus Spawned)
 		if not self:Mythic() then
-			self:MessageOld("stages", "cyan", "Info", "60% - ".. CL.spawned:format(self:SpellName(-11688)), false)
+			self:MessageOld("stages", "cyan", "info", "60% - ".. CL.spawned:format(self:SpellName(-11688)), false)
 		else
-			self:MessageOld("stages", "cyan", "Info", "80% - ".. CL.spawned:format(self:SpellName(-11688)), false)
+			self:MessageOld("stages", "cyan", "info", "80% - ".. CL.spawned:format(self:SpellName(-11688)), false)
 		end
 		self:CDBar(186546, 18) -- Black Hole
 		self:CDBar(186783, 6) -- Withering Gaze
@@ -140,7 +140,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(event, unit, _, spellId)
 			self:StopBar(190224) -- Void Strike
 			self:StopBar(186333) -- Void Surge
 
-			self:MessageOld("stages", "cyan", "Info", "35% - ".. CL.phase:format(3), false)
+			self:MessageOld("stages", "cyan", "info", "35% - ".. CL.phase:format(3), false)
 			-- Void Strike comes soon after (1-3s), then he switches to fel
 			self:CDBar(186407, 6) -- Fel Surge
 		end
@@ -154,7 +154,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(event, unit, _, spellId)
 		self:StopBar(190224) -- Void Strike
 		self:StopBar(186333) -- Void Surge
 
-		self:MessageOld("stages", "cyan", "Info", "20% - ".. self:SpellName(spellId), false)
+		self:MessageOld("stages", "cyan", "info", "20% - ".. self:SpellName(spellId), false)
 		self:Bar(187204, 10) -- Overwhelming Chaos
 	end
 end
@@ -163,7 +163,7 @@ function mod:AkkelionDies(args)
 	self:StopBar(186453) -- Felblaze Flurry
 	self:StopBar(186490) -- Chains of Fel
 	if self:Mythic() then
-		self:MessageOld("stages", "cyan", "Info", "50% - ".. L.killed:format(args.destName), false)
+		self:MessageOld("stages", "cyan", "info", "50% - ".. L.killed:format(args.destName), false)
 		self:CDBar(186490, 27.5) -- (Empowered) Chains of Fel
 	end
 end
@@ -172,7 +172,7 @@ function mod:OmnusDies(args)
 	self:StopBar(186783) -- Withering Gaze
 	self:StopBar(186546) -- Black Hole
 	if self:Mythic() then
-		self:MessageOld("stages", "cyan", "Info", "40% - ".. L.killed:format(args.destName), false)
+		self:MessageOld("stages", "cyan", "info", "40% - ".. L.killed:format(args.destName), false)
 		self:CDBar(186546, 21) -- (Empowered) Black Hole
 		self:CDBar(186490, 27.5) -- (Empowered) Chains of Fel
 	end
@@ -214,7 +214,7 @@ do
 			local t = GetTime()
 			if t-prev > 8 then -- Fire lasts 8 sec and keeps refreshing touched
 				prev = t
-				self:MessageOld(args.spellId, "blue", not self:Tank() and "Long", CL.you:format(args.spellName))
+				self:MessageOld(args.spellId, "blue", not self:Tank() and "long", CL.you:format(args.spellName))
 			end
 		end
 	end
@@ -231,7 +231,7 @@ do
 	function mod:Surge(args)
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessageOld", 0.3, args.spellId, list, "yellow", "Alarm")
+			self:ScheduleTimer("TargetMessageOld", 0.3, args.spellId, list, "yellow", "alarm")
 			if not felAndVoid then
 				self:CDBar(args.spellId, 30)
 			else -- alternates
@@ -261,7 +261,7 @@ function mod:FelStrike(args)
 	if not felAndVoid then
 		self:CDBar(args.spellId, 16) -- 15.8
 	else -- alternates
-		self:PlaySound(args.spellId, "Warning")
+		self:PlaySound(args.spellId, "warning")
 		self:CDBar(190224, 8) -- Void Strike
 	end
 end
@@ -271,7 +271,7 @@ function mod:VoidStrike(args)
 	if not felAndVoid then
 		self:CDBar(args.spellId, 17) -- 17.1/18.2
 	else -- alternates
-		self:PlaySound(args.spellId, "Warning")
+		self:PlaySound(args.spellId, "warning")
 		self:CDBar(190223, 7) -- Fel Strike
 	end
 end
@@ -281,7 +281,7 @@ function mod:Striked(args)
 		local spellId = args.spellId == 186271 and 190223 or 190224 -- 186271 -> 190223 (Fel), 186292 -> 190224 (Void)
 		self:TargetMessageOld(spellId, args.destName, "yellow")
 		if self:Tank() then -- don't spam long for non-tanks that enable strike
-			self:PlaySound(spellId, "Long")
+			self:PlaySound(spellId, "long")
 		end
 	end
 end
@@ -293,7 +293,7 @@ end
 
 do
 	local function printTarget(self, name, guid)
-		self:TargetMessageOld(186490, name, "orange", "Alert", CL.casting:format(self:SpellName(184656))) -- 184656 = "Chains"
+		self:TargetMessageOld(186490, name, "orange", "alert", CL.casting:format(self:SpellName(184656))) -- 184656 = "Chains"
 		if self:Me(guid) then
 			self:Say(186490, 184656) -- 184656 = "Chains"
 			self:Flash(186490) -- Flash for cast only
@@ -313,7 +313,7 @@ do
 		end
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessageOld", 0.3, 186490, list, "orange", "Alarm", 184656, 186490) -- 184656 = "Chains"
+			self:ScheduleTimer("TargetMessageOld", 0.3, 186490, list, "orange", "alarm", 184656, 186490) -- 184656 = "Chains"
 		end
 	end
 end
@@ -324,7 +324,7 @@ function mod:WitheringGaze(args)
 end
 
 function mod:BlackHole(args)
-	self:MessageOld(186546, "orange", "Alert", CL.incoming:format(CL.count:format(self:SpellName(186546), blackHoleCount)))
+	self:MessageOld(186546, "orange", "alert", CL.incoming:format(CL.count:format(self:SpellName(186546), blackHoleCount)))
 	blackHoleCount = blackHoleCount + 1
 	self:CDBar(186546, args.spellId == 189779 and 30 or blackHoleCount % 2 == 0 and 30 or 40, CL.count:format(args.spellName, blackHoleCount)) -- 30, 40, 30 is as long a p2 as i've seen
 end

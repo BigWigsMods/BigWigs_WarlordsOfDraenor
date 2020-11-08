@@ -165,7 +165,7 @@ function mod:UNIT_HEALTH_FREQUENT(event, unit)
 	local hp = UnitHealth(unit) / UnitHealthMax(unit) * 100
 	if hp < 35 then
 		self:UnregisterUnitEvent(event, unit)
-		self:MessageOld(156861, "cyan", "Info", CL.soon:format(self:SpellName(156861))) -- Frenzy
+		self:MessageOld(156861, "cyan", "info", CL.soon:format(self:SpellName(156861))) -- Frenzy
 	end
 end
 
@@ -177,7 +177,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, _, spellId)
 end
 
 function mod:WarpedArmor(args)
-	self:StackMessage(args.spellId, args.destName, args.amount, "yellow", args.amount and "Warning") -- swap at 2 or 3 stacks
+	self:StackMessage(args.spellId, args.destName, args.amount, "yellow", args.amount and "warning") -- swap at 2 or 3 stacks
 	self:CDBar(args.spellId, 14)
 end
 
@@ -188,12 +188,12 @@ function mod:StoneBreath(args)
 end
 
 function mod:Slam(args)
-	self:MessageOld(args.spellId, "orange", self:Melee() and "Alarm", CL.casting:format(args.spellName))
+	self:MessageOld(args.spellId, "orange", self:Melee() and "alarm", CL.casting:format(args.spellName))
 	self:CDBar(args.spellId, 24)
 end
 
 function mod:RipplingSmash(args)
-	self:MessageOld(157592, "orange", "Alert")
+	self:MessageOld(157592, "orange", "alert")
 	if args.spellId == 157592 then
 		self:CDBar(157592, self:Mythic() and 41 or 24) -- 22-29
 	end
@@ -220,7 +220,7 @@ do
 	end
 
 	function mod:GraspingEarth(args)
-		self:MessageOld(args.spellId, "green", "Info")
+		self:MessageOld(args.spellId, "green", "info")
 		self:CDBar(args.spellId, 112) -- 112-114
 		self:CDBar(157054, 13) -- Thundering Blows
 
@@ -251,6 +251,6 @@ function mod:ThunderingBlows(args)
 end
 
 function mod:Frenzy(args)
-	self:MessageOld(args.spellId, "red", "Alarm")
+	self:MessageOld(args.spellId, "red", "alarm")
 end
 

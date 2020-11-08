@@ -119,7 +119,7 @@ function mod:DisarmedApplied(args) -- Phase 2
 	self:StopBar(179583) -- Rumbling Fissures
 	self:StopBar(179711) -- Befouled
 	phaseEnd = GetTime() + 34
-	self:MessageOld("stages", "cyan", "Long", 179667, false) -- Disarmed
+	self:MessageOld("stages", "cyan", "long", 179667, false) -- Disarmed
 	self:CDBar("stages", 34, 179670) -- Armed (Phase 1)
 	self:Bar(181508, 9) -- Seed of Destruction
 
@@ -135,7 +135,7 @@ function mod:DisarmedRemoved(args) -- Phase 1
 	self:StopBar(181508) -- Seed of Destruction
 	cleaveCount = 1
 	phaseEnd = GetTime() + 85
-	self:MessageOld("stages", "cyan", "Long", CL.over:format(args.spellName), false) -- Disarmed Over!
+	self:MessageOld("stages", "cyan", "long", CL.over:format(args.spellName), false) -- Disarmed Over!
 	self:Bar("stages", 85, 179667, "ability_butcher_heavyhanded") -- Disarmed (Phase 2)
 	self:Bar(179583, 4) -- Rumbling Fissures
 	self:Bar(179711, 16) -- Befouled
@@ -148,7 +148,7 @@ function mod:DisarmedRemoved(args) -- Phase 1
 end
 
 function mod:Cavitation(args)
-	self:MessageOld(args.spellId, "orange", "Alarm", args.spellName)
+	self:MessageOld(args.spellId, "orange", "alarm", args.spellName)
 	if phaseEnd-GetTime() > 40 then
 		self:Bar(args.spellId, 40)
 	end
@@ -160,7 +160,7 @@ do
 		if args.spellId == 189030 then -- Red debuff gets applied initially
 			list[#list+1] = args.destName
 			if #list == 1 then
-				self:ScheduleTimer("TargetMessageOld", 0.3, 179711, list, "yellow", "Alert")
+				self:ScheduleTimer("TargetMessageOld", 0.3, 179711, list, "yellow", "alert")
 				if phaseEnd-GetTime() > 40 then
 					self:CDBar(179711, 40)
 				end
@@ -178,7 +178,7 @@ do
 	end
 
 	local function BefouledRemoved(self, spellName)
-		self:MessageOld(179711, "blue", "Info", CL.removed:format(spellName))
+		self:MessageOld(179711, "blue", "info", CL.removed:format(spellName))
 		self:CloseProximity(179711)
 	end
 
@@ -191,7 +191,7 @@ end
 
 function mod:Disembodied(args)
 	if self:Tank(args.destName) then
-		self:TargetMessageOld(args.spellId, args.destName, "red", self:Tank() and "Warning")
+		self:TargetMessageOld(args.spellId, args.destName, "red", self:Tank() and "warning")
 	end
 	if self:Mythic() then
 		self:Bar(args.spellId, 15) -- Multiple targets on Mythic
@@ -201,7 +201,7 @@ function mod:Disembodied(args)
 end
 
 function mod:RumblingFissures(args)
-	self:MessageOld(args.spellId, "orange", "Info")
+	self:MessageOld(args.spellId, "orange", "info")
 	self:Bar(args.spellId, 40)
 end
 
@@ -215,7 +215,7 @@ do
 			if target == isOnMe then
 				self:Say(181508, self:LFR() and L.seed or CL.count_rticon:format(L.seed, i, i))
 				self:Flash(181508, i)
-				self:TargetMessageOld(181508, target, "green", "Alarm", not self:LFR() and CL.count_icon:format(L.seed, i, i))
+				self:TargetMessageOld(181508, target, "green", "alarm", not self:LFR() and CL.count_icon:format(L.seed, i, i))
 			end
 			if self:GetOption("custom_off_seed_marker") then
 				SetRaidTarget(target, i)
@@ -263,7 +263,7 @@ function mod:Enrage(args)
 	self:StopBar(179667) -- Disarmed
 	self:StopBar(179670) -- Armed
 	self:StopBar(CL.count:format(self:SpellName(179406), cleaveCount)) -- Soul Cleave
-	self:MessageOld("stages", "red", "Long", args.spellId) -- Enrage (Phase 3)
+	self:MessageOld("stages", "red", "long", args.spellId) -- Enrage (Phase 3)
 	self:Bar(179583, 5) -- Rumbling Fissures
 	self:Bar(179711, 17) -- Befouled
 	self:Bar(181508, 27) -- Seed of Destruction
@@ -280,7 +280,7 @@ do
 		local t = GetTime()
 		if t-prev > 1.5 and self:Me(args.destGUID) then
 			prev = t
-			self:MessageOld(179620, "blue", "Alarm", CL.you:format(args.spellName))
+			self:MessageOld(179620, "blue", "alarm", CL.you:format(args.spellName))
 		end
 	end
 end

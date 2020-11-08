@@ -124,7 +124,7 @@ function mod:ShadowEnergy(args)
 	phase = 3
 	phaseAbilityCount = 0
 	tankDebuffCount = 1
-	self:MessageOld("stages", "cyan", "Info", args.spellName, false)
+	self:MessageOld("stages", "cyan", "info", args.spellName, false)
 
 	if args.spellId == 189197 then -- LFR
 		self:Bar(181292, 10) -- Fel Outpouring
@@ -146,7 +146,7 @@ function mod:ExplosiveEnergy(args)
 	phase = 1
 	phaseAbilityCount = 0
 	tankDebuffCount = 1
-	self:MessageOld("stages", "cyan", "Info", args.spellName, false)
+	self:MessageOld("stages", "cyan", "info", args.spellName, false)
 
 	if args.spellId == 189198 then -- LFR
 		self:Bar(181296, 10) -- Explosive Runes
@@ -169,7 +169,7 @@ function mod:FoulEnergy(args)
 	phase = 2
 	phaseAbilityCount = 0
 	tankDebuffCount = 1
-	self:MessageOld("stages", "cyan", "Info", args.spellName, false)
+	self:MessageOld("stages", "cyan", "info", args.spellName, false)
 
 	if args.spellId == 189199 then -- LFR
 		self:Bar(181299, 10) -- Grasping Hands
@@ -190,7 +190,7 @@ end
 -- Tank Debuffs
 
 function mod:ExplosiveBurst(args)
-	self:TargetMessageOld(args.spellId, args.destName, "orange", "Warning", nil, nil, true)
+	self:TargetMessageOld(args.spellId, args.destName, "orange", "warning", nil, nil, true)
 	self:TargetBar(args.spellId, 10, args.destName)
 	tankDebuffCount = tankDebuffCount + 1
 	if self:LFR() then
@@ -220,7 +220,7 @@ function mod:ExplosiveBurstRemoved(args)
 end
 
 function mod:FoulCrush(args)
-	self:TargetMessageOld(args.spellId, args.destName, "orange", self:Tank() and "Warning")
+	self:TargetMessageOld(args.spellId, args.destName, "orange", self:Tank() and "warning")
 	tankDebuffCount = tankDebuffCount + 1
 	if self:LFR() then
 		if tankDebuffCount == 2 then -- Only time for 1 more in LFR
@@ -233,7 +233,7 @@ function mod:FoulCrush(args)
 end
 
 function mod:Swat(args)
-	self:MessageOld(args.spellId, "yellow", self:Tank() and "Warning", args.spellName)
+	self:MessageOld(args.spellId, "yellow", self:Tank() and "warning", args.spellName)
 	tankDebuffCount = tankDebuffCount + 1
 	if self:LFR() then
 		if tankDebuffCount == 2 then -- Only time for 1 more in LFR
@@ -249,7 +249,7 @@ end
 function mod:FelOutpouring(args)
 	shadowCount = shadowCount - 1
 	phaseAbilityCount = phaseAbilityCount + 1
-	self:MessageOld(181292, "yellow", "Long", args.spellId)
+	self:MessageOld(181292, "yellow", "long", args.spellId)
 	if self:LFR() then
 		if shadowCount > 0 then
 			self:CDBar(181292, 45) -- No Empowered on LFR
@@ -262,7 +262,7 @@ end
 function mod:ExplosiveRunes(args)
 	explosiveCount = explosiveCount - 1
 	phaseAbilityCount = phaseAbilityCount + 1
-	self:MessageOld(181296, "orange", "Info", args.spellId)
+	self:MessageOld(181296, "orange", "info", args.spellId)
 	if self:LFR() then
 		if explosiveCount > 0 then
 			self:CDBar(181296, 35) -- No Empowered on LFR
@@ -297,7 +297,7 @@ end
 
 function mod:Pound(args)
 	isPounding = true
-	self:MessageOld(args.spellId, "orange", "Alert", CL.count:format(args.spellName, poundCount))
+	self:MessageOld(args.spellId, "orange", "alert", CL.count:format(args.spellName, poundCount))
 	poundCount = poundCount + 1
 	if poundCount % 2 == 0 then -- Only 2 per phase
 		if self:LFR() then
@@ -319,7 +319,7 @@ end
 
 function mod:Enrage(args)
 	enrageMod = self:Mythic() and 0.604 or 0.84 -- 0.604 is not 100% accurate - if it's too inaccurate, we have to do separate mythic times
-	self:MessageOld(args.spellId, "red", "Alarm")
+	self:MessageOld(args.spellId, "red", "alarm")
 end
 
 do
@@ -327,7 +327,7 @@ do
 	function mod:Residue(args)
 		if self:Me(args.destGUID) and GetTime()-prev > 2.5 then
 			prev = GetTime()
-			self:MessageOld(args.spellId, "blue", "Alarm", CL.underyou:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "alarm", CL.underyou:format(args.spellName))
 		end
 	end
 end

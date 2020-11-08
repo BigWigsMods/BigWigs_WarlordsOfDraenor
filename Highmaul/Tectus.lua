@@ -145,7 +145,7 @@ do
 			local t = GetTime()
 			local isMote = self:MobId(UnitGUID(unit)) == 80557
 			if not isMote or t-prev > 5 then -- not Mote or first Mote cast in 5s
-				self:MessageOld(162518, "red", "Warning", CL.soon:format(self:SpellName(162518)))
+				self:MessageOld(162518, "red", "warning", CL.soon:format(self:SpellName(162518)))
 				if isMote then prev = t end
 			end
 		end
@@ -172,7 +172,7 @@ do
 		if self:Me(args.destGUID) then
 			self:Flash(args.spellId)
 			self:Say(args.spellId, 120361) -- 120361 = "Barrage"
-			self:TargetMessageOld(args.spellId, args.destName, "blue", "Alarm")
+			self:TargetMessageOld(args.spellId, args.destName, "blue", "alarm")
 		else
 			list[#list+1] = args.destName
 			if not scheduled then
@@ -211,7 +211,7 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and t-prev > 1 then
 			prev = t
-			self:MessageOld(162346, "blue", "Alarm", CL.underyou:format(args.spellName))
+			self:MessageOld(162346, "blue", "alarm", CL.underyou:format(args.spellName))
 			self:Flash(162346)
 		end
 	end
@@ -225,7 +225,7 @@ do
 		local id = self:MobId(args.sourceGUID)
 		if id ~= 80557 or t-prev > 5 then -- not Mote or first Mote cast in 5s
 			local raidIcon = CombatLog_String_GetIcon(args.sourceRaidFlags)
-			self:MessageOld(args.spellId, "green", "Long", CL.other:format(raidIcon .. names[id], args.spellName))
+			self:MessageOld(args.spellId, "green", "long", CL.other:format(raidIcon .. names[id], args.spellName))
 			if id == 80557 then prev = t end
 		end
 	end
@@ -242,28 +242,28 @@ end
 
 function mod:AddsSpawn(args)
 	if self:MobId(args.sourceGUID) == 80599 then -- Night-Twisted Earthwarper
-		self:MessageOld("adds", "yellow", "Info", -10061, false)
+		self:MessageOld("adds", "yellow", "info", -10061, false)
 		self:CDBar("adds", 41, -10061, "spell_shadow_raisedead")
 		self:CDBar(162894, 10) -- Gift of Earth
 		self:CDBar(162968, 15) -- Earthen Flechettes
 	elseif self:MobId(args.sourceGUID) == 80822 then -- Night-Twisted Berserker
-		self:MessageOld("adds", "yellow", "Info", -10062, false)
+		self:MessageOld("adds", "yellow", "info", -10062, false)
 		self:CDBar("adds", 41, -10062, "ability_warrior_endlessrage")
 		self:CDBar(163312, 13) -- Raving Assault (~10s + 3s cast)
 	end
 end
 
 function mod:GiftOfEarth(args)
-	self:MessageOld(args.spellId, "orange", "Alert")
+	self:MessageOld(args.spellId, "orange", "alert")
 	self:CDBar(args.spellId, 11)
 end
 
 function mod:Petrification(args)
-	self:TargetMessageOld(args.spellId, args.destName, "orange", "Warning")
+	self:TargetMessageOld(args.spellId, args.destName, "orange", "warning")
 end
 
 function mod:EarthenFlechettes(args)
-	self:MessageOld(args.spellId, "yellow", self:Tank() and "Alert")
+	self:MessageOld(args.spellId, "yellow", self:Tank() and "alert")
 	self:CDBar(args.spellId, 15)
 end
 
@@ -273,7 +273,7 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and not self:Tank() and t-prev > 1 then
 			prev = t
-			self:MessageOld(args.spellId, "blue", "Alarm", CL.underyou:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "alarm", CL.underyou:format(args.spellName))
 		end
 	end
 end

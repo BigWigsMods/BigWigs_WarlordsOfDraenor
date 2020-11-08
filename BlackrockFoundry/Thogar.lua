@@ -300,13 +300,13 @@ function mod:OnEngage()
 	-- 15s warning on splits
 	local split = self:SpellName(143020)
 	if self:Mythic() then
-		self:DelayedMessage("trains", 130, "cyan", CL.custom_sec:format(CL.count:format(split, 1), 15), false, "Long")
-		self:DelayedMessage("trains", 286, "cyan", CL.custom_sec:format(CL.count:format(split, 2), 15), false, "Long")
+		self:DelayedMessage("trains", 130, "cyan", CL.custom_sec:format(CL.count:format(split, 1), 15), false, "long")
+		self:DelayedMessage("trains", 286, "cyan", CL.custom_sec:format(CL.count:format(split, 2), 15), false, "long")
 	else
 		if not self:LFR() then
-			self:DelayedMessage("trains", 106, "cyan", CL.custom_sec:format(CL.count:format(split, 1), 15), false, "Long")
+			self:DelayedMessage("trains", 106, "cyan", CL.custom_sec:format(CL.count:format(split, 1), 15), false, "long")
 		end
-		self:DelayedMessage("trains", 356, "cyan", CL.custom_sec:format(CL.count:format(split, 2), 15), false, "Long")
+		self:DelayedMessage("trains", 356, "cyan", CL.custom_sec:format(CL.count:format(split, 2), 15), false, "long")
 	end
 	self:RegisterEvent("INSTANCE_ENCOUNTER_ENGAGE_UNIT")
 	self:RegisterUnitEvent("UNIT_TARGET", "GrenadeTarget", "boss1")
@@ -359,7 +359,7 @@ end
 -- General
 
 function mod:Enkindle(args)
-	self:StackMessage(args.spellId, args.destName, args.amount, "yellow", args.amount and "Warning")
+	self:StackMessage(args.spellId, args.destName, args.amount, "yellow", args.amount and "warning")
 	self:CDBar(args.spellId, 12) -- can be delayed by Pulse Grenade for ~2s
 end
 
@@ -373,7 +373,7 @@ do
 		if self:Me(guid) and not self:LFR() then
 			self:Say(155864, grenade)
 		end
-		self:TargetMessageOld(155864, self:UnitName(target), "yellow", "Alarm", grenade)
+		self:TargetMessageOld(155864, self:UnitName(target), "yellow", "alarm", grenade)
 	end
 
 	local prev = 0
@@ -388,7 +388,7 @@ end
 
 function mod:PulseGrenadeDamage(args)
 	if self:Me(args.destGUID) then
-		self:MessageOld(155864, "blue", "Alarm", CL.underyou:format(self:SpellName(135592))) -- 135592 = "Grenade"
+		self:MessageOld(155864, "blue", "alarm", CL.underyou:format(self:SpellName(135592))) -- 135592 = "Grenade"
 	end
 end
 
@@ -398,19 +398,19 @@ function mod:IronBellow(args)
 end
 
 function mod:CauterizingBolt(args)
-	self:MessageOld(args.spellId, "red", "Alert")
+	self:MessageOld(args.spellId, "red", "alert")
 end
 
 function mod:CauterizingBoltApplied(args)
 	if UnitGUID("target") == args.destGUID and self:Dispeller("magic", true) then
-		self:TargetMessageOld(args.spellId, args.destName, "red", "Alert", nil, nil, true)
+		self:TargetMessageOld(args.spellId, args.destName, "red", "alert", nil, nil, true)
 	end
 end
 
 do
 	local function printTarget(self, name, guid)
 		-- 119342 = Bombs
-		self:TargetMessageOld(159481, name, "yellow", "Warning", 119342, 159481)
+		self:TargetMessageOld(159481, name, "yellow", "warning", 119342, 159481)
 		if self:Me(guid) then
 			self:Flash(159481)
 			self:Say(159481, 119342)

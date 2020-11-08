@@ -180,7 +180,7 @@ function mod:UNIT_TARGETABLE_CHANGED(_, unit)
 				break
 			end
 		end
-		self:MessageOld("stages", "cyan", "Info", mountId and self:UnitName(mountId) or self:SpellName(169650), false) -- 169650 = Mounted
+		self:MessageOld("stages", "cyan", "info", mountId and self:UnitName(mountId) or self:SpellName(169650), false) -- 169650 = Mounted
 		if not mountId then return end -- rip initial timers with 4x Chimearon pets
 
 		local mobId = self:MobId(UnitGUID(mountId))
@@ -200,7 +200,7 @@ function mod:UNIT_TARGETABLE_CHANGED(_, unit)
 			self:CDBar(155321, 11) -- Unstoppable
 		end
 	else -- Dismount
-		self:MessageOld("stages", "cyan", "Info", 45874, false) -- 45874 = Mount Dismount
+		self:MessageOld("stages", "cyan", "info", 45874, false) -- 45874 = Mount Dismount
 	end
 end
 
@@ -213,7 +213,7 @@ function mod:UNIT_HEALTH_FREQUENT(event, unit)
 			if phase > (self:Mythic() and 4 or 3) then
 				self:UnregisterUnitEvent(event, unit)
 			end
-			self:MessageOld("stages", "cyan", "Info", L.next_mount, false)
+			self:MessageOld("stages", "cyan", "info", L.next_mount, false)
 		end
 	end
 end
@@ -231,7 +231,7 @@ do
 		local guid = UnitGUID(target)
 
 		if not guid then
-			self:MessageOld(unit == "boss1" and 155499 or 154989, "orange", "Alert") -- There's a ~5% chance he won't target anyone, show a generic message
+			self:MessageOld(unit == "boss1" and 155499 or 154989, "orange", "alert") -- There's a ~5% chance he won't target anyone, show a generic message
 			return
 		end
 
@@ -241,7 +241,7 @@ do
 			self:Say(unit == "boss1" and 155499 or 154989, 18584) -- 18584 = Breath
 			self:Flash(unit == "boss1" and 155499 or 154989)
 		end
-		self:TargetMessageOld(unit == "boss1" and 155499 or 154989, self:UnitName(target), "orange", "Alert", nil, nil, true)
+		self:TargetMessageOld(unit == "boss1" and 155499 or 154989, self:UnitName(target), "orange", "alert", nil, nil, true)
 	end
 
 	function mod:UNIT_SPELLCAST_SUCCEEDED(_, unit, _, spellId)
@@ -300,7 +300,7 @@ do
 
 		pinnedList[#pinnedList+1] = args.destName
 		if #pinnedList == 1 then
-			self:ScheduleTimer("TargetMessageOld", 0.2, args.spellId, pinnedList, "red", "Alarm", nil, nil, true)
+			self:ScheduleTimer("TargetMessageOld", 0.2, args.spellId, pinnedList, "red", "alarm", nil, nil, true)
 		end
 
 		if self.db.profile.custom_off_pinned_marker and not spearList[args.sourceGUID] then -- One spear can hit multiple people, so don't overwrite existing entries
@@ -310,7 +310,7 @@ do
 
 	function mod:PinDown(args)
 		local ranged = self:Ranged()
-		self:MessageOld(154960, "orange", ranged and "Warning", CL.incoming:format(args.spellName))
+		self:MessageOld(154960, "orange", ranged and "warning", CL.incoming:format(args.spellName))
 		self:CDBar(154960, 20)
 		if ranged then
 			self:Flash(154960)
@@ -335,12 +335,12 @@ end
 
 function mod:RendAndTear(args)
 	if self:Tank(args.destName) then
-		self:StackMessage(155061, args.destName, args.amount, "yellow", args.amount and "Warning")
+		self:StackMessage(155061, args.destName, args.amount, "yellow", args.amount and "warning")
 	end
 end
 
 function mod:SavageHowl(args)
-	self:MessageOld(args.spellId, "red", self:Dispeller("enrage", true) and "Alert")
+	self:MessageOld(args.spellId, "red", self:Dispeller("enrage", true) and "alert")
 	self:Bar(args.spellId, 26)
 end
 
@@ -356,7 +356,7 @@ do
 			conflagMark = conflagMark + 1
 		end
 		-- Time between applications can be so long that delaying is pointless.
-		self:TargetMessageOld(args.spellId, args.destName, "orange", self:Dispeller("magic") and "Info")
+		self:TargetMessageOld(args.spellId, args.destName, "orange", self:Dispeller("magic") and "info")
 	end
 
 	function mod:ConflagrationRemoved(args)
@@ -368,7 +368,7 @@ end
 
 function mod:SearedFlesh(args)
 	if args.amount % 3 == 0 then
-		self:StackMessage(args.spellId, args.destName, args.amount, "yellow", args.amount > 8 and "Warning")
+		self:StackMessage(args.spellId, args.destName, args.amount, "yellow", args.amount > 8 and "warning")
 	end
 end
 
@@ -378,7 +378,7 @@ function mod:Stampede(args)
 end
 
 function mod:CrushArmor(args)
-	self:StackMessage(args.spellId, args.destName, args.amount, "yellow", args.amount and "Warning")
+	self:StackMessage(args.spellId, args.destName, args.amount, "yellow", args.amount and "warning")
 end
 
 function mod:Epicenter()
@@ -392,7 +392,7 @@ do
 		local t = GetTime()
 		if t-prev > 2 and self:Me(args.destGUID) then
 			prev = t
-			self:MessageOld(159043, "blue", "Alarm", CL.underyou:format(args.spellName))
+			self:MessageOld(159043, "blue", "alarm", CL.underyou:format(args.spellName))
 		end
 	end
 end
@@ -410,7 +410,7 @@ do
 		local t = GetTime()
 		if t-prev > 0.5 and self:Me(args.destGUID) then
 			prev = t
-			self:MessageOld(args.spellId, "blue", "Alarm", CL.underyou:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "alarm", CL.underyou:format(args.spellName))
 		end
 	end
 end

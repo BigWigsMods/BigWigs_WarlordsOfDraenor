@@ -162,7 +162,7 @@ end
 do
 	local function printTarget(self, name, guid)
 		local count = strikeCount > 0 and strikeCount or 3 -- off because of GetBossTarget
-		self:TargetMessageOld(180260, name, "yellow", "Info", CL.count:format(self:SpellName(180260), count), nil, nil, true)
+		self:TargetMessageOld(180260, name, "yellow", "info", CL.count:format(self:SpellName(180260), count), nil, nil, true)
 		if self:Me(guid) then
 			self:Say(180260)
 		end
@@ -179,7 +179,7 @@ do
 end
 
 function mod:InfernalTempestStart(args)
-	self:MessageOld(args.spellId, "red", "Long", CL.incoming:format(args.spellName))
+	self:MessageOld(args.spellId, "red", "long", CL.incoming:format(args.spellName))
 	self:Bar(args.spellId, 6.5, CL.cast:format(args.spellName))
 	self:Bar(args.spellId, 40)
 	if not edictOnMe then
@@ -211,21 +211,21 @@ function mod:AuraOfContempt()
 end
 
 function mod:HarbingersMending(args)
-	self:MessageOld(180025, "yellow", self:Interrupter() and "Alert", CL.casting:format(CL.count:format(args.spellName, mendingCount)))
+	self:MessageOld(180025, "yellow", self:Interrupter() and "alert", CL.casting:format(CL.count:format(args.spellName, mendingCount)))
 	mendingCount = mendingCount + 1
 	self:Bar(180025, self:Normal() and 16 or 11, CL.count:format(args.spellName, mendingCount))
 end
 
 function mod:HarbingersMendingLFR(_, _, _, spellId)
 	if spellId == 180025 then -- On LFR this event is hidden and lacking an icon, even though it's the same id :S
-		self:MessageOld(spellId, "yellow", self:Interrupter() and "Alert", CL.casting:format(CL.count:format(self:SpellName(spellId), mendingCount)), "spell_shadow_shadowmend")
+		self:MessageOld(spellId, "yellow", self:Interrupter() and "alert", CL.casting:format(CL.count:format(self:SpellName(spellId), mendingCount)), "spell_shadow_shadowmend")
 		mendingCount = mendingCount + 1
 		self:Bar(spellId, 25, CL.count:format(self:SpellName(spellId), mendingCount), "spell_shadow_shadowmend")
 	end
 end
 
 function mod:HarbingersMendingApplied(args)
-	self:TargetMessageOld(180025, args.destName, "yellow", self:Dispeller("magic", true) and "Alert", nil, nil, true)
+	self:TargetMessageOld(180025, args.destName, "yellow", self:Dispeller("magic", true) and "alert", nil, nil, true)
 end
 
 function mod:TaintedShadows(args)
@@ -274,7 +274,7 @@ end
 do
 	local list = mod:NewTargetList()
 	local function updateProximity(self, spellId)
-		self:TargetMessageOld(spellId, list, "red", "Alarm")
+		self:TargetMessageOld(spellId, list, "red", "alarm")
 		if fontOnMe and not edictOnMe then -- stack near other fonts of corruption / away from the raid
 			self:OpenProximity(spellId, 5, inverseFontTargets)
 		end
@@ -290,7 +290,7 @@ do
 			if expires and expires > 0 then
 				local timeLeft = expires - GetTime()
 				self:TargetBar(args.spellId, timeLeft, args.destName)
-				self:DelayedMessage(args.spellId, timeLeft - 5, "blue", L.font_removed_soon, nil, "Alarm")
+				self:DelayedMessage(args.spellId, timeLeft - 5, "blue", L.font_removed_soon, nil, "alarm")
 				self:ScheduleTimer("Flash", timeLeft - 5, args.spellId)
 			end
 			self:Flash(args.spellId)
@@ -342,7 +342,7 @@ function mod:AuraOfMalice()
 end
 
 function mod:SovereignsWard(args)
-	self:MessageOld(args.spellId, "orange", "Long")
+	self:MessageOld(args.spellId, "orange", "long")
 	self:Bar(args.spellId, 25)
 end
 
@@ -352,7 +352,7 @@ end
 
 function mod:BulwarkOfTheTyrant(args)
 	strikeCount = strikeCount + 1
-	self:MessageOld(args.spellId, "yellow", "Info", CL.count:format(args.spellName, strikeCount))
+	self:MessageOld(args.spellId, "yellow", "info", CL.count:format(args.spellName, strikeCount))
 	if strikeCount > 2 then
 		strikeCount = 0
 	end
@@ -366,13 +366,13 @@ do
 		if self:Me(args.destGUID) and t-prev > 1.5 then
 			prev = t
 			self:Flash(180600) -- 180600 = Bulwark of the Tyrant
-			self:MessageOld(180600, "blue", "Alarm", CL.underyou:format(args.spellName))
+			self:MessageOld(180600, "blue", "alarm", CL.underyou:format(args.spellName))
 		end
 	end
 end
 
 function mod:GavelOfTheTyrant(args)
-	self:MessageOld(args.spellId, "red", "Alert", CL.casting:format(args.spellName))
+	self:MessageOld(args.spellId, "red", "alert", CL.casting:format(args.spellName))
 	self:Bar(args.spellId, 40)
 end
 
@@ -380,7 +380,7 @@ end
 
 function mod:SealOfDecay(args)
 	local amount = args.amount or 1
-	self:StackMessage(180000, args.destName, amount, "orange", amount > 2 and "Warning")
+	self:StackMessage(180000, args.destName, amount, "orange", amount > 2 and "warning")
 end
 
 function mod:TouchOfHarm(args)
@@ -402,7 +402,7 @@ end
 do
 	local timer1, timer2 = nil, nil
 	function mod:EdictOfCondemnation(args)
-		self:TargetMessageOld(182459, args.destName, "red", not self:Tank() and "Warning", nil, nil, true)
+		self:TargetMessageOld(182459, args.destName, "red", not self:Tank() and "warning", nil, nil, true)
 		self:TargetBar(182459, 9, args.destName)
 		self:Bar(182459, 60)
 		self:PrimaryIcon(182459, args.destName)

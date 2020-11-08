@@ -266,7 +266,7 @@ do
 	function mod:HowlingAxe(args)
 		list[#list+1] = args.destName
 		if #list == 1 then
-			self:ScheduleTimer("TargetMessageOld", 0.3, args.spellId, list, "yellow", "Alarm")
+			self:ScheduleTimer("TargetMessageOld", 0.3, args.spellId, list, "yellow", "alarm")
 		end
 		if self:Me(args.destGUID) then
 			self:Say(args.spellId)
@@ -286,7 +286,7 @@ function mod:HowlingAxeRemoved(args)
 end
 
 function mod:Shockwave(args)
-	self:MessageOld(args.spellId, "orange", "Info", CL.casting:format(args.spellName))
+	self:MessageOld(args.spellId, "orange", "info", CL.casting:format(args.spellName))
 	self:Bar(args.spellId, 8.5)
 end
 
@@ -307,11 +307,11 @@ function mod:Slam(args)
 end
 
 function mod:Cower(args)
-	self:MessageOld(args.spellId, "orange", "Info", CL.casting:format(args.spellName))
+	self:MessageOld(args.spellId, "orange", "info", CL.casting:format(args.spellName))
 end
 
 function mod:Repair(args)
-	self:MessageOld(args.spellId, "red", "Alert", CL.casting:format(args.spellName))
+	self:MessageOld(args.spellId, "red", "alert", CL.casting:format(args.spellName))
 end
 
 do
@@ -329,11 +329,11 @@ function mod:Metamorphosis(args)
 end
 
 --function mod:FelfireVolley(args)
---	self:MessageOld(180417, "orange", "Info", CL.casting:format(args.spellName))
+--	self:MessageOld(180417, "orange", "info", CL.casting:format(args.spellName))
 --end
 
 function mod:SiegeNova(args)
-	self:MessageOld(args.spellId, "orange", "Long", CL.incoming:format(args.spellName))
+	self:MessageOld(args.spellId, "orange", "long", CL.incoming:format(args.spellName))
 end
 
 --function mod:Flameorb(args)
@@ -350,12 +350,12 @@ function mod:CallToArms(args)
 end
 
 function mod:Crush(args)
-	self:MessageOld(args.spellId, "orange", "Long", CL.incoming:format(args.spellName))
+	self:MessageOld(args.spellId, "orange", "long", CL.incoming:format(args.spellName))
 end
 
 do
 	local function printTarget(self, name, guid)
-		self:TargetMessageOld(190748, name, "yellow", "Info", nil, nil, true)
+		self:TargetMessageOld(190748, name, "yellow", "info", nil, nil, true)
 		if self:Me(guid) then
 			self:Say(190748)
 			self:Flash(190748)
@@ -379,7 +379,7 @@ function mod:StartVehicleTimer(lane, count)
 	local length = floor(time - (GetTime() - engageTime))
 	local pos = lane == 1 and L.left or lane == 2 and L.middle or L.right
 
-	self:DelayedMessage("siegevehicles", length, "cyan", CL.incoming:format(pos:format(self:SpellName(L[type]))), L[type.."_icon"], "Info")
+	self:DelayedMessage("siegevehicles", length, "cyan", CL.incoming:format(pos:format(self:SpellName(L[type]))), L[type.."_icon"], "info")
 	self:Bar("siegevehicles", length, pos:format(self:SpellName(L[type])), L[type.."_icon"])
 	self:ScheduleTimer("StartVehicleTimer", length, lane, count+1)
 end

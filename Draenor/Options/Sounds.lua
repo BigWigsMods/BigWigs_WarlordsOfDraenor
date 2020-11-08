@@ -1,25 +1,25 @@
 
 BigWigs:AddSounds("Drov the Ruiner", {
-	[175791] = "Alarm",
-	[175915] = "Alarm",
+	[175791] = "alarm",
+	[175915] = "alarm",
 })
 
 BigWigs:AddSounds("Tarlna the Ageless", {
-	[175973] = "Alarm",
-	[175979] = "Long",
-	[176001] = "Alert",
-	[176037] = "Alert",
+	[175973] = "alarm",
+	[175979] = "long",
+	[176001] = "alert",
+	[176037] = "alert",
 })
 
 BigWigs:AddSounds("Rukhmar", {
-	[167615] = "Warning",
-	[167647] = "Long",
-	[167757] = "Alarm",
+	[167615] = "warning",
+	[167647] = "long",
+	[167757] = "alarm",
 })
 
 BigWigs:AddSounds("Supreme Lord Kazzak", {
-	[187471] = "Info",
-	[187664] = "Alert",
-	[187668] = "Alarm",
-	[187702] = "Long",
+	[187471] = "info",
+	[187664] = "alert",
+	[187668] = "alarm",
+	[187702] = "long",
 })

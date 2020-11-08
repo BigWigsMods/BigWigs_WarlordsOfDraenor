@@ -85,7 +85,7 @@ do
 
 	function mod:InfernoSlice(args)
 		self:StopBar(CL.count:format(args.spellName, sliceCount)) -- just in case
-		self:MessageOld(args.spellId, "orange", "Warning", CL.casting:format(CL.count:format(args.spellName, sliceCount)))
+		self:MessageOld(args.spellId, "orange", "warning", CL.casting:format(CL.count:format(args.spellName, sliceCount)))
 		sliceCount = sliceCount + 1
 	end
 
@@ -106,7 +106,7 @@ end
 
 function mod:OverheadSmash(args)
 	if rampaging then return end
-	self:MessageOld(args.spellId, "yellow", "Info")
+	self:MessageOld(args.spellId, "yellow", "info")
 	smashCount = smashCount + 1
 	if smashCount < 4 then -- smash smash smash rampage
 		self:CDBar(args.spellId, 21)
@@ -121,7 +121,7 @@ do
 	local petrifyTargets, petrifyOnMe, scheduled = {}, nil, nil
 	local function openProximity(self)
 		if not petrifyOnMe then
-			self:MessageOld(155326, "orange", "Alert") -- Petrifying Slam
+			self:MessageOld(155326, "orange", "alert") -- Petrifying Slam
 			self:Bar(155326, 9, 155530) -- Shatter
 			self:OpenProximity(155326, 8, petrifyTargets)
 		end
@@ -145,7 +145,7 @@ do
 		end
 		petrifyTargets[#petrifyTargets+1] = args.destName
 		if self:Me(args.destGUID) then
-			self:MessageOld(155326, "blue", "Alarm", CL.you:format(args.spellName))
+			self:MessageOld(155326, "blue", "alarm", CL.you:format(args.spellName))
 			self:Bar(155326, 7, 155506) -- Petrified
 			-- Shattering Roar is 2s after Petrified, don't think it merits another bar
 			self:OpenProximity(155326, 8)
@@ -155,7 +155,7 @@ do
 end
 
 function mod:DestructiveRampage(args) -- Phase 2
-	self:MessageOld(args.spellId, "red", "Long")
+	self:MessageOld(args.spellId, "red", "long")
 	self:Bar(args.spellId, 30)
 	rampaging = true
 	if sliceTimer then
@@ -168,7 +168,7 @@ function mod:DestructiveRampage(args) -- Phase 2
 end
 
 function mod:DestructiveRampageOver(args) -- Phase 2 over
-	self:MessageOld(args.spellId, "green", "Info", CL.over:format(args.spellName))
+	self:MessageOld(args.spellId, "green", "info", CL.over:format(args.spellName))
 	self:CDBar(args.spellId, 113)
 	rampaging = nil
 	smashCount, slamCount, sliceCount = 1, 1, 1
@@ -183,7 +183,7 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and t-prev > 2 then
 			prev = t
-			self:MessageOld(args.spellId, "blue", "Alarm", CL.underyou:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "alarm", CL.underyou:format(args.spellName))
 			self:Flash(args.spellId)
 		end
 	end

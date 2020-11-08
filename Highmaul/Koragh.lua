@@ -124,7 +124,7 @@ function mod:UNIT_POWER_FREQUENT(event, unit, powerType)
 		local power = UnitPower(unit, 10) -- Enum.PowerType.Alternate = 10
 		if power < 25 then
 			self:UnregisterUnitEvent(event, unit)
-			self:MessageOld(160734, "cyan", "Info", CL.soon:format(self:SpellName(160734))) -- Vulnerability soon!
+			self:MessageOld(160734, "cyan", "info", CL.soon:format(self:SpellName(160734))) -- Vulnerability soon!
 			-- Knockback at 0 power, Vulnerability ~4s later
 		end
 	end
@@ -134,14 +134,14 @@ do
 	local count = 0
 	local function nextAdd(self)
 		count = count + 1
-		self:MessageOld("volatile_anomaly", "yellow", "Info", ("%s %d/3"):format(self:SpellName(L.volatile_anomaly), count), L.volatile_anomaly_icon)
+		self:MessageOld("volatile_anomaly", "yellow", "info", ("%s %d/3"):format(self:SpellName(L.volatile_anomaly), count), L.volatile_anomaly_icon)
 		if count < 3 then
 			self:Bar("volatile_anomaly", 8, CL.count:format(self:SpellName(L.volatile_anomaly), count+1), L.volatile_anomaly_icon)
 			self:ScheduleTimer(nextAdd, 8, self)
 		end
 	end
 	function mod:Vulnerability(args)
-		self:MessageOld(args.spellId, "green", "Long")
+		self:MessageOld(args.spellId, "green", "long")
 		self:Bar(args.spellId, 20)
 		count = 0
 		self:ScheduleTimer(nextAdd, 1, self)
@@ -189,23 +189,23 @@ function mod:BarrierApplied(args)
 	if UnitPower("player", 10) > 0 then -- has alternate power (soaking)
 		local cd = self:BarTimeLeft(L.overwhelming_energy_bar:format(ballCount))
 		if cd > 0 then
-			self:DelayedMessage(161612, cd-6, "green", CL.soon:format(self:SpellName(161612)), 161612, "Warning") -- Overwhelming Energy soon!
+			self:DelayedMessage(161612, cd-6, "green", CL.soon:format(self:SpellName(161612)), 161612, "warning") -- Overwhelming Energy soon!
 		end
 	end
 	self:RegisterUnitEvent("UNIT_POWER_FREQUENT", nil, "boss1")
 end
 
 function mod:ExpelMagicShadow(args)
-	self:MessageOld(args.spellId, "yellow", "Alert")
+	self:MessageOld(args.spellId, "yellow", "alert")
 	self:CDBar(args.spellId, 63) -- 63-65
 end
 
 do
 	local function printTarget(self, _, guid)
 		if self:Me(guid) then
-			self:MessageOld(162186, "blue", "Warning", CL.casting:format(CL.you:format(self:SpellName(162186))))
+			self:MessageOld(162186, "blue", "warning", CL.casting:format(CL.you:format(self:SpellName(162186))))
 		else
-			self:MessageOld(162186, "orange", "Warning", CL.casting:format(self:SpellName(162186)))
+			self:MessageOld(162186, "orange", "warning", CL.casting:format(self:SpellName(162186)))
 		end
 	end
 	function mod:ExpelMagicArcaneStart(args)
@@ -221,7 +221,7 @@ function mod:ExpelMagicArcaneApplied(args)
 		self:Say(args.spellId)
 		self:OpenProximity(args.spellId, 8)
 	end
-	self:TargetMessageOld(args.spellId, args.destName, "orange", "Warning", nil, nil, self:Tank())
+	self:TargetMessageOld(args.spellId, args.destName, "orange", "warning", nil, nil, self:Tank())
 	self:TargetBar(args.spellId, 10, args.destName)
 end
 
@@ -237,7 +237,7 @@ function mod:ExpelMagicArcaneRemoved(args)
 end
 
 function mod:ExpelMagicFire(args)
-	self:MessageOld(args.spellId, "red", "Alarm")
+	self:MessageOld(args.spellId, "red", "alarm")
 	self:CDBar(args.spellId, 63) -- 63-65
 	self:Bar(args.spellId, 10, L.fire_bar)
 	self:OpenProximity(args.spellId, 6)
@@ -249,7 +249,7 @@ do
 		if self:Me(guid) then
 			self:Flash(172747)
 			self:Say(172747)
-			self:PlaySound(172747, "Alarm")
+			self:PlaySound(172747, "alarm")
 		end
 		self:TargetMessageOld(172747, name, "cyan")
 	end
@@ -272,7 +272,7 @@ do
 				self:Flash(161328)
 				self:Say(161328)
 			end
-			self:TargetMessageOld(161328, suppressionTarget, "yellow", "Alarm")
+			self:TargetMessageOld(161328, suppressionTarget, "yellow", "alarm")
 		end
 	end
 end
@@ -305,7 +305,7 @@ do
 			else
 				self:CDBar(161612, cd, L.overwhelming_energy_bar:format(ballCount)) -- Overwhelming Energy
 				if UnitPower("player", 10) > 0 then -- has alternate power (soaking)
-					self:DelayedMessage(161612, cd-6, "green", CL.soon:format(args.spellName), 161612, "Warning") -- Overwhelming Energy soon!
+					self:DelayedMessage(161612, cd-6, "green", CL.soon:format(args.spellName), 161612, "warning") -- Overwhelming Energy soon!
 				end
 			end
 		end
@@ -332,7 +332,7 @@ do
 		felMarks[#felMarks+1] = args.destName
 		if self:Me(args.destGUID) then
 			isOnMe = true
-			self:MessageOld(args.spellId, "blue", "Info", CL.you:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "info", CL.you:format(args.spellName))
 			self:TargetBar(args.spellId, 12, args.destName)
 			self:Flash(args.spellId)
 			self:Say(args.spellId)
@@ -363,7 +363,7 @@ do
 		if self:Me(args.destGUID) and t-prev > 1.5 then
 			prev = t
 			self:Flash(172895)
-			self:MessageOld(172895, "blue", "Alert", CL.underyou:format(args.spellName))
+			self:MessageOld(172895, "blue", "alert", CL.underyou:format(args.spellName))
 		end
 	end
 end

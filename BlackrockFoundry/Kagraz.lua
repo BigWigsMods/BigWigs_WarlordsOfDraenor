@@ -153,7 +153,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, _, spellId)
 		self:MessageOld(-9352, "yellow", nil, 175007, "inv_sword_1h_firelandsraid_d_04")
 		self:Bar(-9352, self:Mythic() and 20 or 46, 175007, "inv_sword_1h_firelandsraid_d_04")
 	elseif spellId == 155564 then -- Firestorm
-		self:MessageOld(155493, "red", "Long", CL.count:format(self:SpellName(155493), firestormCount))
+		self:MessageOld(155493, "red", "long", CL.count:format(self:SpellName(155493), firestormCount))
 		firestormCount = firestormCount + 1
 		self:CastBar(155493, 14, spellId)
 
@@ -173,7 +173,7 @@ do
 		local t = GetTime()
 		if t-prev > 1.5 and self:Me(args.destGUID) then
 			prev = t
-			self:MessageOld(155318, "blue", "Alarm", CL.underyou:format(args.spellName))
+			self:MessageOld(155318, "blue", "alarm", CL.underyou:format(args.spellName))
 		end
 	end
 end
@@ -191,7 +191,7 @@ do
 		end
 	end
 	function mod:MoltenTorrentApplied(args)
-		self:TargetMessageOld(args.spellId, args.destName, "green", "Warning") -- positive for wanting to stack
+		self:TargetMessageOld(args.spellId, args.destName, "green", "warning") -- positive for wanting to stack
 		self:Bar(args.spellId, 14.5)
 		self:SecondaryIcon(args.spellId, args.destName)
 		if self:Me(args.destGUID) then
@@ -223,17 +223,17 @@ function mod:CinderWolves(args)
 		wipe(wolvesMarked)
 	end
 
-	self:MessageOld(args.spellId, "red", "Alarm")
+	self:MessageOld(args.spellId, "red", "alarm")
 
 	--self:Bar(155277, 32) -- Blazing Radiance
 	self:Bar(155493, 62, CL.count:format(self:SpellName(155493), firestormCount)) -- Firestorm
-	self:DelayedMessage(155493, 55, "cyan", CL.soon:format(self:SpellName(155493)), nil, "Info") -- Firestorm
+	self:DelayedMessage(155493, 55, "cyan", CL.soon:format(self:SpellName(155493)), nil, "info") -- Firestorm
 end
 
 function mod:Fixate(args)
 	if self:Me(args.destGUID) and not fixateOnMe then -- Multiple debuffs, warn for the first.
 		fixateOnMe = true
-		self:TargetMessageOld(args.spellId, args.destName, "blue", "Alarm")
+		self:TargetMessageOld(args.spellId, args.destName, "blue", "alarm")
 		self:Flash(args.spellId)
 		-- If we want a personal bar we will need to compensate for multiple debuffs
 	end
@@ -242,12 +242,12 @@ end
 function mod:FixateOver(args)
 	if self:Me(args.destGUID) and not self:UnitDebuff("player", args.spellName) then
 		fixateOnMe = nil
-		self:MessageOld(args.spellId, "blue", "Alarm", CL.over:format(args.spellName))
+		self:MessageOld(args.spellId, "blue", "alarm", CL.over:format(args.spellName))
 	end
 end
 
 function mod:Overheated(args)
-	self:TargetMessageOld(args.spellId, args.destName, "yellow", "Info", nil, nil, true)
+	self:TargetMessageOld(args.spellId, args.destName, "yellow", "info", nil, nil, true)
 	self:Bar(args.spellId, 20)
 	self:CDBar(155074, 6) -- Charring Breath
 end
@@ -259,12 +259,12 @@ end
 function mod:CharringBreath(args)
 	if self:Tank(args.destName) then
 		local amount = args.amount or 1
-		self:StackMessage(args.spellId, args.destName, amount, "yellow", amount > 2 and "Warning")
+		self:StackMessage(args.spellId, args.destName, amount, "yellow", amount > 2 and "warning")
 	end
 end
 
 function mod:Rekindle(args)
-	self:TargetMessageOld(args.spellId, args.sourceName, "green", "Warning")
+	self:TargetMessageOld(args.spellId, args.sourceName, "green", "warning")
 	self:Bar(args.spellId, 8)
 end
 
@@ -280,10 +280,10 @@ do
 		if self:Mythic() then -- Multiple targets in Mythic
 			blazingTargets[#blazingTargets+1] = args.destName
 			if #blazingTargets == 1 then
-				self:ScheduleTimer("TargetMessageOld", 0.2, args.spellId, blazingTargets, "yellow", "Alert")
+				self:ScheduleTimer("TargetMessageOld", 0.2, args.spellId, blazingTargets, "yellow", "alert")
 			end
 		else
-			self:TargetMessageOld(args.spellId, args.destName, "yellow", "Alert")
+			self:TargetMessageOld(args.spellId, args.destName, "yellow", "alert")
 			self:PrimaryIcon(args.spellId, args.destName)
 		end
 	end
@@ -304,7 +304,7 @@ end
 function mod:RisingFlames(args)
 	local amount = args.amount or 1
 	if amount % 3 == 0 then
-		self:StackMessage(args.spellId, args.destName, amount, "yellow", amount > 5 and "Warning")
+		self:StackMessage(args.spellId, args.destName, amount, "yellow", amount > 5 and "warning")
 	end
 end
 

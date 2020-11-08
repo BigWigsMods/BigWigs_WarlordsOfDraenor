@@ -229,7 +229,7 @@ do
 	end
 
 	local function nextAdd(self)
-		self:MessageOld("adds", "yellow", "Info", CL.incoming:format(CL.adds), L.adds_icon)
+		self:MessageOld("adds", "yellow", "info", CL.incoming:format(CL.adds), L.adds_icon)
 		self:Bar("adds", 30, CL.adds, L.adds_icon)
 		self:ScheduleTimer(nextAdd, 30, self) -- could use ScheduleRepeatingTimer, but the first time had to be special and ruin it :(
 	end
@@ -242,10 +242,10 @@ do
 			glimpseCount = 1
 			gazeOnMe = nil
 			wipe(gazeTargets)
-			self:MessageOld("stages", "cyan", "Long", CL.phase:format(phase), false)
+			self:MessageOld("stages", "cyan", "long", CL.phase:format(phase), false)
 			self:CDBar("adds", 32, CL.adds, L.adds_icon)
 			self:ScheduleTimer(nextAdd, 32, self)
-			self:DelayedMessage(165876, 80, "red", CL.soon:format(CL.count:format(self:SpellName(165876), nightCount)), false, "Info")
+			self:DelayedMessage(165876, 80, "red", CL.soon:format(CL.count:format(self:SpellName(165876), nightCount)), false, "info")
 		end
 	end
 end
@@ -253,7 +253,7 @@ end
 do
 	local list, scheduled = mod:NewTargetList(), nil
 	local function warn(self, spellId)
-		self:TargetMessageOld(spellId, list, "yellow", self:Healer() and "Alert", nil, nil, true)
+		self:TargetMessageOld(spellId, list, "yellow", self:Healer() and "alert", nil, nil, true)
 		scheduled = nil
 	end
 	function mod:InfiniteDarkness(args)
@@ -280,21 +280,21 @@ function mod:EntropyRemoved(args)
 end
 
 function mod:DarkStar(args)
-	self:MessageOld(args.spellId, "orange", "Alarm")
+	self:MessageOld(args.spellId, "orange", "alarm")
 	self:Bar(args.spellId, 7, ("<%s>"):format(args.spellName))
 	self:Bar(args.spellId, 60)
 end
 
 function mod:EnvelopingNight(args)
-	self:MessageOld(args.spellId, "red", "Long", CL.count:format(args.spellName, nightCount))
+	self:MessageOld(args.spellId, "red", "long", CL.count:format(args.spellName, nightCount))
 	self:Bar(args.spellId, 3, CL.cast:format(CL.count:format(args.spellName, nightCount)))
 	nightCount = nightCount + 1
 	self:Bar(args.spellId, 63, CL.count:format(args.spellName, nightCount))
-	self:DelayedMessage(args.spellId, 53, "red", CL.soon:format(CL.count:format(args.spellName, nightCount)), false, "Info")
+	self:DelayedMessage(args.spellId, 53, "red", CL.soon:format(CL.count:format(args.spellName, nightCount)), false, "info")
 end
 
 function mod:GlimpseOfMadness(args)
-	self:MessageOld(args.spellId, "yellow", "Info", CL.count:format(args.spellName, glimpseCount))
+	self:MessageOld(args.spellId, "yellow", "info", CL.count:format(args.spellName, glimpseCount))
 	glimpseCount = glimpseCount + 1
 	self:Bar(args.spellId, 27, CL.count:format(args.spellName, glimpseCount))
 end
@@ -318,7 +318,7 @@ do -- Gaze/Eyes of the Abyss
 		if self:Me(args.destGUID) then
 			gazeOnMe = true
 			local amount = args.amount or 1
-			self:StackMessage(args.spellId, args.destName, amount, "blue", amount > 2 and "Warning")
+			self:StackMessage(args.spellId, args.destName, amount, "blue", amount > 2 and "warning")
 			self:TargetBar(args.spellId, 15, args.destName)
 
 			self:CancelTimer(timer)
@@ -347,7 +347,7 @@ do -- Gaze/Eyes of the Abyss
 
 	function mod:EyesOfTheAbyssApplied(args)
 		if self:Me(args.destGUID) then
-			self:MessageOld(args.spellId, "blue", "Alarm", CL.you:format(self:SpellName(167536)), args.spellId) -- 167536 = "Eyes"
+			self:MessageOld(args.spellId, "blue", "alarm", CL.you:format(self:SpellName(167536)), args.spellId) -- 167536 = "Eyes"
 			self:Flash(args.spellId)
 			if gazeOnMe then return end
 		end
@@ -373,7 +373,7 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and t-prev > 1 then
 			prev = t
-			self:MessageOld(176533, "blue", "Info", CL.underyou:format(args.spellName)) -- you ded, so ded.
+			self:MessageOld(176533, "blue", "info", CL.underyou:format(args.spellName)) -- you ded, so ded.
 			self:Flash(176533)
 		end
 	end
@@ -388,15 +388,15 @@ function mod:UNIT_HEALTH_FREQUENT(event, unit)
 		if self:Mythic() then
 			if (phase == 1 and hp < 71) or (phase == 2 and hp < 38) or (phase == 3 and hp < 10) then -- phases at 66% and 33% and 5%
 				self:UnregisterUnitEvent(event, unit)
-				self:MessageOld("stages", "cyan", "Info", CL.soon:format(CL.phase:format(phase+1)), false)
+				self:MessageOld("stages", "cyan", "info", CL.soon:format(CL.phase:format(phase+1)), false)
 			end
 		elseif (phase == 1 and hp < 90) or (phase == 2 and hp < 60) or (phase == 3 and hp < 30) then -- phases at 85%, 55%, and 25%
 			self:UnregisterUnitEvent(event, unit)
-			self:MessageOld("stages", "cyan", "Info", CL.soon:format(CL.phase:format(phase+1)), false)
+			self:MessageOld("stages", "cyan", "info", CL.soon:format(CL.phase:format(phase+1)), false)
 		end
 	elseif mobId == 77879 and not addDeathWarned and hp < 30 then -- Displacing Arcane Aberration
 		self:UnregisterUnitEvent(event, unit)
-		self:MessageOld(156471, "yellow", "Info", L.add_death_soon)
+		self:MessageOld(156471, "yellow", "info", L.add_death_soon)
 		addDeathWarned = true
 	end
 end
@@ -405,7 +405,7 @@ function mod:PhaseEnd()
 	phase = phase + 1
 
 	if phase == 2 then -- short intermission for Displacement
-		self:MessageOld("stages", "cyan", "Long", CL.phase:format(phase), false)
+		self:MessageOld("stages", "cyan", "long", CL.phase:format(phase), false)
 		self:RegisterUnitEvent("UNIT_HEALTH_FREQUENT", nil, "boss1")
 		-- attempt #4 it seems more like paused if < 10, then starts casting with a 3s cd to get caught up with expired spells
 		self:StopBar(156467) -- Destructive Resonance
@@ -428,7 +428,7 @@ function mod:PhaseEnd()
 		self:Bar("volatile_anomaly", phase == phaseToCheck and 12 or 9, CL.count:format(self:SpellName(L.volatile_anomaly), 1), L.volatile_anomaly_icon)
 		if phase == phaseToCheck then
 			self:Bar(-9921, 15, nil, "ability_warrior_shieldbreak") -- Gorian Reaver
-			self:DelayedMessage(-9921, 15, "cyan", nil, false, "Info")
+			self:DelayedMessage(-9921, 15, "cyan", nil, false, "info")
 			-- Kick can vary, think it's similar to Brackenspore's big adds where they'll wait until after they melee someone to start their abilities
 			self:ScheduleTimer("CDBar", 15, 158563, 25) -- Kick to the Face
 		end
@@ -460,13 +460,13 @@ end
 function mod:AcceleratedAssault(args)
 	if args.amount > 5 and args.amount % 3 == 0 then -- at 5 it stacks every second
 		-- This is the buff the boss gains if he is hitting the same tank. It's not really a stack message on the tank, but this is a clearer way of presenting it.
-		self:StackMessage(args.spellId, self:UnitName("boss1target"), args.amount, "yellow", "Warning")
+		self:StackMessage(args.spellId, self:UnitName("boss1target"), args.amount, "yellow", "warning")
 	end
 end
 
 function mod:ArcaneAberration(args)
 	self:StopBar(CL.count:format(self:SpellName(-9945), aberrationCount)) -- just to be safe
-	self:MessageOld(156471, "yellow", not self:Healer() and "Info", CL.count:format(CL.add_spawned, aberrationCount))
+	self:MessageOld(156471, "yellow", not self:Healer() and "info", CL.count:format(CL.add_spawned, aberrationCount))
 	aberrationCount = aberrationCount + 1
 	self:CDBar(156471, aberrationCount == 2 and 46 or 51, CL.count:format(self:SpellName(-9945), aberrationCount), 156471) -- Arcane Aberration
 	if args.spellId == 164299 or (self:Mythic() and phase == 2) then -- Displacing
@@ -476,7 +476,7 @@ function mod:ArcaneAberration(args)
 end
 
 function mod:ArcaneWrath()
-	self:MessageOld(156238, "orange", self:Healer() and "Alert")
+	self:MessageOld(156238, "orange", self:Healer() and "alert")
 	self:Bar(156238, 50)
 	wipe(brandedMarks)
 end
@@ -541,7 +541,7 @@ do
 		[3] = { 24, 15.8, 24, 19.4, 28, 23 },
 	}
 	function mod:DestructiveResonance()
-		self:MessageOld(156467, "red", self:Ranged() and "Warning")
+		self:MessageOld(156467, "red", self:Ranged() and "warning")
 		local t = mineCount == 1 and 24 or (not self:Mythic() and mineTimes[phase] and mineTimes[phase][mineCount]) or 15.8
 		self:CDBar(156467, t)
 		mineCount = mineCount + 1
@@ -571,7 +571,7 @@ end
 do
 	local function printTarget(self, name, guid)
 		if self:Me(guid) then
-			self:MessageOld(158605, "blue", "Alarm", CL.casting:format(CL.you:format(self:SpellName(158605))))
+			self:MessageOld(158605, "blue", "alarm", CL.casting:format(CL.you:format(self:SpellName(158605))))
 			if phase == 3 or (self:Mythic() and phase == 2) then -- Fortification
 				self:Flash(158605)
 			end
@@ -588,7 +588,7 @@ end
 function mod:MarkOfChaosApplied(args)
 	markOfChaosTarget = args.destName
 	self:PrimaryIcon(158605, args.destName)
-	self:TargetMessageOld(158605, args.destName, "orange", "Alarm") -- warn again in case the cast target changed
+	self:TargetMessageOld(158605, args.destName, "orange", "alarm") -- warn again in case the cast target changed
 	self:TargetBar(158605, 8, args.destName)
 	if self:Me(args.destGUID) then
 		self:Flash(158605)
@@ -610,7 +610,7 @@ do
 	local count = 1
 	local function nextAdd(self)
 		count = count + 1
-		self:DelayedMessage("volatile_anomaly", 12, "yellow", ("%s %d/6"):format(self:SpellName(L.volatile_anomaly), count), L.volatile_anomaly_icon, "Info")
+		self:DelayedMessage("volatile_anomaly", 12, "yellow", ("%s %d/6"):format(self:SpellName(L.volatile_anomaly), count), L.volatile_anomaly_icon, "info")
 		self:Bar("volatile_anomaly", 12, CL.count:format(self:SpellName(L.volatile_anomaly), count), L.volatile_anomaly_icon)
 		if count < 6 then
 			self:ScheduleTimer(nextAdd, 12, self)
@@ -622,33 +622,33 @@ do
 		self:MessageOld("stages", "cyan", nil, ("%d%% - %s"):format(self:Mythic() and (first and 66 or 33) or (first and 55 or 25), CL.intermission), false)
 		self:Bar("stages", first and 65 or 60, CL.intermission, "spell_arcane_blast")
 		count = 1
-		self:DelayedMessage("volatile_anomaly", 2, "yellow", ("%s %d/6"):format(self:SpellName(L.volatile_anomaly), count), L.volatile_anomaly_icon, "Info")
+		self:DelayedMessage("volatile_anomaly", 2, "yellow", ("%s %d/6"):format(self:SpellName(L.volatile_anomaly), count), L.volatile_anomaly_icon, "info")
 		-- first add bar is started in :PhaseEnd
 		self:ScheduleTimer(nextAdd, 2, self)
 	end
 
 	function mod:IntermissionEnd()
-		self:MessageOld("stages", "cyan", "Long", CL.phase:format(phase), false)
+		self:MessageOld("stages", "cyan", "long", CL.phase:format(phase), false)
 	end
 end
 
 -- Warmage
 function mod:Slow(args)
 	if self:Dispeller("magic", nil, args.spellId) then
-		self:TargetMessageOld(args.spellId, args.destName, "yellow", "Alert", nil, nil, true)
+		self:TargetMessageOld(args.spellId, args.destName, "yellow", "alert", nil, nil, true)
 	end
 end
 
 function mod:FixateApplied(args)
 	if self:Me(args.destGUID) then
 		fixateOnMe = true
-		self:MessageOld(args.spellId, "blue", "Alarm", CL.you:format(args.spellName))
+		self:MessageOld(args.spellId, "blue", "alarm", CL.you:format(args.spellName))
 		self:TargetBar(args.spellId, 15, args.destName)
 		self:Flash(args.spellId)
 		self:Say(args.spellId)
 		updateProximity()
 	elseif self:Dispeller("magic", nil, 157801) and self:UnitDebuff(args.destName, self:SpellName(157801)) then -- check if they have Slow and warn again
-		self:TargetMessageOld(157801, args.destName, "red", "Alert", L.slow_fixate, nil, true)
+		self:TargetMessageOld(157801, args.destName, "red", "alert", L.slow_fixate, nil, true)
 	end
 	if self.db.profile.custom_off_fixate_marker and not fixateMarks[args.destName] then
 		local index = next(fixateMarks) and 2 or 1
@@ -671,19 +671,19 @@ end
 
 function mod:NetherEnergy(args)
 	if UnitGUID("target") == args.destGUID and args.amount > 2 then
-		self:MessageOld(args.spellId, "orange", "Alert", CL.count:format(args.spellName, args.amount))
+		self:MessageOld(args.spellId, "orange", "alert", CL.count:format(args.spellName, args.amount))
 	end
 end
 
 -- Reaver
 function mod:CrushArmor(args)
 	local amount = args.amount or 1
-	self:StackMessage(args.spellId, args.destName, amount, "yellow", amount > 2 and "Alarm")
+	self:StackMessage(args.spellId, args.destName, amount, "yellow", amount > 2 and "alarm")
 	self:CDBar(args.spellId, 10) -- 9.7-15.9
 end
 
 function mod:KickToTheFace(args)
-	self:MessageOld(args.spellId, "orange", "Warning")
+	self:MessageOld(args.spellId, "orange", "warning")
 	self:CDBar(args.spellId, 20) -- 20-30
 end
 

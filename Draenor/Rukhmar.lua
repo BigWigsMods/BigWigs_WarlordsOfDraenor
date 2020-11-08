@@ -55,7 +55,7 @@ end
 function mod:Fixate(args)
 	if self:Me(args.destGUID) and not fixateOnMe then -- Multiple debuffs, warn for the first.
 		fixateOnMe = true
-		self:TargetMessageOld(args.spellId, args.destName, "blue", "Alarm")
+		self:TargetMessageOld(args.spellId, args.destName, "blue", "alarm")
 		self:Flash(args.spellId)
 	end
 end
@@ -63,12 +63,12 @@ end
 function mod:FixateOver(args)
 	if self:Me(args.destGUID) and not self:UnitDebuff("player", args.spellName, 167757) then
 		fixateOnMe = nil
-		self:MessageOld(args.spellId, "blue", "Alarm", CL.over:format(args.spellName))
+		self:MessageOld(args.spellId, "blue", "alarm", CL.over:format(args.spellName))
 	end
 end
 
 function mod:PiercedArmor(args)
-	self:StackMessage(args.spellId, args.destName, args.amount, "yellow", "Warning")
+	self:StackMessage(args.spellId, args.destName, args.amount, "yellow", "warning")
 end
 
 function mod:SolarBreath(args)
@@ -77,7 +77,7 @@ function mod:SolarBreath(args)
 end
 
 function mod:LooseQuills(args)
-	self:MessageOld(args.spellId, "yellow", "Long")
+	self:MessageOld(args.spellId, "yellow", "long")
 	self:Bar(args.spellId, 30)
 	self:StopBar(167679) -- Solar Breath
 end

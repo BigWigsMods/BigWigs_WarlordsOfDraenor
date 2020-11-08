@@ -86,22 +86,22 @@ function mod:UNIT_POWER_FREQUENT(event, unit)
 	local power = UnitPower(unit)
 	if power < 21 then
 		if frenzyCount > 2 then
-			self:MessageOld("berserk", "red", "Info", CL.soon:format(self:SpellName(26662)), false) -- Berserk soon!
+			self:MessageOld("berserk", "red", "info", CL.soon:format(self:SpellName(26662)), false) -- Berserk soon!
 		else
-			self:MessageOld("stages", "cyan", "Info", CL.soon:format(self:SpellName(-9968)), false) -- Feeding Frenzy soon!
+			self:MessageOld("stages", "cyan", "info", CL.soon:format(self:SpellName(-9968)), false) -- Feeding Frenzy soon!
 		end
 		self:UnregisterUnitEvent(event, unit)
 	end
 end
 
 function mod:AcidTorrent(args)
-	self:MessageOld(args.spellId, "red", "Warning", CL.count:format(args.spellName, torrentCount))
+	self:MessageOld(args.spellId, "red", "warning", CL.count:format(args.spellName, torrentCount))
 	torrentCount = torrentCount + 1
 	self:CDBar(args.spellId, 12.5, CL.count:format(args.spellName, torrentCount)) -- 12.6-16
 end
 
 function mod:AcidMaw(args)
-	self:StackMessage(args.spellId, args.destName, args.amount, "yellow", args.amount > 2 and "Warning")
+	self:StackMessage(args.spellId, args.destName, args.amount, "yellow", args.amount > 2 and "warning")
 end
 
 do
@@ -110,7 +110,7 @@ do
 			self:Say(156203)
 			self:Flash(156203)
 		end
-		self:TargetMessageOld(156203, name, "yellow", "Alarm")
+		self:TargetMessageOld(156203, name, "yellow", "alarm")
 	end
 	function mod:RetchedBlackrock(args)
 		self:GetBossTarget(printTarget, 0.2, args.sourceGUID)
@@ -124,7 +124,7 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and t-prev > 2 then
 			prev = t
-			self:MessageOld(args.spellId, "blue", "Alarm", CL.underyou:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "alarm", CL.underyou:format(args.spellName))
 			self:Flash(args.spellId)
 		end
 	end
@@ -132,7 +132,7 @@ end
 
 function mod:ExplosiveShard(args)
 	if self:Damager() == "MELEE" then -- ranged don't need to worry about this
-		self:MessageOld(args.spellId, "orange", "Alarm")
+		self:MessageOld(args.spellId, "orange", "alarm")
 		self:Flash(args.spellId)
 		self:Bar(args.spellId, 3.5, 84474, "spell_shadow_mindbomb") -- "Explosion" with a bomb icon
 	end
@@ -147,7 +147,7 @@ function mod:BlackrockSpines()
 end
 
 function mod:BlackrockBarrage(args)
-	self:MessageOld(156877, "orange", not self:Healer() and "Alert", CL.count:format(args.spellName, barrageCount))
+	self:MessageOld(156877, "orange", not self:Healer() and "alert", CL.count:format(args.spellName, barrageCount))
 	barrageCount = barrageCount + 1
 end
 
@@ -161,7 +161,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, _, spellId)
 		self:StopBar(156877) -- Blackrock Barrage
 
 		rollCount = 1
-		self:MessageOld("stages", "green", "Long", self:SpellName(-9968), false) -- Feeding Frenzy
+		self:MessageOld("stages", "green", "long", self:SpellName(-9968), false) -- Feeding Frenzy
 		self:CDBar(155898, 3.5, CL.count:format(self:SpellName(155898), rollCount)) -- Rolling Fury
 	end
 end
@@ -186,7 +186,7 @@ function mod:RollingFuryRemoved(args)
 		self:CDBar(args.spellId, 3.5, CL.count:format(args.spellName, rollCount))
 	else
 		self:StopBar(CL.count:format(args.spellName, rollCount))
-		self:MessageOld("stages", "green", "Long", CL.over:format(self:SpellName(-9968)), false) -- Feeding Frenzy over!
+		self:MessageOld("stages", "green", "long", CL.over:format(self:SpellName(-9968)), false) -- Feeding Frenzy over!
 	end
 end
 
@@ -197,7 +197,7 @@ end
 function mod:StartBerserk()
 	if not hasGoneBerserk then
 		hasGoneBerserk = true
-		self:MessageOld("berserk", "red", "Alarm", CL.custom_end:format(self.displayName, self:SpellName(26662)), 26662) -- Berserk
+		self:MessageOld("berserk", "red", "alarm", CL.custom_end:format(self.displayName, self:SpellName(26662)), 26662) -- Berserk
 	end
 end
 

@@ -123,7 +123,7 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and t-prev > 1 then
 			prev = t
-			self:MessageOld(args.spellId, "blue", "Alarm", CL.underyou:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "alarm", CL.underyou:format(args.spellName))
 			self:Flash(args.spellId)
 		end
 	end
@@ -132,14 +132,14 @@ end
 function mod:BoundingCleave(args)
 	local frenzied = args.spellId == 156257 and true
 	cleaveCount = 1
-	self:MessageOld(156197, "orange", "Alert")
+	self:MessageOld(156197, "orange", "alert")
 	self:Bar(156197, frenzied and 30 or 60) -- Bounding Cleave
 	self:CDBar(156157, frenzied and 5 or 8) -- Cleave
 	self:CDBar(156151, 17) -- Tenderizer
 end
 
 function mod:Tenderizer(args)
-	self:StackMessage(args.spellId, args.destName, args.amount, "orange", args.amount and "Warning")
+	self:StackMessage(args.spellId, args.destName, args.amount, "orange", args.amount and "warning")
 	self:CDBar(args.spellId, 17)
 end
 
@@ -152,7 +152,7 @@ end
 
 function mod:GushingWounds(args)
 	if self:Me(args.destGUID) and args.amount > 2 then
-		self:StackMessage(args.spellId, args.destName, args.amount, "blue", "Alarm")
+		self:StackMessage(args.spellId, args.destName, args.amount, "blue", "alarm")
 		self:TargetBar(args.spellId, 15, args.destName)
 	end
 end
@@ -172,7 +172,7 @@ function mod:UNIT_HEALTH_FREQUENT(event, unit)
 end
 
 function mod:Frenzy(args)
-	self:MessageOld("frenzy", "red", "Alarm", args.spellName, L.frenzy_icon)
+	self:MessageOld("frenzy", "red", "alarm", args.spellName, L.frenzy_icon)
 	-- gains power faster while frenzied
 	local left = (100 - UnitPower("boss1")) * 0.3
 	self:Bar(156197, left) -- Bounding Cleave

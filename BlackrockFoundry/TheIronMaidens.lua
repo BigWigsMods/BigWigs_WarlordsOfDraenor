@@ -163,7 +163,7 @@ do
 				self:CDBar(164271, 21) -- Penetrating Shot
 				self:CDBar(158010, 32) -- Bloodsoaked Heartseeker 32-35
 			elseif power == 30 or power == 100 then
-				self:MessageOld(159336, "cyan", "Long", L.power_message:format(power), false)
+				self:MessageOld(159336, "cyan", "long", L.power_message:format(power), false)
 			end
 			prev = power
 		end
@@ -176,7 +176,7 @@ do
 		local t = GetTime()
 		if t-prev > 5 then
 			prev = t
-			self:MessageOld(args.spellId, "red", "Long")
+			self:MessageOld(args.spellId, "red", "long")
 			self:UnregisterUnitEvent("UNIT_POWER_FREQUENT", "boss1", "boss2", "boss3")
 			self:StopBar(L.ship) -- Jump to Ship
 		end
@@ -211,7 +211,7 @@ end
 -- XXX 6.1
 --function mod:ShipPhase(args)
 --	shipCount = shipCount + 1
---	self:MessageOld("ship", "cyan", "Info", CL.other:format(L.ship, args.sourceName), false)
+--	self:MessageOld("ship", "cyan", "info", CL.other:format(L.ship, args.sourceName), false)
 --	stopBars(self:MobId(args.sourceGUID))
 --	if shipCount < 3 then
 --		self:Bar("ship", 198, L.ship, L.ship_icon)
@@ -221,7 +221,7 @@ end
 
 function mod:ShipPhase(_, sender)
 	shipCount = shipCount + 1
-	self:MessageOld("ship", "cyan", "Info", CL.other:format(L.ship, sender), false)
+	self:MessageOld("ship", "cyan", "info", CL.other:format(L.ship, sender), false)
 	if sender == self:SpellName(-10025) then -- Gar'an
 		stopBars(77557)
 	elseif sender == self:SpellName(-10030) then -- Sorka
@@ -258,7 +258,7 @@ do
 		local t = GetTime()
 		if self:Me(args.destGUID) and t-prev > 1 then
 			prev = t
-			self:MessageOld(args.spellId, "blue", "Alarm", CL.underyou:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "alarm", CL.underyou:format(args.spellName))
 			self:Flash(args.spellId)
 		end
 	end
@@ -267,14 +267,14 @@ end
 function mod:EarthenBarrier(args)
 	barrierCount = barrierCount + 1
 	if isOnABoat() then
-		self:MessageOld(args.spellId, "orange", "Alert", CL.count:format(args.spellName, barrierCount))
+		self:MessageOld(args.spellId, "orange", "alert", CL.count:format(args.spellName, barrierCount))
 		self:CDBar(args.spellId, 10)
 	end
 end
 
 do
 	local function printTarget(self, name)
-		self:TargetMessageOld(158692, name, "orange", "Alert", nil, nil, self:Tank())
+		self:TargetMessageOld(158692, name, "orange", "alert", nil, nil, self:Tank())
 	end
 	function mod:DeadlyThrow(args)
 		if isOnABoat() then
@@ -289,7 +289,7 @@ end
 function mod:RAID_BOSS_WHISPER(_, msg)
 	if msg:find("156626", nil, true) then -- Rapid Fire
 		local text = CL.you:format(self:SpellName(156631))
-		self:MessageOld(156631, "blue", "Alarm", text)
+		self:MessageOld(156631, "blue", "alarm", text)
 		self:Bar(156631, 10.5, text)
 		self:Flash(156631)
 		self:Say(156631)
@@ -336,11 +336,11 @@ do
 			return
 		end
 		if self:Me(args.destGUID) then
-			self:MessageOld(args.spellId, "blue", "Alarm", CL.you:format(args.spellName))
+			self:MessageOld(args.spellId, "blue", "alarm", CL.you:format(args.spellName))
 			self:Flash(args.spellId)
 			self:Say(args.spellId)
 		else
-			self:TargetMessageOld(args.spellId, args.destName, "red", "Warning", nil, nil, true)
+			self:TargetMessageOld(args.spellId, args.destName, "red", "warning", nil, nil, true)
 		end
 		self:TargetBar(args.spellId, self:Normal() and 8 or 6, args.destName)
 		self:Bar(args.spellId, 30)
@@ -373,7 +373,7 @@ do
 	local dispeller = nil
 	local function printTarget(self, name, guid)
 		if dispeller or self:Me(guid) then
-			self:TargetMessageOld(156109, name, "orange", "Info")
+			self:TargetMessageOld(156109, name, "orange", "info")
 		end
 		if self:Me(guid) then
 			self:Flash(156109)
@@ -410,7 +410,7 @@ do
 			boatTimers[args.spellId] = GetTime() + 20
 			return
 		end
-		self:TargetMessageOld(args.spellId, args.destName, "yellow", "Alert", nil, nil, self:Tank())
+		self:TargetMessageOld(args.spellId, args.destName, "yellow", "alert", nil, nil, self:Tank())
 		self:Bar(args.spellId, 20)
 		if self:Me(args.destGUID) then
 			self:TargetBar(args.spellId, 5, args.destName)
@@ -443,7 +443,7 @@ do
 				boatTimers[args.spellId] = GetTime() + 70
 			else
 				self:CDBar(args.spellId, 70)
-				self:ScheduleTimer("TargetMessageOld", 0.2, args.spellId, targets, "orange", "Alert")
+				self:ScheduleTimer("TargetMessageOld", 0.2, args.spellId, targets, "orange", "alert")
 			end
 		end
 	end
