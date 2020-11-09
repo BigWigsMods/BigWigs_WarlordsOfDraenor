@@ -16,6 +16,7 @@ local allowSuppression = nil
 local intermission = nil
 local ballCount = 1
 local felMarks = {}
+local fireOnMe = false
 
 --------------------------------------------------------------------------------
 -- Localization
@@ -73,6 +74,8 @@ function mod:OnBossEnable()
 	self:Log("SPELL_MISSED", "OverwhelmingEnergy", 161576)
 	self:Log("SPELL_CAST_START", "ExpelMagicShadow", 162184)
 	self:Log("SPELL_CAST_SUCCESS", "ExpelMagicFire", 162185)
+	self:Log("SPELL_AURA_APPLIED", "ExpelMagicFireApplied", 162185)
+	self:Log("SPELL_AURA_REMOVED", "ExpelMagicFireRemoved", 162185)
 	self:Log("SPELL_CAST_START", "ExpelMagicArcaneStart", 162186)
 	self:Log("SPELL_CAST_SUCCESS", "ExpelMagicArcaneApplied", 162186) -- Faster than _APPLIED
 	self:Log("SPELL_AURA_REMOVED", "ExpelMagicArcaneRemoved", 162186)
@@ -91,6 +94,7 @@ function mod:OnBossEnable()
 end
 
 function mod:OnEngage()
+	fireOnMe = false
 	allowSuppression = nil
 	intermission = nil
 	ballCount = 1
@@ -100,7 +104,7 @@ function mod:OnEngage()
 	self:CDBar(172747, 40) -- Expel Magic: Frost
 	self:CDBar(162184, 55) -- Expel Magic: Shadow
 	if self:Mythic() then
-		wipe(felMarks)
+		felMarks = {}
 		self:CDBar(172895, 8) -- Expel Magic: Fel
 	end
 	self:RegisterUnitEvent("UNIT_POWER_FREQUENT", nil, "boss1")
@@ -230,7 +234,7 @@ function mod:ExpelMagicArcaneRemoved(args)
 	self:StopBar(args.spellId, args.destName)
 	if self:Me(args.destGUID) then
 		self:CloseProximity(args.spellId)
-		if self:UnitDebuff("player", self:SpellName(162185)) then -- Expel Magic: Fire
+		if fireOnMe then -- Expel Magic: Fire
 			self:OpenProximity(162185, 6)
 		end
 	end
@@ -242,6 +246,18 @@ function mod:ExpelMagicFire(args)
 	self:Bar(args.spellId, 10, L.fire_bar)
 	self:OpenProximity(args.spellId, 6)
 	self:ScheduleTimer("CloseProximity", 10.5, args.spellId)
+end
+
+function mod:ExpelMagicFireApplied(args)
+	if self:Me(args.destGUID) then
+		fireOnMe = true
+	end
+end
+
+function mod:ExpelMagicFireRemoved(args)
+	if self:Me(args.destGUID) then
+		fireOnMe = false
+	end
 end
 
 do
