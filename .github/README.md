@@ -7,4 +7,4 @@ A collection of BigWigs modules from the **Warlords of Draenor** era, including:
 * Draenor World Bosses: Drov the Ruiner, Tarlna the Ageless, Rukhmar, Supreme Lord Kazzak
 
 ## Download
-https://www.curseforge.com/wow/addons/bigwigs_warlordsofdraenor
+<https://www.curseforge.com/wow/addons/bigwigs_warlordsofdraenor>
