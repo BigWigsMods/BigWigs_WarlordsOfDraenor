@@ -326,7 +326,7 @@ do
 			timer = self:ScheduleRepeatingTimer(sayCountdown, 1, self)
 			self:TargetBar("volatility_self", 6, args.destName, 67735, args.spellId) -- 67735 = "Volatility"
 			volatilityOnMe = true
-			self:MessageOld("volatility_self", "blue", "warning", CL.you:format(args.spellName))
+			self:MessageOld("volatility_self", "blue", "warning", CL.you:format(args.spellName), args.spellId)
 			self:Flash("volatility_self", args.spellId)
 			self:Say("volatility_self", args.spellId)
 		end
