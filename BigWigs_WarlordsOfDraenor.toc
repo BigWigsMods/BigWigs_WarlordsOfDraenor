@@ -1,4 +1,4 @@
-## Interface: 90001
+## Interface: 90002
 
 ## Title: BigWigs [|cffeda55fWarlords of Draenor|r]
 ## Title-zhCN: BigWigs [|cffeda55f德拉诺之王|r]
