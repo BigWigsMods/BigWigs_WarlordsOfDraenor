@@ -83,11 +83,9 @@ function mod:OnEngage()
 	self:RegisterUnitEvent("UNIT_HEALTH_FREQUENT", nil, "boss1")
 
 	if self:Tank() then
-		local _, _, _, myMapId = UnitPosition("player")
 		local tankList = {}
 		for unit in self:IterateGroup() do
-			local _, _, _, tarMapId = UnitPosition(unit)
-			if tarMapId == myMapId and self:Tank(unit) and not self:Me(UnitGUID(unit)) then
+			if self:Tank(unit) and not self:Me(UnitGUID(unit)) then
 				tankList[#tankList+1] = unit
 			end
 		end

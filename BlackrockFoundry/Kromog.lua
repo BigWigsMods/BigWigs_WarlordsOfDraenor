@@ -63,11 +63,9 @@ function mod:GetOptions()
 end
 
 local function updateTanks(self)
-	local _, _, _, myMapId = UnitPosition("player")
 	local tankList = {}
 	for unit in self:IterateGroup() do
-		local _, _, _, tarMapId = UnitPosition(unit)
-		if tarMapId == myMapId and self:Tank(unit) then
+		if self:Tank(unit) then
 			local guid = UnitGUID(unit)
 			if not self:Me(guid) then
 				tankList[#tankList+1] = unit
