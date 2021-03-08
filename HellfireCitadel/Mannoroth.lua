@@ -274,6 +274,9 @@ end
 
 do
 	local list, timer = mod:NewTargetList(), nil
+	local function wipe()
+		list = mod:NewTargetList()
+	end
 	function mod:WrathOfGuldan(args)
 		list[#list + 1] = args.destName
 		local count = #list
@@ -289,7 +292,7 @@ do
 			self:Say(args.spellId, CL.count_rticon:format(self:SpellName(170963), count, reverseCount)) -- 170963 = "Wrath"
 			self:TargetMessageOld(args.spellId, args.destName, "blue", "alarm", CL.count_icon:format(self:SpellName(170963), count, reverseCount))
 			self:Flash(args.spellId)
-			self:ScheduleTimer(wipe, 1, list)
+			self:ScheduleTimer(wipe, 1)
 		end
 
 		if count == 5 and timer then -- After the :Me check as we might be the last player

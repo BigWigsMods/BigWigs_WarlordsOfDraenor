@@ -161,6 +161,9 @@ end
 
 do
 	local list, scheduled = mod:NewTargetList(), nil
+	local function wipe()
+		barrageThrottle = {}
+	end
 	local function warn(self, spellId)
 		self:TargetMessageOld(spellId, list, "green") -- ME_ONLY by default, too spammy
 		scheduled = nil
@@ -180,7 +183,7 @@ do
 			end
 		end
 		if not barrageThrottle.timer then
-			barrageThrottle.timer = self:ScheduleTimer(wipe, 3, barrageThrottle)
+			barrageThrottle.timer = self:ScheduleTimer(wipe, 3)
 		end
 		if self.db.profile.custom_off_barrage_marker then
 			for i=1, 5 do

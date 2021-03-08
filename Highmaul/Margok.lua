@@ -486,7 +486,7 @@ do
 	local function mark()
 		sort(brandedMarks)
 		for index, name in ipairs(brandedMarks) do
-			self:CustomIcon(false, name, index + 2)
+			mod:CustomIcon(false, name, index + 2)
 		end
 		scheduled = nil
 	end
