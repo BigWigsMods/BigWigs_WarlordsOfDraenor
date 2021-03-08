@@ -66,7 +66,7 @@ local function updateTanks(self)
 	local tankList = {}
 	for unit in self:IterateGroup() do
 		if self:Tank(unit) then
-			local guid = UnitGUID(unit)
+			local guid = self:UnitGUID(unit)
 			if not self:Me(guid) then
 				tankList[#tankList+1] = unit
 			end
@@ -118,7 +118,7 @@ function mod:OnEngage()
 		self:CDBar(173917, 82) -- Trembling Earth
 	end
 	self:Berserk(540)
-	self:RegisterUnitEvent("UNIT_HEALTH_FREQUENT", nil, "boss1")
+	self:RegisterUnitEvent("UNIT_HEALTH", nil, "boss1")
 
 	updateTanks(self)
 end
@@ -159,7 +159,7 @@ end
 
 -- General
 
-function mod:UNIT_HEALTH_FREQUENT(event, unit)
+function mod:UNIT_HEALTH(event, unit)
 	local hp = UnitHealth(unit) / UnitHealthMax(unit) * 100
 	if hp < 35 then
 		self:UnregisterUnitEvent(event, unit)
@@ -202,16 +202,16 @@ end
 do
 	function mod:UNIT_TARGET(_, firedUnit)
 		local unit = firedUnit and firedUnit.."target" or "mouseover"
-		local guid = UnitGUID(unit)
+		local guid = self:UnitGUID(unit)
 		if not handsMarks[guid] and self:MobId(guid) == 77893 then -- Grasping Earth
 			local unitTarget = unit.."target"
-			local tarGuid = UnitGUID(unitTarget)
+			local tarGuid = self:UnitGUID(unitTarget)
 			if tarGuid then
 				handsMarks[guid] = true
 				if tarGuid == tank1Skull then
-					SetRaidTarget(unit, 8)
+					self:CustomIcon(false, unit, 8)
 				elseif tarGuid == tank2Cross then
-					SetRaidTarget(unit, 7)
+					self:CustomIcon(false, unit, 7)
 				end
 			end
 		end
@@ -229,7 +229,7 @@ do
 		self:CDBar(156852, 31, CL.count:format(self:SpellName(156852), breathCount)) -- Stone Breath
 
 		if self:GetOption("custom_off_hands_marker") then
-			wipe(handsMarks)
+			handsMarks = {}
 			self:RegisterEvent("UPDATE_MOUSEOVER_UNIT", "UNIT_TARGET")
 			self:RegisterEvent("UNIT_TARGET")
 		end

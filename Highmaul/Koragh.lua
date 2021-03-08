@@ -114,9 +114,9 @@ end
 function mod:OnBossDisable()
 	if self:Mythic() and self.db.profile.custom_off_fel_marker then
 		for _, player in next, felMarks do
-			SetRaidTarget(player, 0)
+			self:CustomIcon(false, player)
 		end
-		wipe(felMarks)
+		felMarks = {}
 	end
 end
 
@@ -335,7 +335,7 @@ do
 	local scheduled, isOnMe = nil, nil
 	function mod:ExpelMagicFelCast(args)
 		self:CDBar(args.spellId, 15.7) -- 15-18, mostly 15.7
-		wipe(felMarks)
+		felMarks = {}
 		isOnMe = nil
 	end
 
@@ -358,7 +358,7 @@ do
 			scheduled = self:ScheduleTimer(warn, 0.3, self, args.spellId)
 		end
 		if self.db.profile.custom_off_fel_marker then
-			SetRaidTarget(args.destName, #felMarks)
+			self:CustomIcon(false, args.destName, #felMarks)
 		end
 	end
 
@@ -368,7 +368,7 @@ do
 			self:StopBar(args.spellId, args.destName)
 		end
 		if self.db.profile.custom_off_fel_marker then
-			SetRaidTarget(args.destName, 0)
+			self:CustomIcon(false, args.destName)
 		end
 	end
 end

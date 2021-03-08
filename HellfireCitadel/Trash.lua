@@ -350,10 +350,10 @@ function mod:VoidBlast(args)
 	local npcUnit = self:GetUnitIdByGUID(args.sourceGUID)
 	if npcUnit then
 		for unit in self:IterateGroup() do
-			if UnitDetailedThreatSituation(unit, npcUnit) then
+			if self:Tanking(npcUnit, unit) then
 				warn = true
 				self:TargetMessageOld(186130, self:UnitName(unit), "red", "warning", nil, nil, true)
-				if self:Me(UnitGUID(unit)) then
+				if self:Me(self:UnitGUID(unit)) then
 					self:Say(186130)
 				end
 				break

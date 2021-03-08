@@ -115,7 +115,7 @@ function mod:OnEngage()
 	isHostile = true
 	inBarrier = false
 	portalTimer = nil
-	wipe(ghostGUIDS)
+	ghostGUIDS = {}
 
 	self:Berserk(641)
 	self:CDBar(181288, 48) -- Fel Prison

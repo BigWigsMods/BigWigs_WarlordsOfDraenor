@@ -80,12 +80,12 @@ function mod:OnEngage()
 	if not self:LFR() then
 		self:Berserk(self:Mythic() and 240 or 300)
 	end
-	self:RegisterUnitEvent("UNIT_HEALTH_FREQUENT", nil, "boss1")
+	self:RegisterUnitEvent("UNIT_HEALTH", nil, "boss1")
 
 	if self:Tank() then
 		local tankList = {}
 		for unit in self:IterateGroup() do
-			if self:Tank(unit) and not self:Me(UnitGUID(unit)) then
+			if self:Tank(unit) and not self:Me(self:UnitGUID(unit)) then
 				tankList[#tankList+1] = unit
 			end
 		end
@@ -161,7 +161,7 @@ function mod:GushingWoundsRemoved(args)
 	end
 end
 
-function mod:UNIT_HEALTH_FREQUENT(event, unit)
+function mod:UNIT_HEALTH(event, unit)
 	local hp = UnitHealth(unit) / UnitHealthMax(unit) * 100
 	if hp < 36 then
 		self:UnregisterUnitEvent(event, unit)

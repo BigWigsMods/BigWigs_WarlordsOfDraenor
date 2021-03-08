@@ -177,7 +177,7 @@ function mod:InfestingSpores(args)
 end
 
 function mod:Decay(args)
-	local playSound = self:Damager() or (self:Tank() and UnitGUID("target") == args.sourceGUID)
+	local playSound = self:Damager() or (self:Tank() and self:UnitGUID("target") == args.sourceGUID)
 	self:MessageOld(args.spellId, "blue", playSound and "alert", CL.casting:format(CL.count:format(args.spellName, decayCount)))
 	decayCount = decayCount + 1
 	self:Bar(args.spellId, 9.5, CL.count:format(args.spellName, decayCount))
@@ -187,8 +187,8 @@ function mod:SporeShooter()
 	self:MessageOld("spore_shooter", "yellow", self:Damager() and "info", CL.small_adds, L.spore_shooter_icon)
 	self:Bar("spore_shooter", 60, CL.small_adds, L.spore_shooter_icon)
 	if self.db.profile.custom_off_spore_shooter_marker then -- Marking
-		wipe(markableMobs)
-		wipe(marksUsed)
+		markableMobs = {}
+		marksUsed = {}
 		self:RegisterEvent("UPDATE_MOUSEOVER_UNIT", "UNIT_TARGET")
 		self:RegisterEvent("UNIT_TARGET")
 	end
@@ -197,12 +197,12 @@ end
 -- Small add marking
 function mod:UNIT_TARGET(_, firedUnit)
 	local unit = firedUnit and firedUnit.."target" or "mouseover"
-	local guid = UnitGUID(unit)
+	local guid = self:UnitGUID(unit)
 	if self:MobId(guid) == 79183 and not markableMobs[guid] then
 		local n = self:Mythic() and 4 or 2
 		for i = 1, n do
 			if not marksUsed[i] then
-				SetRaidTarget(unit, i)
+				self:CustomIcon(false, unit, i)
 				markableMobs[guid] = true
 				marksUsed[i] = guid
 				if i == n then

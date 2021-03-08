@@ -99,7 +99,7 @@ end
 function mod:OnEngage()
 	fixateOnMe = nil
 	wolvesMarker = 3
-	wipe(wolvesMarked)
+	wolvesMarked = {}
 	firestormCount = 1
 	self:RegisterEvent("INSTANCE_ENCOUNTER_ENGAGE_UNIT")
 	if self:Ranged() then
@@ -120,10 +120,10 @@ function mod:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
 	if self:GetOption("custom_off_wolves_marker") then
 		for i=1, 5 do
 			local unit = ("boss%d"):format(i)
-			local guid = UnitGUID(unit)
+			local guid = self:UnitGUID(unit)
 			if guid and not wolvesMarked[guid] and self:MobId(guid) == 76794 then
 				wolvesMarked[guid] = true
-				SetRaidTarget(unit, wolvesMarker)
+				self:CustomIcon(false, unit, wolvesMarker)
 				wolvesMarker = wolvesMarker + 1
 			end
 		end
@@ -220,7 +220,7 @@ end
 function mod:CinderWolves(args)
 	if self:GetOption("custom_off_wolves_marker") then
 		wolvesMarker = 3
-		wipe(wolvesMarked)
+		wolvesMarked = {}
 	end
 
 	self:MessageOld(args.spellId, "red", "alarm")

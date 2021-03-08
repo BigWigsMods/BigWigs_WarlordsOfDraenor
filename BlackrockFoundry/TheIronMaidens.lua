@@ -121,7 +121,7 @@ end
 function mod:OnEngage()
 	shipCount = 0
 	barrierCount = 0
-	wipe(boatTimers)
+	boatTimers = {}
 	self:RegisterUnitEvent("UNIT_POWER_FREQUENT", nil, "boss1", "boss2", "boss3")
 
 	self:Bar(159724, 5) -- Blood Ritual
@@ -151,7 +151,7 @@ do
 				-- 		self:CDBar(spellId, nextTime-t)
 				-- 	end
 				-- end
-				-- wipe(boatTimers)
+				-- boatTimers = {}
 			end
 		else
 			local power = UnitPower(unit)
@@ -436,7 +436,7 @@ do
 			self:Say(args.spellId)
 		end
 		if self.db.profile.custom_off_heartseeker_marker then
-			SetRaidTarget(args.destName, #targets)
+			self:CustomIcon(false, args.destName, #targets)
 		end
 		if #targets == 1 then
 			if isOnABoat() then
@@ -449,7 +449,7 @@ do
 	end
 	function mod:HeartseekerRemoved(args)
 		if self.db.profile.custom_off_heartseeker_marker then
-			SetRaidTarget(args.destName, 0)
+			self:CustomIcon(false, args.destName)
 		end
 	end
 end

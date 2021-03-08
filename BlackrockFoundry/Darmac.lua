@@ -120,7 +120,7 @@ function mod:OnEngage()
 	phase = 1
 	conflagMark = 1
 	tantrumCount = 1
-	wipe(pinnedList)
+	pinnedList = mod:NewTargetList()
 
 	self:Bar(154975, self:Easy() and 19.5 or 9.5) -- Call the Pack
 	self:Bar(154960, 11) -- Pinned Down
@@ -130,7 +130,7 @@ function mod:OnEngage()
 		self:OpenProximity("proximity", 8)
 	end
 
-	self:RegisterUnitEvent("UNIT_HEALTH_FREQUENT", nil, "boss1")
+	self:RegisterUnitEvent("UNIT_HEALTH", nil, "boss1")
 	self:RegisterUnitEvent("UNIT_TARGETABLE_CHANGED", nil, "boss1")
 end
 
@@ -174,7 +174,7 @@ function mod:UNIT_TARGETABLE_CHANGED(_, unit)
 		mountId = nil
 		for i = 2, 5 do
 			local boss = ("boss%d"):format(i)
-			local mobId = self:MobId(UnitGUID(boss))
+			local mobId = self:MobId(self:UnitGUID(boss))
 			if mobId == 76884 or mobId == 76874 or mobId == 76945 or mobId == 76946 then -- Cruelfang, Dreadwing, Ironcrusher, Faultline
 				mountId = boss
 				break
@@ -183,7 +183,7 @@ function mod:UNIT_TARGETABLE_CHANGED(_, unit)
 		self:MessageOld("stages", "cyan", "info", mountId and self:UnitName(mountId) or self:SpellName(169650), false) -- 169650 = Mounted
 		if not mountId then return end -- rip initial timers with 4x Chimearon pets
 
-		local mobId = self:MobId(UnitGUID(mountId))
+		local mobId = self:MobId(self:UnitGUID(mountId))
 		if mobId == 76884 then -- Cruelfang
 			self:CDBar(155061, 13) -- Rend and Tear
 			self:CDBar(155198, 17) -- Savage Howl
@@ -204,8 +204,8 @@ function mod:UNIT_TARGETABLE_CHANGED(_, unit)
 	end
 end
 
-function mod:UNIT_HEALTH_FREQUENT(event, unit)
-	if self:MobId(UnitGUID(unit)) == 76865 then -- Darmac
+function mod:UNIT_HEALTH(event, unit)
+	if self:MobId(self:UnitGUID(unit)) == 76865 then -- Darmac
 		local hp = UnitHealth(unit) / UnitHealthMax(unit) * 100
 		-- Warnings for 85%, 65%, 45%, and 25% for mythic
 		if (phase == 1 and hp < 90) or (phase == 2 and hp < 71) or (phase == 3 and hp < 50) or (phase == 4 and hp < 30) then
@@ -228,14 +228,14 @@ do
 		aboutToCast = false
 
 		local target = unit.."target"
-		local guid = UnitGUID(target)
+		local guid = self:UnitGUID(target)
 
 		if not guid then
 			self:MessageOld(unit == "boss1" and 155499 or 154989, "orange", "alert") -- There's a ~5% chance he won't target anyone, show a generic message
 			return
 		end
 
-		if UnitDetailedThreatSituation(target, unit) ~= false or self:MobId(guid) ~= 1 then return end
+		if self:Tanking(unit, target) or self:MobId(guid) ~= 1 then return end
 
 		if self:Me(guid) then
 			self:Say(unit == "boss1" and 155499 or 154989, 18584) -- 18584 = Breath
@@ -280,11 +280,11 @@ do
 	-- spear marking
 	function mod:UNIT_TARGET(_, firedUnit)
 		local unit = firedUnit and firedUnit.."target" or "mouseover"
-		local guid = UnitGUID(unit)
+		local guid = self:UnitGUID(unit)
 		if spearList[guid] and spearList[guid] ~= "marked" then -- Use this method as one spear can hit multiple people
 			for i = 8, 4, -1 do
 				if not spearMarksUsed[i] then
-					SetRaidTarget(unit, i)
+					self:CustomIcon(false, unit, i)
 					spearList[guid] = "marked"
 					spearMarksUsed[i] = guid
 					return
@@ -316,8 +316,8 @@ do
 			self:Flash(154960)
 		end
 		if self.db.profile.custom_off_pinned_marker then
-			wipe(spearMarksUsed)
-			wipe(spearList)
+			spearMarksUsed = {}
+			spearList = {}
 			self:RegisterEvent("UPDATE_MOUSEOVER_UNIT", "UNIT_TARGET")
 			self:RegisterEvent("UNIT_TARGET")
 			self:ScheduleTimer("UnregisterEvent", 10, "UPDATE_MOUSEOVER_UNIT")
@@ -352,7 +352,7 @@ do
 
 	function mod:ConflagrationApplied(args)
 		if self.db.profile.custom_off_conflag_marker and conflagMark < 4 then
-			SetRaidTarget(args.destName, conflagMark)
+			self:CustomIcon(false, args.destName, conflagMark)
 			conflagMark = conflagMark + 1
 		end
 		-- Time between applications can be so long that delaying is pointless.
@@ -361,7 +361,7 @@ do
 
 	function mod:ConflagrationRemoved(args)
 		if self.db.profile.custom_off_conflag_marker then
-			SetRaidTarget(args.destName, 0)
+			self:CustomIcon(false, args.destName)
 		end
 	end
 end

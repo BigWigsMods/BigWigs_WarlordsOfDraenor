@@ -169,13 +169,13 @@ function mod:OnEngage()
 	regulatorDeaths, shamanDeaths = 0, 0
 	blastTime = self:Mythic() and 25 or 30
 
-	wipe(markedFirecallers) -- Save guids for the entire fight so we never re-mark
-	wipe(volatileFireTargets)
-	wipe(bombTargets)
+	markedFirecallers = {} -- Save guids for the entire fight so we never re-mark
+	volatileFireTargets = {}
+	bombTargets = {}
 	volatileFireOnMe = nil
 	bombOnMe = nil
 	firstOperators = nil
-	wipe(engineerBombs)
+	engineerBombs = {}
 	fixateOnMe = nil
 
 	self:Bar(155209, blastTime) -- Blast
@@ -246,11 +246,11 @@ do
 	local firecallerMarksUsed = {}
 	function mod:UNIT_TARGET(_, firedUnit)
 		local unit = firedUnit and firedUnit.."target" or "mouseover"
-		local guid = UnitGUID(unit)
+		local guid = self:UnitGUID(unit)
 		if self:MobId(guid) == 76821 and not markedFirecallers[guid] then
 			for i = 7, 6, -1 do
 				if not firecallerMarksUsed[i] then
-					SetRaidTarget(unit, i)
+					self:CustomIcon(false, unit, i)
 					firecallerMarksUsed[i] = guid
 					markedFirecallers[guid] = true
 					if i == 6 then
@@ -268,7 +268,7 @@ do
 		firecallerTimer = self:ScheduleTimer("FirecallerRepeater", timer)
 
 		if self.db.profile.custom_off_firecaller_marker then
-			wipe(firecallerMarksUsed)
+			firecallerMarksUsed = {}
 			self:RegisterEvent("UPDATE_MOUSEOVER_UNIT", "UNIT_TARGET")
 			self:RegisterEvent("UNIT_TARGET")
 		end
@@ -278,7 +278,7 @@ do
 	end
 
 	function mod:CauterizeWounds(args)
-		if UnitGUID("target") == args.sourceGUID or UnitGUID("focus") == args.sourceGUID then
+		if self:UnitGUID("target") == args.sourceGUID or self:UnitGUID("focus") == args.sourceGUID then
 			self:MessageOld(args.spellId, "orange", not self:Healer() and "alert")
 		end
 	end
@@ -355,7 +355,7 @@ function mod:ShieldsDown(args)
 		for i = 2, 5 do -- boss1 is always Heart of the Mountain
 			local boss = ("boss%d"):format(i)
 			if self:UnitBuff(boss, args.spellName, 158345) then -- Shields Down
-				SetRaidTarget(boss, 8)
+				self:CustomIcon(false, boss, 8)
 				break
 			end
 		end
@@ -366,8 +366,8 @@ function mod:DamageShield(args)
 	if self.db.profile.custom_on_shieldsdown_marker then
 		for i = 2, 5 do -- boss1 is always Heart of the Mountain
 			local boss = ("boss%d"):format(i)
-			if UnitGUID(boss) == args.sourceGUID and GetRaidTargetIndex(boss) == 8 then
-				SetRaidTarget(boss, 0)
+			if self:UnitGUID(boss) == args.sourceGUID and GetRaidTargetIndex(boss) == 8 then
+				self:CustomIcon(false, boss)
 				break
 			end
 		end

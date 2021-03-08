@@ -142,14 +142,14 @@ function mod:OnEngage()
 	mineCount, novaCount, aberrationCount = 1, 1, 1
 	markOfChaosTarget, brandedOnMe, fixateOnMe, replicatingNova = nil, nil, nil, nil
 	addDeathWarned = nil
-	wipe(fixateMarks)
-	wipe(brandedMarks)
+	fixateMarks = {}
+	brandedMarks = {}
 	self:Bar(156238, 6) -- Arcane Wrath
 	self:Bar(156467, 15) -- Destructive Resonance
 	self:Bar(156471, 25, CL.count:format(self:SpellName(-9945), aberrationCount), 156471) -- Arcane Aberration
 	self:Bar(158605, 34) -- Mark of Chaos
 	self:Bar(157349, 45) -- Force Nova
-	self:RegisterUnitEvent("UNIT_HEALTH_FREQUENT", nil, "boss1")
+	self:RegisterUnitEvent("UNIT_HEALTH", nil, "boss1")
 	if self:LFR() then
 		self:Berserk(900)
 	end
@@ -158,15 +158,15 @@ end
 function mod:OnBossDisable()
 	if self.db.profile.custom_off_branded_marker then
 		for _, player in next, brandedMarks do
-			SetRaidTarget(player, 0)
+			self:CustomIcon(false, player)
 		end
-		wipe(brandedMarks)
+		brandedMarks = {}
 	end
 	if self.db.profile.custom_off_fixate_marker then
 		for player in next, fixateMarks do
-			SetRaidTarget(player, 0)
+			self:CustomIcon(false, player)
 		end
-		wipe(fixateMarks)
+		fixateMarks = {}
 	end
 end
 
@@ -241,7 +241,7 @@ do
 			nightCount = 1
 			glimpseCount = 1
 			gazeOnMe = nil
-			wipe(gazeTargets)
+			gazeTargets = {}
 			self:MessageOld("stages", "cyan", "long", CL.phase:format(phase), false)
 			self:CDBar("adds", 32, CL.adds, L.adds_icon)
 			self:ScheduleTimer(nextAdd, 32, self)
@@ -381,8 +381,8 @@ end
 
 -- General
 
-function mod:UNIT_HEALTH_FREQUENT(event, unit)
-	local mobId = self:MobId(UnitGUID(unit))
+function mod:UNIT_HEALTH(event, unit)
+	local mobId = self:MobId(self:UnitGUID(unit))
 	local hp = UnitHealth(unit) / UnitHealthMax(unit) * 100
 	if mobId == 77428 then
 		if self:Mythic() then
@@ -406,7 +406,7 @@ function mod:PhaseEnd()
 
 	if phase == 2 then -- short intermission for Displacement
 		self:MessageOld("stages", "cyan", "long", CL.phase:format(phase), false)
-		self:RegisterUnitEvent("UNIT_HEALTH_FREQUENT", nil, "boss1")
+		self:RegisterUnitEvent("UNIT_HEALTH", nil, "boss1")
 		-- attempt #4 it seems more like paused if < 10, then starts casting with a 3s cd to get caught up with expired spells
 		self:StopBar(156467) -- Destructive Resonance
 		if self:BarTimeLeft(156238) < 13 then self:PauseBar(156238) end
@@ -453,7 +453,7 @@ function mod:PhaseStart(args)
 	self:CDBar(158605, 38) -- Mark of Chaos
 	self:CDBar(157349, 48) -- Force Nova
 	if args.spellId ~= 157964 or self:Mythic() then -- Replication is the last phase
-		self:RegisterUnitEvent("UNIT_HEALTH_FREQUENT", nil, "boss1")
+		self:RegisterUnitEvent("UNIT_HEALTH", nil, "boss1")
 	end
 end
 
@@ -471,14 +471,14 @@ function mod:ArcaneAberration(args)
 	self:CDBar(156471, aberrationCount == 2 and 46 or 51, CL.count:format(self:SpellName(-9945), aberrationCount), 156471) -- Arcane Aberration
 	if args.spellId == 164299 or (self:Mythic() and phase == 2) then -- Displacing
 		addDeathWarned = nil
-		self:RegisterUnitEvent("UNIT_HEALTH_FREQUENT", nil, "boss2")
+		self:RegisterUnitEvent("UNIT_HEALTH", nil, "boss2")
 	end
 end
 
 function mod:ArcaneWrath()
 	self:MessageOld(156238, "orange", self:Healer() and "alert")
 	self:Bar(156238, 50)
-	wipe(brandedMarks)
+	brandedMarks = {}
 end
 
 do
@@ -486,7 +486,7 @@ do
 	local function mark()
 		sort(brandedMarks)
 		for index, name in ipairs(brandedMarks) do
-			SetRaidTarget(name, index + 2)
+			self:CustomIcon(false, name, index + 2)
 		end
 		scheduled = nil
 	end
@@ -532,7 +532,7 @@ function mod:BrandedRemoved(args)
 		updateProximity()
 	end
 	if self.db.profile.custom_off_branded_marker then
-		SetRaidTarget(args.destName, 0)
+		self:CustomIcon(false, args.destName)
 	end
 end
 
@@ -653,7 +653,7 @@ function mod:FixateApplied(args)
 	if self.db.profile.custom_off_fixate_marker and not fixateMarks[args.destName] then
 		local index = next(fixateMarks) and 2 or 1
 		fixateMarks[args.destName] = index
-		SetRaidTarget(args.destName, index)
+		self:CustomIcon(false, args.destName, index)
 	end
 end
 
@@ -665,12 +665,12 @@ function mod:FixateRemoved(args)
 	end
 	if self.db.profile.custom_off_fixate_marker then
 		fixateMarks[args.destName] = nil
-		SetRaidTarget(args.destName, 0)
+		self:CustomIcon(false, args.destName)
 	end
 end
 
 function mod:NetherEnergy(args)
-	if UnitGUID("target") == args.destGUID and args.amount > 2 then
+	if self:UnitGUID("target") == args.destGUID and args.amount > 2 then
 		self:MessageOld(args.spellId, "orange", "alert", CL.count:format(args.spellName, args.amount))
 	end
 end

@@ -112,7 +112,7 @@ end
 
 function mod:OnBossDisable()
 	if self.db.profile.custom_off_massivesmash_marker and tankName then
-		SetRaidTarget(tankName, oldIcon or 0)
+		self:CustomIcon(false, tankName, oldIcon or 0)
 		tankName = nil
 		oldIcon = nil
 	end
@@ -132,15 +132,15 @@ function mod:UNIT_TARGET()
 
 		if self.db.profile.custom_off_massivesmash_marker then
 			oldIcon = GetRaidTargetIndex(tankName)
-			SetRaidTarget(tankName, 6)
+			self:CustomIcon(false, tankName, 6)
 		end
 	else -- We already have a tank
 		if newTarget ~= tankName then -- new tank
 			if self.db.profile.custom_off_massivesmash_marker then
-				SetRaidTarget(tankName, oldIcon or 0) -- restore old icon
+				self:CustomIcon(false, tankName, oldIcon or 0) -- restore old icon
 				tankName = newTarget -- mark new tank
 				oldIcon = GetRaidTargetIndex(tankName)
-				SetRaidTarget(tankName, 6)
+				self:CustomIcon(false, tankName, 6)
 			else
 				tankName = self:UnitName("boss1target")
 			end
@@ -156,7 +156,7 @@ end
 local function closeSmashProximity(self)
 	if massiveSmashProximity then
 		if self.db.profile.custom_off_massivesmash_marker then
-			SetRaidTarget(tankName, oldIcon or 0)
+			self:CustomIcon(false, tankName, oldIcon or 0)
 			tankName = nil
 			oldIcon = nil
 		end
@@ -174,7 +174,7 @@ local function openSmashProximity(self)
 		if tankName then
 			if self.db.profile.custom_off_massivesmash_marker then
 				oldIcon = GetRaidTargetIndex(tankName)
-				SetRaidTarget(tankName, 6)
+				self:CustomIcon(false, tankName, 6)
 			end
 
 			self:OpenProximity(158054, 6, tankName, true)
@@ -286,13 +286,13 @@ do
 			self:Say(args.spellId, 28836) -- 28836 = "Mark"
 		end
 		if self.db.profile.custom_off_markedfordeath_marker then
-			SetRaidTarget(args.destName, #list)
+			self:CustomIcon(false, args.destName, #list)
 		end
 	end
 
 	function mod:MarkedForDeathRemoved(args)
 		if self.db.profile.custom_off_markedfordeath_marker then
-			SetRaidTarget(args.destName, 0)
+			self:CustomIcon(false, args.destName)
 		end
 	end
 end

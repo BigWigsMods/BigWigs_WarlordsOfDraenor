@@ -319,11 +319,11 @@ end
 function mod:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
 	for i = 1, 5 do
 		local unit = ("boss%d"):format(i)
-		local id = self:MobId(UnitGUID(unit))
+		local id = self:MobId(self:UnitGUID(unit))
 		if id == 80791 and self:GetOption("custom_on_manatarms_marker") then -- Grom'kar Man-at-Arms
-			SetRaidTarget(unit, 8)
+			self:CustomIcon(false, unit, 8)
 		elseif id == 77487 and self:GetOption("custom_on_firemender_marker") then -- Grom'kar Firemender
-			SetRaidTarget(unit, 7)
+			self:CustomIcon(false, unit, 7)
 		end
 	end
 end
@@ -366,8 +366,8 @@ end
 do
 	function mod:GrenadeTarget(_, unit)
 		local target = unit.."target"
-		local guid = UnitGUID(target)
-		if not guid or UnitDetailedThreatSituation(target, unit) ~= false or self:MobId(guid) ~= 1 then return end
+		local guid = self:UnitGUID(target)
+		if not guid or self:Tanking(unit, target) or self:MobId(guid) ~= 1 then return end
 
 		local grenade = self:SpellName(135592) -- Grenade
 		if self:Me(guid) and not self:LFR() then
@@ -402,7 +402,7 @@ function mod:CauterizingBolt(args)
 end
 
 function mod:CauterizingBoltApplied(args)
-	if UnitGUID("target") == args.destGUID and self:Dispeller("magic", true) then
+	if self:UnitGUID("target") == args.destGUID and self:Dispeller("magic", true) then
 		self:TargetMessageOld(args.spellId, args.destName, "red", "alert", nil, nil, true)
 	end
 end

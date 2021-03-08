@@ -91,9 +91,9 @@ function mod:OnEngage()
 	self:RegisterUnitEvent("UNIT_POWER_FREQUENT", nil, "boss1")
 
 	first = nil
-	wipe(barrageMarked)
-	wipe(barrageThrottle)
-	wipe(pillarWarned)
+	barrageMarked = {}
+	barrageThrottle = {}
+	pillarWarned = {}
 	--self:CDBar(162346, 6) -- Crystalline Barrage
 	self:CDBar("adds", 10.5, -10061, "spell_shadow_raisedead") -- Earthwarper
 	self:CDBar("adds", 20.5, -10062, "ability_warrior_endlessrage") -- Berserker
@@ -106,9 +106,9 @@ end
 function mod:OnBossDisable()
 	if self.db.profile.custom_off_barrage_marker then
 		for _, player in next, barrageMarked do
-			SetRaidTarget(player, 0)
+			self:CustomIcon(false, player)
 		end
-		wipe(barrageMarked)
+		barrageMarked = {}
 	end
 end
 
@@ -122,12 +122,12 @@ function mod:UNIT_TARGETABLE_CHANGED(_, unit)
 	-- UnitExists-false: arena1-3, nameplate1-40
 	-- The maximum amount of units up at one time should be 8 (5 boss units, 3 arena units)
 	if UnitExists(unit) then
-		if self.db.profile.custom_on_shard_marker and self:MobId(UnitGUID(unit)) == 80551 then
+		if self.db.profile.custom_on_shard_marker and self:MobId(self:UnitGUID(unit)) == 80551 then
 			if not first then
 				first = unit
 			else
-				SetRaidTarget(first, 8)
-				SetRaidTarget(unit, 7)
+				self:CustomIcon(false, first, 8)
+				self:CustomIcon(false, unit, 7)
 			end
 		end
 		self:RegisterUnitEvent("UNIT_POWER_FREQUENT", nil, unit)
@@ -143,7 +143,7 @@ do
 		elseif (power > 18 and not pillarWarned[unit]) or (self:Mythic() and power > 43 and pillarWarned[unit] < 2) then -- ~5s warning
 			pillarWarned[unit] = (pillarWarned[unit] or 0) + 1
 			local t = GetTime()
-			local isMote = self:MobId(UnitGUID(unit)) == 80557
+			local isMote = self:MobId(self:UnitGUID(unit)) == 80557
 			if not isMote or t-prev > 5 then -- not Mote or first Mote cast in 5s
 				self:MessageOld(162518, "red", "warning", CL.soon:format(self:SpellName(162518)))
 				if isMote then prev = t end
@@ -153,7 +153,7 @@ do
 end
 
 function mod:Accretion(args)
-	if self:MobId(args.sourceGUID) ~= 80557 and UnitGUID("target") == args.sourceGUID and args.amount > 3 then
+	if self:MobId(args.sourceGUID) ~= 80557 and self:UnitGUID("target") == args.sourceGUID and args.amount > 3 then
 		local raidIcon = CombatLog_String_GetIcon(args.sourceRaidFlags)
 		self:MessageOld(args.spellId, "yellow", nil, raidIcon..CL.count:format(args.spellName, args.amount))
 	end
@@ -185,7 +185,7 @@ do
 		if self.db.profile.custom_off_barrage_marker then
 			for i=1, 5 do
 				if not barrageMarked[i] then
-					SetRaidTarget(args.destName, i)
+					self:CustomIcon(false, args.destName, i)
 					barrageMarked[i] = args.destName
 					break
 				end
@@ -196,7 +196,7 @@ end
 
 function mod:CrystallineBarrageRemoved(args)
 	if self.db.profile.custom_off_barrage_marker then
-		SetRaidTarget(args.destName, 0)
+		self:CustomIcon(false, args.destName)
 		for i=1, 5 do
 			if barrageMarked[i] == args.destName then
 				barrageMarked[i] = nil

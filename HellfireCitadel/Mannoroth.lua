@@ -121,8 +121,8 @@ function mod:OnEngage()
 	portalsClosed = 0
 	phase = 1
 	curseCount = 1
-	wipe(markOfDoomTargets)
-	wipe(wrathOfGuldanTargets)
+	markOfDoomTargets = {}
+	wrathOfGuldanTargets = {}
 	markOfDoomOnMe = nil
 	wrathOfGuldanOnMe = nil
 	if self:Mythic() then -- non-mythic starts after the portals close
@@ -182,8 +182,11 @@ end
 
 do
 	local list, timer = mod:NewTargetList(), nil
+	local function wipe()
+		list = mod:NewTargetList()
+	end
 	function mod:MarkOfDoomCast(args)
-		wipe(list)
+		wipe()
 		self:MessageOld(args.spellId, "yellow", "info", CL.casting:format(args.spellName))
 		self:CDBar(args.spellId, 30)
 	end
@@ -204,7 +207,7 @@ do
 			self:TargetMessageOld(args.spellId, args.destName, "blue", "alarm", markOfDoomOnMe)
 			self:TargetBar(args.spellId, 15, args.destName, markOfDoomOnMe)
 			self:Flash(args.spellId)
-			self:ScheduleTimer(wipe, 1, list)
+			self:ScheduleTimer(wipe, 1)
 		end
 
 		if count == 3 and timer then -- After the :Me check as we might be the last player
@@ -214,7 +217,7 @@ do
 		end
 
 		if self:GetOption("custom_off_doom_marker") and self:Mythic() then
-			SetRaidTarget(args.destName, count)
+			self:CustomIcon(false, args.destName, count)
 		end
 
 		if not tContains(markOfDoomTargets, args.destName) then
@@ -235,7 +238,7 @@ function mod:MarkOfDoomRemoved(args)
 	tDeleteItem(markOfDoomTargets, args.destName)
 
 	if self:GetOption("custom_off_doom_marker") and self:Mythic() then
-		SetRaidTarget(args.destName, 0)
+		self:CustomIcon(false, args.destName)
 	end
 
 	if #markOfDoomTargets == 0 then
@@ -296,7 +299,7 @@ do
 		end
 
 		if self:GetOption("custom_off_wrath_marker") then
-			SetRaidTarget(args.destName, reverseCount)
+			self:CustomIcon(false, args.destName, reverseCount)
 		end
 
 		if not tContains(wrathOfGuldanTargets, args.destName) then
@@ -316,7 +319,7 @@ function mod:WrathOfGuldanRemoved(args)
 	tDeleteItem(wrathOfGuldanTargets, args.destName)
 
 	if self:GetOption("custom_off_wrath_marker") then
-		SetRaidTarget(args.destName, 0)
+		self:CustomIcon(false, args.destName)
 	end
 
 	if #wrathOfGuldanTargets == 0 then
@@ -350,7 +353,7 @@ do
 	local list, isOnMe, timer = {}, nil, nil
 	function mod:MannorothsGazeCast(args)
 		timer, isOnMe = nil, nil
-		wipe(list)
+		list = {}
 		self:MessageOld(181597, "yellow", "info", CL.casting:format(args.spellName))
 		self:Bar(181597, 47, args.spellName)
 	end
@@ -366,7 +369,7 @@ do
 				self:TargetMessageOld(181597, target, "blue", "alarm", gaze)
 			end
 			if self:GetOption("custom_off_gaze_marker") then
-				SetRaidTarget(target, i)
+				self:CustomIcon(false, target, i)
 			end
 			list[i] = self:ColorName(target)
 		end
@@ -391,7 +394,7 @@ do
 
 	function mod:MannorothsGazeRemoved(args)
 		if self:GetOption("custom_off_gaze_marker") then
-			SetRaidTarget(args.destName, 0)
+			self:CustomIcon(false, args.destName)
 		end
 	end
 end

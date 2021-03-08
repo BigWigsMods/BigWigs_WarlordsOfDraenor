@@ -103,7 +103,7 @@ function mod:OnEngage()
 	mendingCount = 1
 	phase = 1
 	fontOnMe, edictOnMe, tempestActive = nil, nil, nil
-	wipe(inverseFontTargets)
+	inverseFontTargets = {}
 
 	self:Bar(180260, 10, CL.count:format(self:SpellName(180260), 1)) -- Annihilating Strike
 	self:Bar(185237, 16) -- Touch of Harm

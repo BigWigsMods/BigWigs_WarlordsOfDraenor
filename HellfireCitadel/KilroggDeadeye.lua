@@ -86,7 +86,7 @@ end
 function mod:OnEngage()
 	deathThroesCount = 1
 	visionCount = 1
-	wipe(mobCollector)
+	mobCollector = {}
 	self:CDBar(182428, 60, CL.count:format(self:SpellName(182428), visionCount)) -- Vision of Death
 	self:CDBar(180224, 40, CL.count:format(self:SpellName(180224), deathThroesCount)) -- Death Throes
 	self:CDBar(188929, 25) -- Heart Seeker
@@ -110,7 +110,7 @@ do
 	}
 	function mod:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
 		for i = 1, 5 do
-			local guid = UnitGUID("boss"..i)
+			local guid = self:UnitGUID("boss"..i)
 			if guid and not mobCollector[guid] then
 				mobCollector[guid] = true
 				local id = adds[self:MobId(guid)]
@@ -177,7 +177,7 @@ function mod:DeathThroes(args)
 end
 
 function mod:ShredArmor(args)
-	if UnitDetailedThreatSituation("player", "boss1") then
+	if self:Tanking("boss1") then
 		self:MessageOld(args.spellId, "red", "warning")
 	end
 	self:CDBar(args.spellId, 17) -- 17s but can be delayed by other abilities

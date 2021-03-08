@@ -92,7 +92,7 @@ function mod:OnEngage()
 	if self:Tank() then
 		tankList = {}
 		for unit in self:IterateGroup() do
-			if self:Tank(unit) and not self:Me(UnitGUID(unit)) then
+			if self:Tank(unit) and not self:Me(self:UnitGUID(unit)) then
 				tankList[#tankList+1] = self:UnitName(unit) -- Use name instead of unit directly as it can change midfight (generally LFR quitters)
 			end
 		end
@@ -216,14 +216,14 @@ do
 				self:TargetMessageOld(181508, target, "green", "alarm", not self:LFR() and CL.count_icon:format(L.seed, i, i))
 			end
 			if self:GetOption("custom_off_seed_marker") then
-				SetRaidTarget(target, i)
+				self:CustomIcon(false, target, i)
 			end
 			list[i] = self:ColorName(target)
 		end
 		if not isOnMe then
 			self:TargetMessageOld(181508, list, "yellow")
 		else
-			wipe(list)
+			list = {}
 		end
 		isOnMe = nil
 	end
@@ -250,7 +250,7 @@ do
 
 	function mod:SeedOfDestructionRemoved(args)
 		if self:GetOption("custom_off_seed_marker") then
-			SetRaidTarget(args.destName, 0)
+			self:CustomIcon(false, args.destName)
 		end
 	end
 end

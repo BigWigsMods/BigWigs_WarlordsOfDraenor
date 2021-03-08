@@ -135,7 +135,7 @@ do
 			if slamCount < 3 then -- slam slam rampage
 				self:CDBar(155326, 61) -- 61-64
 			end
-			wipe(petrifyTargets)
+			petrifyTargets = {}
 			petrifyOnMe = nil
 			scheduled = self:ScheduleTimer(openProximity, 0.2, self)
 			if not first then

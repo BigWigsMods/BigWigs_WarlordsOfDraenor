@@ -92,7 +92,7 @@ end
 function mod:OnEngage()
 	felAndVoid = nil
 	blackHoleCount = 1
-	wipe(mobCollector)
+	mobCollector = {}
 	self:CDBar(190223, 8) -- Fel Strike
 	self:CDBar(186407, 19) -- Fel Surge 19-24
 end

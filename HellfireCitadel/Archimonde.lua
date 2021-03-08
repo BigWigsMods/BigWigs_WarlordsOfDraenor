@@ -186,7 +186,7 @@ function mod:OnEngage()
 	self:Bar(183817, 43) -- Shadowfel Burst
 	burstTimer = self:ScheduleTimer("ShadowfelBurstSoon", 33)
 	-- Desecrate initial cast is at 85%
-	self:RegisterUnitEvent("UNIT_HEALTH_FREQUENT", nil, "boss1")
+	self:RegisterUnitEvent("UNIT_HEALTH", nil, "boss1")
 end
 
 --------------------------------------------------------------------------------
@@ -235,7 +235,7 @@ function mod:Phases(_, _, _, spellId)
 		self:CancelTimer(mythicChaosBar)
 		mythicChaosMsg, mythicChaosBar = nil, nil
 		self:StopBar(L.overfiend) -- Felborne Overfiend
-		self:UnregisterUnitEvent("UNIT_HEALTH_FREQUENT", "boss1") -- Ignore 40%, 25% warnings inside mythic P3 (50%->0%)
+		self:UnregisterUnitEvent("UNIT_HEALTH", "boss1") -- Ignore 40%, 25% warnings inside mythic P3 (50%->0%)
 
 		self:MessageOld("stages", "cyan", "long", CL.phase:format(3), false)
 		self:Bar(190394, 9.5) -- Dark Conduit
@@ -256,7 +256,7 @@ do
 		[43] = CL.phase:format(3), -- 40%
 		[28] = mod:SpellName(182225), -- 25% Rain of Chaos
 	}
-	function mod:UNIT_HEALTH_FREQUENT(event, unit)
+	function mod:UNIT_HEALTH(event, unit)
 		local hp = UnitHealth(unit) / UnitHealthMax(unit) * 100
 		if hp < nextPhaseSoon then
 			self:MessageOld("stages", "cyan", "info", CL.soon:format(phaseMessage[nextPhaseSoon]), false)
@@ -297,7 +297,7 @@ end
 
 function mod:DeathBrand(args)
 	self:TargetMessageOld(args.spellId, args.destName, "yellow")
-	if self:Tank() and not self:Me(args.destGUID) and not UnitDetailedThreatSituation("player", "boss1") then -- second taunt warning for other tank
+	if self:Tank() and not self:Me(args.destGUID) and not self:Tanking("boss1") then -- second taunt warning for other tank
 		self:PlaySound(args.spellId, "warning")
 	end
 end
@@ -351,7 +351,7 @@ do
 		burstCount = burstCount + 1
 		if self:Ranged() then
 			isOnMe = nil
-			wipe(proxList)
+			proxList = {}
 			self:OpenProximity(args.spellId, 9) -- 8+1 safety
 		end
 		self:MessageOld(args.spellId, "orange", "warning")
@@ -408,7 +408,7 @@ do
 				self:TargetMessageOld(spellId, target, "blue", "alarm", torment)
 			end
 			if self:GetOption("custom_off_torment_marker") then
-				SetRaidTarget(target, i)
+				self:CustomIcon(false, target, i)
 			end
 			list[i] = self:ColorName(target)
 		end
@@ -418,7 +418,7 @@ do
 				self:PlaySound(spellId, "alarm")
 			end
 		else
-			wipe(list)
+			list = {}
 		end
 		tormentCount = tormentCount + 1
 	end
@@ -445,7 +445,7 @@ do
 
 	function mod:ShackledTormentRemoved(args)
 		if self:GetOption("custom_off_torment_marker") then
-			SetRaidTarget(args.destName, 0)
+			self:CustomIcon(false, args.destName)
 		end
 
 		currentTorment = currentTorment - 1 -- Compensates for a shackle not being broken before the next 3 arrive (count the current total)
@@ -711,9 +711,9 @@ do
 	local prev, count, infernals = 0, 1, {}
 	function mod:UNIT_TARGET(_, firedUnit)
 		local unit = firedUnit and firedUnit.."target" or "mouseover"
-		local guid = UnitGUID(unit)
+		local guid = self:UnitGUID(unit)
 		if infernals[guid] then
-			SetRaidTarget(unit, infernals[guid])
+			self:CustomIcon(false, unit, infernals[guid])
 			infernals[guid] = nil
 			if not next(infernals) then
 				self:UnregisterEvent("UPDATE_MOUSEOVER_UNIT")
@@ -727,7 +727,7 @@ do
 		if t-prev > 30 then
 			count = 1
 			prev = t
-			wipe(infernals)
+			infernals = {}
 		end
 		if self:GetOption("custom_off_infernal_marker") then
 			infernals[args.destGUID] = count
@@ -833,7 +833,7 @@ do
 	local function legionSay(self, spellId)
 		-- APPLIED should alawys be in debuff remaining order, manually sort by debuff remaining if any issues show up
 		timer = nil
-		wipe(proxList)
+		proxList = {}
 		for i = 1, #list do
 			local target = list[i]
 			if target == isOnMe then
@@ -843,7 +843,7 @@ do
 				self:TargetMessageOld(spellId, target, "blue", "alarm", CL.count_icon:format(self:SpellName(28836), i, i)) -- 28836 = "Mark"
 			end
 			if self:GetOption("custom_off_legion_marker") then
-				SetRaidTarget(target, i)
+				self:CustomIcon(false, target, i)
 			end
 			proxList[i] = target
 			list[i] = self:ColorName(target)
@@ -852,7 +852,7 @@ do
 			self:TargetMessageOld(spellId, list, "yellow", nil, CL.count:format(self:SpellName(spellId), markOfTheLegionCount-1))
 			self:OpenProximity(spellId, 10, proxList, true)
 		else
-			wipe(list)
+			list = {}
 		end
 	end
 
@@ -899,7 +899,7 @@ do
 
 	function mod:MarkOfTheLegionRemoved(args)
 		if self:GetOption("custom_off_legion_marker") then
-			SetRaidTarget(args.destName, 0)
+			self:CustomIcon(false, args.destName)
 		end
 
 		tDeleteItem(proxList, args.destName)

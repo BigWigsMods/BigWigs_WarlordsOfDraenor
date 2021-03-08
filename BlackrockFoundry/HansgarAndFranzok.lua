@@ -96,7 +96,7 @@ do
 
 	function mod:JumpAway(unit)
 		self:MessageOld("stages", "cyan", "info", phaseThreats[phase], false)
-		if self:MobId(UnitGUID(unit)) == 76974 then -- Franzok
+		if self:MobId(self:UnitGUID(unit)) == 76974 then -- Franzok
 			self:StopBar(153470) -- Skullcracker
 			self:StopBar(160838) -- Disrupting Roar
 		end
@@ -107,10 +107,10 @@ do
 			if phase < 3 then
 				self:MessageOld("stages", "cyan", "info", CL.over:format(phaseThreats[phase]), false)
 				phase = phase + 1
-				--self:RegisterUnitEvent("UNIT_HEALTH_FREQUENT", "Phases", "boss1")
+				--self:RegisterUnitEvent("UNIT_HEALTH", "Phases", "boss1")
 				--[[
 				-- paused? cds are all over the place when he comes back
-				if self:MobId(UnitGUID(unit)) == 76974 then -- Franzok
+				if self:MobId(self:UnitGUID(unit)) == 76974 then -- Franzok
 					self:CDBar(153470, 21) -- Skullcracker
 					self:CDBar(160838, 46) -- Disrupting Roar
 				end
@@ -122,9 +122,9 @@ do
 				-- phase 3, Searing while Hans'gar is up, then Stamping when he jumps back down
 				self:MessageOld("stages", "cyan", "info", CL.soon:format(self:SpellName(158139)), false) -- Stamping Presses
 			end
-		elseif self:MobId(UnitGUID(unit)) == 76974 then -- Franzok jumped away (doesn't Tactical Retreat anymore?)
+		elseif self:MobId(self:UnitGUID(unit)) == 76974 then -- Franzok jumped away (doesn't Tactical Retreat anymore?)
 			self:MessageOld("stages", "cyan", "info", phaseThreats[phase], false)
-			if self:MobId(UnitGUID(unit)) == 76974 then -- Franzok
+			if self:MobId(self:UnitGUID(unit)) == 76974 then -- Franzok
 				self:StopBar(153470) -- Skullcracker
 				self:StopBar(160838) -- Disrupting Roar
 			end
@@ -134,8 +134,8 @@ end
 
 function mod:BodySlamTarget(_, unit)
 	local target = unit.."target"
-	local guid = UnitGUID(target)
-	if not guid or UnitDetailedThreatSituation(target, unit) ~= false or self:MobId(guid) ~= 1 then return end
+	local guid = self:UnitGUID(target)
+	if not guid or self:Tanking(unit, target) or self:MobId(guid) ~= 1 then return end
 
 	if self:Me(guid) then
 		self:Say(155747)

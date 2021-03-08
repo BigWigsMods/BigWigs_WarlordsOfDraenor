@@ -192,11 +192,11 @@ function mod:LumberingStrength(args)
 	local npcUnit = self:GetUnitIdByGUID(args.destGUID)
 	if npcUnit then
 		for unit in self:IterateGroup() do
-			if UnitDetailedThreatSituation(unit, npcUnit) then
+			if self:Tanking(npcUnit, unit) then
 				warn = true
 				-- NPC gains the buff and chases the tank. We try to warn which tank is being chased.
 				self:TargetMessageOld(args.spellId, self:UnitName(unit), "red", "warning", icon .. args.spellName)
-				if self:Me(UnitGUID(unit)) then
+				if self:Me(self:UnitGUID(unit)) then
 					self:Flash(args.spellId)
 				end
 				break

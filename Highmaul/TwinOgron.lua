@@ -107,7 +107,7 @@ function mod:OnEngage()
 	self:CDBar(158521, 26) -- Double Slash
 	self:CDBar(158134, polInterval + 10) -- Shield Charge
 	if self:Mythic() then
-		wipe(volatilityTargets)
+		volatilityTargets = {}
 		volatilityCount, volatilityOnMe = 1, nil
 		arcaneTwisted, arcaneTwistedTime = nil, GetTime() + 33
 		self:Bar(163372, 62) -- Arcane Volatility
@@ -121,10 +121,10 @@ function mod:OnBossDisable()
 	if self:Mythic() then
 		if self.db.profile.custom_off_volatility_marker then
 			for _, player in next, volatilityTargets do
-				SetRaidTarget(player, 0)
+				self:CustomIcon(false, player)
 			end
 		end
-		wipe(volatilityTargets)
+		volatilityTargets = {}
 	end
 end
 
@@ -164,7 +164,7 @@ end
 
 function mod:ShieldBash(args)
 	local unit = self:GetUnitIdByGUID(args.sourceGUID)
-	if (unit and UnitDetailedThreatSituation("player", unit)) or not self:Tank() then -- Exclude the tank tanking Phemos
+	if (unit and self:Tanking(unit)) or not self:Tank() then -- Exclude the tank tanking Phemos
 		self:MessageOld(args.spellId, "orange")
 		if self:Mythic() and isNextEmpowered(args.sourceGUID, 23) then
 			self:CDBar(args.spellId, 23, ("%s (%s)"):format(args.spellName, STRING_SCHOOL_ARCANE))
@@ -228,7 +228,7 @@ end
 
 function mod:DoubleSlash(args)
 	local unit = self:GetUnitIdByGUID(args.sourceGUID)
-	if (unit and UnitDetailedThreatSituation("player", unit)) or not self:Tank() then -- Exclude the tank tanking Pol
+	if (unit and self:Tanking(unit)) or not self:Tank() then -- Exclude the tank tanking Pol
 		self:MessageOld(args.spellId, "yellow")
 		if self:Mythic() and isNextEmpowered(args.sourceGUID, 27) then
 			self:CDBar(args.spellId, 27, ("%s (%s)"):format(args.spellName, STRING_SCHOOL_ARCANE))
@@ -333,7 +333,7 @@ do
 		if not tContains(volatilityTargets, args.destName) then -- SPELL_AURA_REFRESH
 			volatilityTargets[#volatilityTargets+1] = args.destName
 			if self.db.profile.custom_off_volatility_marker then
-				SetRaidTarget(args.destName, #volatilityTargets)
+				self:CustomIcon(false, args.destName, #volatilityTargets)
 			end
 		end
 		updateProximity()
@@ -354,7 +354,7 @@ do
 		end
 		updateProximity()
 		if self.db.profile.custom_off_volatility_marker then
-			SetRaidTarget(args.destName, 0)
+			self:CustomIcon(false, args.destName)
 		end
 	end
 end

@@ -100,7 +100,7 @@ function mod:OnEngage()
 	shadowEscapeCount = 0
 	nextPhase, nextPhaseSoon = 70, 75.5
 	eyeTarget = nil
-	wipe(windTargets)
+	windTargets = {}
 
 	if not self:LFR() then
 		self:Berserk(self:Heroic() and 540 or 480)
@@ -112,7 +112,7 @@ function mod:OnEngage()
 	self:CDBar(182200, self:Easy() and 6.3 or 5.5) -- Fel Chakram
 	self:CDBar(181956, self:Easy() and 21 or 17) -- Phantasmal Winds
 	self:CDBar(182323, self:Easy() and 34 or 25) -- Phantasmal Wounds
-	self:RegisterUnitEvent("UNIT_HEALTH_FREQUENT", nil, "boss1")
+	self:RegisterUnitEvent("UNIT_HEALTH", nil, "boss1")
 end
 
 --------------------------------------------------------------------------------
@@ -157,7 +157,7 @@ do
 end
 
 function mod:PhantasmalWinds(args)
-	wipe(windTargets)
+	windTargets = {}
 end
 
 do
@@ -180,14 +180,14 @@ do
 			isOnMe = args.destName
 		end
 		if self:GetOption("custom_off_wind_marker") then
-			SetRaidTarget(args.destName, #windTargets)
+			self:CustomIcon(false, args.destName, #windTargets)
 		end
 	end
 end
 
 function mod:PhantasmalWindsRemoved(args)
 	if self:GetOption("custom_off_wind_marker") then
-		SetRaidTarget(args.destName, 0)
+		self:CustomIcon(false, args.destName)
 	end
 	tDeleteItem(windTargets, args.destName)
 end
@@ -282,14 +282,14 @@ do
 			self:Say(args.spellId)
 		end
 		if self:GetOption("custom_off_binding_marker") then
-			SetRaidTarget(args.destName, #list)
+			self:CustomIcon(false, args.destName, #list)
 		end
 	end
 
 	function mod:DarkBindingsRemoved(args)
 		bindingsRemoved = bindingsRemoved + 1
 		if self:GetOption("custom_off_binding_marker") then
-			SetRaidTarget(args.destName, 0)
+			self:CustomIcon(false, args.destName)
 		end
 		if bindingsRemoved % 2 == 0 then -- 2 events per pair of bindings removed (player a and player b)
 			self:MessageOld(args.spellId, "cyan", nil, L.bindings_removed:format(bindingsRemoved/2))
@@ -347,7 +347,7 @@ do
 	end
 end
 
-function mod:UNIT_HEALTH_FREQUENT(event, unit)
+function mod:UNIT_HEALTH(event, unit)
 	local hp = UnitHealth(unit) / UnitHealthMax(unit) * 100
 	if hp < nextPhaseSoon then
 		nextPhaseSoon = nextPhaseSoon - 25
