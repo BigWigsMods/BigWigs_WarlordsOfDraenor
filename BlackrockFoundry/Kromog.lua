@@ -175,7 +175,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, _, spellId)
 end
 
 function mod:WarpedArmor(args)
-	self:StackMessage(args.spellId, args.destName, args.amount, "yellow", args.amount and "warning") -- swap at 2 or 3 stacks
+	self:StackMessageOld(args.spellId, args.destName, args.amount, "yellow", args.amount and "warning") -- swap at 2 or 3 stacks
 	self:CDBar(args.spellId, 14)
 end
 

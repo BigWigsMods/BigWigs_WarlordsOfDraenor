@@ -303,7 +303,7 @@ function mod:DeathBrand(args)
 end
 
 function mod:ShadowBlast(args)
-	self:StackMessage(args.spellId, args.destName, args.amount, "yellow")
+	self:StackMessageOld(args.spellId, args.destName, args.amount, "yellow")
 end
 
 -- Phase 1

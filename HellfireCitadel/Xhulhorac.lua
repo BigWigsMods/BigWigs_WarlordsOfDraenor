@@ -222,7 +222,7 @@ end
 
 function mod:Felsinged_WastingVoid(args)
 	if self:Me(args.destGUID) then
-		self:StackMessage(args.spellId, args.destName, args.amount, "blue")
+		self:StackMessageOld(args.spellId, args.destName, args.amount, "blue")
 	end
 end
 
@@ -331,7 +331,7 @@ end
 
 function mod:OverwhelmingChaos(args)
 	local amount = args.amount or 1
-	self:StackMessage(args.spellId, args.destName, amount, "red")
+	self:StackMessageOld(args.spellId, args.destName, amount, "red")
 	self:Bar(args.spellId, 10, CL.count:format(args.spellName, amount + 1))
 end
 

@@ -335,7 +335,7 @@ end
 
 function mod:RendAndTear(args)
 	if self:Tank(args.destName) then
-		self:StackMessage(155061, args.destName, args.amount, "yellow", args.amount and "warning")
+		self:StackMessageOld(155061, args.destName, args.amount, "yellow", args.amount and "warning")
 	end
 end
 
@@ -368,7 +368,7 @@ end
 
 function mod:SearedFlesh(args)
 	if args.amount % 3 == 0 then
-		self:StackMessage(args.spellId, args.destName, args.amount, "yellow", args.amount > 8 and "warning")
+		self:StackMessageOld(args.spellId, args.destName, args.amount, "yellow", args.amount > 8 and "warning")
 	end
 end
 
@@ -378,7 +378,7 @@ function mod:Stampede(args)
 end
 
 function mod:CrushArmor(args)
-	self:StackMessage(args.spellId, args.destName, args.amount, "yellow", args.amount and "warning")
+	self:StackMessageOld(args.spellId, args.destName, args.amount, "yellow", args.amount and "warning")
 end
 
 function mod:Epicenter()

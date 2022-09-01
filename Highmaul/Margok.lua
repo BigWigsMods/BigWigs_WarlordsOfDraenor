@@ -318,7 +318,7 @@ do -- Gaze/Eyes of the Abyss
 		if self:Me(args.destGUID) then
 			gazeOnMe = true
 			local amount = args.amount or 1
-			self:StackMessage(args.spellId, args.destName, amount, "blue", amount > 2 and "warning")
+			self:StackMessageOld(args.spellId, args.destName, amount, "blue", amount > 2 and "warning")
 			self:TargetBar(args.spellId, 15, args.destName)
 
 			self:CancelTimer(timer)
@@ -460,7 +460,7 @@ end
 function mod:AcceleratedAssault(args)
 	if args.amount > 5 and args.amount % 3 == 0 then -- at 5 it stacks every second
 		-- This is the buff the boss gains if he is hitting the same tank. It's not really a stack message on the tank, but this is a clearer way of presenting it.
-		self:StackMessage(args.spellId, self:UnitName("boss1target"), args.amount, "yellow", "warning")
+		self:StackMessageOld(args.spellId, self:UnitName("boss1target"), args.amount, "yellow", "warning")
 	end
 end
 
@@ -678,7 +678,7 @@ end
 -- Reaver
 function mod:CrushArmor(args)
 	local amount = args.amount or 1
-	self:StackMessage(args.spellId, args.destName, amount, "yellow", amount > 2 and "alarm")
+	self:StackMessageOld(args.spellId, args.destName, amount, "yellow", amount > 2 and "alarm")
 	self:CDBar(args.spellId, 10) -- 9.7-15.9
 end
 

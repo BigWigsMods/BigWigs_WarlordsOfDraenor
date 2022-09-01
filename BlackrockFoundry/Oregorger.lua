@@ -101,7 +101,7 @@ function mod:AcidTorrent(args)
 end
 
 function mod:AcidMaw(args)
-	self:StackMessage(args.spellId, args.destName, args.amount, "yellow", args.amount > 2 and "warning")
+	self:StackMessageOld(args.spellId, args.destName, args.amount, "yellow", args.amount > 2 and "warning")
 end
 
 do

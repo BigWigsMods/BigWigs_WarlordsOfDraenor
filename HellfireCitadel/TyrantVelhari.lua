@@ -380,7 +380,7 @@ end
 
 function mod:SealOfDecay(args)
 	local amount = args.amount or 1
-	self:StackMessage(180000, args.destName, amount, "orange", amount > 2 and "warning")
+	self:StackMessageOld(180000, args.destName, amount, "orange", amount > 2 and "warning")
 end
 
 function mod:TouchOfHarm(args)

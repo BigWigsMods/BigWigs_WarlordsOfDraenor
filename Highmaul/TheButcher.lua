@@ -137,7 +137,7 @@ function mod:BoundingCleave(args)
 end
 
 function mod:Tenderizer(args)
-	self:StackMessage(args.spellId, args.destName, args.amount, "orange", args.amount and "warning")
+	self:StackMessageOld(args.spellId, args.destName, args.amount, "orange", args.amount and "warning")
 	self:CDBar(args.spellId, 17)
 end
 
@@ -150,7 +150,7 @@ end
 
 function mod:GushingWounds(args)
 	if self:Me(args.destGUID) and args.amount > 2 then
-		self:StackMessage(args.spellId, args.destName, args.amount, "blue", "alarm")
+		self:StackMessageOld(args.spellId, args.destName, args.amount, "blue", "alarm")
 		self:TargetBar(args.spellId, 15, args.destName)
 	end
 end

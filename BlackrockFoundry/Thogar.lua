@@ -359,7 +359,7 @@ end
 -- General
 
 function mod:Enkindle(args)
-	self:StackMessage(args.spellId, args.destName, args.amount, "yellow", args.amount and "warning")
+	self:StackMessageOld(args.spellId, args.destName, args.amount, "yellow", args.amount and "warning")
 	self:CDBar(args.spellId, 12) -- can be delayed by Pulse Grenade for ~2s
 end
 

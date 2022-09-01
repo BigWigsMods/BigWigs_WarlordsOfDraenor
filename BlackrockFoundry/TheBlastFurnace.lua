@@ -521,7 +521,7 @@ do
 end
 
 function mod:Heat(args)
-	self:StackMessage(args.spellId, args.destName, args.amount, "yellow", args.amount and "warning")
+	self:StackMessageOld(args.spellId, args.destName, args.amount, "yellow", args.amount and "warning")
 	self:Bar(args.spellId, 10)
 end
 

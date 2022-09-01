@@ -199,7 +199,7 @@ end
 
 function mod:BadBreath(args)
 	if self:Tank(args.destName) then
-		self:StackMessage(args.spellId, args.destName, args.amount, "orange", "warning", nil, nil, true)
+		self:StackMessageOld(args.spellId, args.destName, args.amount, "orange", "warning", nil, nil, true)
 	end
 end
 
@@ -322,7 +322,7 @@ end
 
 function mod:HellfireBlast(args)
 	if self:Me(args.destGUID) then
-		self:StackMessage(args.spellId, args.destName, args.amount, "blue", "info")
+		self:StackMessageOld(args.spellId, args.destName, args.amount, "blue", "info")
 	end
 end
 
@@ -330,7 +330,7 @@ end
 
 function mod:SealOfDecay(args)
 	if args.amount % 3 == 0 then
-		self:StackMessage(args.spellId, args.destName, args.amount, "yellow")
+		self:StackMessageOld(args.spellId, args.destName, args.amount, "yellow")
 	end
 end
 
@@ -369,7 +369,7 @@ end
 --[[ Weaponlord Mehlkhior ]]--
 
 function mod:FelbloodStrike(args)
-	self:StackMessage(args.spellId, args.destName, args.amount, "orange")
+	self:StackMessageOld(args.spellId, args.destName, args.amount, "orange")
 end
 
 --[[ Azgalor ]]--

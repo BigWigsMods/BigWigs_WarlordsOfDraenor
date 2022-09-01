@@ -160,7 +160,7 @@ end
 
 function mod:Rot(args)
 	local amount = args.amount or 1
-	self:StackMessage(args.spellId, args.destName, amount, "yellow", amount > 3 and "warning")
+	self:StackMessageOld(args.spellId, args.destName, amount, "yellow", amount > 3 and "warning")
 end
 
 function mod:NecroticBreath(args)

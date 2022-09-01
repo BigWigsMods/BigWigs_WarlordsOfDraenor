@@ -100,7 +100,7 @@ end
 
 function mod:OverwhelmingBlows(args)
 	if self:Tank() and self:Tank(args.destName) and args.amount % 2 == 0 then -- stacks every 3s
-		self:StackMessage(args.spellId, args.destName, args.amount, "yellow")
+		self:StackMessageOld(args.spellId, args.destName, args.amount, "yellow")
 	end
 end
 

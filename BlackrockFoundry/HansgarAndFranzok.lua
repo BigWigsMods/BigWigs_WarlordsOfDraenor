@@ -159,7 +159,7 @@ end
 
 function mod:ShatteredVertebrae(args)
 	if (self:Tank() or self:Healer()) and self:Tank(args.destName) then
-		self:StackMessage(args.spellId, args.destName, args.amount, "yellow")
+		self:StackMessageOld(args.spellId, args.destName, args.amount, "yellow")
 	end
 end
 

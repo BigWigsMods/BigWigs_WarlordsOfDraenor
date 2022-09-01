@@ -243,7 +243,7 @@ end
 
 function mod:AcidicWound(args)
 	if args.amount % 5 == 0 then
-		self:StackMessage(args.spellId, args.destName, args.amount, "orange")
+		self:StackMessageOld(args.spellId, args.destName, args.amount, "orange")
 	end
 end
 

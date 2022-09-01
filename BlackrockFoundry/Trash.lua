@@ -269,7 +269,7 @@ end
 
 function mod:Burning(args)
 	if args.amount % 3 == 0 then
-		self:StackMessage(args.spellId, args.destName, args.amount, "orange")
+		self:StackMessageOld(args.spellId, args.destName, args.amount, "orange")
 	end
 end
 

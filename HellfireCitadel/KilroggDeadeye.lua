@@ -184,7 +184,7 @@ function mod:ShredArmor(args)
 end
 
 function mod:ShreddedArmor(args) -- Tank Failed
-	self:StackMessage(180199, args.destName, args.amount, "red", nil, args.spellId)
+	self:StackMessageOld(180199, args.destName, args.amount, "red", nil, args.spellId)
 end
 
 function mod:CleansingAura(args)

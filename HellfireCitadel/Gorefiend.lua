@@ -373,6 +373,6 @@ do
 end
 
 function mod:FelFlames(args)
-	self:StackMessage(args.spellId, args.destName, args.amount, "green", args.amount > 3 and "warning")
+	self:StackMessageOld(args.spellId, args.destName, args.amount, "green", args.amount > 3 and "warning")
 end
 

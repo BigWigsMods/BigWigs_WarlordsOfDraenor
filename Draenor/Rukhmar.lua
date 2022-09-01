@@ -68,7 +68,7 @@ function mod:FixateOver(args)
 end
 
 function mod:PiercedArmor(args)
-	self:StackMessage(args.spellId, args.destName, args.amount, "yellow", "warning")
+	self:StackMessageOld(args.spellId, args.destName, args.amount, "yellow", "warning")
 end
 
 function mod:SolarBreath(args)

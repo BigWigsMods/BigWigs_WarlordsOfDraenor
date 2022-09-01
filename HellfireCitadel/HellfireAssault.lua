@@ -303,7 +303,7 @@ end
 --end
 
 function mod:Slam(args)
-	self:StackMessage(args.spellId, args.destName, args.amount, "orange")
+	self:StackMessageOld(args.spellId, args.destName, args.amount, "orange")
 end
 
 function mod:Cower(args)

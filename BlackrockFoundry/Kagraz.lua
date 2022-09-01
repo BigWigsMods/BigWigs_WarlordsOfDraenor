@@ -259,7 +259,7 @@ end
 function mod:CharringBreath(args)
 	if self:Tank(args.destName) then
 		local amount = args.amount or 1
-		self:StackMessage(args.spellId, args.destName, amount, "yellow", amount > 2 and "warning")
+		self:StackMessageOld(args.spellId, args.destName, amount, "yellow", amount > 2 and "warning")
 	end
 end
 
@@ -304,7 +304,7 @@ end
 function mod:RisingFlames(args)
 	local amount = args.amount or 1
 	if amount % 3 == 0 then
-		self:StackMessage(args.spellId, args.destName, amount, "yellow", amount > 5 and "warning")
+		self:StackMessageOld(args.spellId, args.destName, amount, "yellow", amount > 5 and "warning")
 	end
 end
 
