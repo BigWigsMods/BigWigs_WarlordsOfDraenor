@@ -162,7 +162,7 @@ function mod:GushingWoundsRemoved(args)
 end
 
 function mod:UNIT_HEALTH(event, unit)
-	local hp = UnitHealth(unit) / UnitHealthMax(unit) * 100
+	local hp = self:GetHealth(unit)
 	if hp < 36 then
 		self:UnregisterUnitEvent(event, unit)
 		self:MessageOld("frenzy", "cyan", nil, CL.soon:format(self:SpellName(L.frenzy)), false)

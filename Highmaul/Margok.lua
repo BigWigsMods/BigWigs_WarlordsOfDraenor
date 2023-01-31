@@ -383,7 +383,7 @@ end
 
 function mod:UNIT_HEALTH(event, unit)
 	local mobId = self:MobId(self:UnitGUID(unit))
-	local hp = UnitHealth(unit) / UnitHealthMax(unit) * 100
+	local hp = self:GetHealth(unit)
 	if mobId == 77428 then
 		if self:Mythic() then
 			if (phase == 1 and hp < 71) or (phase == 2 and hp < 38) or (phase == 3 and hp < 10) then -- phases at 66% and 33% and 5%

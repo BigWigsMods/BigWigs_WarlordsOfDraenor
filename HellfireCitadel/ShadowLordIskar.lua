@@ -348,7 +348,7 @@ do
 end
 
 function mod:UNIT_HEALTH(event, unit)
-	local hp = UnitHealth(unit) / UnitHealthMax(unit) * 100
+	local hp = self:GetHealth(unit)
 	if hp < nextPhaseSoon then
 		nextPhaseSoon = nextPhaseSoon - 25
 		if nextPhaseSoon < 20 then
