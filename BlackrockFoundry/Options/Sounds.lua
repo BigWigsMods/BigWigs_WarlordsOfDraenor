@@ -130,7 +130,6 @@ BigWigs:AddSounds("Blackrock Foundry Trash", {
 	[174773] = "alert",
 	[175583] = "alarm",
 	[175594] = "warning",
-	[175624] = "warning",
 	[175643] = "alert",
 	[175765] = "warning",
 	[175993] = "warning",

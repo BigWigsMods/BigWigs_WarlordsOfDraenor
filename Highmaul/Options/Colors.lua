@@ -73,7 +73,6 @@ BigWigs:AddColors("Ko'ragh", {
 	[162184] = "yellow",
 	[162185] = "red",
 	[162186] = {"blue","orange"},
-	[163472] = {"blue","orange"},
 	[172747] = {"blue","cyan"},
 	[172895] = {"blue","yellow"},
 	["volatile_anomaly"] = "yellow",
