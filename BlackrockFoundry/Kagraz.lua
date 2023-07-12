@@ -49,7 +49,7 @@ function mod:GetOptions()
 		{"molten_torrent_self", "SAY", "COUNTDOWN"},
 		155776, -- Summon Cinder Wolves
 		{155277, "ICON", "SAY", "FLASH", "PROXIMITY"}, -- Blazing Radiance
-		155493, -- Firestorm
+		{155493, "CASTBAR"}, -- Firestorm
 		{163284, "TANK"}, -- Rising Flames
 		--[[ Cinder Wolf ]]--
 		"custom_off_wolves_marker",

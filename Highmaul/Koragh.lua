@@ -167,6 +167,7 @@ function mod:BarrierRemoved(args)
 	if self:Mythic() and self:BarTimeLeft(L.dominating_power_bar:format(ballCount)) > 6 then
 		--self:PauseBar(163472, L.dominating_power_bar:format(ballCount))
 		--self:CancelDelayedMessage(CL.soon:format(self:SpellName(163472)))
+		return
 	elseif self:BarTimeLeft(L.overwhelming_energy_bar:format(ballCount)) > 6 then
 		self:PauseBar(161612, L.overwhelming_energy_bar:format(ballCount))
 		self:CancelDelayedMessage(CL.soon:format(self:SpellName(161612)))
@@ -174,7 +175,7 @@ function mod:BarrierRemoved(args)
 end
 
 function mod:BarrierApplied(args)
-	if not self.isEngaged then return end -- Prevent this running when he gains the shield on engage, but before encounter engage events fire. 
+	if not self.isEngaged then return end -- Prevent this running when he gains the shield on engage, but before encounter engage events fire.
 	intermission = nil
 	self:MessageOld(160734, "green", nil, args.spellName)
 	self:ResumeBar(161328) -- Suppression Field
@@ -186,9 +187,9 @@ function mod:BarrierApplied(args)
 		self:ResumeBar(172895) -- Expel Magic: Fel
 		--self:ResumeBar(163472, L.dominating_power_bar:format(ballCount))
 		local cd = self:BarTimeLeft(L.dominating_power_bar:format(ballCount))
-		if cd > 0 then
+		--if cd > 0 then
 			--self:DelayedMessage(163472, cd-6, "orange", CL.soon:format(self:SpellName(163472)), 163472) -- Dominating Power soon!
-		end
+		--end
 	end
 	self:ResumeBar(161612, L.overwhelming_energy_bar:format(ballCount))
 	if UnitPower("player", 10) > 0 then -- has alternate power (soaking)
@@ -319,6 +320,7 @@ do
 			if self:Mythic() and ballCount % 2 == 0 then
 				--self:CDBar(163472, cd, L.dominating_power_bar:format(ballCount)) -- Dominating Power
 				--self:DelayedMessage(163472, cd-6, "orange", CL.soon:format(self:SpellName(163472))) -- Dominating Power soon!
+				return
 			else
 				self:CDBar(161612, cd, L.overwhelming_energy_bar:format(ballCount)) -- Overwhelming Energy
 				if UnitPower("player", 10) > 0 then -- has alternate power (soaking)

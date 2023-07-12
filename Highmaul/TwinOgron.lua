@@ -53,7 +53,7 @@ function mod:GetOptions()
 		{143834, "TANK"}, -- Shield Bash
 		158134, -- Shield Charge
 		{158093, "FLASH"}, -- Interrupting Shout
-		{158385, "PROXIMITY"}, -- Pulverize
+		{158385, "CASTBAR", "PROXIMITY"}, -- Pulverize
 		--[[ Phemos ]]--
 		{158521, "TANK"}, -- Double Slash
 		{167200, "TANK_HEALER"}, -- Arcane Wound
