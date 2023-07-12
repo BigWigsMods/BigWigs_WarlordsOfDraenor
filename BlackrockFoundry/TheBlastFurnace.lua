@@ -601,6 +601,6 @@ function mod:EngineerDeath(args)
 		engineerBombs[args.destGUID] = nil
 	else -- p2: care
 		self:MessageOld(174731, "red", nil, L.bombs_dropped_p2)
- 	end
+	end
 end
 
