@@ -74,8 +74,10 @@ end
 L = BigWigs:NewBossLocale("Archimonde", "ruRU")
 if L then
 	L.torment_removed = "Страдание снято (%d/%d)"
+	--L.chaos_bar = "%s -> %s"
 	L.chaos_from = "%s от %s"
 	L.chaos_to = "%s к %s"
+	--L.infernal_count = "%s (%d/%d)"
 
 	L.custom_off_torment_marker = "Маркировка Скованного страдания"
 	L.custom_off_torment_marker_desc = "Отмечать цели Скованного страдания метками {rt1}{rt2}{rt3}, требуется быть помощником или лидером рейда."

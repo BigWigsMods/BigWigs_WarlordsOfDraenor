@@ -58,7 +58,6 @@ function mod:GetOptions()
 		{155074, "TANK_HEALER"}, -- Charring Breath
 		155064, -- Rekindle
 		"proximity",
-		"berserk",
 	}, {
 		[156018] = -9354, -- Aknor Steelbringer
 		[155318] = -9350, -- Ka'graz

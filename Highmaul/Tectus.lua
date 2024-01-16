@@ -154,7 +154,7 @@ end
 
 function mod:Accretion(args)
 	if self:MobId(args.sourceGUID) ~= 80557 and self:UnitGUID("target") == args.sourceGUID and args.amount > 3 then
-		local raidIcon = CombatLog_String_GetIcon(args.sourceRaidFlags)
+		local raidIcon = self:GetIconTexture(self:GetIcon(args.sourceRaidFlags)) or ""
 		self:MessageOld(args.spellId, "yellow", nil, raidIcon..CL.count:format(args.spellName, args.amount))
 	end
 end
@@ -227,7 +227,7 @@ do
 		local t = GetTime()
 		local id = self:MobId(args.sourceGUID)
 		if id ~= 80557 or t-prev > 5 then -- not Mote or first Mote cast in 5s
-			local raidIcon = CombatLog_String_GetIcon(args.sourceRaidFlags)
+			local raidIcon = self:GetIconTexture(self:GetIcon(args.sourceRaidFlags)) or ""
 			self:MessageOld(args.spellId, "green", "long", CL.other:format(raidIcon .. names[id], args.spellName))
 			if id == 80557 then prev = t end
 		end

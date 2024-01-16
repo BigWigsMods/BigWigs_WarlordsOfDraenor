@@ -45,7 +45,7 @@ function mod:GetOptions()
 		--[[ Visions of Death ]]--
 		180618, -- Fel Blaze (Hellblaze Imp)
 		180033, -- Cinder Breath (Hellblaze Mistress)
-		180570, -- Fel Flames (Hellblaze Fiend)
+		--180570, -- Fel Flames (Hellblaze Fiend)
 		--[[ Add Spawn Warnings ]]--
 		-11269, -- Hulking Terror
 		-11266, -- Salivating Bloodthirster

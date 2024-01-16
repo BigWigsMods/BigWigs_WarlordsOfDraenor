@@ -3,7 +3,6 @@ if not L then return end
 if L then
 	L.blade_dance_bar = "Танцуем"
 
-	L.arena_sweeper = "Чистка арены"
 	L.arena_sweeper_desc = "Время, через которое вас выкинут с трибун после Удара Цепью."
 end
 

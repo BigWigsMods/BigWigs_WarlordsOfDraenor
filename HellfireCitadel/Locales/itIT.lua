@@ -24,11 +24,9 @@ L = BigWigs:NewBossLocale("Shadow-Lord Iskar", "itIT")
 if L then
 -- L.bindings_removed = "Bindings removed (%d/3)"
 -- L.custom_off_binding_marker = "Dark Bindings marker"
---[==[ L.custom_off_binding_marker_desc = [=[Mark the Dark Bindings targets with {rt1}{rt2}{rt3}{rt4}{rt5}{rt6}, requires promoted or leader.
-|cFFFF0000Only 1 person in the raid should have this enabled to prevent marking conflicts.|r]=] ]==]
+-- L.custom_off_binding_marker_desc = "Mark the Dark Bindings targets with {rt1}{rt2}{rt3}{rt4}{rt5}{rt6}, requires promoted or leader.\n|cFFFF0000Only 1 person in the raid should have this enabled to prevent marking conflicts.|r"
 -- L.custom_off_wind_marker = "Phantasmal Winds marker"
---[==[ L.custom_off_wind_marker_desc = [=[Marks Phantasmal Winds targets with {rt1}{rt2}{rt3}{rt4}{rt5}, requires promoted or leader.
-|cFFFF0000Only 1 person in the raid should have this enabled to prevent marking conflicts.|r]=] ]==]
+-- L.custom_off_wind_marker_desc = "Marks Phantasmal Winds targets with {rt1}{rt2}{rt3}{rt4}{rt5}, requires promoted or leader.\n|cFFFF0000Only 1 person in the raid should have this enabled to prevent marking conflicts.|r"
 
 end
 

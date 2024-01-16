@@ -157,7 +157,7 @@ do
 		end
 
 		local wound = self:SpellName(16405) -- Wound
-		scheduledPrints[args.destGUID] = self:ScheduleTimer("StackMessage", 0.2, args.spellId, args.destName, args.amount, "orange", "warning", wound, nil, true)
+		scheduledPrints[args.destGUID] = self:ScheduleTimer("StackMessageOld", 0.2, args.spellId, args.destName, args.amount, "orange", "warning", wound, nil, true)
 		self:TargetBar(args.spellId, 60, args.destName, wound)
 	end
 
@@ -187,7 +187,7 @@ end
 --[[ Slagshop Brute ]]--
 
 function mod:LumberingStrength(args)
-	local icon = CombatLog_String_GetIcon(args.destRaidFlags)
+	local icon = self:GetIconTexture(self:GetIcon(args.destRaidFlags)) or ""
 	local warn = false
 	local npcUnit = self:GetUnitIdByGUID(args.destGUID)
 	if npcUnit then

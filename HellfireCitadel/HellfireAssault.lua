@@ -200,7 +200,7 @@ function mod:GetOptions()
 		--[[ Mar'tak ]]--
 		{184369, "FLASH", "SAY", "PROXIMITY"}, -- Howling Axe
 		184394, -- Shockwave
-		185090, -- Inspiring Presence
+		--185090, -- Inspiring Presence
 		--[[ Reinforcements ]]--
 		"adds",
 		{184243, "TANK"}, -- Slam
@@ -208,7 +208,7 @@ function mod:GetOptions()
 		185816, -- Repair
 		185806, -- Conducted Shock Pulse
 		181968, -- Metamorphosis
-		180417, -- Felfire Volley
+		--180417, -- Felfire Volley
 		--[[ Siege Vehicles ]]--
 		"siegevehicles",
 		180945, -- Siege Nova
