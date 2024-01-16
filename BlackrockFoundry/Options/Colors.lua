@@ -158,7 +158,7 @@ BigWigs:AddColors("Blackrock Foundry Trash", {
 	[174773] = "blue",
 	[175583] = {"blue","green"},
 	[175594] = {"blue","green","orange"},
-	[175624] = "green",
+	[175624] = {"blue","green","orange"},
 	[175643] = "blue",
 	[175765] = {"blue","orange"},
 	[175993] = {"blue","red"},
