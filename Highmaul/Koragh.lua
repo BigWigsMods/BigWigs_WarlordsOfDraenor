@@ -365,7 +365,7 @@ do
 	end
 
 	function mod:ExpelMagicFelRemoved(args)
-		tDeleteItem(felMarks, args.destName)
+		self:DeleteFromTable(felMarks, args.destName)
 		if self:Me(args.destGUID) then
 			self:StopBar(args.spellName, args.destName)
 		end

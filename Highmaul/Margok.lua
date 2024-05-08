@@ -333,7 +333,7 @@ do -- Gaze/Eyes of the Abyss
 	end
 
 	function mod:GazeOfTheAbyssRemoved(args)
-		tDeleteItem(gazeTargets, args.destName)
+		self:DeleteFromTable(gazeTargets, args.destName)
 		if self:Me(args.destGUID) then
 			gazeOnMe = nil
 			self:StopBar(args.spellId, args.destName)
@@ -352,7 +352,7 @@ do -- Gaze/Eyes of the Abyss
 			if gazeOnMe then return end
 		end
 
-		tDeleteItem(gazeTargets, args.destName)
+		self:DeleteFromTable(gazeTargets, args.destName)
 		if #gazeTargets == 0 and not gazeOnMe then
 			self:CloseProximity(165595) -- Gaze of the Abyss
 		end
@@ -524,7 +524,7 @@ do
 end
 
 function mod:BrandedRemoved(args)
-	tDeleteItem(brandedMarks, args.destName)
+	self:DeleteFromTable(brandedMarks, args.destName)
 	if self:Me(args.destGUID) then
 		brandedOnMe = nil
 		self:StopBar(156225, args.destName)

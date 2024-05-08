@@ -340,7 +340,7 @@ do
 	end
 
 	function mod:ArcaneVolatilityRemoved(args)
-		tDeleteItem(volatilityTargets, args.destName)
+		self:DeleteFromTable(volatilityTargets, args.destName)
 		if self:Me(args.destGUID) then
 			self:StopBar(67735, args.destName)
 			volatilityOnMe = nil

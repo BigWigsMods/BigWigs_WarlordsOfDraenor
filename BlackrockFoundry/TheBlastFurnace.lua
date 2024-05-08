@@ -335,7 +335,7 @@ do
 			self:CloseProximity(155192)
 			bombOnMe = nil
 		end
-		tDeleteItem(bombTargets, args.destName)
+		self:DeleteFromTable(bombTargets, args.destName)
 
 		if #bombTargets == 0 then
 			self:CloseProximity(155192)
@@ -366,7 +366,7 @@ function mod:DamageShield(args)
 	if self.db.profile.custom_on_shieldsdown_marker then
 		for i = 2, 5 do -- boss1 is always Heart of the Mountain
 			local boss = ("boss%d"):format(i)
-			if self:UnitGUID(boss) == args.sourceGUID and GetRaidTargetIndex(boss) == 8 then
+			if self:UnitGUID(boss) == args.sourceGUID and self:GetIcon(boss) == 8 then
 				self:CustomIcon(false, boss)
 				break
 			end
@@ -437,7 +437,7 @@ function mod:VolatileFireRemoved(args)
 			volatileFireOnMe = nil
 		end
 
-		tDeleteItem(volatileFireTargets, args.destName)
+		self:DeleteFromTable(volatileFireTargets, args.destName)
 
 		if #volatileFireTargets == 0 then
 			self:CloseProximity(args.spellId)

@@ -261,7 +261,7 @@ do
 	end
 	function mod:ContemptRemoved(args)
 		-- remove players at the end of phase 2 or if they die
-		tDeleteItem(inverseFontTargets, args.destName)
+		self:DeleteFromTable(inverseFontTargets, args.destName)
 		if self:Me(args.destGUID) then
 			close = true
 		end
@@ -297,7 +297,7 @@ do
 			self:Say(args.spellId)
 			fontOnMe = self:CheckOption(args.spellId, "PROXIMITY")
 		else
-			tDeleteItem(inverseFontTargets, args.destName)
+			self:DeleteFromTable(inverseFontTargets, args.destName)
 		end
 	end
 end

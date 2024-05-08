@@ -902,7 +902,7 @@ do
 			self:CustomIcon(false, args.destName)
 		end
 
-		tDeleteItem(proxList, args.destName)
+		self:DeleteFromTable(proxList, args.destName)
 		if isOnMe then
 			if self:Me(args.destGUID) then
 				isOnMe = nil

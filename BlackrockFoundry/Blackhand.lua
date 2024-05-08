@@ -131,7 +131,7 @@ function mod:UNIT_TARGET()
 		tankName = newTarget
 
 		if self.db.profile.custom_off_massivesmash_marker then
-			oldIcon = GetRaidTargetIndex(tankName)
+			oldIcon = self:GetIcon(tankName)
 			self:CustomIcon(false, tankName, 6)
 		end
 	else -- We already have a tank
@@ -139,7 +139,7 @@ function mod:UNIT_TARGET()
 			if self.db.profile.custom_off_massivesmash_marker then
 				self:CustomIcon(false, tankName, oldIcon or 0) -- restore old icon
 				tankName = newTarget -- mark new tank
-				oldIcon = GetRaidTargetIndex(tankName)
+				oldIcon = self:GetIcon(tankName)
 				self:CustomIcon(false, tankName, 6)
 			else
 				tankName = self:UnitName("boss1target")
@@ -173,7 +173,7 @@ local function openSmashProximity(self)
 
 		if tankName then
 			if self.db.profile.custom_off_massivesmash_marker then
-				oldIcon = GetRaidTargetIndex(tankName)
+				oldIcon = self:GetIcon(tankName)
 				self:CustomIcon(false, tankName, 6)
 			end
 

@@ -170,7 +170,7 @@ do
 		end
 
 		if (phase == 1 and self:Melee()) or phase == 2 then
-			tDeleteItem(proxList, args.destName)
+			self:DeleteFromTable(proxList, args.destName)
 			if not isOnMe then -- Don't change proximity if it's on you and expired on someone else
 				if #proxList == 0 then
 					self:CloseProximity(args.spellId)

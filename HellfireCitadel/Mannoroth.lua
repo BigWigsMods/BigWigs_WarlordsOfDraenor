@@ -235,7 +235,7 @@ function mod:MarkOfDoomRemoved(args)
 		self:CloseProximity(args.spellId)
 	end
 
-	tDeleteItem(markOfDoomTargets, args.destName)
+	self:DeleteFromTable(markOfDoomTargets, args.destName)
 
 	if self:GetOption("custom_off_doom_marker") and self:Mythic() then
 		self:CustomIcon(false, args.destName)
@@ -319,7 +319,7 @@ function mod:WrathOfGuldanRemoved(args)
 		self:CloseProximity(args.spellId)
 	end
 
-	tDeleteItem(wrathOfGuldanTargets, args.destName)
+	self:DeleteFromTable(wrathOfGuldanTargets, args.destName)
 
 	if self:GetOption("custom_off_wrath_marker") then
 		self:CustomIcon(false, args.destName)

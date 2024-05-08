@@ -189,7 +189,7 @@ function mod:PhantasmalWindsRemoved(args)
 	if self:GetOption("custom_off_wind_marker") then
 		self:CustomIcon(false, args.destName)
 	end
-	tDeleteItem(windTargets, args.destName)
+	self:DeleteFromTable(windTargets, args.destName)
 end
 
 do
