@@ -53,7 +53,7 @@ end
 
 L = BigWigs:NewBossLocale("Tyrant Velhari", "zhCN")
 if L then
-L.font_removed_soon = ">你< 腐蚀序列即将消失！"
+L.font_removed_soon = "你 腐蚀序列即将消失！"
 
 end
 
