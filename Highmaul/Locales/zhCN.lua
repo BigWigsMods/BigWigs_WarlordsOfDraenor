@@ -8,7 +8,7 @@ end
 
 L = BigWigs:NewBossLocale("The Butcher", "zhCN")
 if L then
-L.adds_multiple = "增援 >%d<波"
+L.adds_multiple = "增援 %d 波"
 L.tank_proximity = "坦克近距离"
 L.tank_proximity_desc = "开启5码近距离显示其他坦克，以便对应势大力沉技能。"
 
@@ -28,15 +28,15 @@ end
 
 L = BigWigs:NewBossLocale("Brackenspore", "zhCN")
 if L then
-L.creeping_moss_add_heal = "苔藓>治疗< 大型增援"
-L.creeping_moss_boss_heal = "苔藓>治疗< 首领"
+L.creeping_moss_add_heal = "苔藓 治疗 大型增援"
+L.creeping_moss_boss_heal = "苔藓 治疗 首领"
 L.custom_off_spore_shooter_marker = "孢子射手标记"
 L.custom_off_spore_shooter_marker_desc = [=[使用 {rt1}{rt2}{rt3}{rt4} 标记孢子射手，需要权限。
 |cFFFF0000团队中只有1名应该启用此选项以防止标记冲突。|r
 |cFFADFF2F提示：如果团队选择你打开此选项，鼠标快速指向萨满是标记他们的最快方式。|r]=]
 L.mythic_ability = "特殊技能"
 L.mythic_ability_desc = "当下一潮汐之唤或爆炸蘑菇到来时显示计时器。"
-L.mythic_ability_wave = "即将 >潮汐之唤<！"
+L.mythic_ability_wave = "即将 潮汐之唤！"
 
 end
 
