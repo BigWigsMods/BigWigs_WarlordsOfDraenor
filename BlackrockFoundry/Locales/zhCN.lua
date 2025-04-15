@@ -38,7 +38,7 @@ if L then
 L.custom_off_wolves_marker = "烬狼标记"
 L.custom_off_wolves_marker_desc = "使用 {rt3}{rt4}{rt5}{rt6} 标记烬狼，需要权限。"
 L.molten_torrent_self = "自身熔岩激流"
-L.molten_torrent_self_bar = ">你< 爆炸！"
+L.molten_torrent_self_bar = "你 爆炸！"
 L.molten_torrent_self_desc = "当你中了熔岩激流时显示特殊冷却。"
 
 end
@@ -89,7 +89,7 @@ L = BigWigs:NewBossLocale("The Iron Maidens", "zhCN")
 if L then
 L.custom_off_heartseeker_marker = "浸血觅心者标记"
 L.custom_off_heartseeker_marker_desc = "使用 {rt1}{rt2}{rt3} 标记浸血觅心者目标，需要权限。"
-L.power_message = ">%d< 钢铁之怒！"
+L.power_message = "%d 钢铁之怒！"
 L.ship = "跳上舰船"
 L.ship_trigger = "准备操纵无畏舰的主炮！"
 

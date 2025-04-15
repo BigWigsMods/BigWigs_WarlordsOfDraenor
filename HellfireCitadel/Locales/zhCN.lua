@@ -15,8 +15,8 @@ end
 
 L = BigWigs:NewBossLocale("Gorefiend", "zhCN")
 if L then
-L.fate_root_you = "命运相连 - >你<定身！"
-L.fate_you = ">你< 命运相连！- 找％s集合"
+L.fate_root_you = "命运相连 - 你 定身！"
+L.fate_you = "你 命运相连！- 找％s集合"
 
 end
 
@@ -53,7 +53,7 @@ end
 
 L = BigWigs:NewBossLocale("Tyrant Velhari", "zhCN")
 if L then
-L.font_removed_soon = ">你< 腐蚀序列即将消失！"
+L.font_removed_soon = "你 腐蚀序列即将消失！"
 
 end
 
@@ -86,8 +86,8 @@ L.custom_off_legion_marker_desc = "使用 {rt1}{rt2}{rt3}{rt4} 标记军团标�
 L.custom_off_torment_marker = "枷锁酷刑标记"
 L.custom_off_torment_marker_desc = "使用 {rt1}{rt2}{rt3} 标记枷锁酷刑目标，需要权限。"
 L.infernal_count = "%s（%d/%d）"
-L.markofthelegion_self = ">你< 军团标记"
-L.markofthelegion_self_bar = ">你< 爆炸！"
+L.markofthelegion_self = "你 军团标记"
+L.markofthelegion_self_bar = "你 爆炸！"
 L.markofthelegion_self_desc = "当你中了军团标记时显示特殊冷却。"
 L.torment_removed = "枷锁酷刑已移除（%d/%d）"
 
