@@ -6,6 +6,6 @@
 <Script file="Rukhmar.lua"/>
 <Script file="Kazzak.lua"/>
 
-<Include file="Options\options.xml"/>
+<Script file="!Options.lua"/>
 
 </Ui>
