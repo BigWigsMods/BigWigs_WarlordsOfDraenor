@@ -224,7 +224,7 @@ function mod:ExpelMagicArcaneApplied(args)
 	self:PrimaryIcon(args.spellId, args.destName)
 	if self:Me(args.destGUID) then
 		self:Flash(args.spellId)
-		self:Say(args.spellId)
+		self:Say(args.spellId, nil, nil, "Expel Magic: Arcane")
 		self:OpenProximity(args.spellId, 8)
 	end
 	self:TargetMessageOld(args.spellId, args.destName, "orange", "warning", nil, nil, self:Tank())
@@ -266,7 +266,7 @@ do
 	local function printTarget(self, name, guid)
 		if self:Me(guid) then
 			self:Flash(172747)
-			self:Say(172747)
+			self:Say(172747, nil, nil, "Expel Magic: Frost")
 			self:PlaySound(172747, "alarm")
 		end
 		self:TargetMessageOld(172747, name, "cyan")
@@ -288,7 +288,7 @@ do
 			allowSuppression = nil
 			if UnitIsUnit("player", suppressionTarget) then
 				self:Flash(161328)
-				self:Say(161328)
+				self:Say(161328, nil, nil, "Suppression Field")
 			end
 			self:TargetMessageOld(161328, suppressionTarget, "yellow", "alarm")
 		end
@@ -354,7 +354,7 @@ do
 			self:MessageOld(args.spellId, "blue", "info", CL.you:format(args.spellName))
 			self:TargetBar(args.spellId, 12, args.destName)
 			self:Flash(args.spellId)
-			self:Say(args.spellId)
+			self:Say(args.spellId, nil, nil, "Expel Magic: Fel")
 		end
 		if not scheduled then
 			scheduled = self:ScheduleTimer(warn, 0.3, self, args.spellId)

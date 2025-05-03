@@ -174,7 +174,7 @@ do
 		barrageThrottle[args.destGUID] = true
 		if self:Me(args.destGUID) then
 			self:Flash(args.spellId)
-			self:Say(args.spellId, 120361) -- 120361 = "Barrage"
+			self:Say(args.spellId, 120361, nil, "Barrage") -- 120361 = "Barrage"
 			self:TargetMessageOld(args.spellId, args.destName, "blue", "alarm")
 		else
 			list[#list+1] = args.destName

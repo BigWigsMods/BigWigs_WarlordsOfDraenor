@@ -60,7 +60,7 @@ function mod:GetOptions()
 		157943, -- Whirlwind
 		158057, -- Enfeebling Roar
 		158200, -- Quake
-		{158241, "FLASH"}, -- Blaze
+		158241, -- Blaze
 		--[[ General ]]--
 		"berserk",
 	}, {
@@ -328,7 +328,7 @@ do
 			volatilityOnMe = true
 			self:MessageOld("volatility_self", "blue", "warning", CL.you:format(args.spellName), args.spellId)
 			self:Flash("volatility_self", args.spellId)
-			self:Say("volatility_self", args.spellId)
+			self:Say("volatility_self", args.spellId, nil, "Arcane Volatility")
 		end
 		if not tContains(volatilityTargets, args.destName) then -- SPELL_AURA_REFRESH
 			volatilityTargets[#volatilityTargets+1] = args.destName

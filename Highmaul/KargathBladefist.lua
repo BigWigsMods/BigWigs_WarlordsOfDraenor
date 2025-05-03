@@ -103,7 +103,7 @@ function mod:OnTheHunt(args)
 	self:TargetMessageOld(args.spellId, args.destName, "red", "alarm")
 	if self:Me(args.destGUID) then
 		self:Flash(args.spellId)
-		self:Say(args.spellId)
+		self:Say(args.spellId, nil, nil, "On the Hunt")
 	end
 end
 
@@ -129,7 +129,7 @@ do
 		berserkerRushPlayer = guid
 		self:PrimaryIcon(158986, name)
 		if self:Me(guid) then
-			self:Say(158986)
+			self:Say(158986, nil, nil, "Berserker Rush")
 			self:Flash(158986)
 		end
 		self:TargetMessageOld(158986, name, "red", "long", nil, nil, true)

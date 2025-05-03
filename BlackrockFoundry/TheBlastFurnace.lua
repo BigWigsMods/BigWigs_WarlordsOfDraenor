@@ -504,7 +504,7 @@ do
 					self:MessageOld(155209, "yellow", nil, L.heat_increased_message:format(newTime))
 				end
 				blastTime = newTime
-				local t = ceil((100-UnitPower(unit))/(100/newTime))
+				local t = math.ceil((100-UnitPower(unit))/(100/newTime))
 				self:Bar(155209, t)
 			end
 			return
@@ -555,7 +555,7 @@ function mod:Superheated(args)
 	local newTime = self:Mythic() and 5 or 6
 	if blastTime ~= newTime then
 		blastTime = newTime
-		local t = ceil((100-UnitPower("boss1"))/(100/newTime))
+		local t = math.ceil((100-UnitPower("boss1"))/(100/newTime))
 		self:Bar(155209, t) -- Blast
 	end
 end

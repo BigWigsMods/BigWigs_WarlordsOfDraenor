@@ -190,7 +190,7 @@ local function updateProximity()
 		mod:OpenProximity(157349, 4)
 	end
 	if brandedOnMe and brandedOnMe < 40 then
-		mod:OpenProximity(156225, max(5, brandedOnMe))
+		mod:OpenProximity(156225, math.max(5, brandedOnMe))
 	end
 	if fixateOnMe then
 		mod:OpenProximity(157763, 8)
@@ -503,12 +503,15 @@ do
 			self:TargetBar(156225, 4, args.destName)
 			if not self:LFR() then
 				local text = self:SpellName(156225)
+				local englishText = "Branded"
 				if amount > 0 and jumpDistance < 100 then
 					text = L.branded_say:format(text, amount, jumpDistance)
+					englishText = ("Branded (%d) %dy"):format(amount, jumpDistance)
 				elseif amount > 1 then
 					text = CL.count:format(text, amount)
+					englishText = ("Branded (%d)"):format(amount)
 				end
-				self:Say(156225, text)
+				self:Say(156225, text, nil, englishText)
 			end
 			if amount > 0 then
 				brandedOnMe = jumpDistance
@@ -592,7 +595,7 @@ function mod:MarkOfChaosApplied(args)
 	self:TargetBar(158605, 8, args.destName)
 	if self:Me(args.destGUID) then
 		self:Flash(158605)
-		self:Say(158605)
+		self:Say(158605, nil, nil, "Mark of Chaos")
 	end
 	updateProximity()
 end
@@ -645,7 +648,7 @@ function mod:FixateApplied(args)
 		self:MessageOld(args.spellId, "blue", "alarm", CL.you:format(args.spellName))
 		self:TargetBar(args.spellId, 15, args.destName)
 		self:Flash(args.spellId)
-		self:Say(args.spellId)
+		self:Say(args.spellId, nil, nil, "Fixate")
 		updateProximity()
 	elseif self:Dispeller("magic", nil, 157801) and self:UnitDebuff(args.destName, self:SpellName(157801)) then -- check if they have Slow and warn again
 		self:TargetMessageOld(157801, args.destName, "red", "alert", L.slow_fixate, nil, true)
