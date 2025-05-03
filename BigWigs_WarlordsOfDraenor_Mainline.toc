@@ -1,4 +1,4 @@
-## Interface: 110005, 110000, 110002
+## Interface: 110105, 110107, 110100
 
 ## Title: BigWigs [|cffeda55fWarlords of Draenor|r]
 ## Title-zhCN: BigWigs [|cffeda55f德拉诺之王|r]
