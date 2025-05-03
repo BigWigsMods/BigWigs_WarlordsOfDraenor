@@ -403,7 +403,7 @@ do
 			local target = list[i]
 			if target == isOnMe then
 				local torment = CL.count:format(self:SpellName(187553), i) -- 187553 = "Torment"
-				self:Say(spellId, torment)
+				self:Say(spellId, torment, nil, ("Torment (%d)"):format(i))
 				self:Flash(spellId)
 				self:TargetMessageOld(spellId, target, "blue", "alarm", torment)
 			end
