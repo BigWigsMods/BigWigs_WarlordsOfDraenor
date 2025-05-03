@@ -36,7 +36,7 @@
 ## X-BigWigs-ExtraMenu: -572
 ## X-BigWigs-LoadOn-InstanceId: 1205, 1228, 1448
 ## X-BigWigs-LoadOn-WorldBoss: -542, 83746, -543, 81535, -543, 81252, -534, 94015
-## X-BigWigs-Minimum: 350
+## X-BigWigs-Minimum: 380
 
 modules.xml
 
