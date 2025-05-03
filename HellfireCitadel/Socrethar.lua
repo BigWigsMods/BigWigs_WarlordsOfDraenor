@@ -161,7 +161,7 @@ function mod:VolatileFelOrb(args)
 	self:CDBar(180221, 30)
 	self:TargetMessageOld(180221, args.destName, "orange", "alarm")
 	if self:Me(args.destGUID) then
-		self:Say(180221)
+		self:Say(180221, nil, nil, "Volatile Fel Orb")
 		self:Flash(180221)
 	end
 end
@@ -170,7 +170,7 @@ do
 	local function printTarget(self, name, guid)
 		self:TargetMessageOld(182051, name, "orange", "alarm")
 		if self:Me(guid) then
-			self:Say(182051)
+			self:Say(182051, nil, nil, "Felblaze Charge")
 		end
 	end
 	function mod:FelblazeCharge(args)
@@ -289,7 +289,7 @@ do
 			self:ScheduleTimer("TargetMessageOld", 0.3, args.spellId, list, "yellow", "alarm")
 		end
 		if self:Me(args.destGUID) then
-			self:Say(args.spellId)
+			self:Say(args.spellId, nil, nil, "Gift of the Man'ari")
 			self:Flash(args.spellId)
 			self:OpenProximity(args.spellId, 10)
 		end

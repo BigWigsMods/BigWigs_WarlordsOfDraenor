@@ -146,7 +146,7 @@ do
 		if self:Me(args.destGUID) then
 			self:TargetBar(args.spellId, 5, args.destName)
 			self:Flash(args.spellId)
-			self:Say(args.spellId)
+			self:Say(args.spellId, nil, nil, "Heart Seeker")
 		end
 	end
 end

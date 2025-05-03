@@ -204,7 +204,7 @@ function mod:ExplosiveBurst(args)
 	self:PrimaryIcon(args.spellId, args.destName)
 	self:Flash(args.spellId)
 	if self:Me(args.destGUID) then
-		self:Say(args.spellId)
+		self:Say(args.spellId, nil, nil, "Explosive Burst")
 		self:OpenProximity(args.spellId, 30)
 	else
 		self:OpenProximity(args.spellId, 30, args.destName)

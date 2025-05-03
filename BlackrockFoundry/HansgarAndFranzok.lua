@@ -138,7 +138,7 @@ function mod:BodySlamTarget(_, unit)
 	if not guid or self:Tanking(unit, target) or self:MobId(guid) ~= 1 then return end
 
 	if self:Me(guid) then
-		self:Say(155747)
+		self:Say(155747, nil, nil, "Body Slam")
 	end
 	self:TargetMessageOld(155747, self:UnitName(target), "yellow", "alarm")
 end

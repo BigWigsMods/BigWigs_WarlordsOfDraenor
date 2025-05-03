@@ -168,7 +168,7 @@ function mod:CurseOfTheLegion(args)
 	self:TargetBar(args.spellId, 20, args.destName)
 	self:PrimaryIcon(args.spellId, args.destName)
 	if self:Me(args.destGUID) then
-		self:Say(args.spellId)
+		self:Say(args.spellId, nil, nil, "Curse of the Legion")
 		self:Flash(args.spellId)
 	end
 end
@@ -202,8 +202,12 @@ do
 		if self:Me(args.destGUID) then
 			self:CancelTimer(timer)
 			timer = nil
-			markOfDoomOnMe = self:Mythic() and CL.count_icon:format(self:SpellName(28836), count, count) or CL.count:format(self:SpellName(28836), count) -- 28836 = "Mark"
-			self:Say(args.spellId, self:Mythic() and CL.count_rticon:format(self:SpellName(28836), count, count) or CL.count:format(self:SpellName(28836), count))
+			markOfDoomOnMe = self:Mythic() and CL.count_icon:format(CL.mark, count, count) or CL.count:format(CL.mark, count)
+			if self:Mythic() then
+				self:Say(args.spellId, CL.count_rticon:format(CL.mark, count, count), nil, ("Mark (%d{rt%d})"):format(count, count))
+			else
+				self:Say(args.spellId, CL.count:format(CL.mark, count), nil, ("Mark (%d)"):format(count))
+			end
 			self:TargetMessageOld(args.spellId, args.destName, "blue", "alarm", markOfDoomOnMe)
 			self:TargetBar(args.spellId, 15, args.destName, markOfDoomOnMe)
 			self:Flash(args.spellId)
@@ -289,7 +293,7 @@ do
 			wrathOfGuldanOnMe = true
 			self:CancelTimer(timer)
 			timer = nil
-			self:Say(args.spellId, CL.count_rticon:format(self:SpellName(170963), count, reverseCount)) -- 170963 = "Wrath"
+			self:Say(args.spellId, CL.count_rticon:format(self:SpellName(170963), count, reverseCount), nil, ("Wrath (%d{rt%d})"):format(count, reverseCount)) -- 170963 = "Wrath"
 			self:TargetMessageOld(args.spellId, args.destName, "blue", "alarm", CL.count_icon:format(self:SpellName(170963), count, reverseCount))
 			self:Flash(args.spellId)
 			self:ScheduleTimer(wipe, 1)
@@ -338,7 +342,7 @@ function mod:GrippingShadows(args)
 			self:MessageOld(args.spellId, "blue", "long", CL.you:format(args.spellName))
 		elseif args.amount > 5 and ((self:Tank() and args.amount % 4 == 2) or (not self:Tank() and args.amount % 2 == 0)) then
 			-- Say at 6 stacks and every 2 stacks (4 stacks for tanks)
-			self:Say(args.spellId, CL.count:format(args.spellName, args.amount))
+			self:Say(args.spellId, CL.count:format(args.spellName, args.amount), nil, ("Gripping Shadows (%d)"):format(args.amount))
 			self:MessageOld(args.spellId, "blue", nil, CL.you:format(CL.count:format(args.spellName, args.amount)))
 		end
 	end
@@ -368,7 +372,7 @@ do
 			local target = list[i]
 			if target == isOnMe then
 				local gaze = L.gaze:format(i)
-				self:Say(181597, gaze)
+				self:Say(181597, gaze, nil, ("Gaze (%d)"):format(i))
 				self:TargetMessageOld(181597, target, "blue", "alarm", gaze)
 			end
 			if self:GetOption("custom_off_gaze_marker") then

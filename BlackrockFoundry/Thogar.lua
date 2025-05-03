@@ -371,7 +371,7 @@ do
 
 		local grenade = self:SpellName(135592) -- Grenade
 		if self:Me(guid) and not self:LFR() then
-			self:Say(155864, grenade)
+			self:Say(155864, grenade, nil, "Grenade")
 		end
 		self:TargetMessageOld(155864, self:UnitName(target), "yellow", "alarm", grenade)
 	end
@@ -409,12 +409,11 @@ end
 
 do
 	local function printTarget(self, name, guid)
-		-- 119342 = Bombs
-		self:TargetMessageOld(159481, name, "yellow", "warning", 119342, 159481)
+		self:TargetMessageOld(159481, name, "yellow", "warning", CL.bombs, 159481)
 		if self:Me(guid) then
 			self:Flash(159481)
-			self:Say(159481, 119342)
-			self:TargetBar(159481, 4.9, name, CL.count:format(self:SpellName(155192), 1)) -- 155192 = "Bomb"
+			self:Say(159481, CL.bombs, nil, "Bombs")
+			self:TargetBar(159481, 4.9, name, CL.count:format(self:SpellName(CL.bomb), 1))
 		end
 	end
 
@@ -426,11 +425,10 @@ end
 do
 	local timer, bombCount = nil, 1
 	local function sayBombCount(self, name)
-		-- 155192 = "Bomb"
-		self:Say(159481, CL.count:format(self:SpellName(155192), bombCount), true)
+		self:Say(159481, CL.count:format(self:SpellName(CL.bomb), bombCount), true)
 		bombCount = bombCount + 1
 		if bombCount < 4 then
-			self:TargetBar(159481, 3, name, CL.count:format(self:SpellName(155192), bombCount))
+			self:TargetBar(159481, 3, name, CL.count:format(self:SpellName(CL.bomb), bombCount))
 			timer = self:ScheduleTimer(sayBombCount, bombCount == 3 and 2.8 or 3, self, name)
 		end
 	end
@@ -447,9 +445,9 @@ do
 		if self:Me(args.destGUID) then
 			self:CancelTimer(timer)
 			timer = nil
-			self:StopBar(CL.count:format(self:SpellName(155192), bombCount), args.destName)
+			self:StopBar(CL.count:format(self:SpellName(CL.bomb), bombCount), args.destName)
 		else
-			self:StopBar(119342, args.destName) -- 119342 = Bombs
+			self:StopBar(CL.bombs, args.destName)
 		end
 	end
 end

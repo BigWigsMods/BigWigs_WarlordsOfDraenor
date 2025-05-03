@@ -178,7 +178,7 @@ end
 function mod:FocusedFire(args)
 	if self:Me(args.destGUID) then
 		self:TargetBar(args.spellId, 12, args.destName)
-		self:Say(args.spellId)
+		self:Say(args.spellId, nil, nil, "Focused Fire")
 		self:OpenProximity(args.spellId, 5, nil, true)
 	end
 	self:TargetMessageOld(args.spellId, args.destName, "yellow", "alarm")
@@ -219,7 +219,7 @@ end
 
 function mod:GraggraSmash(args)
 	if self:Me(args.destGUID) then
-		self:Say(args.spellId)
+		self:Say(args.spellId, nil, nil, "Graggra Smash")
 	end
 	self:TargetBar(args.spellId, 5, args.destName)
 	self:TargetMessageOld(args.spellId, args.destName, "yellow", "alarm")
@@ -229,7 +229,7 @@ end
 
 function mod:DarkFate(args)
 	if self:Me(args.destGUID) then
-		self:Say(args.spellId)
+		self:Say(args.spellId, nil, nil, "Dark Fate")
 		self:OpenProximity(args.spellId, 10, nil, true) -- Guessed range
 	end
 	self:TargetBar(args.spellId, 15, args.destName)
@@ -259,7 +259,7 @@ do
 		-- Fel Bomb players also get Phantasmal Fel Bomb, don't warn if we have both. We already warn for Fel Bomb in the Iskar module.
 		if isOnMe and not self:UnitDebuff("player", self:SpellName(181753)) then -- Fel Bomb
 			self:TargetBar(spellId, 4.7, isOnMe)
-			self:Say(spellId)
+			self:Say(spellId, nil, nil, "Phantasmal Fel Bomb")
 			self:OpenProximity(spellId, 15) -- XXX verify range
 		end
 		self:TargetMessageOld(spellId, list, "yellow", "alarm")
@@ -338,7 +338,7 @@ end
 
 function mod:DemonicSacrifice(args)
 	if self:Me(args.destGUID) then
-		self:Say(args.spellId)
+		self:Say(args.spellId, nil, nil, "Demonic Sacrifice")
 	end
 	self:TargetMessageOld(args.spellId, args.destName, "yellow", "warning", nil, nil, true)
 end
@@ -354,7 +354,7 @@ function mod:VoidBlast(args)
 				warn = true
 				self:TargetMessageOld(186130, self:UnitName(unit), "red", "warning", nil, nil, true)
 				if self:Me(self:UnitGUID(unit)) then
-					self:Say(186130)
+					self:Say(186130, nil, nil, "Void Burst")
 				end
 				break
 			end
@@ -414,7 +414,7 @@ do
 		list[#list+1] = args.destName
 		if self:Me(args.destGUID) then
 			self:TargetBar(args.spellId, 30, args.destName)
-			self:Say(args.spellId)
+			self:Say(args.spellId, nil, nil, "Mark of Kaz'rogal")
 			self:Flash(args.spellId)
 			self:OpenProximity(args.spellId, 40)
 		end

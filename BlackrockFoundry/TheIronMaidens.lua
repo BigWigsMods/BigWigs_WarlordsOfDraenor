@@ -292,7 +292,7 @@ function mod:RAID_BOSS_WHISPER(_, msg)
 		self:MessageOld(156631, "blue", "alarm", text)
 		self:Bar(156631, 10.5, text)
 		self:Flash(156631)
-		self:Say(156631)
+		self:Say(156631, nil, nil, "Rapid Fire")
 	end
 end
 
@@ -338,7 +338,7 @@ do
 		if self:Me(args.destGUID) then
 			self:MessageOld(args.spellId, "blue", "alarm", CL.you:format(args.spellName))
 			self:Flash(args.spellId)
-			self:Say(args.spellId)
+			self:Say(args.spellId, nil, nil, "Penetrating Shot")
 		else
 			self:TargetMessageOld(args.spellId, args.destName, "red", "warning", nil, nil, true)
 		end
@@ -415,7 +415,7 @@ do
 		if self:Me(args.destGUID) then
 			self:TargetBar(args.spellId, 5, args.destName)
 			self:Flash(args.spellId)
-			self:Say(args.spellId)
+			self:Say(args.spellId, nil, nil, "Blood Ritual")
 		end
 	end
 
@@ -433,7 +433,7 @@ do
 		if self:Me(args.destGUID) then
 			self:TargetBar(args.spellId, 5, args.destName)
 			self:Flash(args.spellId)
-			self:Say(args.spellId)
+			self:Say(args.spellId, nil, nil, "Heartseeker")
 		end
 		if self.db.profile.custom_off_heartseeker_marker then
 			self:CustomIcon(false, args.destName, #targets)

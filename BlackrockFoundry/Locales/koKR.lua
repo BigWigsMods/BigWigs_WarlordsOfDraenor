@@ -124,13 +124,7 @@ if L then
 	L.earthbinder = "강철 대지결속사"
 	L.mistress = "제련여제 플레임핸드"
 
-	L.furnace_msg1 = "Hmm, kinda toasty isn't it?"
-	L.furnace_msg2 = "It's marshmallow time!"
-	L.furnace_msg3 = "This can't be good..."
-
-
 	L.furnace_msg1 = "흠, 누군가 해야하지 않겠어?"
 	L.furnace_msg2 = "마시멜로우 타임!"
 	L.furnace_msg3 = "이건 좋지 않은데..."
 end
-

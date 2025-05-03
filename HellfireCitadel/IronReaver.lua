@@ -105,7 +105,7 @@ do
 		if self:Me(args.destGUID) then
 			isOnMe = true
 			self:Flash(args.spellId)
-			self:Say(args.spellId)
+			self:Say(args.spellId, nil, nil, "Artillery")
 			if not self:LFR() then
 				self:ScheduleTimer("Say", 9, args.spellId, 4, true)
 				self:ScheduleTimer("Say", 10, args.spellId, 3, true)

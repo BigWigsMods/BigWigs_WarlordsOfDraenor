@@ -195,7 +195,7 @@ do
 		self:SecondaryIcon(args.spellId, args.destName)
 		if self:Me(args.destGUID) then
 			self:Flash(args.spellId)
-			self:Say(args.spellId)
+			self:Say(args.spellId, nil, nil, "Molten Torrent")
 			timeLeft = 6
 			self:Bar("molten_torrent_self", timeLeft, L.molten_torrent_self_bar, args.spellId)
 			if not self:LFR() then
@@ -273,7 +273,7 @@ do
 		--self:Bar(args.spellId, 12)
 		if self:Me(args.destGUID) then
 			self:Flash(args.spellId)
-			self:Say(args.spellId)
+			self:Say(args.spellId, nil, nil, "Blazing Radiance")
 			self:OpenProximity(args.spellId, 10)
 		end
 		if self:Mythic() then -- Multiple targets in Mythic

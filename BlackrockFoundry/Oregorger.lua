@@ -107,7 +107,7 @@ end
 do
 	local function printTarget(self, name, guid)
 		if self:Me(guid) then
-			self:Say(156203)
+			self:Say(156203, nil, nil, "Retched Blackrock")
 			self:Flash(156203)
 		end
 		self:TargetMessageOld(156203, name, "yellow", "alarm")

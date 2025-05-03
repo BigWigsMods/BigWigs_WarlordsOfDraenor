@@ -163,7 +163,7 @@ do
 			if not self:LFR() then
 				self:OpenProximity(179977, 20) -- XXX Range is up for debate
 				self:Flash(179977)
-				self:Say(179977)
+				self:Say(179977, nil, nil, "Touch of Doom")
 			end
 		end
 	end
@@ -193,10 +193,10 @@ do
 	function mod:SharedFateRoot(args)
 		fatePlayer = args.destName
 		if self:Me(args.destGUID) then
-			self:Say(args.spellId, 135484) -- 135484 = "Rooted"
+			self:Say(args.spellId, CL.rooted, nil, "Rooted")
 			self:MessageOld(args.spellId, "blue", "alert", L.fate_root_you)
 		else
-			self:TargetMessageOld(args.spellId, fatePlayer, "yellow", nil, self:SpellName(135484)) -- 135484 = "Rooted"
+			self:TargetMessageOld(args.spellId, fatePlayer, "yellow", nil, CL.rooted)
 		end
 		self:PrimaryIcon(args.spellId, fatePlayer)
 

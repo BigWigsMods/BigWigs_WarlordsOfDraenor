@@ -24,10 +24,13 @@ local mobCollector = {}
 
 local L = mod:NewLocale("enUS", true)
 if L then
-	L.killed = "%s killed!"
+	L.imps = -11694
+	L.imps_desc = 186532
+	L.imps_icon = "spell_shadow_summonimp"
 
-	L.imps, L.imps_desc, L.imps_icon = -11694, 186532, "spell_shadow_summonimp"
-	L.voidfiend, L.voidfiend_desc, L.voidfiend_icon = -11714, 188939, "spell_shadow_summonvoidwalker"
+	L.voidfiend = -11714
+	L.voidfiend_desc = 188939
+	L.voidfiend_icon = "spell_shadow_summonvoidwalker"
 end
 
 --------------------------------------------------------------------------------
@@ -163,7 +166,7 @@ function mod:AkkelionDies(args)
 	self:StopBar(186453) -- Felblaze Flurry
 	self:StopBar(186490) -- Chains of Fel
 	if self:Mythic() then
-		self:MessageOld("stages", "cyan", "info", "50% - ".. L.killed:format(args.destName), false)
+		self:MessageOld("stages", "cyan", "info", "50% - ".. CL.killed:format(args.destName), false)
 		self:CDBar(186490, 27.5) -- (Empowered) Chains of Fel
 	end
 end
@@ -172,7 +175,7 @@ function mod:OmnusDies(args)
 	self:StopBar(186783) -- Withering Gaze
 	self:StopBar(186546) -- Black Hole
 	if self:Mythic() then
-		self:MessageOld("stages", "cyan", "info", "40% - ".. L.killed:format(args.destName), false)
+		self:MessageOld("stages", "cyan", "info", "40% - ".. CL.killed:format(args.destName), false)
 		self:CDBar(186546, 21) -- (Empowered) Black Hole
 		self:CDBar(186490, 27.5) -- (Empowered) Chains of Fel
 	end
@@ -243,7 +246,7 @@ do
 			end
 		end
 		if self:Me(args.destGUID) then
-			self:Say(args.spellId)
+			self:Say(args.spellId, nil, nil, "Surge")
 			self:OpenProximity(args.spellId, 10) -- Open to debate
 			self:Flash(args.spellId)
 		end
@@ -295,7 +298,7 @@ do
 	local function printTarget(self, name, guid)
 		self:TargetMessageOld(186490, name, "orange", "alert", CL.casting:format(self:SpellName(184656))) -- 184656 = "Chains"
 		if self:Me(guid) then
-			self:Say(186490, 184656) -- 184656 = "Chains"
+			self:Say(186490, 184656, nil, "Chains") -- 184656 = "Chains"
 			self:Flash(186490) -- Flash for cast only
 		end
 	end
@@ -309,7 +312,7 @@ do
 	local list = mod:NewTargetList()
 	function mod:ChainsOfFel(args)
 		if self:Me(args.destGUID) then
-			self:Say(186490, 184656) -- 184656 = "Chains"
+			self:Say(186490, 184656, nil, "Chains") -- 184656 = "Chains"
 		end
 		list[#list+1] = args.destName
 		if #list == 1 then

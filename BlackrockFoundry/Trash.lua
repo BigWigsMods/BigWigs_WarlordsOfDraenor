@@ -250,7 +250,7 @@ end
 function mod:LivingBlaze(args)
 	if self:Me(args.destGUID) then
 		if not self:LFR() then
-			self:Say(args.spellId)
+			self:Say(args.spellId, nil, nil, "Living Blaze")
 		end
 		self:OpenProximity(args.spellId, 6)
 		self:Flash(args.spellId)

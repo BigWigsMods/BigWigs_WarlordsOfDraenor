@@ -164,7 +164,7 @@ do
 				end
 			end
 			if self:Me(args.destGUID) then
-				self:Say(179711)
+				self:Say(179711, nil, nil, "Befouled")
 				self:OpenProximity(179711, 6)
 			end
 		elseif self:Me(args.destGUID) then -- Yellow or Green AND on Me
@@ -211,7 +211,11 @@ do
 		for i = 1, #list do
 			local target = list[i]
 			if target == isOnMe then
-				self:Say(181508, self:LFR() and L.seed or CL.count_rticon:format(L.seed, i, i))
+				if self:LFR() then
+					self:Say(181508, L.seed, nil, "Seed")
+				else
+					self:Say(181508, CL.count_rticon:format(L.seed, i, i), nil, ("Seed (%d{rt%d})"):format(i, i))
+				end
 				self:Flash(181508, i)
 				self:TargetMessageOld(181508, target, "green", "alarm", not self:LFR() and CL.count_icon:format(L.seed, i, i))
 			end

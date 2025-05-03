@@ -85,7 +85,7 @@ function mod:GetOptions()
 		-- P2
 		{184964, "SAY", "FLASH"}, -- Shackled Torment
 		"custom_off_torment_marker",
-		{186123, "ICON", "SAY", "FLASH"}, -- Wrought Chaos
+		{186123, "ICON", "SAY"}, -- Wrought Chaos
 		183865, -- Demonic Havoc
 		"overfiend",
 		-- P3
@@ -317,7 +317,7 @@ function mod:DoomfireFixate(args)
 	self:PrimaryIcon(182826, args.destName)
 	self:TargetBar(182826, 10, args.destName)
 	if self:Me(args.destGUID) then
-		self:Say(182826)
+		self:Say(182826, nil, nil, "Doomfire")
 	end
 end
 
@@ -519,7 +519,7 @@ do
 			--local spell = CL.count:format(self:SpellName(186123), chaosCount)
 			self:TargetMessageOld(186123, args.sourceName, "blue", "info", L.chaos_to:format(self:SpellName(186123), self:ColorName(args.destName)))
 			if not self:Mythic() then
-				self:Say(186123)
+				self:Say(186123, nil, nil, "Wrought Chaos")
 			end
 			isOnMe = true
 		end
@@ -527,7 +527,7 @@ do
 			--local spell = CL.count:format(args.spellName, chaosCount)
 			self:TargetMessageOld(186123, args.destName, "green", "alarm", L.chaos_from:format(args.spellName, self:ColorName(args.sourceName)), args.spellId)
 			if not self:Mythic() then
-				self:Say(186123, args.spellName)
+				self:Say(186123, args.spellName, nil, "Focused Chaos")
 				--self:Flash(186123, args.spellId)
 			end
 			isOnMe = true
@@ -614,7 +614,7 @@ do
 		self:TargetBar(args.spellId, 7, args.destName)
 		self:PrimaryIcon(args.spellId, args.destName)
 		if self:Me(args.destGUID) then
-			self:Say(args.spellId)
+			self:Say(args.spellId, nil, nil, "Nether Banish")
 			self:OpenProximity(args.spellId, 8, nil, true)
 
 			timeLeft = 7
@@ -673,7 +673,7 @@ function mod:VoidStarFixate(args)
 		self:Bar(189894, 15.8)
 	end
 	if self:Me(args.destGUID) then
-		self:Say(189894)
+		self:Say(189894, nil, nil, "Void Star")
 		self:OpenProximity(189894, 15)
 	end
 end
@@ -837,10 +837,10 @@ do
 		for i = 1, #list do
 			local target = list[i]
 			if target == isOnMe then
-				self:Say(spellId, CL.count_rticon:format(self:SpellName(28836), i, i)) -- 28836 = "Mark"
+				self:Say(spellId, CL.count_rticon:format(CL.mark, i, i), nil, ("Mark (%d{rt%d})"):format(i, i))
 				self:Flash(spellId)
 				self:OpenProximity(spellId, 10, nil, true)
-				self:TargetMessageOld(spellId, target, "blue", "alarm", CL.count_icon:format(self:SpellName(28836), i, i)) -- 28836 = "Mark"
+				self:TargetMessageOld(spellId, target, "blue", "alarm", CL.count_icon:format(CL.mark, i, i))
 			end
 			if self:GetOption("custom_off_legion_marker") then
 				self:CustomIcon(false, target, i)

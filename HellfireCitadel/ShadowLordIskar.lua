@@ -209,7 +209,7 @@ function mod:PhantasmalCorruption(args)
 		self:TargetBar(181824, 10, args.destName)
 		self:TargetMessageOld(181824, args.destName, "orange", "warning", nil, nil, true)
 		if self:Me(args.destGUID) then
-			self:Say(181824)
+			self:Say(181824, nil, nil, "Phantasmal Corruption")
 			self:OpenProximity(181824, 15) -- Range discovered from LFR testing
 		end
 	end
@@ -226,7 +226,7 @@ end
 function mod:FelBomb(args)
 	self:TargetMessageOld(args.spellId, args.destName, "red", self:Dispeller("magic") and "alert")
 	if self:Me(args.destGUID) then
-		self:Say(args.spellId)
+		self:Say(args.spellId, nil, nil, "Fel Bomb")
 	end
 	self:Bar(args.spellId, self:Easy() and 23 or 18.4)
 end
@@ -246,7 +246,7 @@ end
 function mod:RAID_BOSS_WHISPER(_, msg)
 	if msg:find(182582) then -- Fel Incineration
 		self:MessageOld(182582, "blue", "alarm", CL.you:format(self:SpellName(182582)))
-		self:Say(182582)
+		self:Say(182582, nil, nil, "Fel Incineration")
 	end
 end
 
@@ -259,7 +259,7 @@ do
 			self:CDBar(182200, 34)
 		end
 		if self:Me(args.destGUID) then
-			self:Say(182200)
+			self:Say(182200, nil, nil, "Fel Chakram")
 			self:Flash(182200)
 		end
 	end
@@ -279,7 +279,7 @@ do
 			self:ScheduleTimer("TargetMessageOld", 0.3, args.spellId, list, "yellow")
 		end
 		if self:Me(args.destGUID) then
-			self:Say(args.spellId)
+			self:Say(args.spellId, nil, nil, "Dark Bindings")
 		end
 		if self:GetOption("custom_off_binding_marker") then
 			self:CustomIcon(false, args.destName, #list)

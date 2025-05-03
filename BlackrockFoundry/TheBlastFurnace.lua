@@ -319,7 +319,7 @@ do
 				prev = t
 				self:MessageOld(155192, "green", "alarm", CL.you:format(args.spellName)) -- is good thing
 				self:Flash(155192)
-				self:Say(155192)
+				self:Say(155192, nil, nil, "Bomb")
 			end
 		end
 		if not tContains(bombTargets, args.destName) then -- SPELL_AURA_REFRESH
@@ -410,7 +410,7 @@ function mod:VolatileFireApplied(args)
 	if self:Me(args.destGUID) then
 		self:MessageOld(args.spellId, "blue", "alarm", CL.you:format(args.spellName))
 		if not self:LFR() then
-			self:Say(args.spellId)
+			self:Say(args.spellId, nil, nil, "Volatile Fire")
 		end
 		self:Flash(args.spellId)
 		volatileFireOnMe = true
@@ -463,7 +463,7 @@ function mod:Rupture(args)
 	if self:Me(args.destGUID) then
 		self:Bar(args.spellId, 5, CL.you:format(args.spellName))
 		self:Flash(args.spellId)
-		self:Say(args.spellId)
+		self:Say(args.spellId, nil, nil, "Rupture")
 	end
 end
 
@@ -530,7 +530,7 @@ function mod:Melt(args)
 		self:MessageOld(args.spellId, "blue", "alarm", CL.you:format(args.spellName))
 		self:Bar(args.spellId, 6, CL.you:format(args.spellName))
 		self:Flash(args.spellId)
-		self:Say(args.spellId)
+		self:Say(args.spellId, nil, nil, "Melt")
 	end
 end
 

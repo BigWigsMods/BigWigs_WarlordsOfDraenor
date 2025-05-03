@@ -269,7 +269,7 @@ do
 			self:ScheduleTimer("TargetMessageOld", 0.3, args.spellId, list, "yellow", "alarm")
 		end
 		if self:Me(args.destGUID) then
-			self:Say(args.spellId)
+			self:Say(args.spellId, nil, nil, "Howling Axe")
 			self:Flash(args.spellId)
 			self:TargetBar(args.spellId, 7, args.destName)
 			self:OpenProximity(args.spellId, 8)
@@ -357,7 +357,7 @@ do
 	local function printTarget(self, name, guid)
 		self:TargetMessageOld(190748, name, "yellow", "info", nil, nil, true)
 		if self:Me(guid) then
-			self:Say(190748)
+			self:Say(190748, nil, nil, "Cannonball")
 			self:Flash(190748)
 		end
 	end

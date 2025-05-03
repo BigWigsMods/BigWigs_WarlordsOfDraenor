@@ -102,7 +102,7 @@ function mod:MarkOfKazzak(args)
 	if self:Me(args.destGUID) then
 		self:TargetMessageOld(args.spellId, args.destName, "blue", "alarm")
 		self:TargetBar(args.spellId, 15, args.destName)
-		self:Say(args.spellId)
+		self:Say(args.spellId, nil, nil, "Mark of Kazzak")
 		self:OpenProximity(args.spellId, 8)
 	end
 end

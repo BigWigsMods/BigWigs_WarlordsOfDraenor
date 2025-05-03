@@ -150,9 +150,9 @@ do
 			local t = GetTime()
 			if t-prev > 5 then -- If many people die or are dispelled, multiple debuffs can apply to you at the same time
 				prev = t
-				self:Say(184476)
+				self:Say(184476, nil, nil, "Reap")
 				self:OpenProximity(184476, 5) -- 5 yard guess
-				self:MessageOld(184476, "blue", "alarm", ("%s (%s)"):format(CL.you:format(self:SpellName(184476)), self:SpellName(135856))) -- 135856 = Dispel
+				self:MessageOld(184476, "blue", "alarm", CL.extra:format(CL.you:format(self:SpellName(184476)), self:SpellName(135856))) -- 135856 = Dispel
 			end
 		end
 	end
@@ -160,7 +160,7 @@ end
 
 function mod:Reap(args)
 	if self:UnitDebuff("player", self:SpellName(184449), 184449) then -- Mark of the Necromancer
-		self:Say(args.spellId)
+		self:Say(args.spellId, nil, nil, "Reap")
 		self:OpenProximity(args.spellId, 5) -- 5 yard guess
 		self:MessageOld(args.spellId, "blue", "alarm", CL.you:format(args.spellName))
 	else

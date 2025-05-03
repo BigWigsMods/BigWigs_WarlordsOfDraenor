@@ -164,7 +164,7 @@ do
 		local count = strikeCount > 0 and strikeCount or 3 -- off because of GetBossTarget
 		self:TargetMessageOld(180260, name, "yellow", "info", CL.count:format(self:SpellName(180260), count), nil, nil, true)
 		if self:Me(guid) then
-			self:Say(180260)
+			self:Say(180260, nil, nil, "Annihilating Strike")
 		end
 	end
 	function mod:AnnihilatingStrike(args)
@@ -294,7 +294,7 @@ do
 				self:ScheduleTimer("Flash", timeLeft - 5, args.spellId)
 			end
 			self:Flash(args.spellId)
-			self:Say(args.spellId)
+			self:Say(args.spellId, nil, nil, "Font of Corruption")
 			fontOnMe = self:CheckOption(args.spellId, "PROXIMITY")
 		else
 			self:DeleteFromTable(inverseFontTargets, args.destName)
@@ -407,7 +407,7 @@ do
 		self:Bar(182459, 60)
 		self:PrimaryIcon(182459, args.destName)
 		if self:Me(args.destGUID) then
-			self:Say(182459)
+			self:Say(182459, nil, nil, "Edict of Condemnation")
 			self:OpenProximity(182459, 30, nil, true)
 			timer1 = self:ScheduleTimer("OpenProximity", 3.5, 182459, 20, nil, true)
 			timer2 = self:ScheduleTimer("OpenProximity", 6.5, 182459, 10, nil, true)

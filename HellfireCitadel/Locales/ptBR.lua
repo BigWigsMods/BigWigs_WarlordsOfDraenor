@@ -113,8 +113,3 @@ L = BigWigs:NewBossLocale("Tyrant Velhari", "ptBR")
 if L then
 	L.font_removed_soon = "Sua Fonte termina logo!"
 end
-
-L = BigWigs:NewBossLocale("Xhul'horac", "ptBR")
-if L then
-	L.killed = "%s morto!"
-end

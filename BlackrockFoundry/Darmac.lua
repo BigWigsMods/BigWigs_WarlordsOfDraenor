@@ -239,7 +239,7 @@ do
 		if self:Tanking(unit, target) or self:MobId(guid) ~= 1 then return end
 
 		if self:Me(guid) then
-			self:Say(spellId, 18584) -- 18584 = Breath
+			self:Say(spellId, CL.breath, nil, "Breath")
 			self:Flash(spellId)
 		end
 		self:TargetMessageOld(spellId, self:UnitName(target), "orange", "alert", nil, nil, true)
@@ -296,7 +296,7 @@ do
 
 	function mod:PinnedDown(args)
 		if self:Me(args.destGUID) then
-			self:Say(args.spellId, 155365) -- Pin Down
+			self:Say(args.spellId, 155365, nil, "Pin Down") -- Pin Down
 		end
 
 		pinnedList[#pinnedList+1] = args.destName

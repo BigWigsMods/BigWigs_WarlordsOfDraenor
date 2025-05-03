@@ -45,7 +45,7 @@ function mod:GetOptions()
 	return {
 		--[[ Stage One: The Blackrock Forge ]]--
 		156425, -- Demolition
-		{156401, "FLASH"}, -- Molten Slag
+		156401, -- Molten Slag
 		--[[ Stage Two: Storage Warehouse ]]--
 		"siegemaker",
 		{156653, "SAY"}, -- Fixate
@@ -283,7 +283,7 @@ do
 
 		if self:Me(args.destGUID) then
 			self:Flash(args.spellId)
-			self:Say(args.spellId, 28836) -- 28836 = "Mark"
+			self:Say(args.spellId, CL.mark, nil, "Mark")
 		end
 		if self.db.profile.custom_off_markedfordeath_marker then
 			self:CustomIcon(false, args.destName, #list)
@@ -325,7 +325,7 @@ end
 function mod:Fixate(args)
 	self:TargetMessageOld(args.spellId, args.destName, "yellow", "alert")
 	if self:Me(args.destGUID) then
-		self:Say(args.spellId)
+		self:Say(args.spellId, nil, nil, "Fixate")
 	end
 end
 
@@ -354,10 +354,9 @@ do
 	function mod:AttachSlagBombs(args)
 		list[#list+1] = args.destName
 		if self:Me(args.destGUID) then
-			local bomb = self:SpellName(155192) -- Bomb
-			self:TargetBar(157000, 5, args.destName, bomb)
+			self:TargetBar(157000, 5, args.destName, CL.bomb)
 			self:Flash(157000)
-			self:Say(157000, bomb)
+			self:Say(157000, CL.bomb, nil, "Bomb")
 			self:OpenProximity(157000, 10)
 		end
 		local count = #list
