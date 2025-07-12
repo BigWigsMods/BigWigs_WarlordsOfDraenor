@@ -230,7 +230,7 @@ end
 
 function mod:FurnaceFlameFun(args)
 	if self:Me(args.destGUID) then
-		self:MessageOld(args.spellId, "green", nil, L[("furnace_msg%d"):format(random(1,3))])
+		self:MessageOld(args.spellId, "green", nil, L[("furnace_msg%d"):format(math.random(1,3))])
 	end
 end
 
