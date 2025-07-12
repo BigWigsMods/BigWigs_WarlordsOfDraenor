@@ -33,6 +33,7 @@
 ## X-Website: https://github.com/BigWigsMods/BigWigs_WarlordsOfDraenor
 ## X-Curse-Project-ID: 101160
 ## X-WoWI-ID: 24167
+## X-Wago-ID: Q6aExB6W
 ## X-BigWigs-ExtraMenu: -572
 ## X-BigWigs-LoadOn-InstanceId: 1205, 1228, 1448
 ## X-BigWigs-LoadOn-WorldBoss: -542, 83746, -543, 81535, -543, 81252, -534, 94015

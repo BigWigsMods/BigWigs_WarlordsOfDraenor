@@ -8,3 +8,4 @@ A collection of BigWigs modules from the **Warlords of Draenor** era, including:
 
 ## Download
 <https://www.curseforge.com/wow/addons/bigwigs_warlordsofdraenor>
+<https://addons.wago.io/addons/bigwigs-warlordsofdraenor>
