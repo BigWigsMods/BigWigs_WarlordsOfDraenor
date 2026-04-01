@@ -31,6 +31,7 @@ BigWigs:AddColors("The Butcher", {
 	[156157] = "yellow",
 	[156197] = "orange",
 	[163046] = "blue",
+	["berserk"] = {"orange","red","yellow"},
 	["frenzy"] = {"cyan","red"},
 })
 
@@ -39,6 +40,7 @@ BigWigs:AddSounds("The Butcher", {
 	[156152] = "alarm",
 	[156197] = "alert",
 	[163046] = "alarm",
+	["berserk"] = "alarm",
 	["frenzy"] = "alarm",
 })
 
@@ -52,6 +54,7 @@ BigWigs:AddColors("Tectus", {
 	[162968] = {"blue","yellow"},
 	[163312] = "orange",
 	["adds"] = "yellow",
+	["berserk"] = {"orange","red","yellow"},
 })
 
 BigWigs:AddSounds("Tectus", {
@@ -62,6 +65,7 @@ BigWigs:AddSounds("Tectus", {
 	[162894] = "alert",
 	[162968] = {"alarm","alert"},
 	["adds"] = "info",
+	["berserk"] = "alarm",
 })
 
 BigWigs:AddColors("Brackenspore", {
@@ -72,6 +76,7 @@ BigWigs:AddColors("Brackenspore", {
 	[163755] = "orange",
 	[163794] = "orange",
 	[164125] = "red",
+	["berserk"] = {"orange","red","yellow"},
 	["flesh_eater"] = "orange",
 	["living_mushroom"] = "green",
 	["mind_fungus"] = "yellow",
@@ -86,6 +91,7 @@ BigWigs:AddSounds("Brackenspore", {
 	[163241] = "warning",
 	[163755] = "alarm",
 	[164125] = "info",
+	["berserk"] = "alarm",
 	["flesh_eater"] = "long",
 	["living_mushroom"] = "long",
 	["mind_fungus"] = "long",
@@ -106,6 +112,7 @@ BigWigs:AddColors("Twin Ogron", {
 	[163297] = {"blue","cyan"},
 	[163372] = "cyan",
 	[167200] = {"blue","cyan"},
+	["berserk"] = {"orange","red","yellow"},
 	["volatility_self"] = "blue",
 })
 
@@ -117,6 +124,7 @@ BigWigs:AddSounds("Twin Ogron", {
 	[158200] = "alert",
 	[158241] = "info",
 	[158385] = {"alarm","info"},
+	["berserk"] = "alarm",
 	["volatility_self"] = "warning",
 })
 
@@ -168,6 +176,7 @@ BigWigs:AddColors("Imperator Mar'gok", {
 	[178468] = "orange",
 	[178607] = "orange",
 	["adds"] = "yellow",
+	["berserk"] = {"orange","red","yellow"},
 	["stages"] = "cyan",
 	["volatile_anomaly"] = "yellow",
 })
@@ -192,6 +201,7 @@ BigWigs:AddSounds("Imperator Mar'gok", {
 	[178468] = "alert",
 	[178607] = "alarm",
 	["adds"] = "info",
+	["berserk"] = "alarm",
 	["stages"] = {"info","long"},
 	["volatile_anomaly"] = "info",
 })

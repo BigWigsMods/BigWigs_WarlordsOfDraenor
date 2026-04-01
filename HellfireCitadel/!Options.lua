@@ -38,6 +38,7 @@ BigWigs:AddColors("Iron Reaver", {
 	[182074] = "blue",
 	[182280] = {"blue","orange"},
 	[185282] = "yellow",
+	["berserk"] = {"orange","red","yellow"},
 })
 
 BigWigs:AddSounds("Iron Reaver", {
@@ -50,6 +51,7 @@ BigWigs:AddSounds("Iron Reaver", {
 	[182074] = "alarm",
 	[182280] = "warning",
 	[185282] = "long",
+	["berserk"] = "alarm",
 })
 
 BigWigs:AddColors("Kormrok", {
@@ -91,6 +93,7 @@ BigWigs:AddColors("Hellfire High Council", {
 	[184657] = "red",
 	[184681] = "orange",
 	[184847] = {"blue","orange"},
+	["berserk"] = {"orange","red","yellow"},
 })
 
 BigWigs:AddSounds("Hellfire High Council", {
@@ -99,6 +102,7 @@ BigWigs:AddSounds("Hellfire High Council", {
 	[184476] = {"alarm","info"},
 	[184657] = "long",
 	[184681] = "alert",
+	["berserk"] = "alarm",
 })
 
 BigWigs:AddColors("Kilrogg Deadeye", {
@@ -173,6 +177,7 @@ BigWigs:AddColors("Shadow-Lord Iskar", {
 	[182582] = "blue",
 	[185345] = {"blue","red"},
 	[185510] = {"blue","cyan","orange","yellow"},
+	["berserk"] = {"orange","red","yellow"},
 	["stages"] = "cyan",
 })
 
@@ -187,6 +192,7 @@ BigWigs:AddSounds("Shadow-Lord Iskar", {
 	[182582] = {"alarm","alert"},
 	[185345] = "long",
 	[185510] = "info",
+	["berserk"] = "alarm",
 	["stages"] = "info",
 })
 
@@ -205,6 +211,7 @@ BigWigs:AddColors("Socrethar the Eternal", {
 	[184124] = {"blue","yellow"},
 	[188692] = "orange",
 	[188693] = "red",
+	["berserk"] = {"orange","red","yellow"},
 	["dominator"] = "cyan",
 	["portals"] = "cyan",
 	["stages"] = "cyan",
@@ -224,6 +231,7 @@ BigWigs:AddSounds("Socrethar the Eternal", {
 	[184124] = "alarm",
 	[188692] = "info",
 	[188693] = "alert",
+	["berserk"] = "alarm",
 	["dominator"] = "warning",
 	["portals"] = "info",
 	["stages"] = "long",

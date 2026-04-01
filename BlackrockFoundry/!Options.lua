@@ -17,6 +17,7 @@ BigWigs:AddColors("Beastlord Darmac", {
 	[156823] = "blue",
 	[156824] = "blue",
 	[159043] = {"blue","orange"},
+	["berserk"] = {"orange","red","yellow"},
 	["stages"] = "cyan",
 })
 
@@ -33,6 +34,7 @@ BigWigs:AddSounds("Beastlord Darmac", {
 	[156823] = "alarm",
 	[156824] = "alarm",
 	[159043] = "alarm",
+	["berserk"] = "alarm",
 	["stages"] = "info",
 })
 
@@ -43,6 +45,7 @@ BigWigs:AddColors("Gruul", {
 	[155326] = {"blue","orange"},
 	[155539] = {"green","red"},
 	[173192] = "blue",
+	["berserk"] = {"orange","red","yellow"},
 })
 
 BigWigs:AddSounds("Gruul", {
@@ -51,6 +54,7 @@ BigWigs:AddSounds("Gruul", {
 	[155326] = {"alarm","alert"},
 	[155539] = {"info","long"},
 	[173192] = "alarm",
+	["berserk"] = "alarm",
 })
 
 BigWigs:AddColors("Oregorger", {
@@ -151,6 +155,7 @@ BigWigs:AddColors("Kromog", {
 	[157592] = "orange",
 	[158217] = "red",
 	[173917] = "yellow",
+	["berserk"] = {"orange","red","yellow"},
 })
 
 BigWigs:AddSounds("Kromog", {
@@ -159,6 +164,7 @@ BigWigs:AddSounds("Kromog", {
 	[156861] = {"alarm","info"},
 	[157060] = "info",
 	[157592] = "alert",
+	["berserk"] = "alarm",
 })
 
 BigWigs:AddColors("The Iron Maidens", {
@@ -210,6 +216,7 @@ BigWigs:AddColors("The Blast Furnace", {
 	[176121] = "blue",
 	[176133] = "red",
 	[176141] = "green",
+	["berserk"] = {"orange","red","yellow"},
 	["engineer"] = "yellow",
 	["firecaller"] = "yellow",
 	["guard"] = "yellow",
@@ -231,6 +238,7 @@ BigWigs:AddSounds("The Blast Furnace", {
 	[174731] = "info",
 	[176121] = "alarm",
 	[176133] = "alarm",
+	["berserk"] = "alarm",
 	["engineer"] = "info",
 	["firecaller"] = "info",
 	["guard"] = "info",
