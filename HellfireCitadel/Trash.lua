@@ -5,7 +5,7 @@
 
 local mod, CL = BigWigs:NewBoss("Hellfire Citadel Trash", 1448)
 if not mod then return end
-mod.displayName = CL.trash
+mod:SetTrashModule(true)
 mod:RegisterEnableMob(
 	94806, -- Fel Hellweaver, summons 94857 (Orb of Destruction) non-targetable
 	94284, -- Fiery Enkindler

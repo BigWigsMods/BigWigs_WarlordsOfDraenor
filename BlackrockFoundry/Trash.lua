@@ -5,7 +5,7 @@
 
 local mod, CL = BigWigs:NewBoss("Blackrock Foundry Trash", 1205)
 if not mod then return end
-mod.displayName = CL.trash
+mod:SetTrashModule(true)
 mod:RegisterEnableMob(
 	87411, -- Workshop Guardian
 	87719, -- Ogron Hauler

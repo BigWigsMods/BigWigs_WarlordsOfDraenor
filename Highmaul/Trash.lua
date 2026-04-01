@@ -5,7 +5,7 @@
 
 local mod, CL = BigWigs:NewBoss("Highmaul Trash", 1228)
 if not mod then return end
-mod.displayName = CL.trash
+mod:SetTrashModule(true)
 mod:RegisterEnableMob(
 	86072, -- Oro
 	81272, -- Gorian Runemaster
