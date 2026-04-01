@@ -7,7 +7,7 @@ local mod, CL = BigWigs:NewBoss("Rukhmar", -542, 1262)
 if not mod then return end
 mod:RegisterEnableMob(83746)
 mod.otherMenu = -572
-mod.worldBoss = 83746
+mod:SetWorldModule(true)
 --BOSS_KILL#1755#Rukhmar, Sun-God of the Arakkoa
 
 --------------------------------------------------------------------------------

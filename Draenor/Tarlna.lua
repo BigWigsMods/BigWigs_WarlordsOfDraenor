@@ -7,7 +7,7 @@ local mod, CL = BigWigs:NewBoss("Tarlna the Ageless", -543, 1211)
 if not mod then return end
 mod:RegisterEnableMob(81535)
 mod.otherMenu = -572
-mod.worldBoss = 81535
+mod:SetWorldModule(true)
 
 --------------------------------------------------------------------------------
 -- Initialization

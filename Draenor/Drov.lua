@@ -7,7 +7,7 @@ local mod, CL = BigWigs:NewBoss("Drov the Ruiner", -543, 1291)
 if not mod then return end
 mod:RegisterEnableMob(81252)
 mod.otherMenu = -572
-mod.worldBoss = 81252
+mod:SetWorldModule(true)
 
 --------------------------------------------------------------------------------
 -- Initialization
