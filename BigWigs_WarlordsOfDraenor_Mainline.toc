@@ -39,5 +39,46 @@
 ## X-BigWigs-LoadOn-WorldBoss: -542, 83746, -543, 81535, -543, 81252, -534, 94015
 ## X-BigWigs-Minimum: 412
 
-modules.xml
+Highmaul\KargathBladefist.lua
+Highmaul\TheButcher.lua
+Highmaul\Tectus.lua
+Highmaul\Brackenspore.lua
+Highmaul\TwinOgron.lua
+Highmaul\Koragh.lua
+Highmaul\Margok.lua
+Highmaul\Trash.lua
+Highmaul\locales.xml
+BlackrockFoundry\Darmac.lua
+BlackrockFoundry\Gruul.lua
+BlackrockFoundry\Oregorger.lua
+BlackrockFoundry\HansgarAndFranzok.lua
+BlackrockFoundry\Kagraz.lua
+BlackrockFoundry\Thogar.lua
+BlackrockFoundry\Kromog.lua
+BlackrockFoundry\TheIronMaidens.lua
+BlackrockFoundry\TheBlastFurnace.lua
+BlackrockFoundry\Blackhand.lua
+BlackrockFoundry\Trash.lua
+BlackrockFoundry\locales.xml
+HellfireCitadel\HellfireAssault.lua
+HellfireCitadel\IronReaver.lua
+HellfireCitadel\Kormrok.lua
+HellfireCitadel\Council.lua
+HellfireCitadel\KilroggDeadeye.lua
+HellfireCitadel\Gorefiend.lua
+HellfireCitadel\ShadowLordIskar.lua
+HellfireCitadel\Socrethar.lua
+HellfireCitadel\FelLordZakuun.lua
+HellfireCitadel\Xhulhorac.lua
+HellfireCitadel\TyrantVelhari.lua
+HellfireCitadel\Mannoroth.lua
+HellfireCitadel\Archimonde.lua
+HellfireCitadel\Trash.lua
+HellfireCitadel\locales.xml
+Draenor\Drov.lua
+Draenor\Tarlna.lua
+Draenor\Rukhmar.lua
+Draenor\Kazzak.lua
+Draenor\locales.xml
 
+!Options.lua
