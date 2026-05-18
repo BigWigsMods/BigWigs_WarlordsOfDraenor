@@ -214,11 +214,11 @@ end
 L = BigWigs:NewBossLocale("Shadow-Lord Iskar", "ptBR")
 if L then
 	L.custom_off_wind_marker = "Marcador de Ventos Fantasmagóricos"
-	L.custom_off_wind_marker_desc = "Marca os alvos de Ventos Fantasmagóricos com {rt1}{rt2}{rt3}{rt4}{rt5}, requer assistente ou líder.\n|cFFFF0000Apenas 1 pessoa na raide deve ter esta opção ativada para evitar conflitos de marcação.|r]"
+	L.custom_off_wind_marker_desc = "Marca os alvos de Ventos Fantasmagóricos com {rt1}{rt2}{rt3}{rt4}{rt5}, requer assistente ou líder.\n|cFFFF0000Apenas 1 pessoa na raide deve ter esta opção ativada para evitar conflitos de marcação.|r"
 
 	L.bindings_removed = "Grilhões removidos (%d/3)"
 	L.custom_off_binding_marker = "Marcador de Grilhões Nefastos"
-	L.custom_off_binding_marker_desc = "Marca os alvos de Grilhões Nefastos com {rt1}{rt2}{rt3}{rt4}{rt5}{rt6}, requer assistente ou líder.\n|cFFFF0000Apenas 1 pessoa na raide deve ter esta opção ativada para evitar conflitos de marcação.|r]"
+	L.custom_off_binding_marker_desc = "Marca os alvos de Grilhões Nefastos com {rt1}{rt2}{rt3}{rt4}{rt5}{rt6}, requer assistente ou líder.\n|cFFFF0000Apenas 1 pessoa na raide deve ter esta opção ativada para evitar conflitos de marcação.|r"
 end
 
 L = BigWigs:NewBossLocale("Socrethar the Eternal", "ptBR")
