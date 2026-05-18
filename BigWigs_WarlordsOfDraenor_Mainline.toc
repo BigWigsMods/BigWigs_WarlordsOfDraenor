@@ -47,7 +47,6 @@ Highmaul\TwinOgron.lua
 Highmaul\Koragh.lua
 Highmaul\Margok.lua
 Highmaul\Trash.lua
-Highmaul\locales.xml
 BlackrockFoundry\Darmac.lua
 BlackrockFoundry\Gruul.lua
 BlackrockFoundry\Oregorger.lua
@@ -59,7 +58,6 @@ BlackrockFoundry\TheIronMaidens.lua
 BlackrockFoundry\TheBlastFurnace.lua
 BlackrockFoundry\Blackhand.lua
 BlackrockFoundry\Trash.lua
-BlackrockFoundry\locales.xml
 HellfireCitadel\HellfireAssault.lua
 HellfireCitadel\IronReaver.lua
 HellfireCitadel\Kormrok.lua
@@ -74,11 +72,10 @@ HellfireCitadel\TyrantVelhari.lua
 HellfireCitadel\Mannoroth.lua
 HellfireCitadel\Archimonde.lua
 HellfireCitadel\Trash.lua
-HellfireCitadel\locales.xml
 Draenor\Drov.lua
 Draenor\Tarlna.lua
 Draenor\Rukhmar.lua
 Draenor\Kazzak.lua
-Draenor\locales.xml
 
+!Locales\[TextLocale].lua [AllowLoadTextLocale deDE, esES, esMX, frFR, itIT, koKR, ptBR, ruRU, zhCN, zhTW]
 !Options.lua
