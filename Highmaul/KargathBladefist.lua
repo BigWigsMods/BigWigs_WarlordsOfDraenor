@@ -13,7 +13,6 @@ mod.engageId = 1721
 --
 
 local hurled = nil
-local tigers = {}
 local berserkerRushPlayer = nil
 
 --------------------------------------------------------------------------------
@@ -85,7 +84,6 @@ function mod:OnEngage()
 	self:CDBar(158986, 54) -- Berserker Rush
 	self:CDBar(159947, 90) -- Chain Hurl
 	if self:Mythic() then
-		tigers = {}
 		self:Bar(-9396, 110, nil, "ability_druid_tigersroar") -- Ravenous Bloodmaw
 	end
 end

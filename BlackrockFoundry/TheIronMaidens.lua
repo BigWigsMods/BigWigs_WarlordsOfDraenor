@@ -15,7 +15,7 @@ mod.respawnTime = 29.5
 
 local shipCount = 0
 local barrierCount = 0
-local boatTimers = {} -- don't announce while on the boat, but track the cd times
+--local boatTimers = {} -- don't announce while on the boat, but track the cd times
 
 local function isOnABoat()
 	--local _, pos = UnitPosition("player")
@@ -121,7 +121,7 @@ end
 function mod:OnEngage()
 	shipCount = 0
 	barrierCount = 0
-	boatTimers = {}
+	--boatTimers = {}
 	self:RegisterUnitEvent("UNIT_POWER_FREQUENT", nil, "boss1", "boss2", "boss3")
 
 	self:Bar(159724, 5) -- Blood Ritual
@@ -302,7 +302,7 @@ do
 			self:PrimaryIcon(args.spellId, args.destName)
 		end
 		if isOnABoat() then
-			boatTimers[args.spellId] = GetTime() + 31.6
+			--boatTimers[args.spellId] = GetTime() + 31.6
 			return
 		end
 		if not self:Me(args.destGUID) then
@@ -332,7 +332,7 @@ do
 			self:PrimaryIcon(args.spellId, args.destName)
 		end
 		if isOnABoat() then
-			boatTimers[args.spellId] = GetTime() + 30
+			--boatTimers[args.spellId] = GetTime() + 30
 			return
 		end
 		if self:Me(args.destGUID) then
@@ -362,7 +362,7 @@ end
 
 function mod:BladeDash(args)
 	if isOnABoat() then
-		boatTimers[args.spellId] = GetTime() + 18
+		--boatTimers[args.spellId] = GetTime() + 18
 		return
 	end
 	self:TargetMessageOld(args.spellId, args.destName, "yellow")
@@ -383,7 +383,7 @@ do
 	function mod:ConvulsiveShadows(args)
 		dispeller = self:Dispeller("magic", nil, args.spellId)
 		if dispeller and isOnABoat() then
-			boatTimers[args.spellId] = GetTime() + 56
+			--boatTimers[args.spellId] = GetTime() + 56
 			return
 		end
 		self:GetBossTarget(printTarget, 0.2, args.sourceGUID)
@@ -407,7 +407,7 @@ do
 			self:SecondaryIcon(args.spellId, args.destName)
 		end
 		if isOnABoat() then
-			boatTimers[args.spellId] = GetTime() + 20
+			--boatTimers[args.spellId] = GetTime() + 20
 			return
 		end
 		self:TargetMessageOld(args.spellId, args.destName, "yellow", "alert", nil, nil, self:Tank())
@@ -439,11 +439,11 @@ do
 			self:CustomIcon(false, args.destName, #targets)
 		end
 		if #targets == 1 then
-			if isOnABoat() then
-				boatTimers[args.spellId] = GetTime() + 70
-			else
+			if not isOnABoat() then
 				self:CDBar(args.spellId, 70)
 				self:ScheduleTimer("TargetMessageOld", 0.2, args.spellId, targets, "orange", "alert")
+			--else
+				--boatTimers[args.spellId] = GetTime() + 70
 			end
 		end
 	end
