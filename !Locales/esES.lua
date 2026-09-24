@@ -45,8 +45,6 @@ if L then
 	L.custom_off_hands_marker = "Marcador de tanque en Tierra enredadora"
 	L.custom_off_hands_marker_desc = "Marca la Tierra enredadora que atrapa a los tanques con {rt7}{rt8}, requiere ayudante o líder."
 	L.destroy_pillars = "Destruye pilares"
-	L.prox = "Proximidad a tanque"
-	L.prox_desc = "Abre una ventana de proximidad de 15 metros a otros tanques para ayudarte con el daño de la habilidad Puños de piedra."
 end
 
 L = BigWigs:NewBossLocale("Beastlord Darmac", "esES")

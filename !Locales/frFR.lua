@@ -45,8 +45,6 @@ if L then
 	L.custom_off_hands_marker = "Marquage Terres avides des tanks"
 	L.custom_off_hands_marker_desc = "Marque les Terres avides qui ont agrippé les tanks avec {rt7}{rt8}. Nécessite d'être assistant ou chef de raid."
 	L.destroy_pillars = "Destruction des piliers"
-	L.prox = "Proximité des tanks"
-	L.prox_desc = "Ouvre une fenêtre de proximité de 15m indiquant la position des autres tanks afin de vous aider à gérer la technique Poings de pierre."
 end
 
 L = BigWigs:NewBossLocale("Beastlord Darmac", "frFR")

@@ -28,10 +28,6 @@ if L then
 	L.custom_off_hands_marker_desc = "Mark the Grasping Earth that picks up the tanks with {rt7}{rt8}, requires promoted or leader."
 	L.custom_off_hands_marker_icon = 8
 
-	L.prox = "Tank Proximity"
-	L.prox_desc = "Open a 15 yard proximity showing the other tanks to help you deal with the Fists of Stone ability."
-	L.prox_icon = 162349 -- Fists of Stone / warrior_talent_icon_singlemindedfury
-
 	L.destroy_pillars = "Destroy Pillars"
 end
 
@@ -54,7 +50,6 @@ function mod:GetOptions()
 		157054, -- Thundering Blows
 		156861, -- Frenzy
 		"custom_off_hands_marker",
-		{"prox", "TANK", "PROXIMITY"},
 		"berserk",
 	}, {
 		[173917] = "mythic",
@@ -63,29 +58,21 @@ function mod:GetOptions()
 end
 
 local function updateTanks(self)
-	local tankList = {}
 	for unit in self:IterateGroup() do
 		if self:Tank(unit) then
 			local guid = self:UnitGUID(unit)
-			if not self:Me(guid) then
-				tankList[#tankList+1] = unit
-			end
-			if self:GetOption("custom_off_hands_marker") then
-				if not tank1Skull then
-					tank1Skull = guid
-				elseif not tank2Cross then
-					tank2Cross = guid
-				end
+			if not tank1Skull then
+				tank1Skull = guid
+			elseif not tank2Cross then
+				tank2Cross = guid
 			end
 		end
-	end
-	if tankList[1] then
-		self:OpenProximity("prox", 15, tankList, true)
 	end
 end
 
 function mod:OnBossEnable()
-	if IsEncounterInProgress() then
+	if self:GetOption("custom_off_hands_marker") then
+		tank1Skull, tank2Cross = nil, nil
 		updateTanks(self) -- Backup for disconnecting mid-combat
 	end
 
@@ -120,7 +107,9 @@ function mod:OnEngage()
 	self:Berserk(540)
 	self:RegisterUnitEvent("UNIT_HEALTH", nil, "boss1")
 
-	updateTanks(self)
+	if self:GetOption("custom_off_hands_marker") then
+		updateTanks(self)
+	end
 end
 
 --------------------------------------------------------------------------------

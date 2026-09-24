@@ -51,9 +51,6 @@ if L then
 	L.custom_off_hands_marker = "휘감는 대지의 룬 방어 전담 징표 표시"
 	L.custom_off_hands_marker_desc = "방어 전담 플레이어를 움켜쥔 휘감는 대지의 룬을 {rt7}{rt8} 징표로 표시합니다. 부공격대장 이상의 권한이 필요합니다."
 
-	L.prox = "방어 전담 근접 표시"
-	L.prox_desc = "바위 주먹 능력을 다른 방어 전담과 같이 맞을 수 있게 도와주는 15미터 근접 표시창을 엽니다."
-
 	L.destroy_pillars = "기둥 파괴"
 end
 

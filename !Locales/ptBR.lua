@@ -40,9 +40,6 @@ if L then
 	L.custom_off_hands_marker = "Marcador de Garra da Terra no tanque"
 	L.custom_off_hands_marker_desc = "Marca as Garras da Terra que pegam os tanques com {rt7}{rt8}, requer assistente ou líder."
 
-	L.prox = "Proximidade do tanque"
-	L.prox_desc = "Abre uma janela de proximidade de 15 metros mostrando o outro tanque para ajudar ele com a habilidade Punhos de Pedra."
-
 	L.destroy_pillars = "Destrua os Pilares"
 end
 

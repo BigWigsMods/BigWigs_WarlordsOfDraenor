@@ -45,8 +45,6 @@ if L then
 	L.custom_off_hands_marker = "Klammernde Erde der Tanks markieren"
 	L.custom_off_hands_marker_desc = "Markiert die klammernde Erde, die die Tanks greift, mit {rt7}{rt8}, benötigt Leiter oder Assistent."
 	L.destroy_pillars = "Säulen zerstören"
-	L.prox = "Näheanzeige für Tanks"
-	L.prox_desc = "Öffne eine Näheanzeige, die andere Tanks im Abstand von maximal 15 Metern anzeigt, die Anzeige hilft dir mit der Fähigkeit \"Fäuste aus Stein\" umzugehen."
 end
 
 L = BigWigs:NewBossLocale("Beastlord Darmac", "deDE")

@@ -45,8 +45,6 @@ if L then
 	L.custom_off_hands_marker = "Marcatore Difensore Terra Ghermitrice"
 	L.custom_off_hands_marker_desc = "Evidenzia le Terre Ghermitrici che avvolgono i difensori con {rt7}{rt8}, richiede Capo Incursione o Assistente Incursione."
 	--L.destroy_pillars = "Destroy Pillars"
-	--L.prox = "Tank Proximity"
-	--L.prox_desc = "Open a 15 yard proximity showing the other tanks to help you deal with the Fists of Stone ability."
 end
 
 L = BigWigs:NewBossLocale("Beastlord Darmac", "itIT")

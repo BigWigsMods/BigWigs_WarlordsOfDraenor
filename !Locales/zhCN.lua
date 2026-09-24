@@ -45,8 +45,6 @@ if L then
 	L.custom_off_hands_marker = "纠缠之地坦克标记"
 	L.custom_off_hands_marker_desc = "使用 {rt7}{rt8} 标记受到纠缠之地举起的坦克，需要权限。"
 	L.destroy_pillars = "摧毁石柱"
-	L.prox = "坦克近距离"
-	L.prox_desc = "开启一个15码近距离显示其它坦克以帮助处理岩石之拳技能。"
 end
 
 L = BigWigs:NewBossLocale("Beastlord Darmac", "zhCN")

@@ -45,8 +45,6 @@ if L then
 	L.custom_off_hands_marker = "大地之握坦克標記"
 	L.custom_off_hands_marker_desc = "使用 {rt7}{rt8} 標記被大地之握抓住的坦克，需要團隊權限或隊長。"
 	L.destroy_pillars = "摧毀石柱"
-	L.prox = "坦克雷達"
-	L.prox_desc = "開啟一個15碼的距離雷達顯示其他坦克，有助於處理石拳連擊。"
 end
 
 L = BigWigs:NewBossLocale("Beastlord Darmac", "zhTW")
